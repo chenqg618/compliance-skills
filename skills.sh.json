@@ -1,0 +1,23 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "招投标材料核对",
+      "description": "投标报价、标书一致性与串通线索的机械核对，结论可被第三方复算。",
+      "skills": [
+        "bidguard-quote-audit-free",
+        "bidcheckup-batch-compliance-free",
+        "tenderaudit-full-compliance-free",
+        "collusionscreen-collusion-screening-free"
+      ]
+    },
+    {
+      "title": "广告合规",
+      "description": "广告文案绝对化用语检测，并按《广告绝对化用语执法指南》做豁免判定。",
+      "skills": [
+        "adcheckup-content-compliance-free"
+      ]
+    }
+  ]
+}
