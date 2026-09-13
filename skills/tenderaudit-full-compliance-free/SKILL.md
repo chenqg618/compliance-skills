@@ -54,19 +54,25 @@ allowed-tools: Read, Bash
 ```bash
 node scripts/run.mjs --sample
 node scripts/run.mjs --input my-input.json
+node scripts/run.mjs --input my-input.json --json
 ```
 
-### 方式二：直接 POST
+### 方式二：直接引用引擎（接进自己的流程）
 
-```bash
-curl -s -X POST https://www.tokendidi.cn/api/v1/tender-compliance-audit/free \
-  -H 'Content-Type: application/json' \
-  -d '{"bidders": [{"name": "河南甲建设有限公司", "price": 1000000, "items": [{"name": "钢筋制安", "qty": 10, "price": 100, "amount": 900}], "text": "投标报价壹佰万元整 法定代表人：王五 盖章 承诺【填写：项目名称】"}]}'
+脚本本身不做计算，真正的检查在同目录的 `scripts/engine/tender-compliance-audit.js`（纯 Node 标准库，CommonJS），可以直接引用：
+
+```js
+const engine = require('./scripts/engine/tender-compliance-audit.js');
+const outcome = engine.run(payload);
+// outcome.status === 'success'            → outcome.result 就是结果
+// outcome.status === 'insufficient_input' → outcome.missing 列出缺什么（此时不出结论）
 ```
+
+所有检查都在**本机**完成：不联网、不外发材料、不需要任何凭证。
 
 ## 入参
 
-给一个 bidders 数组（1 至 50 家）。其余字段本版本不使用。
+给一个 bidders 数组。每家可带报价明细 items 与投标材料正文 text（占位符扫描读的是 text）。本版本不做分项加总校验，所以投标总价 price 字段不使用。
 
 ```json
 {
@@ -90,12 +96,15 @@ curl -s -X POST https://www.tokendidi.cn/api/v1/tender-compliance-audit/free \
 
 ## 返回
 
-返回 `ok: true` 与 `result`，其中 `limited.checks_given` 会**原样列出本次实际执行了哪些检查项**，
-`limited.checks_withheld` 列出本次没有执行的。**不会用默认值编造结论。**
+返回 `ok: true` 与 `result`：`checks_given` **原样列出本次实际执行了哪些检查项**，
+`checks_withheld` 列出本版本不包含的检查项。**不会用默认值编造结论。**
+
+材料不足时（入参为空、只有空白、只有一个字符、解析不出任何明细行）**不出结论**：
+会说明缺什么，并以退出码 `3` 结束；正常执行退出码为 `0`。
 
 ## 使用限制
 
-- 同一网络每天有调用次数上限，返回里会给 `free_remaining_today`；用完后返回 429 并附带说明。
+- 在本机执行：不联网、不外发材料、没有调用次数上限，也不需要任何凭证。
 - 输出的是**机械核对结果**，不是认定、不是评分。
 
 ## 反模式
