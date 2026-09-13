@@ -26,6 +26,7 @@ npx skills add chenqg618/compliance-skills
 | `tenderaudit-full-compliance-free` | 招投标材料机械体检：逐家报价算术 + 模板占位符扫描 |
 | `adcheckup-content-compliance-free` | 广告文案合规预检：绝对化用语检测 + 监管豁免判定 |
 | `contract-consistency-check-free` | 合同一致性机械核对：当事方名称／日期／金额矛盾、占位符残留、条款交叉引用失效、定义词卫生（**中英双语**） |
+| `invoice-consistency-check-free` | 票据一致性机械核对：行内算术、分项加总、税额计算、价税合计、大小写金额、抬头一致、日期逻辑、重复票检测、占位符残留（**中英双语**） |
 
 ## 怎么用
 
