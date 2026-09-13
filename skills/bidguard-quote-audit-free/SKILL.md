@@ -1,0 +1,99 @@
+---
+slug: bidguard-quote-audit-free
+displayName: 投标报价机械审查（免费）
+version: 1.0.1
+summary: 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
+tags: [招投标, 免费, 分项算术校验, 标书检查, 投标自查]
+license: Proprietary
+name: bidguard-quote-audit-free
+display_name: 投标报价机械审查（免费）
+display_name_en: BidGuard Quote Audit (Free)
+description: 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册。 本免费版执行 分项算术校验、缺漏项提示。触发词包括 投标报价机械审查、分项算术校验、缺漏项提示。
+description_zh: 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册。 本免费版执行 分项算术校验、缺漏项提示。
+description_en: A free mechanical pre-check for bidding documents. No payment, no registration, no API key.
+category: business-ops
+author: WorkBuddy 开放平台开发者
+allowed-tools: Read, Bash
+---
+
+# 投标报价机械审查（免费）
+
+> 一句话：把一份投标报价单里**能被算出来证明是错的**问题找出来，不需要付款，也不需要注册。
+
+**完全免费**：不需要付款、不需要注册、不需要配置任何 API Key，直接调用即可。
+
+## 什么时候用
+
+- 报价单里某几行的「合价」跟「数量 × 单价」对不上
+- 有几行只填了数量没填单价，或者只填了单价没填合价
+- Excel 里拉完公式想再核一遍，但不想手工逐行看
+- 投标前想先跑一遍，看看有没有低级算术错误
+
+## 这个免费版查什么
+
+| # | 检查项 |
+|---|---|
+| 1 | 分项算术校验 |
+| 2 | 缺漏项提示 |
+
+- 分项算术：每行核对「合价 = 数量 × 单价」，偏差一并给出差额
+- 缺漏项：数量、单价、合价任一为空的行会被单独指出（这类行在评标时最容易被挑）
+
+## 这个免费版不包含
+
+以下检查项**不在本版本范围内**，调用时也不会执行：
+
+- 分项加总校验
+- 最高投标限价校验
+- 大小写金额互校
+- 投标保证金比例校验
+- 不平衡报价预警
+
+## 怎么调用
+
+### 方式一：命令行脚本（最省事）
+
+```bash
+node scripts/run.mjs --sample
+node scripts/run.mjs --input my-input.json
+```
+
+### 方式二：直接 POST
+
+```bash
+curl -s -X POST https://www.tokendidi.cn/api/v1/quote-audit/free \
+  -H 'Content-Type: application/json' \
+  -d '{"text": "序号\t项目名称\t数量\t单价\t合价\n1\t土方开挖\t100\t25\t2500\n2\t混凝土浇筑\t50\t400\t19000\n3\t钢筋制安\t\t3800\t76000"}'
+```
+
+## 入参
+
+两种入参二选一：把 Excel 报价表直接粘贴成文本，或给结构化 JSON。
+
+```json
+{
+  "text": "序号\t项目名称\t数量\t单价\t合价\n1\t土方开挖\t100\t25\t2500\n2\t混凝土浇筑\t50\t400\t19000\n3\t钢筋制安\t\t3800\t76000"
+}
+```
+
+## 返回
+
+返回 `ok: true` 与 `result`，其中 `limited.checks_given` 会**原样列出本次实际执行了哪些检查项**，
+`limited.checks_withheld` 列出本次没有执行的。**不会用默认值编造结论。**
+
+## 使用限制
+
+- 同一网络每天有调用次数上限，返回里会给 `free_remaining_today`；用完后返回 429 并附带说明。
+- 输出的是**机械核对结果**，不是认定、不是评分。
+
+## 反模式
+
+- ❌ 把它的输出当作评标结论 —— 它只做机械核对，认定权在评标委员会。
+- ❌ 拿它替代对招标文件的实质响应检查 —— 本版本不含该类检查。
+- ❌ 输入残缺时怪结果不对 —— 检查项依赖你提供的字段，缺字段的检查项不会被伪造出来。
+
+## 边界与免责
+
+只做机械算术核对，不做技术标评审、不做资格判定、不构成评标意见。
+
+本技能的所有结论都可由第三方用同一份输入复算出来。
