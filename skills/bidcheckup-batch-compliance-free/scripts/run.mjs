@@ -2,38 +2,40 @@
 /**
  * run.mjs —— 多标书批量合规体检（免费）
  *
- * 免费版脚本只有一件事：把入参 POST 到免费端点，把结果打印出来。
- * **不需要付款、不需要注册、不需要 API Key。**
+ * 全部检查都在**本机**完成：调用同目录下的 engine/batch-quote-checkup.js（纯 Node 标准库实现）。
+ * 没有端点、不联网、不外发材料、不需要注册、不需要 API Key，也没有调用次数上限。
  *
  * 刻意不做的事：
- *   · 不读取、不打印服务端返回里的任何价格字段 —— 免费技能里不出现价格信息；
- *   · 不实现付款、不实现签名、不接触任何密钥。
+ *   · 不发任何网络请求（没有 fetch / http / https / net / dns / tls）；
+ *   · 不实现本版本范围之外的检查项（它们只能是未执行，绝不会被伪造出来）；
+ *   · 材料不足时**不给结论**：打印缺什么并以退出码 3 结束。
  *
  * 用法：
  *   node scripts/run.mjs --sample
  *   node scripts/run.mjs --input my-input.json
  *   node scripts/run.mjs --input my-input.json --json
+ *
+ * 退出码：
+ *   0  已执行检查（结果里有问题项或没有问题项都算执行成功）
+ *   1  没给入参
+ *   3  材料不足（空 / 只有空白 / 只有一个字符 / 没有任何可校验的报价行）—— 此时不给结论
+ *   4  入参文件读不到
+ *   9  未预期错误
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 
-const ENDPOINT =
-  process.env.BATCH_BID_CHECKUP_FREE_URL || 'https://www.tokendidi.cn/api/v1/batch-bid-checkup/free';
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
+const ENGINE = require(path.join(HERE, 'engine', 'batch-quote-checkup.js'));
 
-const TIMEOUT_MS = 60_000;
+const CAPABILITY = '多标书批量合规体检（免费）';
 
-function parseArgs(argv) {
-  const out = { input: '', sample: false, json: false, help: false };
-  for (let i = 0; i < argv.length; i++) {
-    const a = argv[i];
-    if (a === '--input' || a === '-i') out.input = argv[++i] || '';
-    else if (a === '--sample') out.sample = true;
-    else if (a === '--json') out.json = true;
-    else if (a === '--help' || a === '-h') out.help = true;
-  }
-  return out;
-}
+const NOTE = '本版本只执行上面列出的检查项，全部在本机完成（不联网、不外发材料）；'
+  + '未执行的检查项已如实列出，不会用默认值编造结论。';
 
 const SAMPLE = {
   "bidders": [
@@ -64,10 +66,11 @@ const SAMPLE = {
   ]
 };
 
-const USAGE = `多标书批量合规体检（免费） —— 免费机械核对
+const USAGE = `多标书批量合规体检（免费） —— 本机执行的逐家机械核对
 
-  端点：${ENDPOINT}
-  **完全免费**：不需要付款、不需要注册、不需要 API Key。
+  **完全免费**：不需要注册、不需要 API Key，也不联网；材料不出本机。
+  检查项：${ENGINE.CHECKS_GIVEN.join('、')}
+  本版本不包含：${ENGINE.CHECKS_WITHHELD.join('、')}
 
 用法：
   node scripts/run.mjs --sample
@@ -75,34 +78,88 @@ const USAGE = `多标书批量合规体检（免费） —— 免费机械核对
 
 参数：
   -i, --input    入参 JSON 文件路径
-      --sample   使用内置样例（验证链路是否连通）
+      --sample   使用内置样例
       --json     以 JSON 输出（默认给人看）
   -h, --help     显示本帮助
+
+退出码：0 已执行检查 / 1 缺少入参 / 3 材料不足 / 4 入参文件读不到
 `;
 
-/** 只挑免费版真正产出的字段，避免把服务端的任何价格信息带出来 */
-function freeView(body) {
-  const limited = body.limited || {};
-  return {
-    ok: body.ok,
-    tier: body.tier,
-    capability: (body.capability || {}).name || '',
-    checks_given: limited.checks_given || [],
-    checks_withheld: limited.checks_withheld || [],
-    omitted_findings: limited.omitted_findings,
-    note: limited.note,
-    free_remaining_today: body.free_remaining_today,
-    result: body.result,
-  };
+function parseArgs(argv) {
+  const out = { input: '', sample: false, json: false, help: false };
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i];
+    if (a === '--input' || a === '-i') out.input = argv[++i] || '';
+    else if (a === '--sample') out.sample = true;
+    else if (a === '--json') out.json = true;
+    else if (a === '--help' || a === '-h') out.help = true;
+  }
+  return out;
 }
 
-async function main() {
+/** 读入参：合法 JSON 就按其结构走；不是 JSON 就当作纯文本材料（本工具需要 bidders，会被判材料不足） */
+function loadInput(file) {
+  let raw;
+  try {
+    raw = fs.readFileSync(file, 'utf8');
+  } catch (e) {
+    return { error: `读不到入参文件：${file}（${e.code || e.message}）` };
+  }
+  const stripped = raw.replace(/^\uFEFF/, '');
+  const trimmed = stripped.trim();
+  if (!trimmed) return { payload: { bidders: [] }, note: '入参文件内容为空' };
+  try {
+    return { payload: JSON.parse(trimmed) };
+  } catch {
+    return {
+      payload: { bidders: [] },
+      note: '入参文件不是合法 JSON（已按纯文本材料处理，但本工具需要 bidders 数组）',
+    };
+  }
+}
+
+/** 材料不足：说清楚缺什么，并且明确不给结论 */
+function reportInsufficient(args, outcome, loaded) {
+  const missing = (outcome && outcome.missing) || ['入参无法解析成可校验的材料'];
+  const advice = (outcome && outcome.advice)
+    || '请传 bidders 数组，每家一个 {name, items}（或可解析的 text）；或先用 --sample 看看需要什么格式。';
+
+  if (args.json) {
+    console.log(JSON.stringify({
+      ok: false,
+      insufficient: true,
+      tier: 'free',
+      capability: CAPABILITY,
+      checks_given: ENGINE.CHECKS_GIVEN,
+      checks_withheld: ENGINE.CHECKS_WITHHELD,
+      missing,
+      advice,
+      note: '材料不足，本次没有执行任何检查，因此不出结论：既不做"算术不符"的认定，也不做"算术一致"的认定。',
+    }, null, 2));
+    return 3;
+  }
+
+  console.log('材料不足，本次没有执行任何检查，因此不出结论。');
+  console.log('（检查项依赖你提供的字段：材料不足时不做任何认定，也不套用默认值。）');
+  if (loaded && loaded.note) console.log(`（${loaded.note}）`);
+  console.log('');
+  console.log('缺少的内容：');
+  for (const m of missing) console.log(`  - ${m}`);
+  console.log('');
+  console.log(`怎么补：${advice}`);
+  return 3;
+}
+
+function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.help) { console.log(USAGE); return 0; }
 
   let payload = null;
+  let loaded = null;
   if (args.input) {
-    payload = JSON.parse(fs.readFileSync(args.input, 'utf8'));
+    loaded = loadInput(args.input);
+    if (loaded.error) { console.error(loaded.error); return 4; }
+    payload = loaded.payload;
   } else if (args.sample) {
     payload = SAMPLE;
   } else {
@@ -112,46 +169,29 @@ async function main() {
     return 1;
   }
 
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
-  let res;
-  let body;
+  let outcome;
   try {
-    res = await fetch(ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(payload),
-      signal: controller.signal,
-    });
-    const text = await res.text();
-    try {
-      body = JSON.parse(text);
-    } catch {
-      body = { ok: false, raw: text };
-    }
+    outcome = ENGINE.run(payload);
   } catch (e) {
-    console.error(`请求失败：${e.message}`);
-    console.error(`端点：${ENDPOINT}`);
-    console.error('网络或超时问题可重试一次；若仍失败，说明服务端不可达，不要伪造结果。');
-    return 2;
-  } finally {
-    clearTimeout(timer);
+    console.error(`引擎执行出错：${e.message}`);
+    return 9;
   }
 
-  if (res.status === 429) {
-    console.log('今日免费额度已用完。');
-    console.log(body && body.message ? body.message : '请明天再试。');
-    return 3;
+  if (!outcome || outcome.status !== 'success') {
+    return reportInsufficient(args, outcome, loaded);
   }
 
-  if (!res.ok || !body || body.ok === false) {
-    console.log(`HTTP 状态 : ${res.status}`);
-    if (body && body.message) console.log(body.message);
-    if (body && body.error) console.log(`错误码    : ${body.error}`);
-    return 4;
-  }
+  const view = {
+    ok: true,
+    tier: 'free',
+    capability: CAPABILITY,
+    checks_given: ENGINE.CHECKS_GIVEN,
+    checks_withheld: ENGINE.CHECKS_WITHHELD,
+    omitted_findings: (outcome.result.summary && outcome.result.summary.omitted) || 0,
+    note: NOTE,
+    result: outcome.result,
+  };
 
-  const view = freeView(body);
   if (args.json) {
     console.log(JSON.stringify(view, null, 2));
     return 0;
@@ -162,17 +202,16 @@ async function main() {
   if (view.checks_withheld.length) {
     console.log(`本版本不包含：${view.checks_withheld.join('、')}`);
   }
-  if (typeof view.free_remaining_today === 'number') {
-    console.log(`今日剩余免费次数：${view.free_remaining_today}`);
-  }
+  console.log('执行方式：本机 Node 标准库，不联网、不外发材料、没有次数上限');
+  if (loaded && loaded.note) console.log(`（${loaded.note}）`);
   console.log('');
   console.log(JSON.stringify(view.result, null, 2));
   return 0;
 }
 
-main()
-  .then((code) => process.exit(code))
-  .catch((e) => {
-    console.error(`未预期的错误：${e.message}`);
-    process.exit(9);
-  });
+try {
+  process.exit(main());
+} catch (e) {
+  console.error(`未预期的错误：${e.message}`);
+  process.exit(9);
+}
