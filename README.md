@@ -1,35 +1,66 @@
 # 机械核对型 AI 技能（免费版源码）
 
+[![skills.sh](https://skills.sh/b/chenqg618/compliance-skills)](https://skills.sh/chenqg618/compliance-skills)
+
 招投标与广告合规场景的**机械核对**技能。特点：
 
+- **完全离线**：引擎是纯 Node.js 标准库实现，**不联网、不外发材料、不调用外部模型**，
+  服务器停不停都不影响使用；
 - **可复算**：同一份材料无论谁来跑，结论完全一致，每条结论都带依据、可被第三方复核；
-- **零第三方依赖**：引擎是纯标准库实现，不调用外部模型；
-- **免费版源码公开**：本仓库里的技能可直接安装使用。
+- **没有次数上限**：装到本机就一直在，不需要 API Key，也没有每日额度；
+- **不编造结论**：材料不足时明确告诉你缺什么，**不会拿默认值编一个"没问题"出来**。
+
+## 安装
+
+```bash
+npx skills add chenqg618/compliance-skills
+```
 
 ## 技能清单（免费版）
 
 | 技能 | 作用 |
 |---|---|
 | `bidguard-quote-audit-free` | 投标报价机械审查：逐行核对「合价 = 数量 × 单价」、缺漏项提示 |
-| `collusionscreen-collusion-screening-free` | 串通投标线索筛查：联系方式一致、项目成员交叉 |
-| `bidcheckup-batch-compliance-free` | 多标书批量合规体检：逐家报价算术校验 |
+| `collusionscreen-collusion-screening-free` | 串通投标线索筛查：联系方式一致、项目成员交叉（输出自动脱敏） |
+| `bidcheckup-batch-compliance-free` | 多标书批量合规体检：逐家报价算术校验，给出逐家 verdict |
 | `tenderaudit-full-compliance-free` | 招投标材料机械体检：逐家报价算术 + 模板占位符扫描 |
 | `adcheckup-content-compliance-free` | 广告文案合规预检：绝对化用语检测 + 监管豁免判定 |
 
 ## 怎么用
 
-每个技能目录里有 `SKILL.md`（说明与触发场景）和 `scripts/run.mjs`（调用脚本）。
+每个技能目录里有：
+
+```
+SKILL.md              说明、触发场景与检查项边界
+scripts/engine/*.js   本地引擎（纯标准库，可离线跑）
+scripts/run.mjs       调用脚本
+templates/sample.json 样例输入
+```
 
 ```bash
 cd skills/bidguard-quote-audit-free
-node scripts/run.mjs --sample
+node scripts/run.mjs --sample              # 用内置样例跑一遍
+node scripts/run.mjs --input my-input.json # 跑自己的材料
+node scripts/run.mjs --input in.json --json # JSON 输出
 ```
 
-免费版调用公开的免费接口，**不需要付款、不需要注册、不需要 API Key**。
-每个新设备还可以领一次完整版试用。
+免费版**不需要付款、不需要注册、不需要 API Key，也不需要联网**。
+
+### 退出码
+
+| 码 | 含义 |
+|---|---|
+| 0 | 执行完成 |
+| 3 | **材料不足**，没有执行检查，因此不出结论（会列出缺什么） |
+
+## 设计取舍
+
+- **免费版与完整版是两套检查项**，不是"完整版砍一半"：
+  免费版做的是**机械可判定**的部分，逐条列出自己**没有**执行的检查项
+  （见每次输出的 `checks_withheld`），不会用默认值假装查过。
+- 输出是**机械核对结果与客观线索**，不构成法律意见，
+  也不替代评标委员会或市场监督管理部门的认定。
 
 ## 说明
 
-- 输出是**机械核对结果与客观线索**，不构成法律意见，
-  也不替代评标委员会或市场监督管理部门的认定；
-- 本项目由河南樵夫网络科技有限公司运营。
+本项目由河南樵夫网络科技有限公司运营。
