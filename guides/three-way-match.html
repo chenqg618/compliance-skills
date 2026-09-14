@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>三单匹配怎么做：付款前那一步的完整口径 · 机械核对型 AI 工具</title>
+<meta name="description" content="应付账款三单匹配（采购订单/入库单/发票）的完整口径：三张单据各证明什么、容差为什么必须显式给、最容易犯的三个错。附免费在线核对工具。">
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">机械核对型 AI 工具</a></p>
+<h1>三单匹配怎么做：付款前那一步的完整口径</h1>
+<blockquote>"三单匹配"是应付账款的标准动作：<strong>采购订单（PO）、入库单（GRN）、发票（Invoice）</strong>三张单据核对一致后才付款。 漏掉这一步的常见后果是<strong>多付、错付、重复付款</strong> —— 都是直接的钱。</blockquote>
+<h2>一、为什么要三张，不是两张</h2>
+<ul>
+<li>只有订单 + 发票 → 可能<strong>货没收到就付了钱</strong>；</li>
+<li>只有入库单 + 发票 → 可能<strong>买了没订的东西</strong>（无授权采购）；</li>
+<li>只有订单 + 入库单 → 还没到付款环节。</li>
+</ul>
+<p>三张凑齐，才能同时证明"<strong>订了、收了、该付</strong>"。</p>
+<h2>二、要核对什么（按重要性排序）</h2>
+<h3>1. 关键字段跨单据一致（最先看）</h3>
+<table><thead><tr><th>字段</th><th>为什么</th></tr></thead><tbody>
+<tr><td>采购订单号</td><td>对不上说明配错了单 —— 这是最严重的一类</td></tr>
+<tr><td>供应商名称</td><td>差一个字都可能是两个主体（"有限公司" vs "有限责任公司"）</td></tr>
+<tr><td>物料/品名</td><td>型号写错就是买错东西</td></tr>
+<tr><td>数量、单价、金额</td><td>直接是钱</td></tr>
+</tbody></table>
+<p><strong>注意</strong>：只出现在一张单据上的字段<strong>不要报</strong> —— 无从比对的事情只能靠猜，猜就是错。</p>
+<h3>2. 行内算术（最容易被忽略）</h3>
+<ul>
+<li>数量 × 单价 = 金额</li>
+<li>不含税金额 + 税额 = 价税合计</li>
+</ul>
+<p>这两条是<strong>纯算术</strong>，算得出来就一定能判对错。供应商报价单里的算术错误相当常见，</p>
+<p>而它们会一路带进付款金额。</p>
+<h3>3. 容差核对（三组）</h3>
+<table><thead><tr><th>比什么</th><th>常见容差</th></tr></thead><tbody>
+<tr><td>发票数量 vs 入库数量</td><td>0 或者很小的比例（短装/溢装要事先约定）</td></tr>
+<tr><td>发票金额 vs 订单金额</td><td>通常允许很小比例，超出要有人批</td></tr>
+<tr><td>订单数量 vs 入库数量</td><td>分批到货时按累计比</td></tr>
+</tbody></table>
+<p>容差<strong>必须显式给</strong>。不给容差、用默认值"必须完全一致"，会报出一堆正常的分批到货差异，</p>
+<p>人看烦了就不再信任报告 —— 这比漏报更糟。</p>
+<h3>4. 重复发票号（重复付款线索）</h3>
+<p>同一张发票号在一批单据里出现两次，是重复付款最直接的信号。</p>
+<p><strong>注意区分</strong>：同一张发票分两次入账（预付+尾款）是正常的，所以要给出来让人判断，而不是直接判定。</p>
+<h3>5. 日期逻辑</h3>
+<p>订单日期 ≤ 入库日期 ≤ 发票日期。反过来通常意味着录错了。</p>
+<h2>三、做的时候最容易犯的三个错</h2>
+<ol>
+<li><strong>拿金额相近的两笔当同一笔对上</strong> —— 金额必须<strong>完全相等</strong>才算配上，相近只能作为"可疑"另行提示；</li>
+<li><strong>一个字段只在一张单据上出现就报不一致</strong> —— 那是没法比，不是不一致；</li>
+<li><strong>把"没查出问题"当成"没问题"</strong> —— 没查出问题只说明<strong>在你设定的检查范围内</strong>没问题，</li>
+</ol>
+<p>不等于这笔付款就该发生。审批流、供应商资质、发票真伪，都不在机械核对的范围里。</p>
+<h2>四、想省手工的话</h2>
+<p>我们做了一个<strong>完全机械</strong>的三单匹配工具：</p>
+<ul>
+<li><strong>网页版（免费、不用注册）</strong>：<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a> ——</li>
+</ul>
+<p>选「三单匹配机械核对」，把采购订单、入库单、发票按顺序粘进去（单据之间空一行）。</p>
+<p>免费版就包含"关键字段跨单据一致"+"数量/单价/金额一致"+"重复发票号线索"+"占位符残留"。</p>
+<ul>
+<li>免费版会明确告诉你<strong>哪些检查没有执行</strong>（行内算术、税额自洽、三组容差核对属于收费档），</li>
+</ul>
+<p>而不是让你以为已经全查过了。</p>
+<hr>
+<p><em>本文由我们自己维护。流程部分可以直接照抄，不装工具也能用。</em></p>
+<div class="cta">
+<p><strong>在线免费核对（不用注册、不用付款）</strong>：<br>
+<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+把材料贴进去就能看到机械核对结果；免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
