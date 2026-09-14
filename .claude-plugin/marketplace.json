@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "compliance-skills",
+  "version": "1.0.0",
+  "description": "Mechanical, fully offline document-consistency checkers for contracts, invoices, tender/bidding documents and ad copy. Every finding quotes the exact source line and can be recomputed from the same input - no model, no network. 合同 / 票据 / 招投标 / 广告文案的机械核对工具。",
+  "owner": {
+    "name": "河南樵夫网络科技有限公司",
+    "email": "chenqg618@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "contract-consistency-check-free",
+      "description": "Deterministic contract consistency check (English and Chinese): party-name, date and amount contradictions, leftover placeholders, broken clause cross-references, defined-term hygiene.",
+      "source": "./skills/contract-consistency-check-free"
+    },
+    {
+      "name": "invoice-consistency-check-free",
+      "description": "Deterministic invoice/receipt consistency check (English and Chinese): line arithmetic, itemised totals, tax computation, gross-up, amounts in words vs figures, payee/issuer mismatch, date logic, duplicate invoices, leftover placeholders.",
+      "source": "./skills/invoice-consistency-check-free"
+    },
+    {
+      "name": "bidguard-quote-audit-free",
+      "description": "Mechanical audit of a bid quotation sheet: line arithmetic (amount = quantity x unit price) and missing-field detection. Free tier of a larger checker.",
+      "source": "./skills/bidguard-quote-audit-free"
+    },
+    {
+      "name": "collusionscreen-collusion-screening-free",
+      "description": "Cross-bidder collusion screening: shared contact details and cross-appearing project personnel, with output desensitised.",
+      "source": "./skills/collusionscreen-collusion-screening-free"
+    },
+    {
+      "name": "bidcheckup-batch-compliance-free",
+      "description": "Batch check of multiple bidders' quotation sheets, grouped per bidder with a per-bidder verdict.",
+      "source": "./skills/bidcheckup-batch-compliance-free"
+    },
+    {
+      "name": "tenderaudit-full-compliance-free",
+      "description": "Tender document mechanical check-up: per-bidder quotation arithmetic plus leftover template placeholder scanning.",
+      "source": "./skills/tenderaudit-full-compliance-free"
+    },
+    {
+      "name": "adcheckup-content-compliance-free",
+      "description": "Ad-copy compliance pre-check: absolute-superlative term detection with exemption reasoning under China's enforcement guidelines.",
+      "source": "./skills/adcheckup-content-compliance-free"
+    }
+  ]
+}
