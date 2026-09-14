@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>同一模板签的一叠合同，怎么快速看出哪一份被改过 · 机械核对型 AI 工具</title>
+<meta name="description" content="同一模板签的一叠合同怎么做横向比对：为什么必须按条款标题而不是编号对齐、要看的四类差异、为什么不该做&quot;语义等价&quot;判断。附免费在线核对工具。">
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">机械核对型 AI 工具</a></p>
+<h1>同一模板签的一叠合同，怎么快速看出哪一份被改过</h1>
+<blockquote>常见场景：采购/法务按同一个模板签了几十份合同。其中某一份被<strong>单独改过一条</strong> —— 违约金从 5% 变成 2%、管辖地从甲方所在地改成乙方所在地、整条保密义务被删掉。 手工逐份比对不现实，而<strong>内审、外审、诉讼取证恰恰会拿这个说事</strong>。</blockquote>
+<h2>一、先明确：这里要查的不是"一份合同自相矛盾"</h2>
+<p>那是另一件事（一份合同里第 4 条引用了第 8 条、但合同里没有第 8 条）。</p>
+<p>本节要查的是<strong>多份合同之间</strong>的差异，判断口径完全不同。</p>
+<h2>二、对齐方式决定了能不能查出东西</h2>
+<p>多数人第一反应是"按第几条对齐"。<strong>这是错的。</strong></p>
+<p>同一模板签的合同，如果其中一份中间<strong>多了一条</strong>，后面所有条款的编号会整体错位 ——</p>
+<p>按编号对齐，会把"第 8 条 vs 第 9 条"这种正常的错位报成一大堆假差异，真差异反而被淹没。</p>
+<p><strong>正确做法：按条款标题对齐</strong>（"违约责任"对"违约责任"），编号只作为参考。</p>
+<p>但标题也会有小差异：有的写"第八条 违约责任"、有的写"第八条 违约责任与赔偿"。</p>
+<p>所以还需要一步<strong>近似合并</strong>：标题互为包含、且<strong>两边覆盖的合同不重叠</strong>时，认成同一条。</p>
+<p>（"不重叠"这个条件是必须的：两份合同各自的"其他"条款标题相同但内容无关，不能被合并。）</p>
+<h2>三、要看的四类东西</h2>
+<h3>1. 缺条 / 多条</h3>
+<p>某份合同少了或多了哪一条。<strong>整条被删掉</strong>是最危险的一类 —— 因为它不留痕迹。</p>
+<h3>2. 条款正文不一致</h3>
+<p>同一条有几个版本、分别是哪几份。<strong>结论里要直接给出各版本原文</strong>，</p>
+<p>只写"第 8 条不一致"等于没说。</p>
+<h3>3. 关键商业条款的数值对比</h3>
+<p>这几项最值得单独拉出来横着看：</p>
+<table><thead><tr><th>字段</th><th>为什么</th></tr></thead><tbody>
+<tr><td>合同金额</td><td>大小写是否一致，各份是否相同</td></tr>
+<tr><td>违约金比例</td><td>5% 和 2% 是两个完全不同的风险敞口</td></tr>
+<tr><td>预付款比例</td><td>直接决定现金流</td></tr>
+<tr><td>争议解决 / 管辖</td><td>决定一旦打官司在哪里打</td></tr>
+<tr><td>合同期限</td><td>起止日期是否被改过</td></tr>
+</tbody></table>
+<h3>4. 机械但致命的硬错误</h3>
+<ul>
+<li><strong>金额大小写不一致</strong> —— 合同里的硬错误，必须签前改；</li>
+<li><strong>期限起止颠倒</strong>（起始日晚于到期日）—— 几乎一定是笔误；</li>
+<li><strong>模板占位符残留</strong>（<code>【填写…】</code>、<code>XXX</code>、<code>TBD</code>）—— 说明这一条根本没定稿。</li>
+</ul>
+<h2>四、一个反常识的点：不要做"语义等价"判断</h2>
+<p>用词相近但法律含义不同的条款（"应"与"可"、"违约金"与"损害赔偿"），</p>
+<p><strong>不要用工具去认定它们等价</strong>。机械比对只应回答"文字是否相同"，</p>
+<p>法律含义的判断必须交给人 —— 一个把"可"和"应"判成等价的工具，比没有工具更危险。</p>
+<h2>五、"没报差异"不等于"合同没问题"</h2>
+<p>工具只在你设定的比对范围内工作。它不判断哪一份条款对甲方更有利，</p>
+<p>不认定条款是否有效、是否违法，也不核对签署人权限和印章真伪。</p>
+<h2>六、想省手工的话</h2>
+<p>我们做了一个<strong>完全机械</strong>的多份合同比对工具：</p>
+<ul>
+<li><strong>网页版（免费、不用注册）</strong>：<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a> ——</li>
+</ul>
+<p>选「多份合同条款差异比对」，每份合同用单独一行"合同一""合同二"分开粘进去。</p>
+<p>免费版给出<strong>条款对照表</strong>（每条被几份覆盖、有几份不同版本）、<strong>缺条/多条</strong>、<strong>各条款的版本差异</strong>。</p>
+<ul>
+<li>收费档额外做关键字段数值对比、日期逻辑、占位符、大小写 ——</li>
+</ul>
+<p>而且免费版会<strong>明确告诉你哪些没查</strong>，不会让你误以为已经全查过。</p>
+<hr>
+<p><em>本文由我们自己维护。对齐口径部分可以直接照抄到你的检查清单里。</em></p>
+<div class="cta">
+<p><strong>在线免费核对（不用注册、不用付款）</strong>：<br>
+<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+把材料贴进去就能看到机械核对结果；免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
