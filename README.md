@@ -15,6 +15,26 @@
 > （标书 / 合同 / 票据 / 广告文案 / 外贸单证 / 三单匹配 / 报销单 / 多家报价比价 / 银行流水对账 /
 > 多份合同比对，都在同一个入口里选。）
 
+## 也可以当 MCP server 用（13 个工具，完全离线）
+
+同一个仓库里有一套 **MCP（Model Context Protocol）server** —— 任何支持 MCP 的 Agent
+（Claude Desktop / Cursor / 各类 Harness）都能直接调用这 13 个确定性核对工具：
+
+```bash
+git clone https://github.com/chenqg618/compliance-skills.git
+node compliance-skills/products/mcp-compliance-server/server.mjs   # stdio 上讲 JSON-RPC
+```
+
+```json
+{ "mcpServers": { "compliance": {
+    "command": "node",
+    "args": ["/绝对路径/compliance-skills/products/mcp-compliance-server/server.mjs"] } } }
+```
+
+**零依赖**（只用 Node 标准库）、**不联网**、不需要 API Key。每个工具的结果里都会
+**如实列出"本次没有执行的检查项"** —— 这样 Agent 就**没法把"没查"说成"查过且干净"**。
+详见 [`products/mcp-compliance-server/README.md`](products/mcp-compliance-server/README.md)。
+
 ## 直接下载（不想看源码的话）
 
 13 个免费技能包都打包好了，在 **Releases** 里下载即用：
