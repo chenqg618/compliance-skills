@@ -15,6 +15,23 @@
 > （标书 / 合同 / 票据 / 广告文案 / 外贸单证 / 三单匹配 / 报销单 / 多家报价比价 / 银行流水对账 /
 > 多份合同比对，都在同一个入口里选。）
 
+## 三种用法，任选（都是同一套确定性引擎）
+
+| 形态 | 适合 | 入口 |
+|---|---|---|
+| **技能包** | 已经用 Claude Code / SkillHub / ClawHub 等 | 下面的「直接下载」或 `skills/` |
+| **MCP server** | 已经用 Claude Desktop / Cursor 等 MCP 客户端 | 见下一节 |
+| **本地智能体** | 手里有**一叠材料**，想一次过一遍 | `node products/compliance-agent/agent.mjs --dir ./materials` |
+
+**本地智能体**值得单独说一句：你**不用告诉它哪份文件该查什么** ——
+它自己判断每份材料是什么、该跑哪些检查，两份以上合同还会**自动额外做一次横向比对**，
+最后合成一份跨材料的整改清单。识别不出来它会**直说识别不出，不会硬套一个检查**。
+
+```bash
+node products/compliance-agent/agent.mjs --sample        # 先看一份示例报告
+node products/compliance-agent/agent.mjs --dir ./材料目录
+```
+
 ## 也可以当 MCP server 用（13 个工具，完全离线）
 
 同一个仓库里有一套 **MCP（Model Context Protocol）server** —— 任何支持 MCP 的 Agent
