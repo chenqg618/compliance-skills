@@ -1106,6 +1106,108 @@
           }
         }
       }
+    },
+    "/api/v1/commission-check": {
+      "post": {
+        "operationId": "run_commission_check",
+        "summary": "销售提成核对（按次 ¥0.99）",
+        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/freight-reconciliation": {
+      "post": {
+        "operationId": "run_freight_reconciliation",
+        "summary": "运费对账（按次 ¥0.99）",
+        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
     }
   }
 }
