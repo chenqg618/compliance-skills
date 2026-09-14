@@ -1,12 +1,12 @@
 ---
 slug: bid-comparison-free
-displayName: 多家报价横向比价（免费）
-version: 1.0.0
+displayName: 多家报价横向比价（免费版）
+version: 1.0.1
 summary: 把多家投标人的报价明细逐项摆在一起对齐——谁缺项、各家合计多少、从低到高怎么排。每条都给出具体项目名与各家数值，不需要付款，也不需要注册。
 tags: [清标, 横向比价, 投标报价, 评标, 招投标, 免费, AI核对, 对照表]
 license: Proprietary
 name: bid-comparison-free
-display_name: 多家报价横向比价（免费）
+display_name: 多家报价横向比价（免费版）
 display_name_en: Multi-Bid Quotation Comparison (Free)
 description: 把多家投标人的报价明细逐项摆在一起对齐，每条结论都给出具体项目名与各家数值，不需要付款，也不需要注册。本免费版给出 逐项对照表（按项目名对齐各家的数量 / 单价 / 合价，含各家中位数）、缺项与多项（某家有、别家没有的项目）、各家合价合计与排序。触发词包括 清标、横向比价、多家报价对比、各家报价对齐、缺项检查、报价对照表、评标辅助、投标报价比较。
 description_zh: 把多家投标人的报价明细逐项对齐，给出对照表、缺项与各家合计排序。每条结论都给出具体项目名与各家数值，不需要付款，也不需要注册。
