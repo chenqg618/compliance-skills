@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>银行流水对账核对（免费） · 机械核对型 AI 工具</title>
+<meta name="description" content="把银行流水和企业账面记录贴成两段，逐笔配对、列出两侧未达账项和重复记录——每月对账最费时的那一步。每条都带原文日期与金额，不需要付款，也不需要注册。">
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">机械核对型 AI 工具</a></p>
+<h1>银行流水对账核对（免费）</h1>
+<blockquote>一句话：把<strong>银行流水</strong>和<strong>企业账面记录</strong>贴成两段，逐笔配对、列出两侧<strong>未达账项</strong> —— 不需要付款，也不需要注册。</blockquote>
+<p><strong>完全免费</strong>：不需要付款、不需要注册、不需要配置任何 API Key，直接调用即可。</p>
+<blockquote>不想安装也能用：<strong>同一个检查有网页版</strong>，免注册、免付款 —— <a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></blockquote>
+<h2>什么时候用</h2>
+<ul>
+<li>每月末对账：银行流水和企业账对不上，想知道<strong>到底是哪几笔</strong></li>
+<li>想知道<strong>银行有、账上没有</strong>的有哪些（漏记、手续费、利息、跨月入账）</li>
+<li>想知道<strong>账上有、银行没有</strong>的有哪些（已开出未收、在途未达、跨期）</li>
+<li>怀疑某一笔<strong>被重复录入了两次</strong></li>
+</ul>
+<h2>这个免费版查什么</h2>
+<table><thead><tr><th>#</th><th>检查项</th></tr></thead><tbody>
+<tr><td>1</td><td>逐笔自动配对：金额相等 且 日期相差不超过 3 天</td></tr>
+<tr><td>2</td><td>未达账项清单：银行有账上无 / 账上有银行无（含笔数与合计）</td></tr>
+<tr><td>3</td><td>单侧重复记录检测（同日期同金额出现两次以上）</td></tr>
+<tr><td>4</td><td>两侧笔数与金额合计的对比表</td></tr>
+</tbody></table>
+<p><strong>金额会做归一化</strong>：<code>1,240.00</code>、<code>1240</code>、<code>-¥1,240.00</code>、<code>(1,240.00)</code> 都被认成同一个数，</p>
+<p>不会因为写法不同就报错。<strong>摘要文字不参与配对</strong> —— 只认金额和日期，避免被"写法不同"干扰。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample
+node scripts/run.mjs --input my-recon.json
+node scripts/run.mjs --input my-recon.json --json</code></pre>
+<p>入参两种写法，任选：</p>
+<pre><code>{ &quot;bank&quot;: [
+    { &quot;date&quot;: &quot;2026-05-08&quot;, &quot;amount&quot;: -1240.00, &quot;memo&quot;: &quot;酒店消费&quot; },
+    { &quot;date&quot;: &quot;2026-05-07&quot;, &quot;amount&quot;: -86.00,   &quot;memo&quot;: &quot;出租车&quot; }
+  ],
+  &quot;book&quot;: [
+    { &quot;date&quot;: &quot;2026-05-08&quot;, &quot;amount&quot;: -1240.00, &quot;memo&quot;: &quot;差旅住宿&quot; },
+    { &quot;date&quot;: &quot;2026-05-07&quot;, &quot;amount&quot;: -86.00,   &quot;memo&quot;: &quot;打车费&quot; }
+  ] }</code></pre>
+<p>或者<strong>直接给纯文本</strong>：先写一行「银行」、再写一行「账面」，各自下面按行写「日期 金额 摘要」：</p>
+<pre><code>银行
+2026-05-08 -1240.00 酒店消费
+2026-05-07 -86.00 出租车
+
+账面
+2026-05-08 -1240.00 差旅住宿
+2026-05-07 -86.00 打车费</code></pre>
+<p>日期支持 <code>2026-05-08</code>、<code>2026/5/8</code>、<code>2026年5月8日</code>。</p>
+<h3>退出码</h3>
+<table><thead><tr><th>码</th><th>含义</th></tr></thead><tbody>
+<tr><td>0</td><td>已执行检查</td></tr>
+<tr><td>1</td><td>没给入参</td></tr>
+<tr><td>3</td><td><strong>材料不足 —— 此时不给结论</strong>（既不说"账平"，也不说"账不平"）</td></tr>
+<tr><td>4</td><td>入参文件读不到或无法解析</td></tr>
+<tr><td>9</td><td>未预期错误</td></tr>
+</tbody></table>
+<h2>这个免费版不包含</h2>
+<p>以下检查项<strong>不在本版本范围内</strong>，调用时也不会执行：</p>
+<ul>
+<li>可疑配对（金额相近但不相等，差在容差内 —— 常在手续费、汇差、笔误）</li>
+<li>疑似跨期未达（另一侧有同金额记录，但日期超出匹配窗口）</li>
+<li>对账恒等式校验（银行合计 − 账面合计 = 银行未达 − 账面未达）</li>
+<li>自定义匹配窗口与金额容差（dayWindow / toleranceAbs）</li>
+</ul>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li>本工具只做<strong>机械配对与找差异</strong>，<strong>不判断哪些差异该做未达账项调整</strong> —— 那是会计的事；</li>
+<li>不识别银行手续费/利息等业务性质，不自动入账；</li>
+<li>不核对银行流水本身的真伪，<strong>也不连接银行或财务系统取数</strong>（只处理你贴进来的文本）；</li>
+<li><strong>「没报问题」不等于「没有问题」</strong>：超出上述四项的检查，本版本不执行；</li>
+<li>材料不足时<strong>不给结论</strong>，也不会用默认值编一个「账平了」出来；</li>
+<li>不联网、不外发材料、不调用任何模型。</li>
+</ul>
+<h2>输出示例</h2>
+<pre><code>[P1] 银行流水存在重复记录
+银行流水里有 2 笔日期与金额完全相同：2026-05-12 -5000（摘要：采购付款 / 采购付款）。
+建议：可能是重复录入，也可能是真实的两笔同额业务；请核对凭证号。
+
+[P2] 对账汇总
+银行流水 6 笔（合计 -11616）、企业账面 4 笔（合计 -6587.5）：
+成功配对 3 对，银行侧未达 3 笔（合计 -5290）、账面侧未达 1 笔（合计 -261.5）。</code></pre>
+<div class="cta">
+<p><strong>在线免费核对（不用注册、不用付款）</strong>：<br>
+<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+把材料贴进去就能看到机械核对结果；免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
