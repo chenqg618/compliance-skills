@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>未达账项怎么找：一份可照着做的对账流程 · 机械核对型 AI 工具</title>
+<meta name="description" content="对账实务：逐笔配对的四个口径、未达账项的四类成因（手续费/跨月/在途/录错），以及一个能自证有没有算错的对账恒等式。附免费在线核对工具。">
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">机械核对型 AI 工具</a></p>
+<h1>未达账项怎么找：一份可照着做的对账流程</h1>
+<blockquote>每月末对账，最耗时的不是记账，是<strong>盯着银行流水和企业账面两列数字，找出哪几笔对不上</strong>。 这篇把这件事拆成可以照着做的步骤，并说明每步最容易漏在哪里。</blockquote>
+<h2>一、先把概念说清楚：什么是未达账项</h2>
+<p><strong>未达账项</strong>指：同一笔钱，银行那边已经记了、你这边还没记，或者反过来。</p>
+<p>它不是错账，而是<strong>时间差</strong> —— 但如果不把它单独列出来，账面余额和银行余额永远对不上，</p>
+<p>只能写一句"调节后相符"，实际上根本没查。</p>
+<p>它只有四种形态：</p>
+<table><thead><tr><th></th><th>银行已记</th><th>银行未记</th></tr></thead><tbody>
+<tr><td><strong>企业已记</strong></td><td>正常（能对上）</td><td>企业有、银行无</td></tr>
+<tr><td><strong>企业未记</strong></td><td>银行有、企业无</td><td>正常（都不记）</td></tr>
+</tbody></table>
+<p>所以对账的动作本质只有一件事：<strong>把两边的记录逐笔配对，剩下没配上的就是未达账项</strong>。</p>
+<h2>二、逐笔配对的四个判断口径</h2>
+<p>配对不能只看金额，也不能只看日期。可照着用的口径是四条：</p>
+<ol>
+<li><strong>金额必须完全相等</strong>（这是硬条件，不相等就不是同一笔）；</li>
+<li><strong>日期在窗口内</strong>（一般 ±3 天；跨月对账放宽到 ±7 天）；</li>
+<li><strong>摘要不参与判断</strong> —— 银行写"消费"、你写"差旅住宿"，它们是同一笔，别被文字干扰；</li>
+<li><strong>一笔只能用一次</strong> —— 银行有两笔同额、账面只有一笔，那就是一笔配上、一笔没配。</li>
+</ol>
+<p>第 4 条最容易被忽略：如果允许一笔重复配对，账就"平"了，但实际有一笔没记账。</p>
+<h2>三、找不到对应的四类原因（按出现频率排序）</h2>
+<ol>
+<li><strong>银行手续费、利息、账户管理费</strong> —— 银行直接扣，企业往往忘了记；</li>
+<li><strong>跨月入账</strong> —— 你 4 月 20 日付的，对方 5 月 1 日才到账；</li>
+<li><strong>在途未达</strong> —— 支票已开出、对方未收；</li>
+<li><strong>金额录错</strong> —— 260 记成 261.5，这类"差一点点"的，人眼最容易放过。</li>
+</ol>
+<p>前两类是<strong>正常</strong>的，后两类是<strong>要处理的</strong>。两者的区分方法：</p>
+<p>把没配上的记录，去另一边找<strong>金额完全相同</strong>的——找得到就是跨期，找不到才可能是金额错。</p>
+<h2>四、一个能自证的检查：对账恒等式</h2>
+<p>做完配对，用这个等式验证你有没有算错：</p>
+<p>```</p>
+<p>银行合计 − 账面合计 = 银行未达合计 − 账面未达合计</p>
+<p>```</p>
+<p><strong>两边对不上，说明有一笔被漏掉或读错了</strong>（例如某行金额格式异常被读成 0）。</p>
+<p>这个式子很有用：它不依赖你的判断，纯粹是算术，一算就知道自己有没有漏。</p>
+<h2>五、手工做的正确姿势</h2>
+<ol>
+<li>两边各自按日期排序；</li>
+<li>按金额把能对上的划掉（同额的先配对，再核日期）；</li>
+<li>剩下没划掉的两列，就是未达账项；</li>
+<li>把未达账项按上面四类归档，该补记的补记，该等的等；</li>
+<li>用第四节那个等式验一遍。</li>
+</ol>
+<p>几百行的流水，这一步手工做通常要一两个小时，而且<strong>漏掉一笔完全不会有提示</strong>。</p>
+<h2>六、想省这一步的话</h2>
+<p>我们做了一个<strong>完全机械</strong>的对账工具，只做上面那些确定性的事：逐笔配对、列出双向未达账项、</p>
+<p>检测单侧重复记录，并自动验证第四节那个恒等式。</p>
+<ul>
+<li><strong>网页版（免费、不用注册）</strong>：<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a> ——</li>
+</ul>
+<p>选「银行流水对账核对」，把流水和账面按两段粘进去就行（先写一行"银行"、再写一行"账面"）。</p>
+<ul>
+<li>它<strong>不判断哪些差异该做账务调整</strong> —— 那是会计的判断；它只负责把你从"找哪几笔对不上"里解放出来。</li>
+</ul>
+<hr>
+<p><em>本文由我们自己维护，工具也是我们自己做的。觉得流程有用就照着抄，不装工具也能用。</em></p>
+<div class="cta">
+<p><strong>在线免费核对（不用注册、不用付款）</strong>：<br>
+<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+把材料贴进去就能看到机械核对结果；免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
