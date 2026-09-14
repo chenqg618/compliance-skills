@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>多标书批量合规体检（免费） · 机械核对型 AI 工具</title>
+<meta name="description" content="一次把多家投标文件的报价算术全部核一遍，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。">
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">机械核对型 AI 工具</a></p>
+<h1>多标书批量合规体检（免费）</h1>
+<blockquote>一句话：一次把多家投标文件的报价算术全部核一遍，不需要付款，也不需要注册。</blockquote>
+<p><strong>完全免费</strong>：不需要付款、不需要注册、不需要配置任何 API Key，直接调用即可。</p>
+<blockquote>不想安装也能用：<strong>同一个检查有网页版</strong>，免注册、免付款 —— <a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></blockquote>
+<h2>什么时候用</h2>
+<ul>
+<li>一个项目有好几家投标人，想一次性把各家的报价算术都过一遍</li>
+<li>评标前想先排除「报价算错」这类最容易被质疑的低级问题</li>
+<li>想知道哪几家的报价明细里有对不上的行</li>
+</ul>
+<h2>这个免费版查什么</h2>
+<table><thead><tr><th>#</th><th>检查项</th></tr></thead><tbody>
+<tr><td>1</td><td>逐家报价算术校验</td></tr>
+</tbody></table>
+<ul>
+<li>逐家报价算术：每家的每一行都核对「合价 = 数量 × 单价」，按投标人分别归集</li>
+<li>输出逐家 verdict 与问题清单，一眼看出哪几家需要盯</li>
+</ul>
+<h2>这个免费版不包含</h2>
+<p>以下检查项<strong>不在本版本范围内</strong>，调用时也不会执行：</p>
+<ul>
+<li>否决条款响应核对</li>
+<li>模板占位符扫描</li>
+<li>基本要件扫描</li>
+<li>跨家串通线索</li>
+<li>报价离散度分析</li>
+<li>按风险排序的整改清单</li>
+</ul>
+<h2>怎么调用</h2>
+<h3>方式一：命令行脚本（最省事）</h3>
+<pre><code>node scripts/run.mjs --sample
+node scripts/run.mjs --input my-input.json
+node scripts/run.mjs --input my-input.json --json</code></pre>
+<h3>方式二：直接引用引擎（接进自己的流程）</h3>
+<p>脚本本身不做计算，真正的检查在同目录的 <code>scripts/engine/batch-quote-checkup.js</code>（纯 Node 标准库，CommonJS），可以直接引用：</p>
+<pre><code>const engine = require(&#x27;./scripts/engine/batch-quote-checkup.js&#x27;);
+const outcome = engine.run(payload);
+// outcome.status === &#x27;success&#x27;            → outcome.result 就是结果
+// outcome.status === &#x27;insufficient_input&#x27; → outcome.missing 列出缺什么（此时不出结论）</code></pre>
+<p>所有检查都在<strong>本机</strong>完成：不联网、不外发材料、不需要任何凭证。</p>
+<h2>入参</h2>
+<p>给一个 bidders 数组，每家可带结构化报价明细 items（也可以给可解析成表格的报价文本 text）。本版本不做分项加总校验，所以投标总价 price 字段不使用。</p>
+<pre><code>{
+  &quot;bidders&quot;: [
+    {
+      &quot;name&quot;: &quot;河南甲建设有限公司&quot;,
+      &quot;price&quot;: 1000000,
+      &quot;items&quot;: [
+        {
+          &quot;name&quot;: &quot;钢筋制安&quot;,
+          &quot;qty&quot;: 10,
+          &quot;price&quot;: 100,
+          &quot;amount&quot;: 900
+        }
+      ]
+    },
+    {
+      &quot;name&quot;: &quot;河南乙工程有限公司&quot;,
+      &quot;price&quot;: 1050000,
+      &quot;items&quot;: [
+        {
+          &quot;name&quot;: &quot;钢筋制安&quot;,
+          &quot;qty&quot;: 10,
+          &quot;price&quot;: 100,
+          &quot;amount&quot;: 1000
+        }
+      ]
+    }
+  ]
+}</code></pre>
+<h2>返回</h2>
+<p>返回 <code>ok: true</code> 与 <code>result</code>：<code>checks_given</code> <strong>原样列出本次实际执行了哪些检查项</strong>，</p>
+<p><code>checks_withheld</code> 列出本版本不包含的检查项。<strong>不会用默认值编造结论。</strong></p>
+<p>材料不足时（入参为空、只有空白、只有一个字符、解析不出任何明细行）<strong>不出结论</strong>：</p>
+<p>会说明缺什么，并以退出码 <code>3</code> 结束；正常执行退出码为 <code>0</code>。</p>
+<h2>使用限制</h2>
+<ul>
+<li>在本机执行：不联网、不外发材料、没有调用次数上限，也不需要任何凭证。</li>
+<li>输出的是<strong>机械核对结果</strong>，不是认定、不是评分。</li>
+</ul>
+<h2>反模式</h2>
+<ul>
+<li>❌ 把它的输出当作评标结论 —— 它只做机械核对，认定权在评标委员会。</li>
+<li>❌ 拿它替代对招标文件的实质响应检查 —— 本版本不含该类检查。</li>
+<li>❌ 输入残缺时怪结果不对 —— 检查项依赖你提供的字段，缺字段的检查项不会被伪造出来。</li>
+</ul>
+<h2>边界与免责</h2>
+<p>只做机械算术核对，不做资格审查、不做技术评审、不构成评标意见。</p>
+<p>本技能的所有结论都可由第三方用同一份输入复算出来。</p>
+<div class="cta">
+<p><strong>在线免费核对（不用注册、不用付款）</strong>：<br>
+<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+把材料贴进去就能看到机械核对结果；免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
