@@ -1,12 +1,12 @@
 ---
 slug: expense-compliance-free
-displayName: 报销单合规预检（免费）
-version: 1.0.0
+displayName: 报销单合规预检（免费版）
+version: 1.0.1
 summary: 把一沓发票和一张报销单放在一起核一遍——揪出重复报销的发票号、要素不齐的发票、以及没替换的占位符。每条都带原文行号，不需要付款，也不需要注册。
 tags: [报销, 发票, 重复报销, 合规预检, 财务, 免费, AI核对, 要素完整性]
 license: Proprietary
 name: expense-compliance-free
-display_name: 报销单合规预检（免费）
+display_name: 报销单合规预检（免费版）
 display_name_en: Expense Compliance Pre-check (Free)
 description: 把一沓发票和一张报销单放在一起核一遍，每条结论都带原文行号，不需要付款，也不需要注册。本免费版执行 重复发票号（重复报销线索）、发票要素完整性（发票号 / 开票日期 / 销售方 / 金额）、模板占位符残留。触发词包括 报销合规、重复报销、发票重复、报销单检查、发票要素不全、报销预检、贴票核对、费用报销自查。
 description_zh: 把一沓发票和一张报销单放在一起核一遍，每条结论都带原文行号，不需要付款，也不需要注册。本免费版执行 重复发票号、发票要素完整性、占位符残留。
