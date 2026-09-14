@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>固定资产折旧核对（免费） · AI核对型 AI 工具</title>
+<title>固定资产折旧核对（免费版） · AI核对型 AI 工具</title>
 <meta name="description" content="固定资产台账逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。">
 <style>*{box-sizing:border-box}
 body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
@@ -31,12 +31,14 @@ footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
 </head>
 <body><div class="wrap">
 <p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
-<h1>固定资产折旧核对（免费）</h1>
+<h1>固定资产折旧核对（免费版）</h1>
 <blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 不联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
 <h2>什么时候用</h2>
-<p>TODO：写清「<strong>谁、在什么时候、因为什么必须做这件事</strong>」（主人产品标准第 1 条）。</p>
-<p>材料：固定资产台账。</p>
-<h2>这个免费版查什么（TODO 补齐）</h2>
+<p><strong>谁会在什么时候用</strong>：财务、出纳、仓管等岗位在<strong>每月结账/发薪/对账/盘点</strong>这类固定节点上，必须把这张表核一遍才能往下走。</p>
+<p><strong>这张表会逐项核对什么</strong>：逐项月折旧额复核（(原值 × (1 − 残值率)) ÷ 使用年限 ÷ 12）；逐项累计折旧复核（月折旧额 × 已提月数）；逐项净值复核（原值 − 累计折旧）。</p>
+<p>每条结论都带<strong>原文行号与出处</strong>，可被第三方用同一口径复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么，不会输出「未发现问题」。</p>
+<h2>这个免费版查什么</h2>
 <p>（检查项由引擎的 <code>CHECKS_*</code> 导出，跑 <code>--sample</code> 会打印实际执行了哪些。）</p>
 <h2>怎么用</h2>
 <pre><code>node scripts/run.mjs --sample                 # 先看样例
