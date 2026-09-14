@@ -41,7 +41,7 @@ const SAMPLE = {
   "text": "本品牌全国销量第一，效果最好，100%有效。最后一步点击提交即可，我们提供一站式服务。"
 };
 
-const USAGE = `广告文案合规预检（免费） —— 本机执行的机械核对
+const USAGE = `广告文案合规预检（免费） —— 本机执行的AI核对
 
   **完全免费**：不需要注册、不需要 API Key，也不联网；文案不出本机。
   检查项：${ENGINE.CHECKS_GIVEN.join('、')}
@@ -169,7 +169,7 @@ function main() {
     return 0;
   }
 
-  console.log('免费机械核对完成');
+  console.log('免费AI核对完成');
   console.log(`本次执行的检查项：${view.checks_given.join('、') || '(无)'}`);
   if (view.checks_withheld.length) {
     console.log(`本版本不包含：${view.checks_withheld.join('、')}`);
