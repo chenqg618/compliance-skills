@@ -2,7 +2,7 @@
 /**
  * run.mjs —— 多份合同条款差异比对（免费）
  *
- * 全部检查都在**本机**完成：调用同目录下的 engine/trade-doc-consistency.js（纯 Node 标准库实现）。
+ * 全部检查都在**本机**完成：调用同目录下的 engine/contract-comparison.js（纯 Node 标准库实现）。
  * 没有端点、不联网、不外发材料、不需要注册、不需要 API Key，也没有调用次数上限。
  *
  * 刻意不做的事：
@@ -39,7 +39,7 @@ const NOTE = '本版本只执行上面列出的检查项，全部在本机完成
 
 const SAMPLE = { text: ENGINE.SAMPLE_TEXT };   // 样例里两份合同用单独一行「合同一」「合同二」分节
 
-const USAGE = `多份合同条款差异比对（免费） —— 本机执行的机械核对
+const USAGE = `多份合同条款差异比对（免费） —— 本机执行的AI核对
 
   **不需要付款**：不需要注册、不需要 API Key，也不联网；材料不出本机。
   检查项：${ENGINE.CHECKS_GIVEN.join('、')}
@@ -187,7 +187,7 @@ function main() {
     return 0;
   }
 
-  console.log('免费机械核对完成');
+  console.log('免费AI核对完成');
   console.log(`本次执行的检查项：${view.checks_given.join('、') || '(无)'}`);
   if (view.checks_withheld.length) {
     console.log(`本版本不包含：${view.checks_withheld.join('、')}`);
