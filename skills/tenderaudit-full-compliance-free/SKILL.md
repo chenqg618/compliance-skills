@@ -1,12 +1,12 @@
 ---
 slug: tenderaudit-full-compliance-free
-displayName: 招投标全案合规审计（免费）
-version: 1.1.0
+displayName: 招投标全案合规审计（免费版）
+version: 1.1.1
 summary: 把一个项目的投标材料先做一轮免费的AI体检，报价算术 + 模板占位符，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [招投标, 免费, 逐家报价算术校验, 标书检查, 投标自查]
 license: Proprietary
 name: tenderaudit-full-compliance-free
-display_name: 招投标全案合规审计（免费）
+display_name: 招投标全案合规审计（免费版）
 display_name_en: TenderAudit Full Compliance (Free)
 description: 把一个项目的投标材料先做一轮免费的AI体检，报价算术 + 模板占位符，不需要付款，也不需要注册。 本免费版执行 逐家报价算术校验、模板占位符扫描。触发词包括 招投标全案合规审计、逐家报价算术校验、模板占位符扫描。触发词还包括投标文件检查、标书审查、投标文件审查、标书合规检查。
 description_zh: 把一个项目的投标材料先做一轮免费的AI体检，报价算术 + 模板占位符，不需要付款，也不需要注册。 本免费版执行 逐家报价算术校验、模板占位符扫描。
