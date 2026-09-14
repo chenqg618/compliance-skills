@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://chenqg618.github.io/compliance-skills/sitemap.xml
