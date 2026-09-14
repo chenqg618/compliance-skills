@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>工资表发放前核对（免费） · AI核对型 AI 工具</title>
+<meta name="description" content="发薪前把工资表算一遍——每个人的实发是不是等于应发减扣款、合计行是不是各列之和、有没有同一个人出现两行、有没有金额空缺或没替换的占位符。每条都带行号，不需要付款，也不需要注册。">
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>工资表发放前核对（免费）</h1>
+<blockquote>一句话：<strong>发薪前把工资表算一遍</strong> —— 不需要付款，也不需要注册。</blockquote>
+<p><strong>完全免费</strong>：不需要付款、不需要注册、不需要配置任何 API Key，直接调用即可。</p>
+<blockquote>不想安装也能用：<strong>同一个检查有网页版</strong>，免注册、免付款 —— <a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></blockquote>
+<h2>什么时候用</h2>
+<ul>
+<li>每月发薪前，想确认<strong>每个人的实发是不是算对了</strong>（应发 − 社保 − 公积金 − 个税 − 其他扣款）</li>
+<li>想知道<strong>合计行是不是真的等于各列之和</strong>（合计错，银行代发总额就错）</li>
+<li>担心<strong>同一个人出现两行</strong>（重复发薪）</li>
+<li>想知道有没有<strong>实发空缺</strong>或还留着 <code>【填写】</code>、<code>TBD</code> 的行</li>
+</ul>
+<h2>这个免费版查什么</h2>
+<table><thead><tr><th>#</th><th>检查项</th></tr></thead><tbody>
+<tr><td>1</td><td>逐人算术：实发工资 = 应发工资 − 各项扣款之和</td></tr>
+<tr><td>2</td><td>合计行复核：合计行的每一列是否等于该列各人之和</td></tr>
+<tr><td>3</td><td>重复人员检测：同一姓名出现两行以上</td></tr>
+<tr><td>4</td><td>空白与占位符：实发工资空缺、<code>【填写】</code>/<code>TBD</code> 残留</td></tr>
+</tbody></table>
+<p><strong>按表头认列，不按列的位置</strong> —— 各家的工资表列序都不一样，按位置认一定会认错。</p>
+<p>金额写法做归一化（<code>10,000.00</code>、<code>¥1,050.00</code>、<code>(100)</code> 都能认）。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample
+node scripts/run.mjs --input my-payroll.json
+node scripts/run.mjs --input my-payroll.json --json</code></pre>
+<p>入参：把工资表<strong>连表头一起</strong>贴进来（从 Excel 直接复制即可，Tab 分隔最稳）。</p>
+<h3>退出码</h3>
+<table><thead><tr><th>码</th><th>含义</th></tr></thead><tbody>
+<tr><td>0</td><td>已执行检查</td></tr>
+<tr><td>1</td><td>没给入参</td></tr>
+<tr><td>3</td><td><strong>材料不足 —— 此时不给结论</strong>（认不出表头也不硬猜列）</td></tr>
+<tr><td>4</td><td>入参文件读不到或无法解析</td></tr>
+<tr><td>9</td><td>未预期错误</td></tr>
+</tbody></table>
+<h2>这个免费版不包含</h2>
+<ul>
+<li>应发工资 = 各项加项之和（基本工资 + 绩效 + 补贴…）</li>
+<li>个税校验（按累计预扣税率表复核）</li>
+<li>实发合计与声明的银行代发总额是否一致</li>
+<li>扣款为负、实发为负等异常值提示</li>
+</ul>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li>只做<strong>算术核对</strong>，<strong>不判断某个人的工资该发多少</strong> —— 那是劳动合同与公司制度的事；</li>
+<li><strong>不给税务意见</strong>，不判断该不该享受某项个税专项附加扣除；</li>
+<li>不核对社保/公积金基数是否符合当地政策；</li>
+<li><strong>不读 .xlsx</strong>：需要你先从 Excel 复制成文本贴进来；</li>
+<li><strong>「没报问题」不等于「没有问题」</strong>：超出上述四类的检查，本版本不执行；</li>
+<li>材料不足或<strong>认不出表头</strong>时<strong>不给结论</strong>，也不会用默认值编一个「没问题」出来；</li>
+<li>不联网、不外发材料、不调用任何模型。</li>
+</ul>
+<h2>输出示例</h2>
+<pre><code>[P0] 实发工资算错
+王五：应发 8000 − 各项扣款合计 1800 = 6200，但表里写的是 6180（差 -20）。
+建议：实发工资算错会直接发错钱；请核对该行的扣款项，或确认是否还有没列出来的扣款。
+
+[P0] 合计行算错
+合计行的「实发工资」写的是 28064，但各人之和是 28074（差 -10）。</code></pre>
+<div class="cta">
+<p><strong>在线免费核对（不用注册、不用付款）</strong>：<br>
+<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+把材料贴进去就能看到核对结果；免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
