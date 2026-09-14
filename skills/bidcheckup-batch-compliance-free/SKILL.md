@@ -1,7 +1,7 @@
 ---
 slug: bidcheckup-batch-compliance-free
 displayName: 多标书批量合规体检（免费）
-version: 1.0.0
+version: 1.0.4
 summary: 一次把多家投标文件的报价算术全部核一遍，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [招投标, 免费, 逐家报价算术校验, 标书检查, 投标自查]
 license: Proprietary
