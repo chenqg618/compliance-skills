@@ -199,16 +199,21 @@ function parseText(text) {
 /** 结构化 items 的一行 */
 function itemRow(raw, idx) {
   if (!raw || typeof raw !== 'object') return null;
-  const name = String(
-    raw.name != null ? raw.name
-      : (raw['项目名称'] != null ? raw['项目名称']
-        : (raw['名称'] != null ? raw['名称'] : (raw.item != null ? raw.item : `第${idx + 1}项`))),
-  ).trim();
+  const rawName = raw.name != null ? raw.name
+    : (raw['项目名称'] != null ? raw['项目名称']
+      : (raw['名称'] != null ? raw['名称'] : (raw.item != null ? raw.item : '')));
+  const name = String(rawName == null ? '' : rawName).trim() || `第${idx + 1}项`;
   const qty = pickNumber(raw.qty !== undefined ? raw.qty : (raw.quantity !== undefined ? raw.quantity : raw['数量']));
   const price = pickNumber(raw.price !== undefined ? raw.price : (raw.unitPrice !== undefined ? raw.unitPrice : raw['单价']));
   const amount = pickNumber(raw.amount !== undefined ? raw.amount : (raw.total !== undefined ? raw.total : raw['合价']));
-  if (qty === null && price === null && amount === null) return null;
-  return { name: name || `第${idx + 1}项`, qty, price, amount, line: idx + 1, where: `第${idx + 1}项` };
+  // 只有"既没有名称、三个数也都没有"的纯垃圾条目才丢弃。有名称但数字为空的行必须留下 ——
+  // 它正是「缺漏/无法核对」要报的对象，静默丢掉会变成"查过且没问题"的假结论。
+  if (qty === null && price === null && amount === null && !String(rawName == null ? '' : rawName).trim()) return null;
+  return { name, qty, price, amount, line: idx + 1, where: `第${idx + 1}项` };
+}
+
+function hasAnyNumber(row) {
+  return row.qty !== null || row.price !== null || row.amount !== null;
 }
 
 /** 一家的报价明细行：优先 items，其次 text（可解析的报价表文本） */
@@ -236,15 +241,18 @@ function checkOneBidder(bidder) {
   const findings = [];
   const picked = rowsOf(bidder);
   const rows = picked.rows;
+  const rowsUsable = rows.filter(hasAnyNumber);
   let checked = 0;
   let unverifiable = 0;
 
-  if (!rows.length) {
-    const why = picked.raw_count
-      ? `items 有 ${picked.raw_count} 行，但没有一行能解析出数量/单价/合价中的任何一个数字`
-      : (typeof bidder.text === 'string' && bidder.text.trim()
-        ? `text 有 ${bidder.text.trim().length} 个字符，但没有识别出可校验的报价明细行`
-        : '既没有 items（结构化明细），也没有 text（可解析的报价表文本）');
+  if (!rowsUsable.length) {
+    const why = rows.length
+      ? `items 有 ${rows.length} 行，但每一行的 数量/单价/合价 都是空的，没有任何一行可以核对`
+      : (picked.raw_count
+        ? `items 有 ${picked.raw_count} 行，但没有一行能解析出数量/单价/合价中的任何一个数字`
+        : (typeof bidder.text === 'string' && bidder.text.trim()
+          ? `text 有 ${bidder.text.trim().length} 个字符，但没有识别出可校验的报价明细行`
+          : '既没有 items（结构化明细），也没有 text（可解析的报价表文本）'));
     findings.push({
       level: 'P2',
       category: '报价算术',
@@ -255,7 +263,8 @@ function checkOneBidder(bidder) {
       bidder: bidder.name,
       verdict: 'NOT_CHECKED',
       summary: { p0: 0, p1: 0, p2: findings.length, total: findings.length },
-      rows: 0,
+      rows: rows.length,
+      rows_usable: 0,
       rows_arithmetic_checked: 0,
       rows_unverifiable: 0,
       findings,
@@ -302,6 +311,7 @@ function checkOneBidder(bidder) {
     verdict: p0 > 0 ? 'HIGH_RISK' : (p1 > 0 ? 'MEDIUM_RISK' : 'LOW_RISK'),
     summary: { p0, p1, p2, total: findings.length },
     rows: rows.length,
+    rows_usable: rowsUsable.length,
     rows_arithmetic_checked: checked,
     rows_unverifiable: unverifiable,
     findings,
@@ -345,7 +355,7 @@ function run(payload) {
   });
 
   const perBidder = bidders.map((b) => checkOneBidder(b));
-  const withRows = perBidder.filter((b) => b.rows > 0);
+  const withRows = perBidder.filter((b) => b.rows_usable > 0);
   if (!withRows.length) {
     const lacking = perBidder.map((b) => `${b.bidder}（${b.findings[0] ? b.findings[0].message.replace(/^本家报价算术未执行：/, '') : '无报价明细'}）`);
     return {
@@ -382,6 +392,7 @@ function run(payload) {
       bidders_with_rows: withRows.length,
       bidders_unchecked: unchecked.length,
       rows_total: perBidder.reduce((n, b) => n + b.rows, 0),
+      rows_usable_total: perBidder.reduce((n, b) => n + b.rows_usable, 0),
       rows_arithmetic_checked: perBidder.reduce((n, b) => n + b.rows_arithmetic_checked, 0),
       tolerance: TOLERANCE,
       executed_locally: true,
@@ -402,7 +413,7 @@ function run(payload) {
     },
     note: '本结果只覆盖「逐家报价算术校验」；其余检查项见 checks_withheld，本次未执行。'
       + 'verdict 为 NOT_CHECKED 的家表示材料里没有可校验的报价行 —— 那是"没查"，不是"查过且一致"。',
-    disclaimer: '只做机械算术核对，不做技术标评审、不做资格判定、不构成评标意见；'
+    disclaimer: '只做算术核对，不做技术标评审、不做资格判定、不构成评标意见；'
       + '结论可由第三方用同一份输入复算。',
   };
 
