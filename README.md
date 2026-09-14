@@ -2,7 +2,7 @@
 
 [![skills.sh](https://skills.sh/b/chenqg618/compliance-skills)](https://skills.sh/chenqg618/compliance-skills)
 
-**招投标、合同、票据与广告文案**场景的机械核对技能。特点：
+**招投标、合同、票据、广告文案与外贸单证**场景的机械核对技能。特点：
 
 - **完全离线**：引擎是纯 Node.js 标准库实现，**不联网、不外发材料、不调用外部模型**，
   服务器停不停都不影响使用；
@@ -43,6 +43,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `adcheckup-content-compliance-free` | 广告文案合规预检：绝对化用语检测 + 监管豁免判定 |
 | `contract-consistency-check-free` | 合同一致性机械核对：当事方名称／日期／金额矛盾、占位符残留、条款交叉引用失效、定义词卫生（**中英双语**） |
 | `invoice-consistency-check-free` | 票据一致性机械核对：行内算术、分项加总、税额计算、价税合计、大小写金额、抬头一致、日期逻辑、重复票检测、占位符残留（**中英双语**） |
+| `trade-doc-consistency-free` | 外贸单证单单一致核对：发票号／合同号／信用证号、金额与币种、数量／件数／重量、港口／船名／唛头跨单据一致，占位符残留 |
 
 ## 怎么用
 
