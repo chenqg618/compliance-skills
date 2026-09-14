@@ -1,14 +1,14 @@
 ---
 slug: bidguard-quote-audit-free
-displayName: 投标报价机械审查（免费）
+displayName: 投标报价AI审查（免费）
 version: 1.0.1
 summary: 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [招投标, 免费, 分项算术校验, 标书检查, 投标自查]
 license: Proprietary
 name: bidguard-quote-audit-free
-display_name: 投标报价机械审查（免费）
+display_name: 投标报价AI审查（免费）
 display_name_en: BidGuard Quote Audit (Free)
-description: 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册。 本免费版执行 分项算术校验、缺漏项提示。触发词包括 投标报价机械审查、分项算术校验、缺漏项提示。
+description: 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册。 本免费版执行 分项算术校验、缺漏项提示。触发词包括 投标报价AI审查、分项算术校验、缺漏项提示。
 description_zh: 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册。 本免费版执行 分项算术校验、缺漏项提示。
 description_en: A free mechanical pre-check for bidding documents. No payment, no registration, no API key.
 category: business-ops
@@ -16,7 +16,7 @@ author: WorkBuddy 开放平台开发者
 allowed-tools: Read, Bash
 ---
 
-# 投标报价机械审查（免费）
+# 投标报价AI审查（免费）
 
 > 一句话：把一份投标报价单里**能被算出来证明是错的**问题找出来，不需要付款，也不需要注册。
 
@@ -95,16 +95,16 @@ const outcome = engine.run(payload);
 ## 使用限制
 
 - 在本机执行：不联网、不外发材料、没有调用次数上限，也不需要任何凭证。
-- 输出的是**机械核对结果**，不是认定、不是评分。
+- 输出的是**AI核对结果**，不是认定、不是评分。
 
 ## 反模式
 
-- ❌ 把它的输出当作评标结论 —— 它只做机械核对，认定权在评标委员会。
+- ❌ 把它的输出当作评标结论 —— 它只做AI核对，认定权在评标委员会。
 - ❌ 拿它替代对招标文件的实质响应检查 —— 本版本不含该类检查。
 - ❌ 输入残缺时怪结果不对 —— 检查项依赖你提供的字段，缺字段的检查项不会被伪造出来。
 
 ## 边界与免责
 
-只做机械算术核对，不做技术标评审、不做资格判定、不构成评标意见。
+只做AI算术核对，不做技术标评审、不做资格判定、不构成评标意见。
 
 本技能的所有结论都可由第三方用同一份输入复算出来。
