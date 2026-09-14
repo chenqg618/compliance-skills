@@ -39,7 +39,7 @@ const NOTE = '本版本只执行上面列出的检查项，全部在本机完成
 
 const SAMPLE = { text: ENGINE.SAMPLE_TEXT };   // 样例里两张单据用空行分隔
 
-const USAGE = `外贸单证单单一致核对（免费） —— 本机执行的机械核对
+const USAGE = `外贸单证单单一致核对（免费） —— 本机执行的AI核对
 
   **不需要付款**：不需要注册、不需要 API Key，也不联网；材料不出本机。
   检查项：${ENGINE.CHECKS_GIVEN.join('、')}
@@ -187,7 +187,7 @@ function main() {
     return 0;
   }
 
-  console.log('免费机械核对完成');
+  console.log('免费AI核对完成');
   console.log(`本次执行的检查项：${view.checks_given.join('、') || '(无)'}`);
   if (view.checks_withheld.length) {
     console.log(`本版本不包含：${view.checks_withheld.join('、')}`);
