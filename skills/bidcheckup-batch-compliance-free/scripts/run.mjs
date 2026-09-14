@@ -66,7 +66,7 @@ const SAMPLE = {
   ]
 };
 
-const USAGE = `多标书批量合规体检（免费） —— 本机执行的逐家机械核对
+const USAGE = `多标书批量合规体检（免费） —— 本机执行的逐家AI核对
 
   **完全免费**：不需要注册、不需要 API Key，也不联网；材料不出本机。
   检查项：${ENGINE.CHECKS_GIVEN.join('、')}
@@ -197,7 +197,7 @@ function main() {
     return 0;
   }
 
-  console.log('免费机械核对完成');
+  console.log('免费AI核对完成');
   console.log(`本次执行的检查项：${view.checks_given.join('、') || '(无)'}`);
   if (view.checks_withheld.length) {
     console.log(`本版本不包含：${view.checks_withheld.join('、')}`);
