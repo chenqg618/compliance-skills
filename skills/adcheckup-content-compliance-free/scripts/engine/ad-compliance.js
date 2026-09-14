@@ -278,6 +278,7 @@ function run(input) {
   for (const doc of usable) {
     const text = doc.text;
     const where = docs.length > 1 ? `${doc.label}：` : '';
+    const findingsBeforeThisDoc = findings.length;   // 位置区间必须按本条文案算
 
     /* --- 1) 绝对化用语（先过豁免判定）--- */
     for (const term of ABSOLUTE_TERMS) {
@@ -320,8 +321,11 @@ function run(input) {
 
     /* --- 2) 单独登记"故意没报"的词：时间／顺序类与日常固定搭配 ---
      * 与上面命中豁免的情形合并去重；若该词所在位置已经被报成问题（例如「最高品质」里的「最高」），
-     * 就不再重复登记，免得出现"同一个位置既报问题又说豁免"的自相矛盾。 */
-    const reported = findings.map((f) => [f.index, f.index + String(f.term).length]);
+     * 就不再重复登记，免得出现"同一个位置既报问题又说豁免"的自相矛盾。
+     * 注意：位置区间必须**按本条文案**算 —— 不同文案的 index 各自从 0 开始，混着比会张冠李戴。 */
+    const reported = findings
+      .slice(findingsBeforeThisDoc)
+      .map((f) => [f.index, f.index + String(f.term).length]);
     const overlapsFinding = (idx, term) => reported.some(([s, e]) => idx < e && idx + term.length > s);
 
     for (const term of TEMPORAL_SAFE) {
@@ -386,7 +390,7 @@ function run(input) {
     exempted,
     note: 'exempted 里的词是**按《执法指南》判定为可豁免、因此故意没有报成问题**的表述，'
       + '并附豁免依据供复核。本结果只覆盖绝对化用语一项；其余检查项见 checks_withheld，本次未执行。',
-    disclaimer: '本报告只做机械比对与法条对照，不构成法律意见，也不替代市场监督管理部门的认定。'
+    disclaimer: '本报告只做AI比对与法条对照，不构成法律意见，也不替代市场监督管理部门的认定。'
       + '最终是否违法由监管部门结合广告整体语境、事实依据与社会危害程度依法判断。',
     checked_at: new Date().toISOString(),
   };
