@@ -12,9 +12,22 @@
 
 ## 安装
 
+三条路，任选一条（都不用付款、不用注册、不用 API Key）：
+
+**① 通用 agent skills（skills.sh / Claude Code / Codex / DSH / OpenClaw 等）**
+
 ```bash
 npx skills add chenqg618/compliance-skills
 ```
+
+**② 作为 Claude Code 插件市场**
+
+```bash
+claude plugin marketplace add chenqg618/compliance-skills
+```
+
+**③ 使用 DSH 技能市场**：本仓库带 `dsh-skill` 话题 ——
+在 DeepSeek Harness 的「设置 → 技能市场」里搜索 `compliance-skills` 即可一键安装。
 
 ## 技能清单（免费版）
 
