@@ -1,47 +1,77 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "compliance-skills",
-  "version": "1.0.0",
-  "description": "Mechanical, fully offline document-consistency checkers for contracts, invoices, tender/bidding documents and ad copy. Every finding quotes the exact source line and can be recomputed from the same input - no model, no network. 合同 / 票据 / 招投标 / 广告文案的机械核对工具。",
+  "version": "1.1.0",
+  "description": "Deterministic, fully offline AI document checkers for contracts, invoices, tender/bidding documents, foreign-trade documents, three-way match, expense claims, bank reconciliation and ad copy. Every finding quotes the exact source line and can be recomputed from the same input - no model, no network. 合同 / 票据 / 招投标 / 外贸单证 / 三单匹配 / 报销 / 银行对账 / 多家比价 的 AI 核对工具。",
   "owner": {
     "name": "河南樵夫网络科技有限公司",
     "email": "chenqg618@gmail.com"
   },
   "plugins": [
     {
-      "name": "contract-consistency-check-free",
-      "description": "Deterministic contract consistency check (English and Chinese): party-name, date and amount contradictions, leftover placeholders, broken clause cross-references, defined-term hygiene.",
-      "source": "./skills/contract-consistency-check-free"
-    },
-    {
-      "name": "invoice-consistency-check-free",
-      "description": "Deterministic invoice/receipt consistency check (English and Chinese): line arithmetic, itemised totals, tax computation, gross-up, amounts in words vs figures, payee/issuer mismatch, date logic, duplicate invoices, leftover placeholders.",
-      "source": "./skills/invoice-consistency-check-free"
-    },
-    {
       "name": "bidguard-quote-audit-free",
-      "description": "Mechanical audit of a bid quotation sheet: line arithmetic (amount = quantity x unit price) and missing-field detection. Free tier of a larger checker.",
+      "description": "A free mechanical pre-check for bidding documents. No payment, no registration, no API key.",
       "source": "./skills/bidguard-quote-audit-free"
     },
     {
       "name": "collusionscreen-collusion-screening-free",
-      "description": "Cross-bidder collusion screening: shared contact details and cross-appearing project personnel, with output desensitised.",
+      "description": "A free mechanical pre-check for bidding documents. No payment, no registration, no API key.",
       "source": "./skills/collusionscreen-collusion-screening-free"
     },
     {
       "name": "bidcheckup-batch-compliance-free",
-      "description": "Batch check of multiple bidders' quotation sheets, grouped per bidder with a per-bidder verdict.",
+      "description": "A free mechanical pre-check for bidding documents. No payment, no registration, no API key.",
       "source": "./skills/bidcheckup-batch-compliance-free"
     },
     {
       "name": "tenderaudit-full-compliance-free",
-      "description": "Tender document mechanical check-up: per-bidder quotation arithmetic plus leftover template placeholder scanning.",
+      "description": "A free mechanical pre-check for bidding documents. No payment, no registration, no API key.",
       "source": "./skills/tenderaudit-full-compliance-free"
     },
     {
       "name": "adcheckup-content-compliance-free",
-      "description": "Ad-copy compliance pre-check: absolute-superlative term detection with exemption reasoning under China's enforcement guidelines.",
+      "description": "A free mechanical pre-check for bidding documents. No payment, no registration, no API key.",
       "source": "./skills/adcheckup-content-compliance-free"
+    },
+    {
+      "name": "contract-consistency-check-free",
+      "description": "A free mechanical consistency check for contracts. Every finding is recomputable evidence from the same input. No payment, no registration, no API key, no network.",
+      "source": "./skills/contract-consistency-check-free"
+    },
+    {
+      "name": "contract-comparison-free",
+      "description": "A free mechanical comparison of several contracts signed from the same template. Aligns clauses, lists missing clauses and per-clause differences with recomputable evidence. No payment, no registration, no API key, no network.",
+      "source": "./skills/contract-comparison-free"
+    },
+    {
+      "name": "invoice-consistency-check-free",
+      "description": "A free mechanical consistency check for invoices and expense claims. Every finding is recomputable evidence from the same input. No payment, no registration, no API key, no network.",
+      "source": "./skills/invoice-consistency-check-free"
+    },
+    {
+      "name": "trade-doc-consistency-free",
+      "description": "A free mechanical consistency check across trade documents (invoice / packing list / B/L). Every finding is recomputable evidence from the same input. No payment, no registration, no API key, no network.",
+      "source": "./skills/trade-doc-consistency-free"
+    },
+    {
+      "name": "three-way-match-free",
+      "description": "A free mechanical three-way match across purchase order, goods receipt and invoice. Every finding is recomputable evidence from the same input. No payment, no registration, no API key, no network.",
+      "source": "./skills/three-way-match-free"
+    },
+    {
+      "name": "expense-compliance-free",
+      "description": "A free mechanical pre-check for expense claims combining one reimbursement form with a batch of invoices. Every finding is recomputable evidence from the same input. No payment, no registration, no API key, no network.",
+      "source": "./skills/expense-compliance-free"
+    },
+    {
+      "name": "bid-comparison-free",
+      "description": "A free mechanical item-by-item comparison across multiple bidders quotations, with a comparison table, missing-item detection and total ranking. No payment, no registration, no API key, no network.",
+      "source": "./skills/bid-comparison-free"
+    },
+    {
+      "name": "bank-reconciliation-free",
+      "description": "A free mechanical bank reconciliation between bank statement lines and book entries. Matches by amount and date, lists outstanding items and duplicates with recomputable evidence. No payment, no registration, no API key, no network.",
+      "source": "./skills/bank-reconciliation-free"
     }
   ]
 }
