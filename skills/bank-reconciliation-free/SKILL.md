@@ -1,12 +1,12 @@
 ---
 slug: bank-reconciliation-free
-displayName: 银行流水对账核对（免费）
-version: 1.0.0
+displayName: 银行流水对账核对（免费版）
+version: 1.0.1
 summary: 把银行流水和企业账面记录贴成两段，逐笔配对、列出两侧未达账项和重复记录——每月对账最费时的那一步。每条都带原文日期与金额，不需要付款，也不需要注册。
 tags: [对账, 银行流水, 未达账项, 银行对账, 财务, 出纳, 会计, 免费, AI核对]
 license: Proprietary
 name: bank-reconciliation-free
-display_name: 银行流水对账核对（免费）
+display_name: 银行流水对账核对（免费版）
 display_name_en: Bank Reconciliation Check (Free)
 description: 把银行流水和企业账面记录逐笔配对，列出未达账项与重复记录，每条结论都带原文日期与金额，不需要付款，也不需要注册。本免费版执行 逐笔自动配对、双向未达账项清单（银行有账上无 / 账上有银行无）、单侧重复记录检测、两侧笔数与金额合计对比。触发词包括 银行对账、未达账项、银行流水和企业账对不上、对账、找出未达账项、重复入账、漏记、每月对账。
 description_zh: 把银行流水和企业账面记录逐笔配对，列出未达账项与重复记录，每条结论都带原文日期与金额，不需要付款，也不需要注册。本免费版执行 逐笔自动配对、双向未达账项清单、单侧重复记录检测、两侧合计对比。
