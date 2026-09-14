@@ -1,0 +1,298 @@
+[
+  {
+    "tool": "check_quote_arithmetic",
+    "package": "bidguard-quote-audit-free",
+    "engine": "quote-audit.js",
+    "title": "投标报价AI审查（免费）",
+    "given": [
+      "分项算术校验",
+      "缺漏项提示"
+    ],
+    "withheld": [
+      "分项加总校验",
+      "最高投标限价校验",
+      "大小写金额互校",
+      "投标保证金比例校验",
+      "不平衡报价预警"
+    ],
+    "outOfScope": [],
+    "hasSample": false
+  },
+  {
+    "tool": "screen_bid_collusion",
+    "package": "collusionscreen-collusion-screening-free",
+    "engine": "collusion-screening.js",
+    "title": "串通投标线索筛查（免费）",
+    "given": [
+      "联系方式一致",
+      "项目成员交叉"
+    ],
+    "withheld": [
+      "文本异常一致",
+      "报价规律性差异",
+      "文件相互混装",
+      "同一处错漏",
+      "保证金同源",
+      "格式指纹一致"
+    ],
+    "outOfScope": [],
+    "hasSample": false
+  },
+  {
+    "tool": "checkup_bid_packages",
+    "package": "bidcheckup-batch-compliance-free",
+    "engine": "batch-quote-checkup.js",
+    "title": "多标书批量合规体检（免费）",
+    "given": [
+      "逐家报价算术校验"
+    ],
+    "withheld": [
+      "否决条款响应核对",
+      "模板占位符扫描",
+      "基本要件扫描",
+      "跨家串通线索",
+      "报价离散度分析",
+      "按风险排序的整改清单"
+    ],
+    "outOfScope": [],
+    "hasSample": false
+  },
+  {
+    "tool": "audit_tender_compliance",
+    "package": "tenderaudit-full-compliance-free",
+    "engine": "tender-compliance-audit.js",
+    "title": "招投标全案合规审计（免费）",
+    "given": [
+      "逐家报价算术校验",
+      "模板占位符扫描"
+    ],
+    "withheld": [
+      "招标文件要素体检",
+      "合同草案必备条款与陷阱条款扫描",
+      "跨家串通线索",
+      "统一整改清单与阻断判定"
+    ],
+    "outOfScope": [],
+    "hasSample": false
+  },
+  {
+    "tool": "check_ad_copy_compliance",
+    "package": "adcheckup-content-compliance-free",
+    "engine": "ad-compliance.js",
+    "title": "广告文案合规预检（免费）",
+    "given": [
+      "绝对化用语检测（含《广告绝对化用语执法指南》豁免判定）"
+    ],
+    "withheld": [
+      "医疗／药品／医美违禁表述",
+      "保健食品功效断言",
+      "教育培训保证性承诺",
+      "投资理财与招商承诺",
+      "房地产升值回报承诺",
+      "虚假广告类保证性承诺",
+      "批量文案检测"
+    ],
+    "outOfScope": [],
+    "hasSample": false
+  },
+  {
+    "tool": "check_contract_consistency",
+    "package": "contract-consistency-check-free",
+    "engine": "contract-consistency.js",
+    "title": "合同一致性AI核对（免费）",
+    "given": [
+      "当事方名称不一致",
+      "日期矛盾",
+      "金额矛盾",
+      "占位符残留",
+      "条款交叉引用失效",
+      "定义词卫生"
+    ],
+    "withheld": [
+      "违约责任与赔偿上限一致性核对",
+      "付款节点与比例一致性核对",
+      "知识产权归属与授权范围核对",
+      "保密期限与例外情形核对",
+      "争议解决与管辖条款一致性核对",
+      "解除与终止条件核对",
+      "签署权限与主体资格核对",
+      "附件清单与正文引用完整性核对"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "compare_contract_clauses",
+    "package": "contract-comparison-free",
+    "engine": "contract-comparison.js",
+    "title": "多份合同条款差异比对（免费）",
+    "given": [
+      "条款切分与横向对齐（把每份合同按「第X条」切开，按条款标题对齐）",
+      "缺条 / 多条（某份合同少了或多了哪一条）",
+      "条款正文不一致（同一条的各版本摘要）",
+      "条款对照表（每条被几份合同覆盖、有几份不同版本）"
+    ],
+    "withheld": [
+      "关键字段跨合同对比（合同金额 / 违约金比例 / 预付款比例 / 争议解决 / 合同期限）",
+      "日期逻辑（签订日 ≤ 生效日 ≤ 到期日）",
+      "模板占位符残留（【填写…】/ XXX / TBD）",
+      "合同金额大小写是否一致"
+    ],
+    "outOfScope": [
+      "判断哪一份条款对甲方/乙方更有利（那是法务与商务的判断）",
+      "给出法律意见、认定条款是否有效或是否违法",
+      "核对签署人权限、印章真伪或签署流程是否合规",
+      "把两份法律含义不同但用词相近的条款认定为\"等价\"（本工具只做文本的AI比对）",
+      "连接合同管理系统或电子签平台取数（本工具只处理你贴进来的文本）"
+    ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_invoice_consistency",
+    "package": "invoice-consistency-check-free",
+    "engine": "invoice-consistency.js",
+    "title": "票据一致性AI核对（免费）",
+    "given": [
+      "行内算术",
+      "分项加总",
+      "税额计算",
+      "价税合计",
+      "大小写金额一致",
+      "抬头/主体一致",
+      "日期逻辑",
+      "重复票检测",
+      "占位符/空白残留"
+    ],
+    "withheld": [
+      "发票真伪查验与代码号码规则校验",
+      "税收分类编码与税率目录核对",
+      "三单匹配（采购订单、入库单与发票）",
+      "预算科目与费用归属核对",
+      "供应商主体资格与失信名单核对",
+      "差旅与费用标准超标判定",
+      "红冲作废与发票联次状态一致性核对",
+      "报销审批链与权限核对",
+      "异常模式与关联方识别"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_trade_documents",
+    "package": "trade-doc-consistency-free",
+    "engine": "trade-doc-consistency.js",
+    "title": "外贸单证单单一致核对（免费）",
+    "given": [
+      "关键字段跨单据一致（发票号 / 合同号 / 信用证号）",
+      "金额与币种跨单据一致",
+      "数量 / 件数 / 重量跨单据一致",
+      "港口 / 船名 / 唛头跨单据一致",
+      "模板占位符残留"
+    ],
+    "withheld": [
+      "行内算术（单价 × 数量 = 金额）",
+      "分项金额加总与总额一致",
+      "毛重 − 皮重 = 净重",
+      "日期顺序（发票 ≤ 提单 ≤ 信用证有效期 / 最迟装运期）",
+      "信用证金额上限与溢短装比例核对",
+      "单据份数与正副本份数核对",
+      "唛头逐行与箱号区间连续性",
+      "原产地证 / 保险单与发票的关联字段核对"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "match_purchase_order_receipt_invoice",
+    "package": "three-way-match-free",
+    "engine": "three-way-match.js",
+    "title": "三单匹配AI核对（免费）",
+    "given": [
+      "关键字段跨单据一致（订单号 / 供应商 / 物料）",
+      "数量 / 单价 / 金额跨单据一致",
+      "重复发票号线索",
+      "模板占位符残留"
+    ],
+    "withheld": [
+      "行内算术（数量 × 单价 = 金额）",
+      "税额与价税合计自洽（不含税 + 税额 = 价税合计）",
+      "发票数量与入库数量的容差核对",
+      "发票金额与订单金额的容差核对",
+      "订单数量与入库数量的容差核对",
+      "同一物料的单价跨单据偏离提示",
+      "日期逻辑（订单 ≤ 入库 ≤ 发票）",
+      "付款条款与账期字段核对"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_expense_claim",
+    "package": "expense-compliance-free",
+    "engine": "expense-compliance.js",
+    "title": "报销单合规预检（免费）",
+    "given": [
+      "重复发票号（重复报销线索）",
+      "发票要素完整性（发票号 / 开票日期 / 销售方 / 金额）",
+      "模板占位符残留"
+    ],
+    "withheld": [
+      "报销明细加总是否等于申请金额",
+      "申请金额大小写是否一致",
+      "发票合计与申请金额是否匹配",
+      "日期逻辑（发票日期 ≤ 报销日期；发票日期在出差区间内）",
+      "同一张发票的金额与报销明细是否对得上",
+      "报销单要素完整性（单号 / 报销人 / 部门 / 日期）",
+      "差旅标准超标提示（可配置标准）",
+      "发票税率与税额自洽"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "compare_bid_quotations",
+    "package": "bid-comparison-free",
+    "engine": "bid-comparison.js",
+    "title": "多家报价横向比价（免费）",
+    "given": [
+      "逐项对照表（按项目名对齐各家的数量 / 单价 / 合价）",
+      "缺项与多项（某家有、别家没有的项目）",
+      "各家合价合计与排序"
+    ],
+    "withheld": [
+      "单价离群检测（某项单价与各家中位数的偏离超过阈值）",
+      "不平衡报价线索（同一家内单价偏离方向不一致）",
+      "合价 = 数量 × 单价 的算术核对",
+      "数量在各家之间不一致的提示",
+      "最高限价与各家合计的对比（需提供 maxPrice）"
+    ],
+    "outOfScope": [],
+    "hasSample": false
+  },
+  {
+    "tool": "reconcile_bank_statement",
+    "package": "bank-reconciliation-free",
+    "engine": "bank-reconciliation.js",
+    "title": "银行流水对账核对（免费）",
+    "given": [
+      "逐笔自动配对（银行流水 ↔ 企业账面，按金额相等 + 日期在窗口内）",
+      "未达账项清单（银行有账上无 / 账上有银行无，含笔数与合计）",
+      "单侧重复记录检测（同日期同金额出现两次以上）",
+      "两侧笔数与金额合计的对比表"
+    ],
+    "withheld": [
+      "可疑配对（金额相近但不相等，差在容差内）",
+      "疑似跨期未达（另一侧有同金额记录，但日期超出匹配窗口）",
+      "对账恒等式校验（银行合计 − 账面合计 = 银行未达 − 账面未达）",
+      "自定义匹配窗口与金额容差（dayWindow / toleranceAbs）"
+    ],
+    "outOfScope": [
+      "判断哪些差异应当做未达账项调整（那是会计的事）",
+      "识别银行手续费/利息等业务性质并自动入账",
+      "核对银行流水本身的真伪",
+      "给出税务、审计或法律意见",
+      "连接银行或财务系统自动取数（本工具只处理你贴进来的文本）"
+    ],
+    "hasSample": true
+  }
+]
