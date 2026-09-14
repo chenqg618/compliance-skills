@@ -1,6 +1,6 @@
 'use strict';
 /**
- * quote-audit.js —— 投标报价机械审查（免费档）本地引擎
+ * quote-audit.js —— 投标报价AI审查（免费档）本地引擎
  *
  * 自包含：只用 Node.js 标准库，不 require 本技能包以外的任何文件，
  * **不发起任何网络请求**（没有 fetch / http / https / net / dns / tls）。
@@ -220,16 +220,22 @@ function parseText(text) {
 /** 结构化 items 的一行 */
 function itemRow(raw, idx) {
   if (!raw || typeof raw !== 'object') return null;
-  const name = String(
-    raw.name != null ? raw.name
-      : (raw['项目名称'] != null ? raw['项目名称']
-        : (raw['名称'] != null ? raw['名称'] : (raw.item != null ? raw.item : `第${idx + 1}项`))),
-  ).trim();
+  const rawName = raw.name != null ? raw.name
+    : (raw['项目名称'] != null ? raw['项目名称']
+      : (raw['名称'] != null ? raw['名称'] : (raw.item != null ? raw.item : '')));
+  const name = String(rawName == null ? '' : rawName).trim() || `第${idx + 1}项`;
   const qty = pickNumber(raw.qty !== undefined ? raw.qty : (raw.quantity !== undefined ? raw.quantity : raw['数量']));
   const price = pickNumber(raw.price !== undefined ? raw.price : (raw.unitPrice !== undefined ? raw.unitPrice : raw['单价']));
   const amount = pickNumber(raw.amount !== undefined ? raw.amount : (raw.total !== undefined ? raw.total : raw['合价']));
-  if (qty === null && price === null && amount === null) return null;
-  return { name: name || `第${idx + 1}项`, qty, price, amount, line: idx + 1, where: `第${idx + 1}项` };
+  // 只有"既没有名称、三个数也都没有"的纯垃圾条目才丢弃。
+  // 有名称但数字为空的行**必须留下** —— 它正是「缺漏项」要报的对象；
+  // 静默丢掉它就等于把"没填"变成"查过且没问题"，那是最危险的一类假结论。
+  if (qty === null && price === null && amount === null && !String(rawName == null ? '' : rawName).trim()) return null;
+  return { name, qty, price, amount, line: idx + 1, where: `第${idx + 1}项` };
+}
+
+function hasAnyNumber(row) {
+  return row.qty !== null || row.price !== null || row.amount !== null;
 }
 
 /**
@@ -249,10 +255,15 @@ function collectRows(payload) {
       const r = itemRow(raw[i], i);
       if (r) rows.push(r);
     }
-    if (!rows.length) {
+    if (!rows.length || !rows.some(hasAnyNumber)) {
+      // 「有行但一个数字都没有」与「一行都没有」都算材料不足：
+      // 这两种情况下算术校验根本无法执行，必须明说，而不是给一个空结论
+      const why = rows.length
+        ? `items 有 ${rows.length} 行，但每一行的 数量 / 单价 / 合价 都是空的，没有任何一行可以核对`
+        : `items 有 ${raw.length} 行，但没有任何一行能解析出数字：数量 / 单价 / 合价必须至少有一个是数字`;
       return {
         rows: [],
-        missing: [`items 有 ${raw.length} 行，但没有任何一行能解析出数字：数量 / 单价 / 合价必须至少有一个是数字`],
+        missing: [why],
         advice: 'items 的每一行写成 {"name":"钢筋制安","qty":10,"price":100,"amount":1000}；数字不要夹带说明文字。',
       };
     }
@@ -303,7 +314,7 @@ function collectRows(payload) {
 /* ------------------------------------------------------------------ 主入口 */
 
 /**
- * 执行免费档的两项机械核对。
+ * 执行免费档的两项AI核对。
  * @param {Object|String} payload {text} | {items} | 纯文本
  * @returns {{status:'success', result:Object}|{status:'insufficient_input', missing:string[], advice:string}}
  */
@@ -378,9 +389,9 @@ function run(payload) {
       verdict: p0 ? 'ARITHMETIC_MISMATCH' : (p1 ? 'INCOMPLETE_QUOTE' : 'ARITHMETIC_CONSISTENT'),
       omitted: 0,
     },
-    note: '本结果只覆盖「分项算术校验」与「缺漏项提示」两项机械核对；'
+    note: '本结果只覆盖「分项算术校验」与「缺漏项提示」两项AI核对；'
       + '其余检查项见 checks_withheld，本次未执行，也不会用默认值编造结论。',
-    disclaimer: '只做机械算术核对，不做技术标评审、不做资格判定、不构成评标意见；'
+    disclaimer: '只做算术核对，不做技术标评审、不做资格判定、不构成评标意见；'
       + '结论可由第三方用同一份输入复算。',
   };
 
