@@ -47,6 +47,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `trade-doc-consistency-free` | 外贸单证单单一致核对：发票号／合同号／信用证号、金额与币种、数量／件数／重量、港口／船名／唛头跨单据一致，占位符残留 |
 | `three-way-match-free` | 三单匹配机械核对：采购订单／入库单／发票之间的订单号、供应商、物料、数量／单价／金额一致，重复发票号线索、占位符残留 |
 | `expense-compliance-free` | 报销单合规预检：一沓发票 + 一张报销单之间的重复发票号（重复报销线索）、发票要素完整性、占位符残留 |
+| `bid-comparison-free` | 多家报价横向比价：按项目名对齐各家的数量／单价／合价（含中位数）、缺项与多项、各家合计与排序 —— 评标清标那一步的机械部分 |
 
 ## 怎么用
 
