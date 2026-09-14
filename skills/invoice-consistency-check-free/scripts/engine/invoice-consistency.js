@@ -1,6 +1,6 @@
 'use strict';
 /**
- * invoice-consistency.js —— 票据一致性机械核对（免费档）本地引擎
+ * invoice-consistency.js —— 票据一致性AI核对（免费档）本地引擎
  *
  * 设计原则（与本仓库「宁可失败也不猜错」的教训一致）：
  *   · 自包含：只用 Node.js 标准库，不 require 本技能包以外的任何文件
@@ -1248,7 +1248,7 @@ function analyze(text) {
 }
 
 /**
- * 执行免费档的九项机械核对。
+ * 执行免费档的九项AI核对。
  * @param {Object|String} payload {text} | {content} | 纯文本
  * @returns {{status:'success', result:Object}|{status:'insufficient_input', missing:string[], advice:string}}
  */
@@ -1353,9 +1353,9 @@ function run(payload) {
       verdict: p0 ? 'CONTRADICTION_FOUND' : (findings.length ? 'ISSUES_FOUND' : 'CLEAN'),
       omitted: omitted,
     },
-    note: '本结果只覆盖上面九项机械核对，每一条都引用了出问题的原文、数字或行号，可由第三方用同一份输入复算；'
+    note: '本结果只覆盖上面九项AI核对，每一条都引用了出问题的原文、数字或行号，可由第三方用同一份输入复算；'
       + '其余检查项见 checks_withheld，本次未执行，也不会用默认值编造结论。',
-    disclaimer: '只做机械一致性核对，不做发票真伪查验、不构成税务或审计意见；'
+    disclaimer: '只做AI一致性核对，不做发票真伪查验、不构成税务或审计意见；'
       + '本工具不联网、不外发材料，也不调用任何模型。',
   };
 
