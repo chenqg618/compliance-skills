@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>外贸单证单单一致核对（免费） · 机械核对型 AI 工具</title>
+<meta name="description" content="把外贸单据之间对不上的地方找出来（发票号 / 合同号 / 信用证号 / 金额 / 数量 / 重量 / 港口 / 船名），每条都带原文证据，不需要付款，也不需要注册。 免费、无需注册、无需 API Key、不联网。">
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">机械核对型 AI 工具</a></p>
+<h1>外贸单证单单一致核对（免费）</h1>
+<blockquote>一句话：把<strong>单据之间对不上</strong>的地方找出来 —— 不需要付款，也不需要注册。</blockquote>
+<p><strong>完全免费</strong>：不需要付款、不需要注册、不需要配置任何 API Key，直接调用即可。</p>
+<blockquote>不想安装也能用：<strong>同一个检查有网页版</strong>，免注册、免付款 —— <a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></blockquote>
+<h2>什么时候用</h2>
+<ul>
+<li>交单前想确认：发票、装箱单、提单上的<strong>发票号 / 信用证号</strong>是不是同一个</li>
+<li>担心某张单据的<strong>金额或数量</strong>跟别的不一致（这是最常见的银行不符点）</li>
+<li>想确认<strong>装运港 / 目的港 / 船名 / 唛头</strong>在各单据上写法一致</li>
+<li>模板里还留着 <code>【填写…】</code>、<code>XXX</code>、<code>TBD</code> 没替换</li>
+</ul>
+<h2>这个免费版查什么</h2>
+<table><thead><tr><th>#</th><th>检查项</th></tr></thead><tbody>
+<tr><td>1</td><td>关键字段跨单据一致：发票号 / 合同号 / 信用证号</td></tr>
+<tr><td>2</td><td>金额与币种跨单据一致</td></tr>
+<tr><td>3</td><td>数量 / 件数 / 重量跨单据一致</td></tr>
+<tr><td>4</td><td>港口 / 船名 / 唛头跨单据一致</td></tr>
+<tr><td>5</td><td>模板占位符残留</td></tr>
+</tbody></table>
+<p><strong>金额会做归一化</strong>：<code>48,500.00</code> 与 <code>48500.00</code> 视为同一个数，不会因为写法不同就报错。</p>
+<p><strong>只出现在一张单据里的字段不会报</strong> —— 无从比对的事情我们不猜。</p>
+<h2>怎么用</h2>
+<pre><code># 看一眼样例（样例里两张单据用空行分隔）
+node scripts/run.mjs --sample
+
+# 核对你的单据
+node scripts/run.mjs --input my-docs.json
+node scripts/run.mjs --input my-docs.json --json</code></pre>
+<p>入参两种写法，任选：</p>
+<pre><code>{ &quot;documents&quot;: [
+  { &quot;type&quot;: &quot;商业发票&quot;, &quot;text&quot;: &quot;发票号: INV-2026-0088\n信用证号: LC-8891-2026\n总金额: 48,500.00&quot; },
+  { &quot;type&quot;: &quot;装箱单&quot;,   &quot;text&quot;: &quot;发票号: INV-2026-0088\n信用证号: LC-8891-2026\n总金额: 48,500.00&quot; }
+] }</code></pre>
+<p>或者<strong>直接给纯文本，单据之间空一行</strong>：</p>
+<pre><code>商业发票 COMMERCIAL INVOICE
+发票号: INV-2026-0088
+信用证号: LC-8891-2026
+总金额: 48,500.00
+
+装箱单 PACKING LIST
+发票号: INV-2026-0099
+信用证号: LC-8891-2026
+总金额: 48,500.00</code></pre>
+<h3>退出码</h3>
+<table><thead><tr><th>码</th><th>含义</th></tr></thead><tbody>
+<tr><td>0</td><td>已执行检查（有问题或没问题都算执行成功）</td></tr>
+<tr><td>1</td><td>没给入参</td></tr>
+<tr><td>3</td><td><strong>材料不足 —— 此时不给结论</strong>（既不说一致，也不说不一致）</td></tr>
+<tr><td>4</td><td>入参文件读不到或无法解析</td></tr>
+<tr><td>9</td><td>未预期错误</td></tr>
+</tbody></table>
+<h2>这个免费版不包含</h2>
+<p>以下检查项<strong>不在本版本范围内</strong>，调用时也不会执行：</p>
+<ul>
+<li>行内算术（单价 × 数量 = 金额）</li>
+<li>分项金额加总与总额一致</li>
+<li>毛重 − 皮重 = 净重</li>
+<li>日期顺序（发票 ≤ 提单 ≤ 信用证有效期 / 最迟装运期）</li>
+<li>信用证金额上限与溢短装比例核对</li>
+<li>单据份数与正副本份数核对</li>
+<li>唛头逐行与箱号区间连续性</li>
+<li>原产地证 / 保险单与发票的关联字段核对</li>
+</ul>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li>本工具只做<strong>机械比对</strong>，<strong>不判断单证是否会被银行接受</strong> —— 那是银行与信用证条款的事；</li>
+<li><strong>「没报问题」不等于「没有问题」</strong>：超出上述五类的检查，本版本不执行；</li>
+<li>材料不足时<strong>不给结论</strong>，也不会用默认值编一个「没问题」出来；</li>
+<li>不联网、不外发材料、不调用任何模型。</li>
+</ul>
+<h2>输出示例</h2>
+<pre><code>[P0] 跨单据字段不一致
+字段「发票号」在各单据上写得不一样：
+  商业发票「INV-2026-0088」 ／ 装箱单「INV-2026-0099」
+建议：以信用证要求为准统一到同一个写法；改完再逐张核对一遍。</code></pre>
+<div class="cta">
+<p><strong>在线免费核对（不用注册、不用付款）</strong>：<br>
+<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+把材料贴进去就能看到机械核对结果；免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
