@@ -1,7 +1,7 @@
 ---
 slug: invoice-consistency-check-free
 displayName: 票据一致性AI核对（免费）
-version: 1.0.0
+version: 1.0.1
 summary: 把票据里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [发票核对, 免费, AI核对, 一致性检查, 金额校验, 报销自查]
 license: Proprietary
