@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>广告文案合规预检（免费） · 机械核对型 AI 工具</title>
+<meta name="description" content="发布前扫一遍文案里的绝对化用语，并且按监管的执法指南判断该不该报，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。">
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">机械核对型 AI 工具</a></p>
+<h1>广告文案合规预检（免费）</h1>
+<blockquote>一句话：发布前扫一遍文案里的绝对化用语，并且按监管的执法指南判断<strong>该不该报</strong>，不需要付款，也不需要注册。</blockquote>
+<p><strong>完全免费</strong>：不需要付款、不需要注册、不需要配置任何 API Key，直接调用即可。</p>
+<blockquote>不想安装也能用：<strong>同一个检查有网页版</strong>，免注册、免付款 —— <a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></blockquote>
+<h2>什么时候用</h2>
+<ul>
+<li>准备发一条商品文案、详情页或口播稿，想先确认有没有绝对化用语</li>
+<li>已经在用别的极限词工具，但被「最后」「最近」「一站式」这类误报烦到了</li>
+<li>想知道某个词到底算不算违法、依据是哪一条</li>
+</ul>
+<h2>这个免费版查什么</h2>
+<table><thead><tr><th>#</th><th>检查项</th></tr></thead><tbody>
+<tr><td>1</td><td>绝对化用语检测</td></tr>
+<tr><td>2</td><td>《广告绝对化用语执法指南》豁免判定</td></tr>
+</tbody></table>
+<ul>
+<li>绝对化用语检测：只报<strong>真正带"最优/第一/唯一"声称</strong>的写法，不报单字「最」「一」</li>
+<li><strong>豁免判定</strong>：命中后先按《执法指南》第五条、第六条判断该不该报 —— 「最后」「最近」「一站式」「第一时间」「最佳食用期限」这类正常用语<strong>不会被误报</strong>，而是单独列进 <code>exempted</code> 并写明豁免依据，让你看得见我们"故意没报"的东西</li>
+<li>每条结论都带法条依据，可被第三方用同一份规则复算</li>
+</ul>
+<h2>这个免费版不包含</h2>
+<p>以下检查项<strong>不在本版本范围内</strong>，调用时也不会执行：</p>
+<ul>
+<li>医疗／药品／医美违禁表述</li>
+<li>保健食品功效断言</li>
+<li>教育培训保证性承诺</li>
+<li>投资理财与招商承诺</li>
+<li>房地产升值回报承诺</li>
+<li>虚假广告类保证性承诺</li>
+<li>批量文案检测</li>
+</ul>
+<h2>怎么调用</h2>
+<h3>方式一：命令行脚本（最省事）</h3>
+<pre><code>node scripts/run.mjs --sample
+node scripts/run.mjs --input my-input.json
+node scripts/run.mjs --input my-input.json --json</code></pre>
+<h3>方式二：直接引用引擎（接进自己的流程）</h3>
+<p>脚本本身不做计算，真正的检查在同目录的 <code>scripts/engine/ad-compliance.js</code>（纯 Node 标准库，CommonJS），可以直接引用：</p>
+<pre><code>const engine = require(&#x27;./scripts/engine/ad-compliance.js&#x27;);
+const outcome = engine.run(payload);
+// outcome.status === &#x27;success&#x27;            → outcome.result 就是结果
+// outcome.status === &#x27;insufficient_input&#x27; → outcome.missing 列出缺什么（此时不出结论）</code></pre>
+<p>所有检查都在<strong>本机</strong>完成：不联网、不外发材料、不需要任何凭证。</p>
+<h2>入参</h2>
+<p>把待检文案粘进 text 即可；也可以给 texts 数组一次传多条。</p>
+<pre><code>{
+  &quot;text&quot;: &quot;本品牌全国销量第一，效果最好，100%有效。最后一步点击提交即可，我们提供一站式服务。&quot;
+}</code></pre>
+<h2>返回</h2>
+<p>返回 <code>ok: true</code> 与 <code>result</code>：<code>checks_given</code> <strong>原样列出本次实际执行了哪些检查项</strong>，</p>
+<p><code>checks_withheld</code> 列出本版本不包含的检查项。<strong>不会用默认值编造结论。</strong></p>
+<p>材料不足时（入参为空、只有空白、只有一个字符、解析不出任何明细行）<strong>不出结论</strong>：</p>
+<p>会说明缺什么，并以退出码 <code>3</code> 结束；正常执行退出码为 <code>0</code>。</p>
+<h2>使用限制</h2>
+<ul>
+<li>在本机执行：不联网、不外发材料、没有调用次数上限，也不需要任何凭证。</li>
+<li>输出的是<strong>机械核对结果</strong>，不是认定、不是评分。</li>
+</ul>
+<h2>反模式</h2>
+<ul>
+<li>❌ 把它的输出当作评标结论 —— 它只做机械核对，认定权在评标委员会。</li>
+<li>❌ 拿它替代对招标文件的实质响应检查 —— 本版本不含该类检查。</li>
+<li>❌ 输入残缺时怪结果不对 —— 检查项依赖你提供的字段，缺字段的检查项不会被伪造出来。</li>
+</ul>
+<h2>边界与免责</h2>
+<p>只做机械比对与法条对照，<strong>不构成法律意见</strong>，也不替代市场监督管理部门的认定。最终是否违法由监管部门结合广告整体语境与事实依据依法判断。</p>
+<p>本技能的所有结论都可由第三方用同一份输入复算出来。</p>
+<div class="cta">
+<p><strong>在线免费核对（不用注册、不用付款）</strong>：<br>
+<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+把材料贴进去就能看到机械核对结果；免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
