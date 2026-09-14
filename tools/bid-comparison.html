@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>多家报价横向比价（免费） · 机械核对型 AI 工具</title>
+<meta name="description" content="把多家投标人的报价明细逐项摆在一起对齐——谁缺项、各家合计多少、从低到高怎么排。每条都给出具体项目名与各家数值，不需要付款，也不需要注册。">
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">机械核对型 AI 工具</a></p>
+<h1>多家报价横向比价（免费）</h1>
+<blockquote>一句话：把<strong>多家投标人的报价明细逐项摆在一起对齐</strong> —— 不需要付款，也不需要注册。</blockquote>
+<p><strong>完全免费</strong>：不需要付款、不需要注册、不需要配置任何 API Key，直接调用即可。</p>
+<blockquote>不想安装也能用：<strong>同一个检查有网页版</strong>，免注册、免付款 —— <a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></blockquote>
+<h2>什么时候用</h2>
+<ul>
+<li>评标/清标时要快速把各家报价<strong>摆到同一个项目名上</strong>看</li>
+<li>想知道<strong>谁少报了几项</strong>（缺项），或谁多报了什么</li>
+<li>想先看清<strong>各家合计与排名</strong>，再看要不要深入比单价</li>
+</ul>
+<h2>这个免费版给出什么</h2>
+<table><thead><tr><th>#</th><th>产出</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>逐项对照表</strong>：按项目名对齐各家的数量 / 单价 / 合价，并给出<strong>各家中位数</strong></td></tr>
+<tr><td>2</td><td>缺项与多项（某家有、别家没有的项目）</td></tr>
+<tr><td>3</td><td><strong>各家合价合计与排序</strong></td></tr>
+</tbody></table>
+<p><strong>项目名会做归一</strong>：去空白、标点与常见单位后缀后再对齐，所以「钢筋」与「钢筋 / t」能对上。</p>
+<p><strong>中位数只在三家以上才用于判断</strong>（家数太少时中位数不稳，本版本不做分析）。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample
+node scripts/run.mjs --input my-bids.json
+node scripts/run.mjs --input my-bids.json --json</code></pre>
+<p>入参两种写法，任选：</p>
+<pre><code>{ &quot;bidders&quot;: [
+  { &quot;name&quot;: &quot;河南甲建设&quot;, &quot;items&quot;: [
+      { &quot;name&quot;: &quot;土方开挖&quot;, &quot;qty&quot;: 100, &quot;price&quot;: 25, &quot;amount&quot;: 2500 }
+  ] },
+  { &quot;name&quot;: &quot;河南乙工程&quot;, &quot;items&quot;: [
+      { &quot;name&quot;: &quot;土方开挖&quot;, &quot;qty&quot;: 100, &quot;price&quot;: 26, &quot;amount&quot;: 2600 }
+  ] }
+] }</code></pre>
+<p>或者<strong>直接给纯文本，各家之间空一行</strong>，行格式为「项目名称 数量 单价 合价」：</p>
+<pre><code>河南甲建设有限公司
+土方开挖 100 25 2500
+路基填筑 200 38 7600
+
+河南乙工程有限公司
+土方开挖 100 26 2600
+路基填筑 200 39 7800</code></pre>
+<p>（支持 Tab / 竖线 / 逗号 / 空格分隔；行首的序号会被自动忽略。）</p>
+<h3>退出码</h3>
+<table><thead><tr><th>码</th><th>含义</th></tr></thead><tbody>
+<tr><td>0</td><td>已执行检查</td></tr>
+<tr><td>1</td><td>没给入参</td></tr>
+<tr><td>3</td><td><strong>材料不足 —— 此时不给结论</strong>（横向比价至少两家）</td></tr>
+<tr><td>4</td><td>入参文件读不到或无法解析</td></tr>
+<tr><td>9</td><td>未预期错误</td></tr>
+</tbody></table>
+<h2>这个免费版不包含</h2>
+<p>以下检查项<strong>不在本版本范围内</strong>，调用时也不会执行：</p>
+<ul>
+<li>单价离群检测（某项单价与各家中位数的偏离超过阈值）</li>
+<li>不平衡报价线索（同一家内单价偏离方向不一致）</li>
+<li>合价 = 数量 × 单价 的算术核对</li>
+<li>数量在各家之间不一致的提示</li>
+<li>最高限价与各家合计的对比（需提供 maxPrice）</li>
+</ul>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li>本工具只做<strong>机械对比</strong>，<strong>不判断哪一家应当中标</strong> —— 那是评标委员会的事；</li>
+<li><strong>不认定串通投标</strong> —— 那需要证据与法定程序（另有"串通投标线索机械筛查"工具）；</li>
+<li>不判断报价是否合理或利润是否正常；</li>
+<li><strong>「没报问题」不等于「没有问题」</strong>：超出上述产出的检查，本版本不执行；</li>
+<li>材料不足时<strong>不给结论</strong>，也不会用默认值编一个「没问题」出来；</li>
+<li>不联网、不外发材料、不调用任何模型。</li>
+</ul>
+<h2>输出示例</h2>
+<pre><code>[P1] 缺项
+项目「排水管道」只有 2/3 家报了：缺的是 河南乙工程有限公司。
+建议：清标时要逐项确认：是真的没报，还是项目名称写法不同导致对不上。
+
+各家合计从低到高：1.河南乙工程 ¥71600　2.河南甲建设 ¥95600　3.河南丙建筑 ¥102900</code></pre>
+<div class="cta">
+<p><strong>在线免费核对（不用注册、不用付款）</strong>：<br>
+<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+把材料贴进去就能看到机械核对结果；免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
