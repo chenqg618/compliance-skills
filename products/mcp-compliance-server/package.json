@@ -1,0 +1,31 @@
+{
+  "name": "compliance-mcp",
+  "version": "1.0.0",
+  "description": "Mechanical, fully offline compliance/document checkers as MCP tools: bid quotations, contract consistency, invoice, trade documents, three-way match, expense claims, bank reconciliation. Every finding quotes the source line and is recomputable. 招投标/合同/票据/外贸单证/三单匹配/报销/银行对账 的确定性核对工具。",
+  "bin": {
+    "compliance-mcp": "server.mjs"
+  },
+  "main": "server.mjs",
+  "files": [
+    "server.mjs",
+    "scripts/manifest.json",
+    "scripts/engines",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "compliance",
+    "contract",
+    "invoice",
+    "tender",
+    "offline"
+  ],
+  "author": "河南樵夫网络科技有限公司",
+  "//": "引擎文件是 CommonJS（scripts/engines/*.js），因此这里刻意不写 \"type\":\"module\"——写了会让它们被当成 ESM 而全部加载失败。server.mjs 用 .mjs 后缀，本身就是 ESM。"
+}
