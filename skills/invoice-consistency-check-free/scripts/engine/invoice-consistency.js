@@ -136,9 +136,13 @@ function rateOf(v) {
   if (!m) return null;
   const n = parseFloat(m[1]);
   if (!Number.isFinite(n)) return null;
-  if (m[2]) return n / 100;
-  if (n > 1.5) return n / 100;
-  return n;
+  if (m[2]) return n / 100;   // 带 % 一定是百分比
+  if (n === 0) return 0;
+  // 裸数字口径：>=1 当百分比（「1」= 1% 征收率、「13」= 13%），<1 当小数（「0.13」= 13%）。
+  // ⚠️ 原实现把「1」当成 100%、「1.2」当成 120%。增值税税率只有 0/1/3/5/6/9/13%，
+  // 100% 不是税率 —— 后果是误报：发票写 1% 征收率时按 100% 推税额，把对的判成错的。
+  if (n < 1) return n;
+  return n / 100;
 }
 
 /* ------------------------------------------------------------- 中文数字 */
@@ -860,24 +864,48 @@ function checkTax(doc) {
 
 function checkGross(doc) {
   const out = [];
-  const grossField = firstField(doc, 'gross_total');
   const taxField = firstField(doc, 'tax');
-  if (!grossField || !taxField) return out;
-  const gross = numOf(grossField.value);
+  if (!taxField) return out;
+  // 价税合计：优先用「价税合计 / Total incl. tax」字段；
+  // 官方票面把价税合计只写成「价税合计（大写）…（小写）14,100.00」时，取同一行的小写数字当价税合计。
+  let gross = null;
+  let grossLine = 0;
+  let grossLabel = '';
+  let grossRaw = '';
+  const grossField = firstField(doc, 'gross_total');
+  if (grossField) {
+    gross = numOf(grossField.value);
+    grossLine = grossField.line;
+    grossLabel = grossField.label;
+    grossRaw = grossField.value;
+  }
+  if (gross === null) {
+    const capField = firstField(doc, 'capital');
+    if (capField) {
+      const parsed = parseCapitalField(capField.value);
+      if (parsed.figure !== null) {
+        gross = parsed.figure;
+        grossLine = capField.line;
+        grossLabel = capField.label + '（小写）';
+        grossRaw = parsed.rawFigure;
+      }
+    }
+  }
+  if (gross === null) return out;
   const tax = numOf(taxField.value);
   const net = resolveNet(doc);
-  if (gross === null || tax === null || !net) return out;
+  if (tax === null || !net) return out;
   const expected = round2(net.value + tax);
   if (!Number.isFinite(expected)) return out;
   const diff = round2(gross - expected);
   if (Math.abs(diff) <= TOLERANCE) return out;
   out.push(finding(
-    'P0', '价税合计', grossField.line,
-    doc.where + '第' + grossField.line + '行「' + grossField.label + '」' + fmtMoney(gross)
+    'P0', '价税合计', grossLine,
+    doc.where + '第' + grossLine + '行「' + grossLabel + '」' + fmtMoney(gross)
       + ' 与 不含税金额 ' + fmtMoney(net.value) + ' + 税额 ' + fmtMoney(tax) + ' = ' + fmtMoney(expected)
       + ' 不符（差 ' + fmtMoney(diff) + '）',
     '核对价税合计栏；不含税金额与税额相加必须等于价税合计。',
-    { document: doc.index, gross_stated: fmtMoney(gross), net: fmtMoney(net.value), tax: fmtMoney(tax), gross_expected: fmtMoney(expected), diff: fmtMoney(diff) }
+    { document: doc.index, gross_stated: fmtMoney(gross), gross_raw: grossRaw, net: fmtMoney(net.value), tax: fmtMoney(tax), gross_expected: fmtMoney(expected), diff: fmtMoney(diff) }
   ));
   return out;
 }
