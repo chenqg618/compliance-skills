@@ -1,0 +1,12 @@
+{
+  "documents": [
+    {
+      "type": "商业发票 COMMERCIAL INVOICE",
+      "text": "商业发票 COMMERCIAL INVOICE\n发票号: INV-2026-0088\n合同号: SC-2026-117\n信用证号: LC-8891-2026\n币种: USD\n总金额: 48,500.00\n数量: 1,000 PCS\n装运港: SHANGHAI, CHINA\n目的港: HAMBURG, GERMANY"
+    },
+    {
+      "type": "装箱单 PACKING LIST",
+      "text": "装箱单 PACKING LIST\n发票号: INV-2026-0099\n合同号: SC-2026-117\n信用证号: LC-8891-2026\n总金额: 48,500.00\n数量: 1,000 PCS\n装运港: SHANGHAI, CHINA\n目的港: HAMBURG, GERMANY"
+    }
+  ]
+}
