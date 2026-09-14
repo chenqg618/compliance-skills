@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>三单匹配机械核对（免费） · 机械核对型 AI 工具</title>
+<meta name="description" content="把采购订单、入库单、发票放在一起核一遍——订单号、供应商、物料、数量、单价、金额在各单据间对不对得上，另外揪出重复发票号与未替换的占位符。每条都带原文行号，不需要付款，也不需要注册。">
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">机械核对型 AI 工具</a></p>
+<h1>三单匹配机械核对（免费）</h1>
+<blockquote>一句话：把<strong>采购订单、入库单、发票</strong>放在一起核一遍 —— 不需要付款，也不需要注册。</blockquote>
+<p><strong>完全免费</strong>：不需要付款、不需要注册、不需要配置任何 API Key，直接调用即可。</p>
+<blockquote>不想安装也能用：<strong>同一个检查有网页版</strong>，免注册、免付款 —— <a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></blockquote>
+<h2>什么时候用</h2>
+<ul>
+<li>付款前想确认：<strong>订单号 / 供应商 / 物料</strong>在三张单据上是不是同一个</li>
+<li>担心<strong>数量或金额</strong>在订单、入库、发票之间对不上（这是多付/错付的常见来源）</li>
+<li>想查有没有<strong>同一张发票重复入账</strong>（重复付款线索）</li>
+<li>单据模板里还留着 <code>【填写…】</code>、<code>XXX</code>、<code>TBD</code> 没替换</li>
+</ul>
+<h2>这个免费版查什么</h2>
+<table><thead><tr><th>#</th><th>检查项</th></tr></thead><tbody>
+<tr><td>1</td><td>关键字段跨单据一致：采购订单号 / 供应商 / 物料</td></tr>
+<tr><td>2</td><td>数量 / 单价 / 金额跨单据一致</td></tr>
+<tr><td>3</td><td>重复发票号线索</td></tr>
+<tr><td>4</td><td>模板占位符残留</td></tr>
+</tbody></table>
+<p><strong>金额会做归一化</strong>：<code>1,000.00</code> 与 <code>1000.00</code> 视为同一个数，不会因为写法不同就报错。</p>
+<p><strong>只出现在一张单据里的字段不会报</strong> —— 无从比对的事情我们不猜。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample
+node scripts/run.mjs --input my-match.json
+node scripts/run.mjs --input my-match.json --json</code></pre>
+<p>入参两种写法，任选：</p>
+<pre><code>{ &quot;documents&quot;: [
+  { &quot;type&quot;: &quot;采购订单&quot;, &quot;text&quot;: &quot;采购订单号: PO-1\n供应商: 河南甲物资\n数量: 100\n金额: 1000.00&quot; },
+  { &quot;type&quot;: &quot;入库单&quot;,   &quot;text&quot;: &quot;采购订单号: PO-1\n供应商: 河南甲物资\n数量: 100\n金额: 1000.00&quot; },
+  { &quot;type&quot;: &quot;发票&quot;,     &quot;text&quot;: &quot;发票号: INV-1\n采购订单号: PO-1\n数量: 100\n金额: 1000.00&quot; }
+] }</code></pre>
+<p>或者<strong>直接给纯文本，单据之间空一行</strong>。</p>
+<h3>退出码</h3>
+<table><thead><tr><th>码</th><th>含义</th></tr></thead><tbody>
+<tr><td>0</td><td>已执行检查</td></tr>
+<tr><td>1</td><td>没给入参</td></tr>
+<tr><td>3</td><td><strong>材料不足 —— 此时不给结论</strong>（既不说一致，也不说不一致）</td></tr>
+<tr><td>4</td><td>入参文件读不到或无法解析</td></tr>
+<tr><td>9</td><td>未预期错误</td></tr>
+</tbody></table>
+<h2>这个免费版不包含</h2>
+<p>以下检查项<strong>不在本版本范围内</strong>，调用时也不会执行：</p>
+<ul>
+<li>行内算术（数量 × 单价 = 金额）</li>
+<li>税额与价税合计自洽（不含税 + 税额 = 价税合计）</li>
+<li>发票数量 vs 入库数量的容差核对</li>
+<li>发票金额 vs 订单金额的容差核对</li>
+<li>订单数量 vs 入库数量的容差核对</li>
+<li>同一物料的单价跨单据偏离提示</li>
+<li>日期逻辑（订单 ≤ 入库 ≤ 发票）</li>
+<li>付款条款与账期字段核对</li>
+</ul>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li>本工具只做<strong>机械比对</strong>，<strong>不判断这笔付款是否应当发生</strong> —— 那是财务制度与审批流程的事；</li>
+<li>不做发票真伪查验，不查供应商主体资格；</li>
+<li><strong>「没报问题」不等于「没有问题」</strong>：超出上述四类的检查，本版本不执行；</li>
+<li>材料不足时<strong>不给结论</strong>，也不会用默认值编一个「没问题」出来；</li>
+<li>不联网、不外发材料、不调用任何模型。</li>
+</ul>
+<h2>输出示例</h2>
+<pre><code>[P0] 跨单据字段不一致
+字段「数量」在各单据上写得不一样：
+  采购订单「120」 ／ 入库单「118」
+建议：三单匹配要求这些字段一致；先确认以哪一份为准，再统一改正。</code></pre>
+<div class="cta">
+<p><strong>在线免费核对（不用注册、不用付款）</strong>：<br>
+<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+把材料贴进去就能看到机械核对结果；免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
