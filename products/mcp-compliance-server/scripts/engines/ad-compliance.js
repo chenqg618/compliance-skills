@@ -203,6 +203,16 @@ function evaluateExemption(text, index, term) {
 function pushFinding(list, f) {
   // 同一位置同一词只报一次
   if (list.some((x) => x.term === f.term && x.index === f.index)) return;
+  /* 结论必须有一句**能直接念给人听**的话。
+   * 由来（第 168 轮，靠新加的守卫抓出来的真缺陷）：本引擎的结论用 `term` + `context`，
+   * **没有 `message` / `detail`** —— 而 `/check` 页面渲染的是 `f.detail || f.message`，
+   * 于是广告合规的每条结论在页面上**只有「P0 绝对化用语」这个标题、正文是空的**，
+   * 用户根本不知道查到了什么词。这里统一补一句，所有调用方一起受益。 */
+  if (!f.message) {
+    const t = f.term ? `「${f.term}」` : '';
+    f.message = `${f.category || '合规问题'}${t ? '：命中 ' + t : ''}`
+      + (f.context ? `（原文：${String(f.context).slice(0, 60)}）` : '');
+  }
   list.push(f);
 }
 
