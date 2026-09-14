@@ -3,7 +3,7 @@
     "tool": "check_quote_arithmetic",
     "package": "bidguard-quote-audit-free",
     "engine": "quote-audit.js",
-    "title": "投标报价AI审查（免费）",
+    "title": "投标报价AI审查（免费版）",
     "given": [
       "分项算术校验",
       "缺漏项提示"
@@ -22,7 +22,7 @@
     "tool": "screen_bid_collusion",
     "package": "collusionscreen-collusion-screening-free",
     "engine": "collusion-screening.js",
-    "title": "串通投标线索筛查（免费）",
+    "title": "串通投标线索筛查（免费版）",
     "given": [
       "联系方式一致",
       "项目成员交叉"
@@ -42,7 +42,7 @@
     "tool": "checkup_bid_packages",
     "package": "bidcheckup-batch-compliance-free",
     "engine": "batch-quote-checkup.js",
-    "title": "多标书批量合规体检（免费）",
+    "title": "多标书批量合规体检（免费版）",
     "given": [
       "逐家报价算术校验"
     ],
@@ -61,7 +61,7 @@
     "tool": "audit_tender_compliance",
     "package": "tenderaudit-full-compliance-free",
     "engine": "tender-compliance-audit.js",
-    "title": "招投标全案合规审计（免费）",
+    "title": "招投标全案合规审计（免费版）",
     "given": [
       "逐家报价算术校验",
       "模板占位符扫描"
@@ -79,7 +79,7 @@
     "tool": "check_ad_copy_compliance",
     "package": "adcheckup-content-compliance-free",
     "engine": "ad-compliance.js",
-    "title": "广告文案合规预检（免费）",
+    "title": "广告文案合规预检（免费版）",
     "given": [
       "绝对化用语检测（含《广告绝对化用语执法指南》豁免判定）"
     ],
@@ -99,7 +99,7 @@
     "tool": "check_contract_consistency",
     "package": "contract-consistency-check-free",
     "engine": "contract-consistency.js",
-    "title": "合同一致性AI核对（免费）",
+    "title": "合同一致性AI核对（免费版）",
     "given": [
       "当事方名称不一致",
       "日期矛盾",
@@ -125,7 +125,7 @@
     "tool": "compare_contract_clauses",
     "package": "contract-comparison-free",
     "engine": "contract-comparison.js",
-    "title": "多份合同条款差异比对（免费）",
+    "title": "多份合同条款差异比对（免费版）",
     "given": [
       "条款切分与横向对齐（把每份合同按「第X条」切开，按条款标题对齐）",
       "缺条 / 多条（某份合同少了或多了哪一条）",
@@ -151,7 +151,7 @@
     "tool": "check_invoice_consistency",
     "package": "invoice-consistency-check-free",
     "engine": "invoice-consistency.js",
-    "title": "票据一致性AI核对（免费）",
+    "title": "票据一致性AI核对（免费版）",
     "given": [
       "行内算术",
       "分项加总",
@@ -181,7 +181,7 @@
     "tool": "check_trade_documents",
     "package": "trade-doc-consistency-free",
     "engine": "trade-doc-consistency.js",
-    "title": "外贸单证单单一致核对（免费）",
+    "title": "外贸单证单单一致核对（免费版）",
     "given": [
       "关键字段跨单据一致（发票号 / 合同号 / 信用证号）",
       "金额与币种跨单据一致",
@@ -206,7 +206,7 @@
     "tool": "match_purchase_order_receipt_invoice",
     "package": "three-way-match-free",
     "engine": "three-way-match.js",
-    "title": "三单匹配AI核对（免费）",
+    "title": "三单匹配AI核对（免费版）",
     "given": [
       "关键字段跨单据一致（订单号 / 供应商 / 物料）",
       "数量 / 单价 / 金额跨单据一致",
@@ -230,7 +230,7 @@
     "tool": "check_expense_claim",
     "package": "expense-compliance-free",
     "engine": "expense-compliance.js",
-    "title": "报销单合规预检（免费）",
+    "title": "报销单合规预检（免费版）",
     "given": [
       "重复发票号（重复报销线索）",
       "发票要素完整性（发票号 / 开票日期 / 销售方 / 金额）",
@@ -253,7 +253,7 @@
     "tool": "compare_bid_quotations",
     "package": "bid-comparison-free",
     "engine": "bid-comparison.js",
-    "title": "多家报价横向比价（免费）",
+    "title": "多家报价横向比价（免费版）",
     "given": [
       "逐项对照表（按项目名对齐各家的数量 / 单价 / 合价）",
       "缺项与多项（某家有、别家没有的项目）",
@@ -273,7 +273,7 @@
     "tool": "reconcile_bank_statement",
     "package": "bank-reconciliation-free",
     "engine": "bank-reconciliation.js",
-    "title": "银行流水对账核对（免费）",
+    "title": "银行流水对账核对（免费版）",
     "given": [
       "逐笔自动配对（银行流水 ↔ 企业账面，按金额相等 + 日期在窗口内）",
       "未达账项清单（银行有账上无 / 账上有银行无，含笔数与合计）",
@@ -299,7 +299,7 @@
     "tool": "check_payroll_sheet",
     "package": "payroll-check-free",
     "engine": "payroll-check.js",
-    "title": "工资表发放前核对（免费）",
+    "title": "工资表发放前核对（免费版）",
     "given": [
       "逐人算术：实发工资 = 应发工资 − 各项扣款之和",
       "合计行复核：合计行的每一列是否等于该列各人之和",
@@ -325,7 +325,7 @@
     "tool": "check_ar_aging",
     "package": "ar-aging-check-free",
     "engine": "ar-aging-check.js",
-    "title": "应收账款账龄核对（免费）",
+    "title": "应收账款账龄核对（免费版）",
     "given": [
       "逐客户余额勾稽（期初余额 + 本期应收 − 本期收款 = 期末余额）",
       "逐客户账龄勾稽（0-30 + 31-60 + 61-90 + 90天以上 = 期末余额）",
@@ -352,7 +352,7 @@
     "tool": "check_depreciation",
     "package": "depreciation-check-free",
     "engine": "depreciation-check.js",
-    "title": "固定资产折旧核对（免费）",
+    "title": "固定资产折旧核对（免费版）",
     "given": [
       "逐项月折旧额复核（(原值 × (1 − 残值率)) ÷ 使用年限 ÷ 12）",
       "逐项累计折旧复核（月折旧额 × 已提月数）",
@@ -380,7 +380,7 @@
     "tool": "check_inventory",
     "package": "inventory-check-free",
     "engine": "inventory-check.js",
-    "title": "库存账实核对（免费）",
+    "title": "库存账实核对（免费版）",
     "given": [
       "逐品账面结存勾稽（期初 + 入库 − 出库 = 账面期末）",
       "差异数量复核（账面期末 − 实盘数量 = 差异）",
@@ -408,7 +408,7 @@
     "tool": "check_ap_reconciliation",
     "package": "ap-reconciliation-free",
     "engine": "ap-reconciliation.js",
-    "title": "供应商应付对账（免费）",
+    "title": "供应商应付对账（免费版）",
     "given": [
       "逐家期末应付勾稽（期初应付 + 本期采购 − 本期付款 = 期末应付）",
       "逐家差异复核（我方期末应付 − 对方对账金额 = 差异）",
@@ -436,7 +436,7 @@
     "tool": "check_commission",
     "package": "commission-check-free",
     "engine": "commission-check.js",
-    "title": "销售提成核对（免费）",
+    "title": "销售提成核对（免费版）",
     "given": [
       "逐人计奖基数勾稽（销售额 + 其他加项 = 计奖基数）",
       "逐人提成复核（计奖基数 × 提成率 = 提成金额）",
@@ -464,7 +464,7 @@
     "tool": "check_freight",
     "package": "freight-reconciliation-free",
     "engine": "freight-reconciliation.js",
-    "title": "运费对账（免费）",
+    "title": "运费对账（免费版）",
     "given": [
       "逐单运费复核（重量 × 单价 = 运费）",
       "逐单小计复核（运费 + 附加费 = 小计）",
@@ -491,7 +491,7 @@
     "tool": "check_social_insurance",
     "package": "social-insurance-check-free",
     "engine": "social-insurance-check.js",
-    "title": "社保公积金核对（免费）",
+    "title": "社保公积金核对（免费版）",
     "given": [
       "逐人个人合计算术（个人养老 + 个人医疗 + 个人失业 = 个人合计）",
       "逐人单位合计算术（单位养老 + 医疗 + 失业 + 工伤 + 生育 = 单位合计）",
@@ -512,6 +512,32 @@
       "核对社保/公积金系统的申报是否已被受理（那要登录官方系统看）",
       "给出税务、劳动法或审计意见",
       "读取 .xlsx / PDF（需要你先从系统导出、复制成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_platform_settlement",
+    "package": "platform-settlement-check-free",
+    "engine": "platform-settlement-check.js",
+    "title": "电商平台结算核对（免费）",
+    "given": [
+      "逐单结算勾稽（销售额 − 平台佣金 − 技术服务费 − 运费 − 退款 = 结算金额）",
+      "合计行复核（每一列的合计是否等于各单之和）",
+      "重复订单号检测（重复计费/重复结算线索）",
+      "空白与占位符检测"
+    ],
+    "withheld": [
+      "佣金率区间校验（佣金 ÷ 销售额，默认 0.5%~30%）",
+      "结算金额为负检测（异常冲销）",
+      "退款大于销售额检测",
+      "零销售额却有费用检测（挂错单）"
+    ],
+    "outOfScope": [
+      "判断平台费率、佣金比例定得合不合理（那是商务谈判与平台规则的事）",
+      "核对平台是否真的打了款（那要拿银行流水来对）",
+      "核对商品是否真的发出、退货是否真实（那要拿订单与物流记录比）",
+      "给出税务或审计意见",
+      "读取 .xlsx（需要你先从平台后台导出、复制成文本贴进来）"
     ],
     "hasSample": true
   }
