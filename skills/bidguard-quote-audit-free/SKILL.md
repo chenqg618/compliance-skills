@@ -1,12 +1,12 @@
 ---
 slug: bidguard-quote-audit-free
-displayName: 投标报价AI审查（免费）
-version: 1.0.6
+displayName: 投标报价AI审查（免费版）
+version: 1.0.7
 summary: 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [招投标, 免费, 分项算术校验, 标书检查, 投标自查]
 license: Proprietary
 name: bidguard-quote-audit-free
-display_name: 投标报价AI审查（免费）
+display_name: 投标报价AI审查（免费版）
 display_name_en: BidGuard Quote Audit (Free)
 description: 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册。 本免费版执行 分项算术校验、缺漏项提示。触发词包括 投标报价AI审查、分项算术校验、缺漏项提示。
 description_zh: 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册。 本免费版执行 分项算术校验、缺漏项提示。
