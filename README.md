@@ -79,6 +79,9 @@ node scripts/run.mjs --input in.json --json # JSON 输出
 
 ## 实操指南（对着真实问题写的方法论）
 
+> 也有网页版，读起来更舒服：**<https://chenqg618.github.io/compliance-skills/>**
+
+
 工具之外，我们把这几件事的**判断口径**整理成了可以直接照抄的指南 ——
 不装工具也能用，装了工具就少一步手工：
 
