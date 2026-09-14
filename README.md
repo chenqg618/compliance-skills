@@ -32,6 +32,21 @@ node products/compliance-agent/agent.mjs --sample        # 先看一份示例报
 node products/compliance-agent/agent.mjs --dir ./材料目录
 ```
 
+## 想把它接进别的平台？有现成的 OpenAPI 规格
+
+`products/agentpay-openapi/openapi.json` 是 **标准 OpenAPI 3.0.3 规格**，覆盖 **14 个能力**
+（Coze 的 API 插件、多数智能体平台导入的都是这个格式 —— 一次导入即可，不用照着文档手填）。
+
+关键一点：**每个能力端点都接受纯文本 `text`**（文本进、文本出，不用拼结构化 JSON）：
+
+```json
+POST /api/v1/three-way-match
+{ "text": "采购订单\n采购订单号: PO-1\n…\n\n入库单\n…\n\n发票\n…" }
+```
+
+**这是实测过的**：14 个端点逐个用官方示例调用，全部通过入参预检。
+详见 [`products/agentpay-openapi/README.md`](products/agentpay-openapi/README.md)。
+
 ## 也可以当 MCP server 用（13 个工具，完全离线）
 
 同一个仓库里有一套 **MCP（Model Context Protocol）server** —— 任何支持 MCP 的 Agent
