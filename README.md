@@ -45,6 +45,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `contract-consistency-check-free` | 合同一致性机械核对：当事方名称／日期／金额矛盾、占位符残留、条款交叉引用失效、定义词卫生（**中英双语**） |
 | `invoice-consistency-check-free` | 票据一致性机械核对：行内算术、分项加总、税额计算、价税合计、大小写金额、抬头一致、日期逻辑、重复票检测、占位符残留（**中英双语**） |
 | `trade-doc-consistency-free` | 外贸单证单单一致核对：发票号／合同号／信用证号、金额与币种、数量／件数／重量、港口／船名／唛头跨单据一致，占位符残留 |
+| `three-way-match-free` | 三单匹配机械核对：采购订单／入库单／发票之间的订单号、供应商、物料、数量／单价／金额一致，重复发票号线索、占位符残留 |
 
 ## 怎么用
 
