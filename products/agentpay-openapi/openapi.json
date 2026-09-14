@@ -1,0 +1,805 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "机械核对型能力 API",
+    "version": "1.0.0",
+    "description": "招投标 / 合同 / 票据 / 外贸单证 / 三单匹配 / 报销 / 银行对账 / 多家比价 的确定性核对能力。同一份材料谁来跑结论都一样，每条结论都附原文出处、可复算；材料不足时明确说缺什么，不会输出\"未发现问题\"。免费档会如实列出\"本次没有执行的检查项\"。"
+  },
+  "servers": [
+    {
+      "url": "https://www.tokendidi.cn",
+      "description": "生产环境"
+    }
+  ],
+  "paths": {
+    "/api/v1/capabilities": {
+      "get": {
+        "operationId": "listCapabilities",
+        "summary": "列出全部能力（含免费端点、档位、输入说明）",
+        "responses": {
+          "200": {
+            "description": "能力目录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/try": {
+      "post": {
+        "operationId": "runFreeCheck",
+        "summary": "免费核对（粘贴正文即可；带 X-API-Token 时按已购额度跑完整版）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "capability": {
+                    "type": "string",
+                    "description": "能力 id，见 /api/v1/capabilities"
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "要核对的正文；多份材料用单独一行分节标题或空行分隔"
+                  }
+                },
+                "required": [
+                  "capability",
+                  "text"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "可选：已购调用凭证（sk_ 开头）。带上则跑完整版并核销一次；不带则是免费档。"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果（含 summary / findings / 本次未执行的检查项）",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（明确说明缺什么，且不计费）"
+          }
+        }
+      }
+    },
+    "/api/v1/quote-audit": {
+      "post": {
+        "operationId": "run_quote_audit",
+        "summary": "投标报价AI审查（按次 ¥0.30）",
+        "description": "按次计费 ¥0.30/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/collusion-screen": {
+      "post": {
+        "operationId": "run_collusion_screen",
+        "summary": "串通投标线索AI筛查（按次 ¥0.99）",
+        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/batch-bid-checkup": {
+      "post": {
+        "operationId": "run_batch_bid_checkup",
+        "summary": "多标书批量合规体检（按次 ¥4.99）",
+        "description": "按次计费 ¥4.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/tender-compliance-audit": {
+      "post": {
+        "operationId": "run_tender_compliance_audit",
+        "summary": "招投标全案合规审计（按次 ¥9.99）",
+        "description": "按次计费 ¥9.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/bid-final-check": {
+      "post": {
+        "operationId": "run_bid_final_check",
+        "summary": "投标文件递交前终检（按次 ¥0.99）",
+        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/ad-compliance-check": {
+      "post": {
+        "operationId": "run_ad_compliance_check",
+        "summary": "广告文案合规预检（按次 ¥0.99）",
+        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/contract-consistency": {
+      "post": {
+        "operationId": "run_contract_consistency",
+        "summary": "合同一致性AI核对（按次 ¥0.99）",
+        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/bid-comparison": {
+      "post": {
+        "operationId": "run_bid_comparison",
+        "summary": "多家报价横向比价（按次 ¥4.99）",
+        "description": "按次计费 ¥4.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/bank-reconciliation": {
+      "post": {
+        "operationId": "run_bank_reconciliation",
+        "summary": "银行流水对账核对（按次 ¥0.99）",
+        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/contract-comparison": {
+      "post": {
+        "operationId": "run_contract_comparison",
+        "summary": "多份合同条款差异比对（按次 ¥0.99）",
+        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/expense-compliance": {
+      "post": {
+        "operationId": "run_expense_compliance",
+        "summary": "报销单合规预检（按次 ¥0.99）",
+        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/three-way-match": {
+      "post": {
+        "operationId": "run_three_way_match",
+        "summary": "三单匹配AI核对（按次 ¥0.99）",
+        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/trade-doc-consistency": {
+      "post": {
+        "operationId": "run_trade_doc_consistency",
+        "summary": "外贸单证单单一致核对（按次 ¥0.99）",
+        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    },
+    "/api/v1/invoice-consistency": {
+      "post": {
+        "operationId": "run_invoice_consistency",
+        "summary": "票据一致性AI核对（按次 ¥0.99）",
+        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-API-Token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "核对结果",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "入参不合法或材料不足（不计费）"
+          },
+          "402": {
+            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        }
+      }
+    }
+  }
+}
