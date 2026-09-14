@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>多份合同条款差异比对（免费） · 机械核对型 AI 工具</title>
+<meta name="description" content="把同一模板下签的多份合同摆在一起逐条对齐——某一份少了哪一条、哪一条被改过、同一条有几个版本。每条都带条款名与各方原文，不需要付款，也不需要注册。">
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">机械核对型 AI 工具</a></p>
+<h1>多份合同条款差异比对（免费）</h1>
+<blockquote>一句话：把<strong>同一模板下签的多份合同</strong>摆在一起逐条对齐 —— 不需要付款，也不需要注册。</blockquote>
+<p><strong>完全免费</strong>：不需要付款、不需要注册、不需要配置任何 API Key，直接调用即可。</p>
+<blockquote>不想安装也能用：<strong>同一个检查有网页版</strong>，免注册、免付款 —— <a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></blockquote>
+<h2>什么时候用</h2>
+<ul>
+<li>按同一个模板签了一叠合同，想确认<strong>有没有哪一份被单独改过一条</strong></li>
+<li>想知道<strong>哪一份少了哪一条</strong>（例如少了整条保密义务）</li>
+<li>想知道<strong>同一条款在不同合同里有几个版本</strong>、分别是哪几份</li>
+</ul>
+<h2>这个免费版查什么</h2>
+<table><thead><tr><th>#</th><th>检查项</th></tr></thead><tbody>
+<tr><td>1</td><td>条款切分与横向对齐：把每份合同按「第X条」切开，按<strong>条款标题</strong>对齐</td></tr>
+<tr><td>2</td><td>缺条 / 多条：某份合同少了或多了哪一条</td></tr>
+<tr><td>3</td><td>条款正文不一致：同一条的各版本摘要与涉及哪几份</td></tr>
+<tr><td>4</td><td>条款对照表：每条被几份覆盖、有<strong>几份不同版本</strong></td></tr>
+</tbody></table>
+<p><strong>对齐按标题、不按编号</strong> —— 某一份中间多了一条时，后面的编号会整体错位，</p>
+<p>按编号对齐会报出一堆假差异。<strong>标题写法略有不同不会误报</strong>（「违约责任」与「违约责任与赔偿」会被认成同一条）。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample
+node scripts/run.mjs --input my-contracts.json
+node scripts/run.mjs --input my-contracts.json --json</code></pre>
+<p>入参两种写法，任选：</p>
+<pre><code>{ &quot;contracts&quot;: [
+    { &quot;name&quot;: &quot;合同A&quot;, &quot;text&quot;: &quot;第三条 服务期限\n本协议自 2026年3月1日 起生效…&quot; },
+    { &quot;name&quot;: &quot;合同B&quot;, &quot;text&quot;: &quot;第三条 服务期限\n本协议自 2026年3月1日 起生效…&quot; }
+  ] }</code></pre>
+<p>或者<strong>直接给纯文本</strong>：每份合同用单独一行「合同一」「合同二」这样的分节标题开头（也可以空行分隔）：</p>
+<pre><code>合同一
+技术服务合同
+
+第三条 服务期限
+本协议自 2026年3月1日 起生效，至 2027年2月28日 止。
+
+合同二
+技术服务合同
+
+第三条 服务期限
+本协议自 2026年3月1日 起生效，至 2027年2月28日 止。</code></pre>
+<h3>退出码</h3>
+<table><thead><tr><th>码</th><th>含义</th></tr></thead><tbody>
+<tr><td>0</td><td>已执行检查</td></tr>
+<tr><td>1</td><td>没给入参</td></tr>
+<tr><td>3</td><td><strong>材料不足 —— 此时不给结论</strong>（既不说"一致"，也不说"不一致"）</td></tr>
+<tr><td>4</td><td>入参文件读不到或无法解析</td></tr>
+<tr><td>9</td><td>未预期错误</td></tr>
+</tbody></table>
+<h2>这个免费版不包含</h2>
+<p>以下检查项<strong>不在本版本范围内</strong>，调用时也不会执行：</p>
+<ul>
+<li>关键字段跨合同对比（合同金额 / 违约金比例 / 预付款比例 / 争议解决 / 合同期限）</li>
+<li>日期逻辑（签订日 ≤ 生效日 ≤ 到期日）</li>
+<li>模板占位符残留（<code>【填写…】</code> / <code>XXX</code> / <code>TBD</code>）</li>
+<li>合同金额大小写是否一致</li>
+</ul>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li>本工具只做<strong>机械比对</strong>，<strong>不判断哪一份条款对甲方/乙方更有利</strong>，也不给法律意见；</li>
+<li>不认定条款是否有效、是否违法；</li>
+<li>不核对签署人权限、印章真伪或签署流程；</li>
+<li><strong>不做"语义等价"判断</strong>：用词相近但法律含义不同的条款，本工具按文本差异如实报出；</li>
+<li><strong>「没报问题」不等于「没有问题」</strong>：超出上述四类的检查，本版本不执行；</li>
+<li>材料不足时<strong>不给结论</strong>，也不会用默认值编一个「一致」出来；</li>
+<li>不联网、不外发材料、不调用任何模型。</li>
+</ul>
+<h2>输出示例</h2>
+<pre><code>[P1] 缺条
+条款「保密义务」有 1 份合同写了、1 份没有：合同一。
+建议：同一模板下的合同条款应当一致；请确认是遗漏、是被删掉，还是这一份本来就另用模板。
+
+[P1] 条款正文不一致
+条款「违约责任」在 2 份合同里有 2 个不同版本：
+1 份写的是「第八条 违约责任 任何一方违约，应向对方支付合同总金额 5% 的违约金。」；
+1 份写的是「第八条 违约责任 任何一方违约，应向对方支付合同总金额 2% 的违约金。」。</code></pre>
+<div class="cta">
+<p><strong>在线免费核对（不用注册、不用付款）</strong>：<br>
+<a href="https://www.tokendidi.cn/check">https://www.tokendidi.cn/check</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+把材料贴进去就能看到机械核对结果；免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
