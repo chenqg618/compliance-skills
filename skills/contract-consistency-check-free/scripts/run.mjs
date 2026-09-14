@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * run.mjs —— 合同一致性机械核对（免费）
+ * run.mjs —— 合同一致性AI核对（免费）
  *
  * 全部检查都在**本机**完成：调用同目录下的 engine/contract-consistency.js（纯 Node 标准库实现）。
  * 没有端点、不联网、不外发材料、不需要注册、不需要 API Key，也没有调用次数上限。
@@ -32,14 +32,14 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 const ENGINE = require(path.join(HERE, 'engine', 'contract-consistency.js'));
 
-const CAPABILITY = '合同一致性机械核对（免费）';
+const CAPABILITY = '合同一致性AI核对（免费）';
 
 const NOTE = '本版本只执行上面列出的检查项，全部在本机完成（不联网、不外发材料）；'
   + '未执行的检查项已如实列出，不会用默认值编造结论。';
 
 const SAMPLE = { text: ENGINE.SAMPLE_TEXT };
 
-const USAGE = `合同一致性机械核对（免费） —— 本机执行的机械核对
+const USAGE = `合同一致性AI核对（免费） —— 本机执行的AI核对
 
   **不需要付款**：不需要注册、不需要 API Key，也不联网；材料不出本机。
   检查项：${ENGINE.CHECKS_GIVEN.join('、')}
@@ -182,7 +182,7 @@ function main() {
     return 0;
   }
 
-  console.log('免费机械核对完成');
+  console.log('免费AI核对完成');
   console.log(`本次执行的检查项：${view.checks_given.join('、') || '(无)'}`);
   if (view.checks_withheld.length) {
     console.log(`本版本不包含：${view.checks_withheld.join('、')}`);
