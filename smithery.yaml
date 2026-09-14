@@ -1,0 +1,14 @@
+# Smithery configuration: https://smithery.ai/docs/config#smitheryyaml
+#
+# 这是 compliance-mcp —— 一个**完全离线**的 MCP server，把 13 个确定性文档核对能力暴露成工具
+# （投标报价算术 / 串通线索 / 合同一致性 / 多份合同比对 / 票据 / 外贸单证 / 三单匹配 /
+#   报销 / 多家比价 / 银行对账 / 广告文案 / 多标书体检 / 全案审计）。
+# 引擎已随仓库打包，**零依赖**（只用 Node 标准库），不联网、不需要 API Key。
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required: []
+    properties: {}
+  commandFunction: |-
+    (config) => ({ command: 'node', args: ['products/mcp-compliance-server/server.mjs'], env: {} })
