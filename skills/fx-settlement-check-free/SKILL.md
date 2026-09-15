@@ -1,7 +1,7 @@
 ---
 slug: fx-settlement-check-free
-displayName: 外币结算与汇兑损益核对（免费）
-version: 1.0.3
+displayName: 外币结算与汇兑损益核对（免费版）
+version: 1.0.4
 summary: 外币结算核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [外币结算与汇兑损益核对,外币结算核对表,核算核对,财务,免费]
 license: Proprietary
