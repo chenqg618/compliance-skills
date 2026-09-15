@@ -117,4 +117,3 @@ node tools/mcp_server_test.mjs
 ## 许可
 
 Proprietary。引擎源码另见 <https://github.com/chenqg618/compliance-skills>。
-在线试用（不用注册）：<https://www.tokendidi.cn/check>
