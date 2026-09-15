@@ -48,6 +48,14 @@ footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
 <h2>怎么用</h2>
 <pre><code>node scripts/run.mjs --sample                 # 先看样例
 node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<h2>常见错法（这张表里真的会有人这么填）</h2>
+<ol>
+<li>请补上这些再跑；材料不足时本工具不做任何认定，也不套用默认值。</li>
+<li>漏一项（最常见是漏"地方教育附加"）或多加一项都会在这里暴露。</li>
+<li>要么明细行漏了月份，要么合计行没跟着更新。</li>
+<li>不同税率分行列示是正常的；但若本表按期间汇总，重复行会让税额与附加一起翻倍。</li>
+<li>缺这一格这笔附加税就算不出来；补齐前本工具不会用 0 或默认值替你填。</li>
+</ol>
 <h2>边界（请务必知道）</h2>
 <p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断；</p>
 <p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
