@@ -79,7 +79,7 @@ node compliance-skills/products/mcp-compliance-server/server.mjs   # stdio 上�
 
 | 形态 | 适合谁 | 在哪买/装 | 计费 |
 |---|---|---|---|
-| **完整档（离线引擎随包）** | 想在本机反复跑、材料敏感不能外发 | **SkillPay**：<https://skillpay.alipay.com/shelf> | **买断一次 ¥9.9**，跑多少次都不再收费（**不设免费试用**） |
+| **完整档（离线引擎随包）** | 想在本机反复跑、材料敏感不能外发 | **SkillPay**：<https://skillpay.alipay.com/public/tokendidi> | **买断一次 ¥9.9**，跑多少次都不再收费（**不设免费试用**） |
 | **按次档（调站点端点）** | 偶尔用一次 | **SkillHub**：<https://www.skillhub.cn/> 搜技能名 | 单次 ¥0.99 起 |
 
 > 说明：免费版与完整版的**差别在检查项**（免费版会在输出里**如实列出哪些检查没有执行**）；
