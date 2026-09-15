@@ -1,7 +1,7 @@
 ---
 slug: franchise-royalty-check-free
 displayName: 加盟抽成与最低保底核对（免费版）
-version: 1.0.4
+version: 1.0.6
 summary: 加盟结算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [加盟抽成与最低保底核对,加盟结算表,核算核对,结算,免费]
 license: Proprietary
