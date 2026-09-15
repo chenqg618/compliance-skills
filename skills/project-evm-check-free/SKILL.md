@@ -1,7 +1,7 @@
 ---
 slug: project-evm-check-free
-displayName: 项目挣值分析核对（免费）
-version: 1.0.3
+displayName: 项目挣值分析核对（免费版）
+version: 1.0.4
 summary: 挣值分析表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [项目挣值分析核对,挣值分析表,核算核对,财务,免费]
 license: Proprietary
