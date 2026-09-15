@@ -8,7 +8,9 @@
  *   「各账龄分档金额之和 = 期末余额」对不对、合计行是不是各客户之和、
  *   有没有重复客户、有没有该填没填。这些**全是算术**。
  *   账龄算错的直接后果是**坏账准备提错、催收漏掉大额逾期**。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约（与其它引擎一致）：
  *   run(payload) -> {status:'success', result} | {status:'insufficient_input', missing, advice}
  *
@@ -242,36 +244,6 @@ function checkBlanks(people) {
   return out;
 }
 
-function checkNegative(rec) {
-  const cl = normAmount(rec.byRole.closing);
-  if (cl === null || cl >= 0) return null;
-  return finding('P1', '期末余额为负', rec.line,
-    rec.byRole.name + ' 的期末余额是 ' + cl.toFixed(2) + '（负数）',
-    rec.raw, '负数余额通常是预收或多收；请确认是不是应该挂在预收账款里。');
-}
-
-function checkOverpay(rec) {
-  const o = normAmount(rec.byRole.opening);
-  const d = normAmount(rec.byRole.debit);
-  const c = normAmount(rec.byRole.credit);
-  if (o === null || d === null || c === null) return null;
-  if (c <= o + d + 0.01) return null;
-  return finding('P1', '本期收款超过可收金额', rec.line,
-    rec.byRole.name + ' 本期收款 ' + c.toFixed(2) + '，超过「期初 ' + o.toFixed(2)
-      + ' + 本期应收 ' + d.toFixed(2) + '」',
-    rec.raw, '要么期初/应收漏记，要么这笔收款对应的是更早的账，请核对回款归属期。');
-}
-
-function checkAgingSign(rec) {
-  const cl = normAmount(rec.byRole.closing);
-  const s = sumRoles(rec, BUCKETS);
-  if (cl === null || s === null) return null;
-  if (cl >= 0 || s <= 0) return null;
-  return finding('P1', '分档与余额符号矛盾', rec.line,
-    rec.byRole.name + ' 的期末余额是负数（' + cl.toFixed(2) + '），但账龄分档合计是正数（' + s.toFixed(2) + '）',
-    rec.raw, '负数余额不该有正向账龄分档；通常是预收被算进了应收账龄。');
-}
-
 function insufficient(missing) {
   return {
     status: 'insufficient_input',
@@ -292,7 +264,6 @@ function run(payload) {
   }
   if (!t.people.length) return insufficient(['至少一个客户的明细行']);
 
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const threshold = payload && typeof payload.overdueRatio === 'number'
     ? payload.overdueRatio : OVERDUE_RATIO_THRESHOLD;
 
@@ -301,11 +272,7 @@ function run(payload) {
   for (const p of t.people) {
     const a = checkIdentity(p); if (a) findings.push(a);
     const b = checkAgingSum(p); if (b) findings.push(b);
-    if (paid) {
-      const n = checkNegative(p); if (n) findings.push(n);
-      const o = checkOverpay(p); if (o) findings.push(o);
-      const s = checkAgingSign(p); if (s) findings.push(s);
-    }
+
   }
   for (const f of checkTotalRow(t.totals, t.people)) findings.push(f);
   for (const f of checkDuplicates(t.people)) findings.push(f);
@@ -320,16 +287,8 @@ function run(payload) {
     return s + (n === null ? 0 : n);
   }, 0);
   const ratio = totalClosing > 0 ? totalOverdue / totalClosing : 0;
-  if (paid) {
-    if (ratio > threshold + 1e-9) {
-      findings.push(finding('P1', '长期挂账占比偏高', 0,
-        '90 天以上应收合计 ' + totalOverdue.toFixed(2) + '，占期末余额 ' + totalClosing.toFixed(2)
-          + ' 的 ' + (ratio * 100).toFixed(2) + '%，超过阈值 ' + (threshold * 100).toFixed(0) + '%',
-        '', '这是提示不是错误；请重点看 90 天以上的名单，坏账风险集中在这里。'));
-    }
-  } else {
     notRun.push.apply(notRun, CHECKS_WITHHELD);
-  }
+  
 
   findings.sort((x, y) => (x.line - y.line) || String(x.category).localeCompare(String(y.category)));
 
@@ -348,7 +307,7 @@ function run(payload) {
     columns: t.cols,
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
   };
   if (notRun.length) result.checks_not_run = notRun;
@@ -360,7 +319,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normAmount, isBlank, labelOf,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  ROLE_LABELS, BUCKETS, OVERDUE_RATIO_THRESHOLD,
+  run, parseTable, splitRow, roleOf, normAmount, isBlank, labelOf, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, ROLE_LABELS, BUCKETS, OVERDUE_RATIO_THRESHOLD,
 };
