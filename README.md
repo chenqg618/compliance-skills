@@ -107,7 +107,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **56 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **58 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -115,6 +115,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `ap-reconciliation-free` | 供应商对账表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `ar-aging-check-free` | 应收对账表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `award-contract-consistency-check-free` | 中标通知书与合同草案逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `bad-debt-provision-check-free` | 坏账准备计提表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `bank-reconciliation-free` | 把银行流水和企业账面记录贴成两段，逐笔配对、列出两侧未达账项和重复记录——每月对账最费时的那一步 |
 | `bid-comparison-free` | 把多家投标人的报价明细逐项摆在一起对齐——谁缺项、各家合计多少、从低到高怎么排 |
 | `bid-deposit-refund-check-free` | 保证金收退台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -135,6 +136,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `fx-settlement-check-free` | 外币结算核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `iit-withholding-check-free` | 个税累计预扣计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `import-duty-check-free` | 进口税费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `input-vat-deduction-check-free` | 进项税额认证与抵扣对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `installment-rate-check-free` | 分期方案核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `inventory-check-free` | 库存盘点表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `invoice-consistency-check-free` | 把票据里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册 |
