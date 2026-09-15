@@ -7,7 +7,9 @@
  *   月折旧额按「(原值 − 残值) ÷ 使用年限 ÷ 12」直线法算，
  *   累计折旧 = 月折旧 × 已提月数，净值 = 原值 − 累计折旧。
  *   资产一多（几百上千项），手工核这三条恒等式几乎不可能，而这些**全是算术**。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约（与其它引擎一致）：
  *   run(payload) -> {status:'success', result} | {status:'insufficient_input', missing, advice}
  *
@@ -273,50 +275,6 @@ function checkBlanks(assets) {
   return out;
 }
 
-function checkOverDepreciated(rec) {
-  const life = normAmount(rec.byRole.life);
-  const months = normAmount(rec.byRole.months);
-  if (life === null || months === null) return null;
-  const max = life * 12;
-  if (months <= max) return null;
-  return finding('P0', '超提折旧', rec.line,
-    tag(rec) + ' 已提 ' + months + ' 个月，超过使用年限 ' + life + ' 年的 ' + max + ' 个月',
-    rec.raw, '超提部分要冲回，否则固定资产会变成负净值。');
-}
-
-function checkAccumCap(rec) {
-  const cost = normAmount(rec.byRole.cost);
-  const rate = normRate(rec.byRole.residualRate);
-  const acc = normAmount(rec.byRole.accum);
-  if (cost === null || acc === null) return null;
-  const r = rate === null ? 0 : rate;
-  const cap = Math.round(cost * (1 - r) * 100) / 100;
-  if (acc <= cap + 0.01) return null;
-  return finding('P1', '累计折旧超过应提上限', rec.line,
-    tag(rec) + ' 的累计折旧 ' + acc.toFixed(2) + '，超过「原值 × (1 − 残值率)」的上限 '
-      + cap.toFixed(2),
-    rec.raw, '提满后应停止计提；超出部分通常是漏停或原值被调小了。');
-}
-
-function checkStopped(rec) {
-  const months = normAmount(rec.byRole.months);
-  const m = normAmount(rec.byRole.monthly);
-  if (months === null || m === null) return null;
-  if (months <= 0 || m !== 0) return null;
-  return finding('P1', '本月折旧为 0 但已提月数大于 0', rec.line,
-    tag(rec) + ' 已提 ' + months + ' 个月，但本月折旧是 0.00',
-    rec.raw, '可能是已提满（正常）或漏提（不正常）；请确认是否已达到使用年限。');
-}
-
-function checkResidualRange(rec) {
-  const r = normRate(rec.byRole.residualRate);
-  if (r === null) return null;
-  if (r >= RESIDUAL_MIN - 1e-9 && r <= RESIDUAL_MAX + 1e-9) return null;
-  return finding('P1', '残值率超出常见区间', rec.line,
-    tag(rec) + ' 的残值率是 ' + (r * 100).toFixed(2) + '%，不在 0%~10% 区间',
-    rec.raw, '多数企业的预计净残值率在 5% 上下；请确认是否填错（例如把 5% 填成 50%）。');
-}
-
 function insufficient(missing) {
   return {
     status: 'insufficient_input',
@@ -337,24 +295,18 @@ function run(payload) {
   }
   if (!t.assets.length) return insufficient(['至少一项资产的明细行']);
 
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const findings = [];
   const notRun = [];
   for (const a of t.assets) {
     const m = checkMonthly(a); if (m) findings.push(m);
     const c = checkAccum(a); if (c) findings.push(c);
     const n = checkNet(a); if (n) findings.push(n);
-    if (paid) {
-      const o = checkOverDepreciated(a); if (o) findings.push(o);
-      const cap = checkAccumCap(a); if (cap) findings.push(cap);
-      const st = checkStopped(a); if (st) findings.push(st);
-      const rr = checkResidualRange(a); if (rr) findings.push(rr);
-    }
+
   }
   for (const f of checkTotalRow(t.totals, t.assets)) findings.push(f);
   for (const f of checkDuplicates(t.assets)) findings.push(f);
   for (const f of checkBlanks(t.assets)) findings.push(f);
-  if (!paid) notRun.push.apply(notRun, CHECKS_WITHHELD);
+  notRun.push.apply(notRun, CHECKS_WITHHELD);
 
   findings.sort((x, y) => (x.line - y.line) || String(x.category).localeCompare(String(y.category)));
 
@@ -378,7 +330,7 @@ function run(payload) {
     columns: t.cols,
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
   };
   if (notRun.length) result.checks_not_run = notRun;
@@ -390,7 +342,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normAmount, normRate, isBlank, labelOf,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  ROLE_LABELS, RESIDUAL_MIN, RESIDUAL_MAX,
+  run, parseTable, splitRow, roleOf, normAmount, normRate, isBlank, labelOf, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, ROLE_LABELS, RESIDUAL_MIN, RESIDUAL_MAX,
 };
