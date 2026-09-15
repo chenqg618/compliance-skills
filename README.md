@@ -107,7 +107,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **44 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **45 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -145,6 +145,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `platform-settlement-check-free` | 平台结算单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `progress-payment-check-free` | 工程进度款支付计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `project-evm-check-free` | 挣值分析表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `purchase-rebate-check-free` | 采购返利核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `rd-expense-check-free` | 研发费用归集表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `social-insurance-check-free` | 社保申报明细逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `surtax-check-free` | 附加税费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
