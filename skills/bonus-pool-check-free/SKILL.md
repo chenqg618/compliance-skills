@@ -1,0 +1,53 @@
+---
+slug: bonus-pool-check-free
+displayName: 年终奖池分配与个税核对（免费）
+version: 1.0.0
+summary: 年终奖分配表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
+tags: [年终奖池分配与个税核对,年终奖分配表,核算核对,财务,免费]
+license: Proprietary
+name: bonus-pool-check-free
+display_name: 年终奖池分配与个税核对（免费）
+display_name_en: Bonus Pool Check (Free)
+description: 年终奖分配表逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 年终奖核对、奖金池分摊、全年一次性奖金个税、绩效系数。
+description_zh: 年终奖分配表逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 年终奖核对、奖金池分摊、全年一次性奖金个税、绩效系数。
+description_en: A free deterministic check for bonus pool check worksheets. Every finding cites the source line. No payment, no registration, no API key, no network.
+category: business-ops
+author: WorkBuddy 开放平台开发者
+allowed-tools: Read, Bash
+---
+
+# 年终奖池分配与个税核对（免费）
+
+> **完全本地运行**：引擎已经打包在本技能里（`engine/` 目录）。
+> 不联网、不需要 API Key、**没有调用次数上限**。
+
+## 什么时候用
+
+**谁会在什么时候用**：**每年年底做一次**，两段完全不同的算术都得核 ——
+① 分配：应发奖金 = 奖金池 × 绩效系数 ÷ 系数合计；
+② 计税（全年一次性奖金）：**先按 奖金 ÷ 12 找月度税率档**，再 个税 = 奖金 × 税率 − 速算扣除数。
+系数填错、池子对不平、档位边界错一档，都会让人少拿或多扣，而且年终奖一年只有一次。
+
+**这张表会逐项核对什么**：
+· 应发奖金 = 奖金池 × 绩效系数 ÷ 系数合计（池子与系数合计取合计行，无合计行则取各行之和）
+· 实发奖金 = 应发奖金 − 个税
+· 全年一次性奖金个税（**先除以 12 落档，再用全额算税**）；合计行逐列复核；重复与空缺检测
+
+每条结论都带**原文行号与出处**，可被第三方用同一口径复算；
+材料不足时**不给结论**，会明确列出还缺什么。
+
+## 这个免费版查什么
+
+（检查项由引擎的 `CHECKS_*` 导出，跑 `--sample` 会打印实际执行了哪些。）
+
+## 怎么用
+
+```bash
+node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
+```
+
+## 边界（请务必知道）
+
+本工具**不做**引擎 `CHECKS_OUT_OF_SCOPE` 里列的那些判断；
+材料不足时**不给结论**，也不会输出「未发现问题」。
