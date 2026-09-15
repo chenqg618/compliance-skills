@@ -1,7 +1,7 @@
 ---
 slug: expense-compliance-free
 displayName: 报销单合规预检（免费版）
-version: 1.0.6
+version: 1.0.7
 summary: 把一沓发票和一张报销单放在一起核一遍——揪出重复报销的发票号、要素不齐的发票、以及没替换的占位符。每条都带原文行号，不需要付款，也不需要注册。
 tags: [报销, 发票, 重复报销, 合规预检, 财务, 免费, AI核对, 要素完整性]
 license: Proprietary
