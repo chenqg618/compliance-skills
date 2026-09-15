@@ -1,7 +1,7 @@
 ---
 slug: trade-doc-consistency-free
 displayName: 外贸单证单单一致核对（免费版）
-version: 1.0.5
+version: 1.0.6
 summary: 把外贸单据之间对不上的地方找出来（发票号 / 合同号 / 信用证号 / 金额 / 数量 / 重量 / 港口 / 船名），每条都带原文证据，不需要付款，也不需要注册。 免费、无需注册、无需 API Key、不联网。
 tags: [外贸, 单证, 信用证, 单单一致, 不符点, 免费, AI核对, 发票, 装箱单]
 license: Proprietary
