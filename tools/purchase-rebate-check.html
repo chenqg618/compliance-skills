@@ -49,6 +49,26 @@ footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
 <h2>怎么用</h2>
 <pre><code>node scripts/run.mjs --sample                 # 先看样例
 node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<h2>常见错法（这张表里真的会有人这么填）</h2>
+<ol>
+<li><strong>用错档位</strong>：年度采购额 250 万填了 1%（上年档），实际落在 2% 档 ⇒ 差 2.5 万。</li>
+<li><strong>档位边界差 1 元</strong>：采购额 100.0001 万就跳到 2% 档，边界上要逐笔核。</li>
+<li><strong>含税 / 不含税口径不一致</strong>：合同约定按不含税采购额，表里却用了含税数 ⇒ 档位和金额都偏。</li>
+<li><strong>差额忘了追</strong>：应得 − 已收 为正（还没收足），年底没跟进，第二年才发现。</li>
+<li><strong>把返利额填进比例列</strong>：比例列本该是 1%、2%，被填成 8000、50000 这类金额。</li>
+</ol>
+<h2>口径说明（第三方复算要看这几条）</h2>
+<ul>
+<li><strong>总额法</strong>：本工具按"应得返利 = 年度采购额 × 适用返利率"计算，<strong>不含</strong>超额累进的拆分；</li>
+</ul>
+<p>若合同是超额累进（分段计费），请先在表里算出"适用返利率"的等效值或分段结果再核。</p>
+<ul>
+<li><strong>档位表</strong>：档位来自合同；<code>brackets</code> 入参未给时使用引擎内置示例档</li>
+</ul>
+<p>（≤100 万 1% / ≤300 万 2% / ≤500 万 3% / 更高 4%），<strong>务必按实际合同覆盖</strong>。</p>
+<ul>
+<li><strong>差额方向</strong>：差额 = 应得 − 已收；<strong>正数=尚未收足</strong>，负数=多收（需与供应商确认是预付还是下期抵扣）。</li>
+</ul>
 <h2>边界（请务必知道）</h2>
 <p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断；</p>
 <p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
