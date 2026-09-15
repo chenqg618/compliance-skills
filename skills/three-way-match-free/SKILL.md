@@ -1,7 +1,7 @@
 ---
 slug: three-way-match-free
 displayName: 三单匹配AI核对（免费版）
-version: 1.0.6
+version: 1.0.7
 summary: 把采购订单、入库单、发票放在一起核一遍——订单号、供应商、物料、数量、单价、金额在各单据间对不对得上，另外揪出重复发票号与未替换的占位符。每条都带原文行号，不需要付款，也不需要注册。
 tags: [三单匹配, 应付账款, 采购订单, 入库单, 发票, 财务, 免费, AI核对, 对账]
 license: Proprietary
