@@ -107,7 +107,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **35 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **36 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -133,6 +133,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `invoice-consistency-check-free` | 把票据里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册 |
 | `lease-rent-check-free` | 租金账单/租赁结算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `lesson-hour-check-free` | 课时核销表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `ota-commission-check-free` | 渠道结算核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `overdue-interest-check-free` | 逾期利息计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `overtime-pay-check-free` | 加班费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `payment-fee-check-free` | 收款手续费核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
