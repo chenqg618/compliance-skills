@@ -1,7 +1,7 @@
 ---
 slug: overtime-pay-check-free
 displayName: 加班费核算核对（免费）
-version: 1.1.0
+version: 1.0.1
 summary: 加班费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [加班费核算核对,加班费计算表,核算核对,对账,免费]
 license: Proprietary
