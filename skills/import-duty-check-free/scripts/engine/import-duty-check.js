@@ -10,7 +10,9 @@
  *
  * 与已有能力的区别：`trade-doc-consistency` 核的是**单证之间是否一致**（品名/数量/金额对不对得上），
  * **完全不碰税额计算**；本能力核的是**这张税费计算表本身算得对不对**。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约：run(payload) -> {status:'success',result} | {status:'insufficient_input',missing,advice}
  * 刻意不做：不联网、不查海关税则、不调用大模型；材料不足不给结论；不给报关/税务意见。
  */
@@ -268,79 +270,6 @@ function checkBlanks(items, hasCt) {
   return out;
 }
 
-/* ===== 以下为完整档（付费）才执行的检查 ===== */
-
-function checkRateRange(items, hasCt) {
-  const roles = ['dutyRate', 'vatRate'].concat(hasCt ? ['ctRate'] : []);
-  const out = [];
-  for (const it of items) {
-    for (const role of roles) {
-      const n = normNumber(it.byRole[role]);
-      if (n === null) continue;
-      if (n < 0 || n > 100) {
-        out.push({
-          level: 'P0', category: '税率超出合理区间', line: it.line,
-          message: `${label(it)}的「${LABELS[role]}」是 ${n}%，不在 0~100% 之间。`,
-          advice: '税率异常通常是百分号丢了或填成了小数（0.13 / 13% 混用）；请统一口径后重算。',
-        });
-      }
-    }
-  }
-  return out;
-}
-
-function checkNonPositive(items) {
-  const out = [];
-  for (const it of items) {
-    const p = normNumber(it.byRole.price);
-    if (p !== null && p <= 0) {
-      out.push({
-        level: 'P0', category: '完税价格非正', line: it.line,
-        message: `${label(it)}的完税价格是 ${p}。`,
-        advice: '完税价格是所有税的基数，为 0 或负数时整行税费都没有意义。',
-      });
-    }
-  }
-  return out;
-}
-
-function checkNegativeTax(items) {
-  const out = [];
-  for (const role of ['duty', 'ct', 'vat', 'total']) {
-    for (const it of items) {
-      const n = normNumber(it.byRole[role]);
-      if (n !== null && n < 0) {
-        out.push({
-          level: 'P1', category: '税费为负', line: it.line,
-          message: `${label(it)}的「${LABELS[role]}」是 ${n.toFixed(2)}。`,
-          advice: '负税费通常是退税或冲销混进了本表；请确认是否应单列。',
-        });
-      }
-    }
-  }
-  return out;
-}
-
-function checkBurden(items, maxBurden) {
-  const cap = Number.isFinite(maxBurden) ? maxBurden : 1;
-  const out = [];
-  for (const it of items) {
-    const price = normNumber(it.byRole.price);
-    const total = normNumber(it.byRole.total);
-    if (price === null || total === null || price <= 0) continue;
-    const burden = total / price;
-    if (burden > cap + 1e-9) {
-      out.push({
-        level: 'P1', category: '综合税负率偏高', line: it.line,
-        message: `${label(it)}的税费合计 ${total.toFixed(2)} 占完税价格 ${price.toFixed(2)} 的 `
-          + `${round2(burden * 100)}%，超过阈值 ${round2(cap * 100)}%。`,
-        advice: '税负率异常高通常是税率填错、完税价格漏了运费保险，或把不该进的费用计进来了。',
-      });
-    }
-  }
-  return out;
-}
-
 function run(payload) {
   const text = (payload && (payload.text || payload.content)) || '';
   if (!String(text).trim()) return insufficient(['原文（text）']);
@@ -358,7 +287,6 @@ function run(payload) {
   if (!t.items.length) return insufficient(['至少一票的明细行']);
 
   const hasCt = t.cols.some((c) => c.role === 'ctRate') && t.cols.some((c) => c.role === 'ct');
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const findings = [];
   const notRun = [];
 
@@ -374,14 +302,8 @@ function run(payload) {
   for (const f of checkDuplicates(t.items)) findings.push(f);
   for (const f of checkBlanks(t.items, hasCt)) findings.push(f);
 
-  if (paid) {
-    for (const f of checkRateRange(t.items, hasCt)) findings.push(f);
-    for (const f of checkNonPositive(t.items)) findings.push(f);
-    for (const f of checkNegativeTax(t.items)) findings.push(f);
-    for (const f of checkBurden(t.items, normNumber(payload && payload.max_burden))) findings.push(f);
-  } else {
     notRun.push.apply(notRun, CHECKS_WITHHELD);
-  }
+  
   if (!hasCt) notRun.push(CHECKS_GIVEN[1]);
   else if (!t.items.some((it) => {
     const r = normNumber(it.byRole.ctRate);
@@ -412,7 +334,7 @@ function run(payload) {
     columns: t.cols.map((c) => c.header),
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
   };
   if (notRun.length) result.checks_not_run = notRun;
@@ -424,7 +346,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normNumber, isBlank, round2,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  LABELS, SUM_ROLES,
+  run, parseTable, splitRow, roleOf, normNumber, isBlank, round2, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, LABELS, SUM_ROLES,
 };
