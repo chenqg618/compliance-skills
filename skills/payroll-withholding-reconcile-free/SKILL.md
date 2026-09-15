@@ -1,7 +1,7 @@
 ---
 slug: payroll-withholding-reconcile-free
 displayName: 工资表代扣与个税社保申报核对（免费版）
-version: 1.0.5
+version: 1.0.6
 summary: 工资表与个税社保申报对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [工资表代扣与个税社保申报核对,工资表与个税社保申报对照表,核对,对账,免费]
 license: Proprietary
