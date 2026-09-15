@@ -234,5 +234,5 @@ node scripts/run.mjs --input in.json --json # JSON 输出
 
 - 输出是**AI核对结果与客观线索**，不构成法律意见，
   也不替代评标委员会或市场监督管理部门的认定；
-- 本项目的在线版本与更多AI核对工具：**<https://www.tokendidi.cn>**
+- 全部免费工具与说明：**<https://chenqg618.github.io/compliance-skills/>**
 - 本项目由河南樵夫网络科技有限公司运营。
