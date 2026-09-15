@@ -1,7 +1,7 @@
 ---
 slug: utility-tier-billing-check-free
-displayName: 电费分时计价核对（免费）
-version: 1.0.3
+displayName: 电费分时计价核对（免费版）
+version: 1.0.4
 summary: 电费账单核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [电费分时计价核对,电费账单核对表,核算核对,财务,免费]
 license: Proprietary
