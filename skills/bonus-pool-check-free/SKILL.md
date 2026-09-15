@@ -1,7 +1,7 @@
 ---
 slug: bonus-pool-check-free
 displayName: 年终奖池分配与个税核对（免费版）
-version: 1.0.5
+version: 1.0.6
 summary: 年终奖分配表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [年终奖池分配与个税核对,年终奖分配表,核算核对,财务,免费]
 license: Proprietary
