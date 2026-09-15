@@ -9,7 +9,9 @@
  *
  * 与已有能力的区别：`payroll-check` 核的是**发薪总额**（应发/社保/实发是否勾稽），
  * **不算加班倍数、不算小时工资折算**；`lesson-hour-check` 是课时核销，完全另一回事。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约：run(payload) -> {status:'success',result} | {status:'insufficient_input',missing,advice}
  * 刻意不做：不联网、不调用大模型；材料不足不给结论；不判断考勤是否真实。
  */
@@ -268,85 +270,6 @@ function checkBlanks(items) {
   return out;
 }
 
-/* ===== 以下为完整档（付费）才执行的检查 ===== */
-
-function checkOvertimeCap(items) {
-  const out = [];
-  for (const it of items) {
-    const tot = ['otNormal', 'otRest', 'otHoliday'].reduce((s, r) => {
-      const n = normNumber(it.byRole[r]);
-      return s + (n === null ? 0 : n);
-    }, 0);
-    if (tot > 36) {
-      out.push({
-        level: 'P1', category: '月加班总时数超过 36 小时', line: it.line,
-        message: `${label(it)}本月加班合计 ${round2(tot)} 小时，超过法定的每月 36 小时上限。`,
-        advice: '超时加班除加班费外还有合规风险；请核对时数是否录错，或按工时制度另行处理。',
-      });
-    }
-  }
-  return out;
-}
-
-function checkMinWage(items, minWage, used) {
-  if (!Number.isFinite(minWage)) return [];
-  const floor = minWage / LEGAL_BASE_DAYS / 8;
-  const out = [];
-  for (const it of items) {
-    const hourly = hourlyOf(it, used);
-    if (hourly === null) continue;
-    if (hourly + 1e-9 < floor) {
-      out.push({
-        level: 'P1', category: '折算小时工资低于最低工资', line: it.line,
-        message: `${label(it)}折算小时工资 ${hourly.toFixed(2)} 元，低于按最低工资 ${minWage} 元/月折算的 ${floor.toFixed(2)} 元/小时。`,
-        advice: '最低工资是下限，加班费基数低于它通常不成立；请核对月工资口径（是否含加班费、津贴）。',
-      });
-    }
-  }
-  return out;
-}
-
-function checkNonPositive(items) {
-  const out = [];
-  for (const it of items) {
-    const wage = normNumber(it.byRole.wage);
-    if (wage !== null && wage <= 0) {
-      out.push({
-        level: 'P0', category: '月工资非正', line: it.line,
-        message: `${label(it)}的月工资是 ${wage}。`,
-        advice: '月工资为 0 或负数时小时工资与加班费都没有意义；确认该行是否应在本表内。',
-      });
-    }
-    for (const role of ['otNormal', 'otRest', 'otHoliday']) {
-      const n = normNumber(it.byRole[role]);
-      if (n !== null && n < 0) {
-        out.push({
-          level: 'P1', category: '加班时数为负', line: it.line,
-          message: `${label(it)}的「${LABELS[role]}」是 ${n}。`,
-          advice: '负时数通常是调休/冲销混进了本表；请确认是否应单列。',
-        });
-      }
-    }
-  }
-  return out;
-}
-
-function checkBaseDays(items) {
-  const out = [];
-  for (const it of items) {
-    const n = normNumber(it.byRole.baseDays);
-    if (n === null) continue;
-    if (n < 20 || n > 23) {
-      out.push({
-        level: 'P1', category: '计薪天数异常', line: it.line,
-        message: `${label(it)}的计薪天数是 ${n}，偏离 20~23 天的常见区间（法定月计薪天数为 21.75）。`,
-        advice: '计薪天数直接决定小时工资；确认是不是把"应出勤天数"当成"计薪天数"填了。',
-      });
-    }
-  }
-  return out;
-}
-
 function run(payload) {
   const text = (payload && (payload.text || payload.content)) || '';
   if (!String(text).trim()) return insufficient(['原文（text）']);
@@ -363,7 +286,6 @@ function run(payload) {
   }
   if (!t.items.length) return insufficient(['至少一人的明细行']);
 
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const used = { default: false };
   const findings = [];
   const notRun = [];
@@ -381,15 +303,8 @@ function run(payload) {
   for (const f of checkDuplicates(t.items)) findings.push(f);
   for (const f of checkBlanks(t.items)) findings.push(f);
 
-  if (paid) {
-    for (const f of checkOvertimeCap(t.items)) findings.push(f);
-    for (const f of checkMinWage(t.items, normNumber(payload && payload.min_wage), used)) findings.push(f);
-    for (const f of checkNonPositive(t.items)) findings.push(f);
-    for (const f of checkBaseDays(t.items)) findings.push(f);
-    if (!Number.isFinite(normNumber(payload && payload.min_wage))) notRun.push(CHECKS_WITHHELD[1]);
-  } else {
     notRun.push.apply(notRun, CHECKS_WITHHELD);
-  }
+  
   if (!t.cols.some((c) => c.role === 'hourly')) notRun.push(CHECKS_GIVEN[0]);
 
   findings.sort((x, y) => (x.line - y.line) || String(x.category).localeCompare(String(y.category)));
@@ -414,7 +329,7 @@ function run(payload) {
     columns: t.cols.map((c) => c.header),
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
   };
   if (used.default) {
@@ -429,7 +344,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normNumber, isBlank, round2,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  LABELS, SUM_ROLES, MULT, LEGAL_BASE_DAYS,
+  run, parseTable, splitRow, roleOf, normNumber, isBlank, round2, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, LABELS, SUM_ROLES, MULT, LEGAL_BASE_DAYS,
 };
