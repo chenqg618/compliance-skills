@@ -12,7 +12,9 @@
  * 与已有能力的区别（不是重复品）：
  *   · `three-way-match` 核「采购订单/入库单/发票」；`bank-reconciliation` 核「银行流水/企业账面」；
  *   · 本能力核的是「**物流商月结单内部的逐单计价**」—— 重量、单价、运费、附加费、小计这条链。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约（与其它引擎一致）：
  *   run(payload) -> {status:'success', result} | {status:'insufficient_input', missing, advice}
  *
@@ -238,54 +240,7 @@ function checkBlanks(items) {
   return out;
 }
 
-function checkZeroWeight(rec) {
-  const w = normAmount(rec.byRole.weight);
-  const f = normAmount(rec.byRole.freight);
-  if (w === null || f === null) return null;
-  if (w !== 0 || f === 0) return null;
-  return finding('P1', '零重量却有运费', rec.line,
-    tag(rec) + ' 的重量是 0，但运费是 ' + f.toFixed(2),
-    rec.raw, '可能是重量填漏了，也可能是不该计费的单被收了钱 —— 两种都值得问一句。');
-}
-
-function checkNegative(rec) {
-  const out = [];
-  for (const pair of [['freight', '运费'], ['subtotal', '小计']]) {
-    const n = normAmount(rec.byRole[pair[0]]);
-    if (n === null || n >= 0) continue;
-    out.push(finding('P1', pair[1] + '为负', rec.line,
-      tag(rec) + ' 的' + pair[1] + '是 ' + n.toFixed(2) + '（负数）',
-      rec.raw, '负数通常是冲减或退费；请确认对应的是哪一笔，别与本期正向费用混在一起。'));
-  }
-  return out;
-}
-
 /** 同目的地单价不一致：同一区域同一条线路，单价应一致（跨行比对）。 */
-function checkDestPrice(items) {
-  const byDest = new Map();
-  for (const it of items) {
-    const dest = String(it.byRole.dest || '').trim();
-    const p = normAmount(it.byRole.price);
-    if (!dest || p === null) continue;
-    if (!byDest.has(dest)) byDest.set(dest, []);
-    byDest.get(dest).push({ line: it.line, price: p, raw: it.raw });
-  }
-  const out = [];
-  for (const pair of byDest) {
-    const dest = pair[0];
-    const list = pair[1];
-    const prices = Array.from(new Set(list.map((x) => x.price)));
-    if (prices.length <= 1) continue;
-    const first = list[0];
-    out.push(finding('P1', '同目的地单价不一致', first.line,
-      '目的地「' + dest + '」出现了 ' + prices.length + ' 种单价：'
-        + prices.map((p) => p.toFixed(2)).join(' / ')
-        + '（涉及第 ' + list.map((x) => x.line).join('、') + ' 行）',
-      first.raw, '同一区域单价不同，可能是续重价、旺季附加或报错价 —— 请对照价目表确认。'));
-  }
-  return out;
-}
-
 function insufficient(missing) {
   return {
     status: 'insufficient_input',
@@ -306,22 +261,17 @@ function run(payload) {
   }
   if (!t.items.length) return insufficient(['至少一条运单明细行']);
 
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const findings = [];
   const notRun = [];
   for (const it of t.items) {
     const a = checkFreight(it); if (a) findings.push(a);
     const b = checkSubtotal(it); if (b) findings.push(b);
-    if (paid) {
-      const z = checkZeroWeight(it); if (z) findings.push(z);
-      for (const f of checkNegative(it)) findings.push(f);
-    }
+
   }
   for (const f of checkTotalRow(t.totals, t.items)) findings.push(f);
   for (const f of checkDuplicates(t.items)) findings.push(f);
   for (const f of checkBlanks(t.items)) findings.push(f);
-  if (paid) for (const f of checkDestPrice(t.items)) findings.push(f);
-  if (!paid) notRun.push.apply(notRun, CHECKS_WITHHELD);
+  notRun.push.apply(notRun, CHECKS_WITHHELD);
 
   findings.sort((x, y) => (x.line - y.line) || String(x.category).localeCompare(String(y.category)));
   const sumOf = (role) => Math.round(t.items.reduce((s, it) => {
@@ -344,7 +294,7 @@ function run(payload) {
     columns: t.cols,
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
   };
   if (notRun.length) result.checks_not_run = notRun;
@@ -356,7 +306,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normAmount, isBlank, labelOf,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  ROLE_LABELS, SUM_ROLES,
+  run, parseTable, splitRow, roleOf, normAmount, isBlank, labelOf, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, ROLE_LABELS, SUM_ROLES,
 };
