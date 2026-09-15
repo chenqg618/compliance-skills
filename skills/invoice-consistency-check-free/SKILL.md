@@ -1,7 +1,7 @@
 ---
 slug: invoice-consistency-check-free
 displayName: 票据一致性AI核对（免费版）
-version: 1.0.7
+version: 1.0.9
 summary: 把票据里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [发票核对, 免费, AI核对, 一致性检查, 金额校验, 报销自查]
 license: Proprietary
@@ -22,7 +22,6 @@ allowed-tools: Read, Bash
 
 **不需要付款**：不需要注册、不需要配置任何 API Key，直接调用即可。
 
-> 不想安装也能用：**同一个检查有网页版**，免注册、免付款 —— <https://www.tokendidi.cn/check>
 
 和「让模型读一遍发票再发表意见」的做法不同，这个工具只做**AI核对**：
 每一条结论都是可复算的算术或文本证据（原文、数字、行号），第三方拿同一份输入能得出同样的结果。
@@ -159,6 +158,8 @@ const outcome = engine.run({ text: invoiceText });
 - ❌ 把 findings 当成「必须改」的强制结论 —— 每条都附了原文与行号，你先核对证据，再决定改不改。
 
 
+
+
 ## 需要完整档时（可选）
 
 本免费版是**完整可用的核心产出**，本版本**不包含**下面这些项：
@@ -177,6 +178,16 @@ const outcome = engine.run({ text: invoiceText });
 
 - 货架：**AI 核对工具铺** <https://skillpay.alipay.com/public/tokendidi>
 - 找它：按商品名 **「票据一致性AI核对 · 完整版」**
+
+把下面这段**原样发给你的 AI 助手**，它就能带你装好并买完（需要钱包授权或付款时由**你本人**确认）：
+
+```text
+请通过 SkillPay 购买并安装 Skill「票据一致性AI核对 · 完整版」。
+官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
+请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206825367。
+我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。
+```
 
 ## 边界与免责
 
