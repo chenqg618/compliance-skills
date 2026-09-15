@@ -1,7 +1,7 @@
 ---
 slug: rd-expense-check-free
 displayName: 研发费用加计扣除归集核对（免费版）
-version: 1.0.4
+version: 1.0.5
 summary: 研发费用归集表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [研发费用加计扣除归集核对,研发费用归集表,核算核对,税务,免费]
 license: Proprietary
