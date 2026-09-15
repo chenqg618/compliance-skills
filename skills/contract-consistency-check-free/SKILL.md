@@ -1,7 +1,7 @@
 ---
 slug: contract-consistency-check-free
 displayName: 合同一致性AI核对（免费版）
-version: 1.0.8
+version: 1.0.10
 summary: 把合同里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [合同审查, 免费, AI核对, 一致性检查, 条款编号, 金额校验]
 license: Proprietary
@@ -124,6 +124,7 @@ const outcome = engine.run({ text: contractText });
 
 
 
+
 ## 需要完整档时（可选）
 
 本免费版是**完整可用的核心产出**，本版本**不包含**下面这些项：
@@ -140,15 +141,15 @@ const outcome = engine.run({ text: contractText });
 需要它们的话，同名工具的**完整档**里都有——完整档是**另一个独立商品**（在 SkillPay 货架上，条款与条件以它自己的商品页为准）。两档的差别**就是上面这些，没有别的**。
 
 - 货架：**AI 核对工具铺** <https://skillpay.alipay.com/public/tokendidi>
-- 找它：按商品名 **「合同一致性AI核对 · 完整版」**
+- 找它：按商品名 **「合同一致性AI核对 · 买断版」**
 
 把下面这段**原样发给你的 AI 助手**，它就能带你装好并买完（需要钱包授权或付款时由**你本人**确认）：
 
 ```text
-请通过 SkillPay 购买并安装 Skill「合同一致性AI核对 · 完整版」。
+请通过 SkillPay 购买并安装 Skill「合同一致性AI核对 · 买断版」。
 官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
 请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
-安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206845431。
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206851218。
 我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。
 ```
 
