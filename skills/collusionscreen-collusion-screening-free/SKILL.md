@@ -1,7 +1,7 @@
 ---
 slug: collusionscreen-collusion-screening-free
 displayName: 串通投标线索筛查（免费版）
-version: 1.0.6
+version: 1.0.8
 summary: 把多家投标文件放在一起，找出客观可复算的雷同线索，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [招投标, 免费, 联系方式一致, 标书检查, 投标自查]
 license: Proprietary
@@ -22,7 +22,6 @@ allowed-tools: Read, Bash
 
 **完全免费**：不需要付款、不需要注册、不需要配置任何 API Key，直接调用即可。
 
-> 不想安装也能用：**同一个检查有网页版**，免注册、免付款 —— <https://www.tokendidi.cn/check>
 
 ## 什么时候用
 
@@ -114,6 +113,8 @@ const outcome = engine.run(payload);
 - ❌ 拿它替代对招标文件的实质响应检查 —— 本版本不含该类检查。
 - ❌ 输入残缺时怪结果不对 —— 检查项依赖你提供的字段，缺字段的检查项不会被伪造出来。
 
+
+
 ## 需要完整档时（可选）
 
 本免费版是**完整可用的核心产出**，本版本**不包含**下面这些项：
@@ -129,6 +130,16 @@ const outcome = engine.run(payload);
 
 - 货架：**AI 核对工具铺** <https://skillpay.alipay.com/public/tokendidi>
 - 找它：按商品名 **「串通投标线索筛查 · 完整版」**
+
+把下面这段**原样发给你的 AI 助手**，它就能带你装好并买完（需要钱包授权或付款时由**你本人**确认）：
+
+```text
+请通过 SkillPay 购买并安装 Skill「串通投标线索筛查 · 完整版」。
+官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
+请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206834506。
+我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。
+```
 
 ## 边界与免责
 
