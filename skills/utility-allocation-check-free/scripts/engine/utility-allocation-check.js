@@ -7,7 +7,9 @@
  * 分摊金额与占比是否吻合。单量一多（几十上百户），人眼核不动；而这些**全是算术**。
  *
  * 与已有能力的区别：本能力核「**物业 ↔ 租户的费用分摊表**」，不是平台结算、不是课时核销。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约：run(payload) -> {status:'success',result} | {status:'insufficient_input',missing,advice}
  * 刻意不做：不联网、不调用大模型；材料不足不给结论；不判断分摊规则是否合理。
  */
@@ -234,60 +236,7 @@ function checkBlanks(items) {
   return out;
 }
 
-function checkShareRange(items, totals) {
-  const out = [];
-  for (const it of items) {
-    const p = normPct(it.byRole.share);
-    if (p === null) continue;
-    if (p > 0 && p <= 100 + 1e-9) continue;
-    out.push(finding('P1', '面积占比异常', it.line,
-      tag(it) + ' 的面积占比是 ' + p.toFixed(2) + '%，不在 0~100% 之间',
-      it.raw, '占比异常通常是把面积填到了占比列，或漏了百分号。'));
-  }
-  const t = totals[0];
-  if (t) {
-    const sumPct = items.reduce((s, it) => {
-      const p = normPct(it.byRole.share);
-      return s + (p === null ? 0 : p);
-    }, 0);
-    const claimed = normPct(t.byRole.share);
-    if (claimed !== null && Math.abs(sumPct - claimed) > PCT_TOL) {
-      out.push(finding('P1', '占比合计不符', t.line,
-        '合计行的占比是 ' + claimed + '%，但各户占比相加是 ' + Math.round(sumPct * 100) / 100 + '%',
-        t.raw, '各户占比相加应为 100%（允许 .5 个百分点的四舍五入差）。'));
-    }
-  }
-  return out;
-}
-
 /** 分摊金额应与占比吻合：该项分摊 ÷ 该项总额 ≈ 占比。 */
-function checkShareMatch(it, totalOfRole, sumPct) {
-  const p = normPct(it.byRole.share);
-  if (p === null || !totalOfRole) return null;
-  const out = [];
-  for (const pair of [['elec', '电费'], ['water', '水费']]) {
-    const amt = normAmount(it.byRole[pair[0]]);
-    const tot = totalOfRole[pair[0]];
-    if (amt === null || !tot) continue;
-    const ratio = (amt / tot) * 100;
-    if (Math.abs(ratio - p) <= Math.max(PCT_TOL, 0.2)) continue;
-    out.push(finding('P1', pair[1] + '分摊与占比不吻合', it.line,
-      tag(it) + ' 的占比是 ' + p.toFixed(2) + '%，但' + pair[1] + '分摊 ' + amt.toFixed(2)
-        + ' ÷ 总额 ' + tot.toFixed(2) + ' = ' + ratio.toFixed(2) + '%',
-      it.raw, '按面积分摊时，各项分摊金额应与占比一致；不一致可能是某项按用量另算，请确认口径。'));
-  }
-  void sumPct;
-  return out;
-}
-
-function checkNegative(rec) {
-  const t = normAmount(rec.byRole.total);
-  if (t === null || t >= 0) return null;
-  return finding('P1', '应缴合计为负', rec.line,
-    tag(rec) + ' 的应缴合计是 ' + t.toFixed(2) + '（负数）',
-    rec.raw, '负数应缴通常是减免或退费超过本期费用；请确认是否应跨期处理。');
-}
-
 function insufficient(missing) {
   return { status: 'insufficient_input', missing: [].concat(missing),
     advice: '请补上这些再跑；材料不足时本工具不做任何认定，也不套用默认值。' };
@@ -305,7 +254,6 @@ function run(payload) {
   }
   if (!t.items.length) return insufficient(['至少一户的明细行']);
 
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const findings = [];
   const notRun = [];
   const totalsOf = {};
@@ -317,16 +265,12 @@ function run(payload) {
   }
   for (const it of t.items) {
     const a = checkTotal(it); if (a) findings.push(a);
-    if (paid) {
-      const m = checkShareMatch(it, totalsOf, 0); if (m) for (const f of m) findings.push(f);
-      const n = checkNegative(it); if (n) findings.push(n);
-    }
+
   }
   for (const f of checkTotalRow(t.totals, t.items)) findings.push(f);
   for (const f of checkDuplicates(t.items)) findings.push(f);
   for (const f of checkBlanks(t.items)) findings.push(f);
-  if (paid) for (const f of checkShareRange(t.items, t.totals)) findings.push(f);
-  if (!paid) notRun.push.apply(notRun, CHECKS_WITHHELD);
+  notRun.push.apply(notRun, CHECKS_WITHHELD);
 
   findings.sort((x, y) => (x.line - y.line) || String(x.category).localeCompare(String(y.category)));
   const sumOf = (role) => Math.round(t.items.reduce((s, it) => {
@@ -349,7 +293,7 @@ function run(payload) {
     columns: t.cols,
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
   };
   if (notRun.length) result.checks_not_run = notRun;
@@ -361,7 +305,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normAmount, normPct, isBlank, labelOf,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  ROLE_LABELS, SUM_ROLES,
+  run, parseTable, splitRow, roleOf, normAmount, normPct, isBlank, labelOf, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, ROLE_LABELS, SUM_ROLES,
 };
