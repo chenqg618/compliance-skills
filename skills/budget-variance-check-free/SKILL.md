@@ -1,7 +1,7 @@
 ---
 slug: budget-variance-check-free
 displayName: 费用预算执行差异核对（免费）
-version: 1.0.2
+version: 1.0.4
 summary: 预算执行表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [费用预算执行差异核对,预算执行表,核对,对账,免费]
 license: Proprietary
@@ -50,6 +50,8 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 4. **把年度预算填进"预算数"**：月度执行表应当是**当月预算**；填年度数会让执行率看起来只有几个百分点。
 5. **同一科目拆成多行（不同部门）却不注明**：会报"同一科目出现多行"，建议在科目后加部门。
 
+
+
 ## 需要完整档时（可选）
 
 本免费版是**完整可用的核心产出**，本版本**不包含**下面这些项：
@@ -64,6 +66,16 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 
 - 货架：**AI 核对工具铺** <https://skillpay.alipay.com/public/tokendidi>
 - 找它：按商品名 **「费用预算执行差异核对 · 完整版」**
+
+把下面这段**原样发给你的 AI 助手**，它就能带你装好并买完（需要钱包授权或付款时由**你本人**确认）：
+
+```text
+请通过 SkillPay 购买并安装 Skill「费用预算执行差异核对 · 完整版」。
+官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
+请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206832751。
+我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。
+```
 
 ## 边界（请务必知道）
 
