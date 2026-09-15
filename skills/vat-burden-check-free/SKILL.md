@@ -1,7 +1,7 @@
 ---
 slug: vat-burden-check-free
 displayName: 增值税进销项与税负率核对（免费版）
-version: 1.0.4
+version: 1.0.5
 summary: 增值税进销项汇总表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [增值税进销项与税负率核对,增值税进销项汇总表,核算核对,对账,免费]
 license: Proprietary
