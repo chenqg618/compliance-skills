@@ -11,7 +11,9 @@
  * 与已有能力的区别（不是重复品）：
  *   · `payroll-check` 核的是「工资表能不能发」（实发 = 应发 − 扣款）；
  *   · 本能力核的是「**提成是怎么算出来的**」—— 销售额、提成率、阶梯档位、计奖基数这条链。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约（与其它引擎一致）：
  *   run(payload) -> {status:'success', result} | {status:'insufficient_input', missing, advice}
  *
@@ -272,77 +274,10 @@ function checkBlanks(people) {
   return out;
 }
 
-function checkRateRange(rec) {
-  const r = normRate(rec.byRole.rate);
-  if (r === null) return null;
-  if (r >= RATE_MIN - 1e-9 && r <= RATE_MAX + 1e-9) return null;
-  return finding('P1', '提成率超出常见区间', rec.line,
-    tag(rec) + ' 的提成率是 ' + (r * 100).toFixed(2) + '%，不在 0%~30% 之间',
-    rec.raw, '可能是把 5% 填成 50%，或把万分之几当成了百分比。请确认。');
-}
-
-function checkDirection(rec) {
-  const out = [];
-  const c = normAmount(rec.byRole.commission);
-  const s = normAmount(rec.byRole.sales);
-  const t = normAmount(rec.byRole.total);
-  if (c !== null && c < 0) {
-    out.push(finding('P1', '提成金额为负', rec.line,
-      tag(rec) + ' 的提成金额是 ' + c.toFixed(2) + '（负数）',
-      rec.raw, '负数提成通常是退货冲减或扣回；请确认这笔该不该在本期扣，以及有没有依据。'));
-  }
-  if (c !== null && s !== null && Math.abs(c) > Math.abs(s) + 0.01) {
-    out.push(finding('P1', '提成金额超过销售额', rec.line,
-      tag(rec) + ' 的提成金额 ' + c.toFixed(2) + ' 超过销售额 ' + s.toFixed(2),
-      rec.raw, '提成大于销售额通常是比例填错（例如把 5% 填成 5 倍）。'));
-  }
-  if (t !== null && t < 0) {
-    out.push(finding('P1', '应发合计为负', rec.line,
-      tag(rec) + ' 的应发合计是 ' + t.toFixed(2) + '（负数）',
-      rec.raw, '应发为负说明扣回超过应发，请确认是否应跨期分摊。'));
-  }
-  return out;
-}
-
 /** 阶梯（累进）提成：按档位逐段计算，返回每段金额与合计。
  *  ladder 例：[{upTo:100000, rate:0.05}, {upTo:200000, rate:0.08}, {upTo:null, rate:0.12}]
  *  含义：0~10 万按 5%，10~20 万的部分按 8%，20 万以上按 12%。 */
-function computeLadder(base, ladder) {
-  const segs = [];
-  let prev = 0;
-  let sum = 0;
-  for (const step of ladder) {
-    const up = (step.upTo === null || step.upTo === undefined) ? Infinity : Number(step.upTo);
-    const rate = Number(step.rate);
-    if (!Number.isFinite(rate)) return null;
-    if (base <= prev) break;
-    const width = Math.min(base, up) - prev;
-    if (width <= 0) { prev = up; continue; }
-    const amt = Math.round(width * rate * 100) / 100;
-    segs.push({ from: prev, to: up === Infinity ? null : up, rate, amount: amt });
-    sum += amt;
-    prev = up;
-    if (up === Infinity) break;
-  }
-  return { segs, total: Math.round(sum * 100) / 100 };
-}
-
 /** 阶梯提成复核：入参给了 ladder 才执行（否则如实列为"未执行"）。 */
-function checkLadder(rec, ladder) {
-  const b = normAmount(rec.byRole.base);
-  const c = normAmount(rec.byRole.commission);
-  if (b === null || c === null) return null;
-  const calc = computeLadder(b, ladder);
-  if (!calc) return null;
-  if (Math.abs(calc.total - c) <= 0.01) return null;
-  return finding('P1', '阶梯提成算错', rec.line,
-    tag(rec) + ' 的提成金额是 ' + c.toFixed(2) + '，但按你给的阶梯档位（计奖基数 '
-      + b.toFixed(2) + '）重算应为 ' + calc.total.toFixed(2)
-      + '（差 ' + (c - calc.total).toFixed(2) + '）',
-    rec.raw, '各档明细：' + calc.segs.map((x) => (x.from + '~' + (x.to === null ? '以上' : x.to))
-      + ' × ' + (x.rate * 100).toFixed(2) + '% = ' + x.amount.toFixed(2)).join('；'));
-}
-
 function insufficient(missing) {
   return {
     status: 'insufficient_input',
@@ -363,7 +298,6 @@ function run(payload) {
   }
   if (!t.people.length) return insufficient(['至少一人的明细行']);
 
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const ladder = payload && Array.isArray(payload.ladder) && payload.ladder.length
     ? payload.ladder : null;
   const findings = [];
@@ -376,20 +310,13 @@ function run(payload) {
       const b = checkCommission(p); if (b) findings.push(b);
     }
     const c = checkTotal(p); if (c) findings.push(c);
-    if (paid) {
-      const r = checkRateRange(p); if (r) findings.push(r);
-      for (const f of checkDirection(p)) findings.push(f);
-      if (ladder) { const l = checkLadder(p, ladder); if (l) findings.push(l); }
-    }
+
   }
-  if (paid) {
-    if (ladder) notRun.push('单一提成率复核（已改用你给的阶梯档位重算）');
-    else notRun.push('阶梯提成复核（未在入参里给 ladder 档位）');
-  }
+
   for (const f of checkTotalRow(t.totals, t.people)) findings.push(f);
   for (const f of checkDuplicates(t.people)) findings.push(f);
   for (const f of checkBlanks(t.people)) findings.push(f);
-  if (!paid) notRun.push.apply(notRun, CHECKS_WITHHELD);
+  notRun.push.apply(notRun, CHECKS_WITHHELD);
 
   findings.sort((x, y) => (x.line - y.line) || String(x.category).localeCompare(String(y.category)));
   const sumOf = (role) => Math.round(t.people.reduce((s, p) => {
@@ -412,7 +339,7 @@ function run(payload) {
     columns: t.cols,
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
   };
   if (notRun.length) result.checks_not_run = notRun;
@@ -424,7 +351,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normAmount, normRate, isBlank, labelOf,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  ROLE_LABELS, SUM_ROLES, RATE_MIN, RATE_MAX, computeLadder,
+  run, parseTable, splitRow, roleOf, normAmount, normRate, isBlank, labelOf, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, ROLE_LABELS, SUM_ROLES, RATE_MIN, RATE_MAX,
 };
