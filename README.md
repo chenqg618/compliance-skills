@@ -107,7 +107,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **64 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **66 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -116,6 +116,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `advance-receipt-check-free` | 预收账款与收入确认台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `ap-reconciliation-free` | 供应商对账表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `ar-aging-check-free` | 应收对账表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `asset-disposal-check-free` | 固定资产处置表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `award-contract-consistency-check-free` | 中标通知书与合同草案逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `bad-debt-provision-check-free` | 坏账准备计提表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `bank-reconciliation-free` | 把银行流水和企业账面记录贴成两段，逐笔配对、列出两侧未达账项和重复记录——每月对账最费时的那一步 |
@@ -124,6 +125,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `bidcheckup-batch-compliance-free` | 一次把多家投标文件的报价算术全部核一遍，不需要付款，也不需要注册 |
 | `bidguard-quote-audit-free` | 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册 |
 | `bonus-pool-check-free` | 年终奖分配表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `budget-variance-check-free` | 预算执行表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `cash-count-check-free` | 现金盘点表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `collusionscreen-collusion-screening-free` | 把多家投标文件放在一起，找出客观可复算的雷同线索，不需要付款，也不需要注册 |
 | `commission-check-free` | 提成计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
