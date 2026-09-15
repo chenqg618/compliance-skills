@@ -9,7 +9,9 @@
  *
  * 与已有能力的区别：本能力核**平台→商家的结算链**（佣金/服务费/运费/退款），
  * 不是银行流水对账，也不是采购三单匹配。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约：run(payload) -> {status:'success',result} | {status:'insufficient_input',missing,advice}
  * 刻意不做：不联网、不调用大模型；材料不足不给结论；不判断平台费率是否合理。
  */
@@ -219,49 +221,6 @@ function checkBlanks(items) {
   return out;
 }
 
-function checkCommissionRate(rec) {
-  const s = normAmount(rec.byRole.sales);
-  const c = normAmount(rec.byRole.commission);
-  if (s === null || c === null || s === 0) return null;
-  const rate = c / s;
-  if (rate >= RATE_MIN - 1e-9 && rate <= RATE_MAX + 1e-9) return null;
-  return finding('P1', '佣金率超出常见区间', rec.line,
-    tag(rec) + ' 的佣金率是 ' + (rate * 100).toFixed(2) + '%（佣金 ' + c.toFixed(2)
-      + ' ÷ 销售额 ' + s.toFixed(2) + '），不在 0.5%~30% 之间',
-    rec.raw, '可能是把佣金填成了金额以外的数，或这单适用了特殊类目费率。请对照平台费率表确认。');
-}
-
-function checkNegative(rec) {
-  const p = normAmount(rec.byRole.payout);
-  if (p === null || p >= 0) return null;
-  return finding('P1', '结算金额为负', rec.line,
-    tag(rec) + ' 的结算金额是 ' + p.toFixed(2) + '（负数）',
-    rec.raw, '负数结算通常是退款/售后冲销超过当期销售额；请确认是否跨期，以及平台是否另有抵扣。');
-}
-
-function checkRefundOverSales(rec) {
-  const s = normAmount(rec.byRole.sales);
-  const r = normAmount(rec.byRole.refund);
-  if (s === null || r === null) return null;
-  if (r <= s + TOL) return null;
-  return finding('P1', '退款大于销售额', rec.line,
-    tag(rec) + ' 的退款 ' + r.toFixed(2) + ' 超过销售额 ' + s.toFixed(2),
-    rec.raw, '可能是跨单退款被挂到了这一单，或销售额漏填。');
-}
-
-function checkZeroSales(rec) {
-  const s = normAmount(rec.byRole.sales);
-  if (s === null || s !== 0) return null;
-  const fees = ['commission', 'techFee', 'shipping'].reduce((acc, k) => {
-    const n = normAmount(rec.byRole[k]);
-    return acc + (n === null ? 0 : n);
-  }, 0);
-  if (fees === 0) return null;
-  return finding('P1', '零销售额却有费用', rec.line,
-    tag(rec) + ' 的销售额是 0，但佣金/服务费/运费合计 ' + fees.toFixed(2),
-    rec.raw, '可能是销售额漏填，或这一单是纯费用项被挂错位置。');
-}
-
 function insufficient(missing) {
   return { status: 'insufficient_input', missing: [].concat(missing),
     advice: '请补上这些再跑；材料不足时本工具不做任何认定，也不套用默认值。' };
@@ -279,22 +238,16 @@ function run(payload) {
   }
   if (!t.items.length) return insufficient(['至少一条订单明细行']);
 
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const findings = [];
   const notRun = [];
   for (const it of t.items) {
     const a = checkSettlement(it); if (a) findings.push(a);
-    if (paid) {
-      const r = checkCommissionRate(it); if (r) findings.push(r);
-      const n = checkNegative(it); if (n) findings.push(n);
-      const o = checkRefundOverSales(it); if (o) findings.push(o);
-      const z = checkZeroSales(it); if (z) findings.push(z);
-    }
+
   }
   for (const f of checkTotalRow(t.totals, t.items)) findings.push(f);
   for (const f of checkDuplicates(t.items)) findings.push(f);
   for (const f of checkBlanks(t.items)) findings.push(f);
-  if (!paid) notRun.push.apply(notRun, CHECKS_WITHHELD);
+  notRun.push.apply(notRun, CHECKS_WITHHELD);
 
   findings.sort((x, y) => (x.line - y.line) || String(x.category).localeCompare(String(y.category)));
   const sumOf = (role) => Math.round(t.items.reduce((s, it) => {
@@ -316,7 +269,7 @@ function run(payload) {
     columns: t.cols,
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
   };
   if (notRun.length) result.checks_not_run = notRun;
@@ -328,7 +281,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normAmount, isBlank, labelOf,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  ROLE_LABELS, SUM_ROLES, RATE_MIN, RATE_MAX,
+  run, parseTable, splitRow, roleOf, normAmount, isBlank, labelOf, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, ROLE_LABELS, SUM_ROLES, RATE_MIN, RATE_MAX,
 };
