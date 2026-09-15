@@ -1,7 +1,7 @@
 ---
 slug: warehouse-fee-check-free
 displayName: 仓储费与超期费核对（免费版）
-version: 1.0.4
+version: 1.0.5
 summary: 仓储费结算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [仓储费与超期费核对,仓储费结算表,核算核对,结算,免费]
 license: Proprietary
