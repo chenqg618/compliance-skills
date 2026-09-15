@@ -1,7 +1,7 @@
 ---
 slug: award-contract-consistency-check-free
 displayName: 中标结果与合同一致性核对（免费版）
-version: 1.0.5
+version: 1.0.6
 summary: 中标通知书与合同草案逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [中标结果与合同一致性核对,中标通知书与合同草案,核对,对账,免费]
 license: Proprietary
