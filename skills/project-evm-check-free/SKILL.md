@@ -1,0 +1,52 @@
+---
+slug: project-evm-check-free
+displayName: 项目挣值分析核对（免费）
+version: 1.0.0
+summary: 挣值分析表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
+tags: [项目挣值分析核对,挣值分析表,核算核对,财务,免费]
+license: Proprietary
+name: project-evm-check-free
+display_name: 项目挣值分析核对（免费）
+display_name_en: Project EVM Check (Free)
+description: 挣值分析表逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 挣值分析核对、EVM、CPI、SPI、项目绩效。
+description_zh: 挣值分析表逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 挣值分析核对、EVM、CPI、SPI、项目绩效。
+description_en: A free deterministic check for project evm check worksheets. Every finding cites the source line. No payment, no registration, no API key, no network.
+category: business-ops
+author: WorkBuddy 开放平台开发者
+allowed-tools: Read, Bash
+---
+
+# 项目挣值分析核对（免费）
+
+> **完全本地运行**：引擎已经打包在本技能里（`engine/` 目录）。
+> 不联网、不需要 API Key、**没有调用次数上限**。
+
+## 什么时候用
+
+**谁会在什么时候用**：做项目（工程/IT/研发）的人**每月报进度与成本**时，标准做法是挣值分析 ——
+CV = EV − AC、SV = EV − PV、CPI = EV ÷ AC、SPI = EV ÷ PV。
+式子极简，但**分母写错（CPI 用 AC、SPI 用 PV）是最常见的错**，而它直接决定"要不要追加预算/延工期"。
+
+**这张表会逐项核对什么**：
+· CV = EV − AC；SV = EV − PV
+· CPI = EV ÷ AC；SPI = EV ÷ PV（**分子永远是 EV**）
+· 合计行逐列复核（**比率不能按行相加**，整体指标要用合计重算）；重复与空缺检测
+
+每条结论都带**原文行号与出处**，可被第三方用同一口径复算；
+材料不足时**不给结论**，会明确列出还缺什么。
+
+## 这个免费版查什么
+
+（检查项由引擎的 `CHECKS_*` 导出，跑 `--sample` 会打印实际执行了哪些。）
+
+## 怎么用
+
+```bash
+node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
+```
+
+## 边界（请务必知道）
+
+本工具**不做**引擎 `CHECKS_OUT_OF_SCOPE` 里列的那些判断；
+材料不足时**不给结论**，也不会输出「未发现问题」。
