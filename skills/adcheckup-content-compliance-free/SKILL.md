@@ -1,7 +1,7 @@
 ---
 slug: adcheckup-content-compliance-free
 displayName: 广告文案合规预检（免费版）
-version: 1.1.6
+version: 1.1.7
 summary: 发布前扫一遍文案里的绝对化用语，并且按监管的执法指南判断该不该报，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [招投标, 免费, 绝对化用语检测, 标书检查, 投标自查]
 license: Proprietary
