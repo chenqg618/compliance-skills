@@ -1,7 +1,7 @@
 ---
 slug: bid-deposit-refund-check-free
 displayName: 投标保证金收退核对（免费）
-version: 1.0.1
+version: 1.0.2
 summary: 保证金收退台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [投标保证金收退核对,保证金收退台账,核对,对账,免费]
 license: Proprietary
