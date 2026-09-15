@@ -1,7 +1,7 @@
 ---
 slug: contract-comparison-free
 displayName: 多份合同条款差异比对（免费版）
-version: 1.0.2
+version: 1.0.3
 summary: 把同一模板下签的多份合同摆在一起逐条对齐——某一份少了哪一条、哪一条被改过、同一条有几个版本。每条都带条款名与各方原文，不需要付款，也不需要注册。
 tags: [合同, 合同比对, 条款差异, 合同审查, 法务, 采购, 内审, 模板, 免费, AI核对]
 license: Proprietary
@@ -22,7 +22,6 @@ allowed-tools: Read, Bash
 
 **完全免费**：不需要付款、不需要注册、不需要配置任何 API Key，直接调用即可。
 
-> 不想安装也能用：**同一个检查有网页版**，免注册、免付款 —— <https://www.tokendidi.cn/check>
 
 ## 什么时候用
 
