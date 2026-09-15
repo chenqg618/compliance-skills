@@ -1,7 +1,7 @@
 ---
 slug: collusionscreen-collusion-screening-free
 displayName: 串通投标线索筛查（免费版）
-version: 1.0.10
+version: 1.0.11
 summary: 把多家投标文件放在一起，找出客观可复算的雷同线索，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [招投标, 免费, 联系方式一致, 标书检查, 投标自查]
 license: Proprietary
