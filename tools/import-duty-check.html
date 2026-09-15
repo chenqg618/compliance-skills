@@ -49,6 +49,14 @@ footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
 <h2>怎么用</h2>
 <pre><code>node scripts/run.mjs --sample                 # 先看样例
 node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<h2>常见错法（这张表里真的会有人这么填）</h2>
+<ol>
+<li>请补上这些再跑；材料不足时本工具不做任何认定，也不套用默认值。</li>
+<li>关税是后面两道税的计算基数：它错了，消费税和增值税会一起错。</li>
+<li>从价消费税要先组成计税价格（含关税）再乘税率；直接用完税价格乘税率是最常见的错法。</li>
+<li>进口增值税的计税基数是「完税价格 + 关税 + 消费税」，漏掉消费税是常见错法。</li>
+<li>通常是某一项税算完后没回写到合计，或合计里混进了不该计入的费用。</li>
+</ol>
 <h2>边界（请务必知道）</h2>
 <p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断；</p>
 <p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
