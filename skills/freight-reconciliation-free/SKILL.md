@@ -1,7 +1,7 @@
 ---
 slug: freight-reconciliation-free
 displayName: 运费对账（免费版）
-version: 1.1.0
+version: 1.1.1
 summary: 运费月结单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [运费对账,运费月结单,核对,对账,免费]
 license: Proprietary
@@ -40,6 +40,20 @@ allowed-tools: Read, Bash
 node scripts/run.mjs --sample                 # 先看样例
 node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 ```
+
+## 需要完整档时（可选）
+
+本免费版是**完整可用的核心产出**，不是残缺版。如果你还需要更深的口径，**完整档**在免费版之上会多做这几项检查（这就是两档的**全部**差别）：
+
+- 零重量却有运费（异常计费线索）
+- 运费或小计为负（冲减方向异常）
+- 同目的地单价不一致（同一区域内单价应一致）
+- 重量缺失但有运费
+
+完整档是**买断制**：一次 **¥9.9**，离线引擎随包、**跑多少次都不再收费**，**不设免费试用**。
+
+- 在哪里买：**AI 核对工具铺**（SkillPay 公开货架）<https://skillpay.alipay.com/public/tokendidi>
+- 怎么找：在货架里按商品名 **「运费对账 · 买断版」** 找（就是本工具的完整档）
 
 ## 边界（请务必知道）
 
