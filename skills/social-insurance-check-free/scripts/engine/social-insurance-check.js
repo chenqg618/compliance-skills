@@ -9,7 +9,9 @@
  *   再深一层还要看个人扣款比例（养老 8% / 医疗 2% / 失业 0.5%）、
  *   公积金比例在不在 5%~12%。这些**全是算术** ——
  *   能被算出来证明是错的地方，就不该靠人眼逐字找。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约（与其它引擎一致）：
  *   run(payload) -> {status:'success', result} | {status:'insufficient_input', missing, advice}
  *
@@ -241,68 +243,6 @@ function checkBlanks(people) {
 }
 
 /** 比例校验：某人某项个人扣款 / 缴费基数 应为标准比例。只在**偏离且超容差**时报。 */
-function checkRate(rec, role, rate, label, tolAbs) {
-  const base = normAmount(rec.byRole.base);
-  const amt = normAmount(rec.byRole[role]);
-  if (base === null || amt === null || base === 0) return null;
-  const expect = Math.round(base * rate * 100) / 100;
-  if (Math.abs(amt - expect) <= tolAbs) return null;
-  return finding('P1', label + '比例不符', rec.line,
-    rec.byRole.name + ' 的' + label + '是 ' + amt.toFixed(2)
-      + '，按基数 ' + base.toFixed(2) + ' × ' + (rate * 100).toFixed(1)
-      + '% 应为 ' + expect.toFixed(2) + '（差 ' + (amt - expect).toFixed(2) + '）',
-    rec.raw, '各地医疗比例有差异，也可能是封顶/按最低基数计。请对照当地当期口径确认。');
-}
-
-function checkFundRatio(rec) {
-  const fb = normAmount(rec.byRole.fundBase);
-  const base = fb !== null ? fb : normAmount(rec.byRole.base);
-  if (base === null || base === 0) return [];
-  const out = [];
-  for (const pair of [['pFund', '个人公积金'], ['cFund', '单位公积金']]) {
-    const role = pair[0];
-    const label = pair[1];
-    const amt = normAmount(rec.byRole[role]);
-    if (amt === null) continue;
-    const ratio = amt / base;
-    if (ratio < FUND_MIN - 1e-9 || ratio > FUND_MAX + 1e-9) {
-      out.push(finding('P1', label + '比例超出区间', rec.line,
-        rec.byRole.name + ' 的' + label + '是 ' + amt.toFixed(2)
-          + '，相对基数 ' + base.toFixed(2) + ' 是 ' + (ratio * 100).toFixed(2)
-          + '%，不在 5%~12% 区间',
-        rec.raw, '公积金缴存比例法定为 5%~12%；请确认基数取的是哪一档。'));
-    }
-  }
-  return out;
-}
-
-function checkBaseMismatch(rec) {
-  const a = normAmount(rec.byRole.base);
-  const b = normAmount(rec.byRole.fundBase);
-  if (a === null || b === null) return null;
-  if (a === b) return null;
-  return finding('P1', '社保基数与公积金基数不一致', rec.line,
-    rec.byRole.name + ' 的社保缴费基数是 ' + a.toFixed(2)
-      + '，公积金基数是 ' + b.toFixed(2),
-    rec.raw, '两者允许不同（公积金有独立上下限），但差异过大时值得核对一次。');
-}
-
-function checkBaseBounds(rec, min, max) {
-  const base = normAmount(rec.byRole.base);
-  if (base === null) return null;
-  if (min !== undefined && min !== null && base < min) {
-    return finding('P0', '缴费基数低于下限', rec.line,
-      rec.byRole.name + ' 的缴费基数 ' + base.toFixed(2) + ' 低于你给的下限 ' + min,
-      rec.raw, '按你提供的当地下限核对。');
-  }
-  if (max !== undefined && max !== null && base > max) {
-    return finding('P0', '缴费基数高于上限', rec.line,
-      rec.byRole.name + ' 的缴费基数 ' + base.toFixed(2) + ' 高于你给的上限 ' + max,
-      rec.raw, '按你提供的当地上限核对。');
-  }
-  return null;
-}
-
 /* ---------------------------------------------------------------- 入口 */
 
 function insufficient(missing) {
@@ -327,7 +267,6 @@ function run(payload) {
   if (!t.people.length) return insufficient(['至少一名参保人的明细行']);
 
   const rates = Object.assign({}, DEFAULT_RATES, (payload && payload.rates) || {});
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const min = payload ? payload.baseMin : undefined;
   const max = payload ? payload.baseMax : undefined;
 
@@ -344,28 +283,12 @@ function run(payload) {
     const d = checkGroupSum(p, ['pFund', 'cFund'], 'fundTotal', '公积金合计');
     if (d) findings.push(d);
 
-    if (paid) {
-      const r1 = checkRate(p, 'pPension', rates.pension, '个人养老', AMOUNT_TOLERANCE);
-      if (r1) findings.push(r1);
-      const r2 = checkRate(p, 'pMedical', rates.medical, '个人医疗', AMOUNT_TOLERANCE);
-      if (r2) findings.push(r2);
-      const r3 = checkRate(p, 'pUnemploy', rates.unemploy, '个人失业', AMOUNT_TOLERANCE);
-      if (r3) findings.push(r3);
-      for (const f of checkFundRatio(p)) findings.push(f);
-      const m = checkBaseMismatch(p);
-      if (m) findings.push(m);
-      if (min !== undefined || max !== undefined) {
-        const bb = checkBaseBounds(p, min, max);
-        if (bb) findings.push(bb);
-      } else {
-        notRun.push('缴费基数上下限校验（未提供 baseMin / baseMax）');
-      }
-    }
+
   }
   for (const f of checkDuplicates(t.people)) findings.push(f);
   for (const f of checkBlanks(t.people)) findings.push(f);
 
-  if (!paid) notRun.push.apply(notRun, CHECKS_WITHHELD);
+  notRun.push.apply(notRun, CHECKS_WITHHELD);
 
   findings.sort((x, y) => x.line - y.line);
 
@@ -381,7 +304,7 @@ function run(payload) {
     columns: t.cols,
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
   };
   if (notRun.length) result.checks_not_run = notRun;
@@ -393,7 +316,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normAmount, checkGroupSum, isBlank,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  DEFAULT_RATES, FUND_MIN, FUND_MAX, ROLE_LABELS, labelOf,
+  run, parseTable, splitRow, roleOf, normAmount, checkGroupSum, isBlank, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, DEFAULT_RATES, FUND_MIN, FUND_MAX, ROLE_LABELS, labelOf,
 };
