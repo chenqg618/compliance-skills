@@ -1,7 +1,7 @@
 ---
 slug: budget-variance-check-free
 displayName: 费用预算执行差异核对（免费版）
-version: 1.0.6
+version: 1.0.7
 summary: 预算执行表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [费用预算执行差异核对,预算执行表,核对,对账,免费]
 license: Proprietary
