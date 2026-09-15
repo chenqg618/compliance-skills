@@ -1,0 +1,52 @@
+---
+slug: progress-payment-check-free
+displayName: 工程进度款与质保金核对（免费）
+version: 1.0.0
+summary: 工程进度款支付计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
+tags: [工程进度款与质保金核对,工程进度款支付计算表,核算核对,对账,免费]
+license: Proprietary
+name: progress-payment-check-free
+display_name: 工程进度款与质保金核对（免费）
+display_name_en: Progress Payment Check (Free)
+description: 工程进度款支付计算表逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 进度款核对、质保金算错、工程款支付核对、产值计量。
+description_zh: 工程进度款支付计算表逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 进度款核对、质保金算错、工程款支付核对、产值计量。
+description_en: A free deterministic check for progress payment check worksheets. Every finding cites the source line. No payment, no registration, no API key, no network.
+category: business-ops
+author: WorkBuddy 开放平台开发者
+allowed-tools: Read, Bash
+---
+
+# 工程进度款与质保金核对（免费）
+
+> **完全本地运行**：引擎已经打包在本技能里（`engine/` 目录）。
+> 不联网、不需要 API Key、**没有调用次数上限**。
+
+## 什么时候用
+
+**谁会在什么时候用**：施工/工程类企业在**每月报进度款**时都要按合同算一遍：
+本期应付进度款（产值 × 80%）→ 扣质保金（应付 × 3%~5%）→ 本期实付。
+单笔动辄几十上百万，比例错一个小数点就是几万块；累计与合同的勾稽直接关系到有没有超付。
+
+**这张表会逐项核对什么**：
+· 本期应付进度款 = 本期完成产值 × 进度款比例
+· 本期扣质保金 = 本期应付进度款 × 质保金比例（**基数是应付，不是产值**）
+· 本期实付 = 本期应付进度款 − 本期扣质保金；合计行逐列复核；重复标段与空缺检测
+
+每条结论都带**原文行号与出处**，可被第三方用同一口径复算；
+材料不足时**不给结论**，会明确列出还缺什么。
+
+## 这个免费版查什么
+
+（检查项由引擎的 `CHECKS_*` 导出，跑 `--sample` 会打印实际执行了哪些。）
+
+## 怎么用
+
+```bash
+node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
+```
+
+## 边界（请务必知道）
+
+本工具**不做**引擎 `CHECKS_OUT_OF_SCOPE` 里列的那些判断；
+材料不足时**不给结论**，也不会输出「未发现问题」。
