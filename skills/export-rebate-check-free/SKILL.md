@@ -1,0 +1,51 @@
+---
+slug: export-rebate-check-free
+displayName: 出口退税核算核对（免费）
+version: 1.0.0
+summary: 出口退税（免抵退）计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
+tags: [出口退税核算核对,出口退税（免抵退）计算表,核算核对,税务,免费]
+license: Proprietary
+name: export-rebate-check-free
+display_name: 出口退税核算核对（免费）
+display_name_en: Export VAT Rebate Check (Free)
+description: 出口退税（免抵退）计算表逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 出口退税核对、免抵退算错、应退税额不对、退税率。
+description_zh: 出口退税（免抵退）计算表逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 出口退税核对、免抵退算错、应退税额不对、退税率。
+description_en: A free deterministic check for export vat rebate check worksheets. Every finding cites the source line. No payment, no registration, no API key, no network.
+category: business-ops
+author: WorkBuddy 开放平台开发者
+allowed-tools: Read, Bash
+---
+
+# 出口退税核算核对（免费）
+
+> **完全本地运行**：引擎已经打包在本技能里（`engine/` 目录）。
+> 不联网、不需要 API Key、**没有调用次数上限**。
+
+## 什么时候用
+
+**谁会在什么时候用**：有出口业务的企业**每月申报免抵退前**必须核一遍 —— 四道算式（不得免征和抵扣税额 → 免抵退税额 → 应退税额 → 免抵税额）**串行依赖**，第一步错一点后面全错；少退的是自己的钱，多退的是税务风险。
+
+**这张表会逐项核对什么**：
+· 不得免征和抵扣税额 = 出口离岸价(FOB) × 汇率 ×(征税率 − 退税率)
+· 免抵退税额 = FOB × 汇率 × 退税率
+· 应退税额 = min(期末留抵税额, 免抵退税额)；免抵税额 = 免抵退税额 − 应退税额
+· 合计行逐列复核；重复报关单号与空缺检测
+
+每条结论都带**原文行号与出处**，可被第三方用同一口径复算；
+材料不足时**不给结论**，会明确列出还缺什么。
+
+## 这个免费版查什么
+
+（检查项由引擎的 `CHECKS_*` 导出，跑 `--sample` 会打印实际执行了哪些。）
+
+## 怎么用
+
+```bash
+node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
+```
+
+## 边界（请务必知道）
+
+本工具**不做**引擎 `CHECKS_OUT_OF_SCOPE` 里列的那些判断；
+材料不足时**不给结论**，也不会输出「未发现问题」。
