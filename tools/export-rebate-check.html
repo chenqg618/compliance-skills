@@ -56,6 +56,20 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></
 <li>应退税额取"留抵"与"免抵退税额"的较小者；取错会直接导致少退或多退。</li>
 <li>免抵税额是抵减内销应纳税额的部分，它与应退税额之和必须等于免抵退税额。</li>
 </ol>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，不是残缺版。如果你还需要更深的口径，<strong>完整档</strong>在免费版之上会多做这几项检查（这就是两档的<strong>全部</strong>差别）：</p>
+<ul>
+<li>退税率高于征税率检测（退税率不得高于征税率）</li>
+<li>退税率超出合理区间检测（不在 0~13%）</li>
+<li>出口离岸价或汇率为非正检测</li>
+<li>应退税额超过免抵退税额检测（超退）</li>
+<li>免抵税额为负检测</li>
+</ul>
+<p>完整档是<strong>买断制</strong>：一次 <strong>¥9.9</strong>，离线引擎随包、<strong>跑多少次都不再收费</strong>，<strong>不设免费试用</strong>。</p>
+<ul>
+<li>在哪里买：<strong>AI 核对工具铺</strong>（SkillPay 公开货架）<a href="https://skillpay.alipay.com/public/tokendidi">https://skillpay.alipay.com/public/tokendidi</a></li>
+<li>怎么找：在货架里按商品名 <strong>「出口退税核算核对 · 买断版」</strong> 找（就是本工具的完整档）</li>
+</ul>
 <h2>边界（请务必知道）</h2>
 <p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断；</p>
 <p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
