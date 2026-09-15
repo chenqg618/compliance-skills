@@ -1,7 +1,7 @@
 ---
 slug: progress-payment-check-free
-displayName: 工程进度款与质保金核对（免费）
-version: 1.0.3
+displayName: 工程进度款与质保金核对（免费版）
+version: 1.0.4
 summary: 工程进度款支付计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [工程进度款与质保金核对,工程进度款支付计算表,核算核对,对账,免费]
 license: Proprietary
