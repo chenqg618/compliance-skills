@@ -1,7 +1,7 @@
 ---
 slug: utility-allocation-check-free
 displayName: 公共费用分摊核对（免费）
-version: 1.0.1
+version: 1.0.2
 summary: 费用分摊表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [公共费用分摊核对,费用分摊表,核对,对账,免费]
 license: Proprietary
@@ -41,6 +41,20 @@ allowed-tools: Read, Bash
 node scripts/run.mjs --sample                 # 先看样例
 node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 ```
+
+## 需要完整档时（可选）
+
+本免费版是**完整可用的核心产出**，本版本**不包含**下面这些项：
+
+- 分摊金额与面积占比是否吻合（分摊 ÷ 该项总额 vs 占比）
+- 占比异常检测（≤0 或 >100%）
+- 应缴合计为负检测
+- 逐户占比与面积比例是否一致（面积 ÷ 总面积 vs 占比）
+
+需要它们的话，同名工具的**完整档**里都有——完整档是**另一个独立商品**（在 SkillPay 货架上，条款与条件以它自己的商品页为准）。两档的差别**就是上面这些，没有别的**。
+
+- 货架：**AI 核对工具铺** <https://skillpay.alipay.com/public/tokendidi>
+- 找它：按商品名 **「公共费用分摊核对 · 完整版」**
 
 ## 边界（请务必知道）
 
