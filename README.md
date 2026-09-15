@@ -107,7 +107,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **36 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **38 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -118,6 +118,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `bid-comparison-free` | 把多家投标人的报价明细逐项摆在一起对齐——谁缺项、各家合计多少、从低到高怎么排 |
 | `bidcheckup-batch-compliance-free` | 一次把多家投标文件的报价算术全部核一遍，不需要付款，也不需要注册 |
 | `bidguard-quote-audit-free` | 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册 |
+| `bonus-pool-check-free` | 年终奖分配表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `collusionscreen-collusion-screening-free` | 把多家投标文件放在一起，找出客观可复算的雷同线索，不需要付款，也不需要注册 |
 | `commission-check-free` | 提成计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `contract-comparison-free` | 把同一模板下签的多份合同摆在一起逐条对齐——某一份少了哪一条、哪一条被改过、同一条有几个版本 |
@@ -127,6 +128,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `expense-compliance-free` | 把一沓发票和一张报销单放在一起核一遍——揪出重复报销的发票号、要素不齐的发票、以及没替换的占位符 |
 | `export-rebate-check-free` | 出口退税（免抵退）计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `freight-reconciliation-free` | 运费月结单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `fx-settlement-check-free` | 外币结算核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `iit-withholding-check-free` | 个税累计预扣计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `import-duty-check-free` | 进口税费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `inventory-check-free` | 库存盘点表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
