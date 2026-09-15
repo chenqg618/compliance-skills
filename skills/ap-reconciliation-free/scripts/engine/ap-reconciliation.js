@@ -12,7 +12,9 @@
  *   · `bank-reconciliation` 核的是「银行流水 ↔ 企业账面」；
  *   · `three-way-match` 核的是「采购订单 / 入库单 / 发票」三单；
  *   · 本能力核的是「**我方应付台账 ↔ 供应商对账单**」—— 材料是对方发来的对账金额，判据是差异清单。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约（与其它引擎一致）：
  *   run(payload) -> {status:'success', result} | {status:'insufficient_input', missing, advice}
  *
@@ -259,39 +261,6 @@ function checkBlanks(items) {
   return out;
 }
 
-function checkOverpay(rec) {
-  const o = normAmount(rec.byRole.opening);
-  const p = normAmount(rec.byRole.purchase);
-  const pay = normAmount(rec.byRole.payment);
-  if (o === null || p === null || pay === null) return null;
-  if (pay <= o + p + AMOUNT_TOLERANCE) return null;
-  return finding('P1', '本期付款超过可付金额', rec.line,
-    tag(rec) + ' 本期付款 ' + pay.toFixed(2) + '，超过「期初 ' + o.toFixed(2) + ' + 本期采购 '
-      + p.toFixed(2) + '」',
-    rec.raw, '要么期初/采购漏记，要么这笔付款对应的是更早的账，请核对付款归属期。');
-}
-
-function checkNegative(rec) {
-  const o = normAmount(rec.byRole.opening);
-  if (o === null || o >= 0) return null;
-  return finding('P1', '期初应付为负', rec.line,
-    tag(rec) + ' 的期初应付是 ' + o.toFixed(2) + '（负数）',
-    rec.raw, '负数应付通常是预付或多付；请确认是不是应该挂在预付账款里。');
-}
-
-function checkStagnant(rec) {
-  const o = normAmount(rec.byRole.opening);
-  const p = normAmount(rec.byRole.purchase);
-  const pay = normAmount(rec.byRole.payment);
-  const c = normAmount(rec.byRole.closing);
-  if (o === null || p === null || pay === null || c === null) return null;
-  if (p !== 0 || pay !== 0) return null;
-  if (o <= 0 || c <= 0) return null;
-  return finding('P1', '本期无采购无付款但有余额', rec.line,
-    tag(rec) + ' 期初 ' + o.toFixed(2) + '、期末 ' + c.toFixed(2) + '，本期采购与付款都是 0',
-    rec.raw, '长期挂账的应付可能已无需支付或对方已注销，值得单独看一次。');
-}
-
 function insufficient(missing) {
   return {
     status: 'insufficient_input',
@@ -312,7 +281,6 @@ function run(payload) {
   }
   if (!t.items.length) return insufficient(['至少一家供应商的明细行']);
 
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const threshold = payload && typeof payload.diffRatio === 'number'
     ? payload.diffRatio : DIFF_RATIO_THRESHOLD;
 
@@ -324,11 +292,7 @@ function run(payload) {
     const b = checkDiff(it); if (b) findings.push(b);
     const u = checkUnmatched(it);
     if (u) { findings.push(u); unmatched.push({ name: tag(it), line: it.line }); }
-    if (paid) {
-      const ov = checkOverpay(it); if (ov) findings.push(ov);
-      const ng = checkNegative(it); if (ng) findings.push(ng);
-      const st = checkStagnant(it); if (st) findings.push(st);
-    }
+
   }
   for (const f of checkTotalRow(t.totals, t.items)) findings.push(f);
   for (const f of checkDuplicates(t.items)) findings.push(f);
@@ -342,13 +306,8 @@ function run(payload) {
   const diffTotal = sumOf('diff');
   const ratio = closingTotal > 0 ? Math.abs(diffTotal) / closingTotal : 0;
 
-  if (paid && ratio > threshold + 1e-9) {
-    findings.push(finding('P1', '差异率超阈值', 0,
-      '差异合计 ' + diffTotal.toFixed(2) + '，占期末应付合计 ' + closingTotal.toFixed(2) + ' 的 '
-        + (ratio * 100).toFixed(2) + '%，超过阈值 ' + (threshold * 100).toFixed(0) + '%',
-      '', '这是提示不是错误；差异率偏高通常说明入账不及时或对方口径不同，值得查一次原因。'));
-  }
-  if (!paid) notRun.push.apply(notRun, CHECKS_WITHHELD);
+
+  notRun.push.apply(notRun, CHECKS_WITHHELD);
 
   findings.sort((x, y) => (x.line - y.line) || String(x.category).localeCompare(String(y.category)));
 
@@ -369,7 +328,7 @@ function run(payload) {
     columns: t.cols,
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
   };
   if (notRun.length) result.checks_not_run = notRun;
@@ -381,7 +340,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normAmount, isBlank, labelOf,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  ROLE_LABELS, MONEY_ROLES, DIFF_RATIO_THRESHOLD,
+  run, parseTable, splitRow, roleOf, normAmount, isBlank, labelOf, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, ROLE_LABELS, MONEY_ROLES, DIFF_RATIO_THRESHOLD,
 };
