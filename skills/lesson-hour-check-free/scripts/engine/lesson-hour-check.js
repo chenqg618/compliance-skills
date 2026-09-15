@@ -7,7 +7,9 @@
  * 人眼核不动；而这些**全是算术**。核错的后果是**退费算错、续费谈崩、甚至被投诉**。
  *
  * 与已有能力的区别：本能力核「**机构 ↔ 学员的课时账**」，不是工资表、不是平台结算。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约：run(payload) -> {status:'success',result} | {status:'insufficient_input',missing,advice}
  * 刻意不做：不联网、不调用大模型；材料不足不给结论；不判断课时定价是否合理。
  */
@@ -230,37 +232,6 @@ function checkBlanks(items) {
   return out;
 }
 
-function checkOverused(rec) {
-  const b = normAmount(rec.byRole.bought);
-  const u = normAmount(rec.byRole.used);
-  const l = normAmount(rec.byRole.left);
-  if (b === null || u === null) return null;
-  if (u <= b + TOL && (l === null || l >= -TOL)) return null;
-  return finding('P0', '超耗课时', rec.line,
-    tag(rec) + ' 购买 ' + b + ' 课时、已耗 ' + u + ' 课时'
-      + (l !== null ? '、剩余 ' + l : ''),
-    rec.raw, '已耗超过购买会让剩余为负；通常是漏记了续费/赠送课时，或消课记录重复。');
-}
-
-function checkZeroPrice(rec) {
-  const u = normAmount(rec.byRole.used);
-  const p = normAmount(rec.byRole.price);
-  if (u === null || p === null) return null;
-  if (u <= 0 || p > 0) return null;
-  return finding('P1', '零单价却有耗课', rec.line,
-    tag(rec) + ' 已耗 ' + u + ' 课时，但课时单价是 0',
-    rec.raw, '单价缺失会让耗课金额算成 0，退费时就说不清了。请补上真实单价。');
-}
-
-function checkPriceRange(rec) {
-  const p = normAmount(rec.byRole.price);
-  if (p === null) return null;
-  if (p >= PRICE_MIN - 1e-9 && p <= PRICE_MAX + 1e-9) return null;
-  return finding('P1', '课时单价异常', rec.line,
-    tag(rec) + ' 的课时单价是 ' + p.toFixed(2) + '，不在 ' + PRICE_MIN + '~' + PRICE_MAX + ' 之间',
-    rec.raw, '可能是把课时数填到了单价列，或漏了小数点。');
-}
-
 function insufficient(missing) {
   return { status: 'insufficient_input', missing: [].concat(missing),
     advice: '请补上这些再跑；材料不足时本工具不做任何认定，也不套用默认值。' };
@@ -278,22 +249,17 @@ function run(payload) {
   }
   if (!t.items.length) return insufficient(['至少一名学员的明细行']);
 
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const findings = [];
   const notRun = [];
   for (const it of t.items) {
     const a = checkHours(it); if (a) findings.push(a);
     const b = checkAmount(it); if (b) findings.push(b);
-    if (paid) {
-      const o = checkOverused(it); if (o) findings.push(o);
-      const z = checkZeroPrice(it); if (z) findings.push(z);
-      const r = checkPriceRange(it); if (r) findings.push(r);
-    }
+
   }
   for (const f of checkTotalRow(t.totals, t.items)) findings.push(f);
   for (const f of checkDuplicates(t.items)) findings.push(f);
   for (const f of checkBlanks(t.items)) findings.push(f);
-  if (!paid) notRun.push.apply(notRun, CHECKS_WITHHELD);
+  notRun.push.apply(notRun, CHECKS_WITHHELD);
 
   findings.sort((x, y) => (x.line - y.line) || String(x.category).localeCompare(String(y.category)));
   const sumOf = (role) => Math.round(t.items.reduce((s, it) => {
@@ -315,7 +281,7 @@ function run(payload) {
     columns: t.cols,
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
   };
   if (notRun.length) result.checks_not_run = notRun;
@@ -327,7 +293,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normAmount, isBlank, labelOf,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  ROLE_LABELS, SUM_ROLES, QTY_ROLES,
+  run, parseTable, splitRow, roleOf, normAmount, isBlank, labelOf, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, ROLE_LABELS, SUM_ROLES, QTY_ROLES,
 };
