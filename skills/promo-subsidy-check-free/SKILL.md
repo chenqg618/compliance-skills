@@ -1,7 +1,7 @@
 ---
 slug: promo-subsidy-check-free
-displayName: 促销补贴与核销核对（免费）
-version: 1.0.3
+displayName: 促销补贴与核销核对（免费版）
+version: 1.0.4
 summary: 促销补贴核销表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [促销补贴与核销核对,促销补贴核销表,促销,补贴,核销,免费]
 license: Proprietary
