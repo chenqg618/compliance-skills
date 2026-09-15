@@ -1,7 +1,7 @@
 ---
 slug: import-duty-check-free
 displayName: 进口税费核算核对（免费）
-version: 1.0.0
+version: 1.1.0
 summary: 进口税费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [进口税费核算核对,进口税费计算表,核算核对,对账,免费]
 license: Proprietary
