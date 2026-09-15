@@ -1,7 +1,7 @@
 ---
 slug: platform-settlement-check-free
 displayName: 电商平台结算核对（免费）
-version: 1.0.1
+version: 1.0.2
 summary: 平台结算单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [电商平台结算核对,平台结算单,核对,对账,免费]
 license: Proprietary
@@ -41,6 +41,20 @@ allowed-tools: Read, Bash
 node scripts/run.mjs --sample                 # 先看样例
 node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 ```
+
+## 需要完整档时（可选）
+
+本免费版是**完整可用的核心产出**，不是残缺版。如果你还需要更深的口径，**完整档**在免费版之上会多做这几项检查（这就是两档的**全部**差别）：
+
+- 佣金率区间校验（佣金 ÷ 销售额，默认 0.5%~30%）
+- 结算金额为负检测（异常冲销）
+- 退款大于销售额检测
+- 零销售额却有费用检测（挂错单）
+
+完整档是**买断制**：一次 **¥9.9**，离线引擎随包、**跑多少次都不再收费**，**不设免费试用**。
+
+- 在哪里买：**AI 核对工具铺**（SkillPay 公开货架）<https://skillpay.alipay.com/public/tokendidi>
+- 怎么找：在货架里按商品名 **「电商平台结算核对 · 买断版」** 找（就是本工具的完整档）
 
 ## 边界（请务必知道）
 
