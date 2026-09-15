@@ -9,7 +9,9 @@
  *
  * 与已有能力的区别：`ar-aging-check` 只做**账龄分桶**（30/60/90 天），
  * **不算法定利率上限、不核算利息金额、不检查天数口径**；本能力核的是**逐笔利息算得对不对**。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约：run(payload) -> {status:'success',result} | {status:'insufficient_input',missing,advice}
  * 刻意不做：不联网、不调用大模型；材料不足不给结论；不给法律意见。
  */
@@ -252,88 +254,6 @@ function checkBlanks(items) {
   return out;
 }
 
-/* ===== 以下为完整档（付费）才执行的检查 ===== */
-
-function checkRateCap(items, capPct) {
-  if (!Number.isFinite(capPct)) return [];
-  const out = [];
-  for (const it of items) {
-    const rate = normNumber(it.byRole.rate);
-    if (rate === null) continue;
-    if (rate > capPct + 1e-9) {
-      out.push({
-        level: 'P1', category: '年利率超过司法保护上限', line: it.line,
-        message: `${LABELS.party}「${it.byRole.party || ''}」年利率 ${rate}%，`
-          + `超过本表给出的上限 ${capPct}%（= 一年期 LPR ${round2(capPct / 4)}% 的 4 倍）。`,
-        advice: '超过部分通常不被支持；请按合同成立时的 LPR 复核该笔的上限口径。',
-      });
-    }
-  }
-  return out;
-}
-
-function checkDates(items, todayMs) {
-  const out = [];
-  for (const it of items) {
-    const t = dayTruth(it);
-    if (!t) continue;
-    if (t.inverted) {
-      out.push({
-        level: 'P0', category: '日期倒挂', line: it.line,
-        message: `${LABELS.party}「${it.byRole.party || ''}」的截止日（${it.byRole.end}）不晚于起算日（${it.byRole.start}）。`,
-        advice: '这种行算出来是 0 或负天数，利息必然不对；先确认日期是不是填反了。',
-      });
-    }
-    const a = normDate(it.byRole.start);
-    if (a !== null && todayMs && a > todayMs) {
-      out.push({
-        level: 'P1', category: '起算日在未来', line: it.line,
-        message: `${LABELS.party}「${it.byRole.party || ''}」的起算日（${it.byRole.start}）在今天之后。`,
-        advice: '未来日期通常是从模板复制时没改；请确认这笔是否真的还没起算。',
-      });
-    }
-  }
-  return out;
-}
-
-function checkNonPositive(items) {
-  const out = [];
-  for (const it of items) {
-    const p = normNumber(it.byRole.principal);
-    const r = normNumber(it.byRole.rate);
-    if (p !== null && p <= 0) {
-      out.push({
-        level: 'P0', category: '本金非正', line: it.line,
-        message: `${LABELS.party}「${it.byRole.party || ''}」的本金是 ${p}。`,
-        advice: '本金为 0 或负数时算出来的利息没有意义；确认该笔是否应在本表内。',
-      });
-    }
-    if (r !== null && r <= 0) {
-      out.push({
-        level: 'P0', category: '年利率非正', line: it.line,
-        message: `${LABELS.party}「${it.byRole.party || ''}」的年利率是 ${r}%。`,
-        advice: '利率为 0 或负数时利息必然为 0 或负；确认是否漏填利率。',
-      });
-    }
-  }
-  return out;
-}
-
-function checkNegativeInterest(items) {
-  const out = [];
-  for (const it of items) {
-    const v = normNumber(it.byRole.interest);
-    if (v !== null && v < 0) {
-      out.push({
-        level: 'P0', category: '已计利息为负', line: it.line,
-        message: `${LABELS.party}「${it.byRole.party || ''}」的已计利息是 ${v.toFixed(2)}。`,
-        advice: '负数利息通常是冲销或多退少补混进了本表；请确认是否应单列。',
-      });
-    }
-  }
-  return out;
-}
-
 function run(payload) {
   const text = (payload && (payload.text || payload.content)) || '';
   if (!String(text).trim()) return insufficient(['原文（text）']);
@@ -349,7 +269,6 @@ function run(payload) {
   }
   if (!t.items.length) return insufficient(['至少一笔的明细行']);
 
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const findings = [];
   const notRun = [];
 
@@ -363,15 +282,8 @@ function run(payload) {
   for (const f of checkDuplicates(t.items)) findings.push(f);
   for (const f of checkBlanks(t.items)) findings.push(f);
 
-  if (paid) {
-    const lpr = normNumber(payload && payload.lpr);
-    for (const f of checkRateCap(t.items, Number.isFinite(lpr) ? lpr * 4 : NaN)) findings.push(f);
-    for (const f of checkDates(t.items, Date.now())) findings.push(f);
-    for (const f of checkNonPositive(t.items)) findings.push(f);
-    for (const f of checkNegativeInterest(t.items)) findings.push(f);
-  } else {
     notRun.push.apply(notRun, CHECKS_WITHHELD);
-  }
+  
 
   findings.sort((x, y) => (x.line - y.line) || String(x.category).localeCompare(String(y.category)));
   const sumOf = (role) => round2(t.items.reduce((s, it) => {
@@ -394,7 +306,7 @@ function run(payload) {
     columns: t.cols.map((c) => c.header),
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
   };
   if (notRun.length) result.checks_not_run = notRun;
@@ -406,7 +318,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normNumber, normDate, isBlank, dayTruth, round2,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  LABELS, SUM_ROLES,
+  run, parseTable, splitRow, roleOf, normNumber, normDate, isBlank, dayTruth, round2, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, LABELS, SUM_ROLES,
 };
