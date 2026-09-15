@@ -107,10 +107,11 @@ claude plugin marketplace add chenqg618/compliance-skills
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **62 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **64 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
+| `accrual-expense-check-free` | 预提费用台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `adcheckup-content-compliance-free` | 发布前扫一遍文案里的绝对化用语，并且按监管的执法指南判断该不该报，不需要付款，也不需要注册 |
 | `advance-receipt-check-free` | 预收账款与收入确认台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `ap-reconciliation-free` | 供应商对账表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
@@ -145,6 +146,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `invoice-usage-stock-check-free` | 发票领用存台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `lease-rent-check-free` | 租金账单/租赁结算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `lesson-hour-check-free` | 课时核销表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `long-term-amortization-check-free` | 长期待摊费用摊销台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `ota-commission-check-free` | 渠道结算核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `overdue-interest-check-free` | 逾期利息计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `overtime-pay-check-free` | 加班费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
