@@ -1,7 +1,7 @@
 ---
 slug: bank-reconciliation-free
 displayName: 银行流水对账核对（免费版）
-version: 1.0.2
+version: 1.0.3
 summary: 把银行流水和企业账面记录贴成两段，逐笔配对、列出两侧未达账项和重复记录——每月对账最费时的那一步。每条都带原文日期与金额，不需要付款，也不需要注册。
 tags: [对账, 银行流水, 未达账项, 银行对账, 财务, 出纳, 会计, 免费, AI核对]
 license: Proprietary
@@ -22,7 +22,6 @@ allowed-tools: Read, Bash
 
 **完全免费**：不需要付款、不需要注册、不需要配置任何 API Key，直接调用即可。
 
-> 不想安装也能用：**同一个检查有网页版**，免注册、免付款 —— <https://www.tokendidi.cn/check>
 
 ## 什么时候用
 
