@@ -49,6 +49,14 @@ footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
 <h2>怎么用</h2>
 <pre><code>node scripts/run.mjs --sample                 # 先看样例
 node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<h2>常见错法（这张表里真的会有人这么填）</h2>
+<ol>
+<li>请补上这些再跑；材料不足时本工具不做任何认定，也不套用默认值。</li>
+<li>记账汇率是确认收入/应收时的汇率；用成结算日汇率会让汇兑损益凭空消失。</li>
+<li>结算汇率应取<strong>实际收款日</strong>的汇率；两个汇率取同日就等于没有汇兑损益。</li>
+<li>方向最容易写反：<strong>结算汇率高于记账汇率 ⇒ 收益（正）</strong>；表里符号错了会让损益表反向。</li>
+<li>已收 = 结算（同一笔款）；不一致通常是银行扣了电报费/手续费，或汇率取错 —— 请查明后单列。</li>
+</ol>
 <h2>边界（请务必知道）</h2>
 <p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断；</p>
 <p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
