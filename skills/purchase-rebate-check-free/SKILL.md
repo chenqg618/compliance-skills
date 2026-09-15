@@ -1,7 +1,7 @@
 ---
 slug: purchase-rebate-check-free
-displayName: 采购返利与阶梯核算核对（免费）
-version: 1.0.3
+displayName: 采购返利与阶梯核算核对（免费版）
+version: 1.0.4
 summary: 采购返利核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [采购返利与阶梯核算核对,采购返利核对表,采购,返利,免费]
 license: Proprietary
