@@ -47,6 +47,14 @@ footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
 <h2>怎么用</h2>
 <pre><code>node scripts/run.mjs --sample                 # 先看样例
 node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<h2>常见错法（这张表里真的会有人这么填）</h2>
+<ol>
+<li>请补上这些再跑；材料不足时本工具不做任何认定，也不套用默认值。</li>
+<li>归集合计必须等于各项之和；漏项或重复计入都会让后续限额与加计扣除额一起错。</li>
+<li>限额是<strong>按全部研发项目统一计算</strong>的，不是逐项目各算一次；</li>
+<li>要么明细行漏了项目，要么合计行没跟着更新。</li>
+<li>同一项目分多行归集是正常的；但若本表按项目汇总，重复行会让合计翻倍，也会把统一限额算错。</li>
+</ol>
 <h2>边界（请务必知道）</h2>
 <p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断；</p>
 <p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
