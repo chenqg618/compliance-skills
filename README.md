@@ -69,9 +69,21 @@ node compliance-skills/products/mcp-compliance-server/server.mjs   # stdio 上�
 
 ## 直接下载（不想看源码的话）
 
-13 个免费技能包都打包好了，在 **Releases** 里下载即用：
-<https://github.com/chenqg618/compliance-skills/releases/tag/v1.0.0>
+每个免费技能包都打包好了，在 **Releases** 里下载即用：
+<https://github.com/chenqg618/compliance-skills/releases/latest>
 （每个 zip 顶层就是技能文件夹，解压即可用；里面只有 `SKILL.md` 与纯 Node 脚本，无依赖、无网络调用。）
+
+## 完整版（买断，¥9.9）
+
+免费版是**完整可用的核心产出**；需要**更深口径**时有两个付费形态：
+
+| 形态 | 适合谁 | 在哪买/装 | 计费 |
+|---|---|---|---|
+| **完整档（离线引擎随包）** | 想在本机反复跑、材料敏感不能外发 | **SkillPay**：<https://skillpay.alipay.com/shelf> | **买断一次 ¥9.9**，跑多少次都不再收费（**不设免费试用**） |
+| **按次档（调站点端点）** | 偶尔用一次 | **SkillHub**：<https://www.skillhub.cn/> 搜技能名 | 单次 ¥0.99 起 |
+
+> 说明：免费版与完整版的**差别在检查项**（免费版会在输出里**如实列出哪些检查没有执行**）；
+> 两者都是同一套确定性引擎，结论可复算。
 
 ## 安装
 
@@ -94,19 +106,41 @@ claude plugin marketplace add chenqg618/compliance-skills
 
 ## 技能清单（免费版）
 
-| 技能 | 作用 |
+<!-- SKILL_LIST_START -->
+（本仓库共 **29 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+
+| 技能包 | 作用 |
 |---|---|
-| `bidguard-quote-audit-free` | 投标报价AI审查：逐行核对「合价 = 数量 × 单价」、缺漏项提示 |
-| `collusionscreen-collusion-screening-free` | 串通投标线索筛查：联系方式一致、项目成员交叉（输出自动脱敏） |
-| `bidcheckup-batch-compliance-free` | 多标书批量合规体检：逐家报价算术校验，给出逐家 verdict |
-| `tenderaudit-full-compliance-free` | 招投标材料AI体检：逐家报价算术 + 模板占位符扫描 |
-| `adcheckup-content-compliance-free` | 广告文案合规预检：绝对化用语检测 + 监管豁免判定 |
-| `contract-consistency-check-free` | 合同一致性AI核对：当事方名称／日期／金额矛盾、占位符残留、条款交叉引用失效、定义词卫生（**中英双语**） |
-| `invoice-consistency-check-free` | 票据一致性AI核对：行内算术、分项加总、税额计算、价税合计、大小写金额、抬头一致、日期逻辑、重复票检测、占位符残留（**中英双语**） |
-| `trade-doc-consistency-free` | 外贸单证单单一致核对：发票号／合同号／信用证号、金额与币种、数量／件数／重量、港口／船名／唛头跨单据一致，占位符残留 |
-| `three-way-match-free` | 三单匹配AI核对：采购订单／入库单／发票之间的订单号、供应商、物料、数量／单价／金额一致，重复发票号线索、占位符残留 |
-| `expense-compliance-free` | 报销单合规预检：一沓发票 + 一张报销单之间的重复发票号（重复报销线索）、发票要素完整性、占位符残留 |
-| `bid-comparison-free` | 多家报价横向比价：按项目名对齐各家的数量／单价／合价（含中位数）、缺项与多项、各家合计与排序 —— 评标清标那一步的规则部分 |
+| `adcheckup-content-compliance-free` | 发布前扫一遍文案里的绝对化用语，并且按监管的执法指南判断该不该报，不需要付款，也不需要注册 |
+| `ap-reconciliation-free` | 供应商对账表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `ar-aging-check-free` | 应收对账表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `bank-reconciliation-free` | 把银行流水和企业账面记录贴成两段，逐笔配对、列出两侧未达账项和重复记录——每月对账最费时的那一步 |
+| `bid-comparison-free` | 把多家投标人的报价明细逐项摆在一起对齐——谁缺项、各家合计多少、从低到高怎么排 |
+| `bidcheckup-batch-compliance-free` | 一次把多家投标文件的报价算术全部核一遍，不需要付款，也不需要注册 |
+| `bidguard-quote-audit-free` | 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册 |
+| `collusionscreen-collusion-screening-free` | 把多家投标文件放在一起，找出客观可复算的雷同线索，不需要付款，也不需要注册 |
+| `commission-check-free` | 提成计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `contract-comparison-free` | 把同一模板下签的多份合同摆在一起逐条对齐——某一份少了哪一条、哪一条被改过、同一条有几个版本 |
+| `contract-consistency-check-free` | 把合同里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册 |
+| `depreciation-check-free` | 固定资产台账逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `expense-compliance-free` | 把一沓发票和一张报销单放在一起核一遍——揪出重复报销的发票号、要素不齐的发票、以及没替换的占位符 |
+| `export-rebate-check-free` | 出口退税（免抵退）计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `freight-reconciliation-free` | 运费月结单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `import-duty-check-free` | 进口税费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `inventory-check-free` | 库存盘点表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `invoice-consistency-check-free` | 把票据里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册 |
+| `lesson-hour-check-free` | 课时核销表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `overdue-interest-check-free` | 逾期利息计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `overtime-pay-check-free` | 加班费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `payroll-check-free` | 发薪前把工资表算一遍——每个人的实发是不是等于应发减扣款、合计行是不是各列之和、有没有同一个人出现两行、有没有金额空缺或没替换的占位符 |
+| `platform-settlement-check-free` | 平台结算单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `rd-expense-check-free` | 研发费用归集表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `social-insurance-check-free` | 社保申报明细逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `tenderaudit-full-compliance-free` | 把一个项目的投标材料先做一轮免费的AI体检，报价算术 + 模板占位符，不需要付款，也不需要注册 |
+| `three-way-match-free` | 把采购订单、入库单、发票放在一起核一遍——订单号、供应商、物料、数量、单价、金额在各单据间对不对得上，另外揪出重复发票号与未替换的占位符 |
+| `trade-doc-consistency-free` | 把外贸单据之间对不上的地方找出来（发票号 / 合同号 / 信用证号 / 金额 / 数量 / 重量 / 港口 / 船名），每条都带原文证据，不需要付款，也不需要注册 |
+| `utility-allocation-check-free` | 费用分摊表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+<!-- SKILL_LIST_END -->
 
 ## 怎么用
 
