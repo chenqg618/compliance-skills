@@ -107,7 +107,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **58 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **60 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -139,6 +139,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `input-vat-deduction-check-free` | 进项税额认证与抵扣对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `installment-rate-check-free` | 分期方案核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `inventory-check-free` | 库存盘点表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `inventory-cost-flow-check-free` | 存货出入库与成本表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `invoice-consistency-check-free` | 把票据里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册 |
 | `invoice-usage-stock-check-free` | 发票领用存台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `lease-rent-check-free` | 租金账单/租赁结算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
@@ -158,6 +159,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `purchase-rebate-check-free` | 采购返利核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `rd-expense-check-free` | 研发费用归集表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `social-insurance-check-free` | 社保申报明细逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `stamp-duty-base-check-free` | 印花税计税依据台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `store-sales-report-check-free` | 门店营收上报表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `surtax-check-free` | 附加税费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `tenderaudit-full-compliance-free` | 把一个项目的投标材料先做一轮免费的AI体检，报价算术 + 模板占位符，不需要付款，也不需要注册 |
