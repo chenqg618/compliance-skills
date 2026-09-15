@@ -1,7 +1,7 @@
 ---
 slug: commission-check-free
 displayName: 销售提成核对（免费版）
-version: 1.1.1
+version: 1.1.2
 summary: 提成计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [销售提成核对,提成计算表,核对,对账,免费]
 license: Proprietary
