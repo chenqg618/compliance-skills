@@ -1,7 +1,7 @@
 ---
 slug: vat-filing-reconcile-free
 displayName: 增值税申报与账载开票三方核对（免费版）
-version: 1.0.5
+version: 1.0.6
 summary: 增值税申报与账载开票对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [增值税申报与账载开票三方核对,增值税申报与账载开票对照表,核对,对账,免费]
 license: Proprietary
