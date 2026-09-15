@@ -1,7 +1,7 @@
 ---
 slug: social-insurance-check-free
 displayName: 社保公积金核对（免费版）
-version: 1.0.5
+version: 1.0.6
 summary: 社保申报明细逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [社保公积金核对,社保申报明细,核对,对账,免费]
 license: Proprietary
