@@ -1,7 +1,7 @@
 ---
 slug: bad-debt-provision-check-free
 displayName: 应收账款坏账准备计提核对（免费）
-version: 1.0.1
+version: 1.0.2
 summary: 坏账准备计提表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [应收账款坏账准备计提核对,坏账准备计提表,核对,对账,免费]
 license: Proprietary
