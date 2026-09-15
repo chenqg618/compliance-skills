@@ -107,7 +107,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **48 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **50 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -151,10 +151,12 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `purchase-rebate-check-free` | 采购返利核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `rd-expense-check-free` | 研发费用归集表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `social-insurance-check-free` | 社保申报明细逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `store-sales-report-check-free` | 门店营收上报表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `surtax-check-free` | 附加税费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `tenderaudit-full-compliance-free` | 把一个项目的投标材料先做一轮免费的AI体检，报价算术 + 模板占位符，不需要付款，也不需要注册 |
 | `three-way-match-free` | 把采购订单、入库单、发票放在一起核一遍——订单号、供应商、物料、数量、单价、金额在各单据间对不对得上，另外揪出重复发票号与未替换的占位符 |
 | `trade-doc-consistency-free` | 把外贸单据之间对不上的地方找出来（发票号 / 合同号 / 信用证号 / 金额 / 数量 / 重量 / 港口 / 船名），每条都带原文证据，不需要付款，也不需要注册 |
+| `tuition-refund-check-free` | 退费核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `utility-allocation-check-free` | 费用分摊表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `utility-tier-billing-check-free` | 电费账单核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `vat-burden-check-free` | 增值税进销项汇总表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
