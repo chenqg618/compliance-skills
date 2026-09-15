@@ -107,7 +107,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **52 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **54 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -146,6 +146,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `payment-fee-check-free` | 收款手续费核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `payroll-check-free` | 发薪前把工资表算一遍——每个人的实发是不是等于应发减扣款、合计行是不是各列之和、有没有同一个人出现两行、有没有金额空缺或没替换的占位符 |
 | `platform-settlement-check-free` | 平台结算单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `prepayment-offset-check-free` | 预付账款核销台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `progress-payment-check-free` | 工程进度款支付计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `project-evm-check-free` | 挣值分析表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `promo-subsidy-check-free` | 促销补贴核销表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
@@ -162,6 +163,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `utility-allocation-check-free` | 费用分摊表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `utility-tier-billing-check-free` | 电费账单核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `vat-burden-check-free` | 增值税进销项汇总表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `vat-filing-reconcile-free` | 增值税申报与账载开票对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `warehouse-fee-check-free` | 仓储费结算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 <!-- SKILL_LIST_END -->
 
