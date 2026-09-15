@@ -56,6 +56,19 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></
 <li>要么明细行漏了人，要么合计行没跟着更新。</li>
 <li>同一人多笔加班是正常的；但若本表按人汇总，重复行会让合计翻倍 —— 请确认口径。</li>
 </ol>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，不是残缺版。如果你还需要更深的口径，<strong>完整档</strong>在免费版之上会多做这几项检查（这就是两档的<strong>全部</strong>差别）：</p>
+<ul>
+<li>月加班总时数超过 36 小时（法定延长工时上限）检测</li>
+<li>折算小时工资低于给定最低工资标准检测（最低工资由入参给出）</li>
+<li>月工资非正或加班时数为负检测</li>
+<li>计薪天数偏离 20~23 天（含法定 21.75）检测</li>
+</ul>
+<p>完整档是<strong>买断制</strong>：一次 <strong>¥9.9</strong>，离线引擎随包、<strong>跑多少次都不再收费</strong>，<strong>不设免费试用</strong>。</p>
+<ul>
+<li>在哪里买：<strong>AI 核对工具铺</strong>（SkillPay 公开货架）<a href="https://skillpay.alipay.com/public/tokendidi">https://skillpay.alipay.com/public/tokendidi</a></li>
+<li>怎么找：在货架里按商品名 <strong>「加班费核算核对 · 买断版」</strong> 找（就是本工具的完整档）</li>
+</ul>
 <h2>边界（请务必知道）</h2>
 <p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断；</p>
 <p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
