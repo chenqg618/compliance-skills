@@ -8,7 +8,9 @@
  *   账面期末与实盘数的差异是多少、差异金额 = 数量 × 单价 对不对、
  *   合计行是不是各品之和、有没有重复品类、有没有该填没填。
  *   盘点差异直接决定盘盈盘亏的账务处理，而这些**全是算术**。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约（与其它引擎一致）：
  *   run(payload) -> {status:'success', result} | {status:'insufficient_input', missing, advice}
  *
@@ -260,46 +262,6 @@ function checkBlanks(items) {
   return out;
 }
 
-function checkNegative(rec) {
-  const out = [];
-  for (const pair of [['bookQty', '账面结存'], ['actualQty', '实盘数量']]) {
-    const n = normAmount(rec.byRole[pair[0]]);
-    if (n === null || n >= 0) continue;
-    out.push(finding('P0', '数量为负', rec.line,
-      tag(rec) + ' 的' + pair[1] + '是 ' + n + '（负数）',
-      rec.raw, '库存数量不可能为负；通常是出入库方向录反了，或期初本身是错的。'));
-  }
-  return out;
-}
-
-function checkInboundAmount(rec) {
-  const i = normAmount(rec.byRole.inQty);
-  const p = normAmount(rec.byRole.price);
-  if (i === null || p === null) return null;
-  // 只有同时给了「入库金额」列时才核；这里用差异金额反推不成立，故仅在存在该列时检查
-  const amt = normAmount(rec.byRole.inAmount);
-  if (amt === null) return null;
-  const expect = Math.round(i * p * 100) / 100;
-  if (Math.abs(expect - amt) <= 0.01) return null;
-  return finding('P1', '入库金额不等于入库数量×单价', rec.line,
-    tag(rec) + ' 的入库金额是 ' + amt.toFixed(2) + '，但「入库数量 ' + i + ' × 单价 ' + p.toFixed(2)
-      + '」应为 ' + expect.toFixed(2),
-    rec.raw, '请确认是否用了不同批次的成本价。');
-}
-
-function checkStagnant(rec) {
-  const o = normAmount(rec.byRole.opening);
-  const b = normAmount(rec.byRole.bookQty);
-  const i = normAmount(rec.byRole.inQty);
-  const u = normAmount(rec.byRole.outQty);
-  if (o === null || b === null || i === null || u === null) return null;
-  if (i !== 0 || u !== 0) return null;
-  if (o <= 0) return null;
-  return finding('P1', '本期无出入库（长期挂账存货）', rec.line,
-    tag(rec) + ' 期初 ' + o + '、期末 ' + b + '，本期入库与出库都是 0',
-    rec.raw, '长期不动的存货可能已减值或已报废，值得单独看一次。');
-}
-
 function insufficient(missing) {
   return {
     status: 'insufficient_input',
@@ -320,7 +282,6 @@ function run(payload) {
   }
   if (!t.items.length) return insufficient(['至少一个品类的明细行']);
 
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const threshold = payload && typeof payload.diffRatio === 'number' ? payload.diffRatio : DIFF_RATIO_THRESHOLD;
 
   const findings = [];
@@ -329,11 +290,7 @@ function run(payload) {
     const a = checkBook(it); if (a) findings.push(a);
     const b = checkDiffQty(it); if (b) findings.push(b);
     const c = checkDiffAmount(it); if (c) findings.push(c);
-    if (paid) {
-      for (const f of checkNegative(it)) findings.push(f);
-      const ia = checkInboundAmount(it); if (ia) findings.push(ia);
-      const st = checkStagnant(it); if (st) findings.push(st);
-    }
+
   }
   for (const f of checkTotalRow(t.totals, t.items)) findings.push(f);
   for (const f of checkDuplicates(t.items)) findings.push(f);
@@ -351,13 +308,8 @@ function run(payload) {
   const diffAmt = sumOf('diffAmount');
   const ratio = bookAmt > 0 ? Math.abs(diffAmt) / bookAmt : 0;
 
-  if (paid && ratio > threshold + 1e-9) {
-    findings.push(finding('P1', '盘点差异率超阈值', 0,
-      '差异金额合计 ' + diffAmt.toFixed(2) + '，占账面金额 ' + bookAmt.toFixed(2) + ' 的 '
-        + (ratio * 100).toFixed(2) + '%，超过阈值 ' + (threshold * 100).toFixed(0) + '%',
-      '', '这是提示不是错误；差异率偏高通常说明收发存流程或账务处理有问题，值得查一次原因。'));
-  }
-  if (!paid) notRun.push.apply(notRun, CHECKS_WITHHELD);
+
+  notRun.push.apply(notRun, CHECKS_WITHHELD);
 
   findings.sort((x, y) => (x.line - y.line) || String(x.category).localeCompare(String(y.category)));
 
@@ -375,7 +327,7 @@ function run(payload) {
     columns: t.cols,
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
   };
   if (notRun.length) result.checks_not_run = notRun;
@@ -387,7 +339,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normAmount, isBlank, labelOf,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  ROLE_LABELS, QTY_ROLES, DIFF_RATIO_THRESHOLD,
+  run, parseTable, splitRow, roleOf, normAmount, isBlank, labelOf, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, ROLE_LABELS, QTY_ROLES, DIFF_RATIO_THRESHOLD,
 };
