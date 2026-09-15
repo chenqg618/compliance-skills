@@ -1,7 +1,7 @@
 ---
 slug: ota-commission-check-free
-displayName: OTA佣金与净结算核对（免费）
-version: 1.0.3
+displayName: OTA佣金与净结算核对（免费版）
+version: 1.0.4
 summary: 渠道结算核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [OTA佣金与净结算核对,渠道结算核对表,OTA,酒店,结算,免费]
 license: Proprietary
