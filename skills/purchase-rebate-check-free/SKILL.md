@@ -1,0 +1,52 @@
+---
+slug: purchase-rebate-check-free
+displayName: 采购返利与阶梯核算核对（免费）
+version: 1.0.0
+summary: 采购返利核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
+tags: [采购返利与阶梯核算核对,采购返利核对表,采购,返利,免费]
+license: Proprietary
+name: purchase-rebate-check-free
+display_name: 采购返利与阶梯核算核对（免费）
+display_name_en: Purchase Rebate Check (Free)
+description: 采购返利核对表逐项核对（应得返利与差额复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 采购返利核对、返利没收足、阶梯返利、年度返利。
+description_zh: 采购返利核对表逐项核对（应得返利与差额复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 采购返利核对、返利没收足、阶梯返利、年度返利。
+description_en: A free deterministic check for supplier purchase-rebate statements. Every finding cites the source line. No payment, no registration, no API key, no network.
+category: business-ops
+author: WorkBuddy 开放平台开发者
+allowed-tools: Read, Bash
+---
+
+# 采购返利与阶梯核算核对（免费）
+
+> **完全本地运行**：引擎已经打包在本技能里（`engine/` 目录）。
+> 不联网、不需要 API Key、**没有调用次数上限**。
+
+## 什么时候用
+
+**谁会在什么时候用**：**供应商按年度（或季度）采购额给返利，企业年底必须核"返利收足了没有"** ——
+应得返利 = 年度采购额 × 适用返利率（返利率**按采购额档位**确定）；差额 = 应得 − 已收。
+返利率用错档、按上年档位算、含税口径不一致，都会让返利**少收几万块**，而且往往第二年才发现。
+
+**这张表会逐项核对什么**：
+· 应得返利 = 年度采购额 × 适用返利率
+· 差额 = 应得返利 − 已收返利（**为正表示还没收足**，年底据此追）
+· 合计行逐列复核（返利率列不参与求和）；重复供应商与空缺检测
+
+每条结论都带**原文行号与出处**，可被第三方用同一口径复算；
+材料不足时**不给结论**，会明确列出还缺什么。
+
+## 这个免费版查什么
+
+（检查项由引擎的 `CHECKS_*` 导出，跑 `--sample` 会打印实际执行了哪些。）
+
+## 怎么用
+
+```bash
+node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
+```
+
+## 边界（请务必知道）
+
+本工具**不做**引擎 `CHECKS_OUT_OF_SCOPE` 里列的那些判断；
+材料不足时**不给结论**，也不会输出「未发现问题」。
