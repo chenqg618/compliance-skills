@@ -1,7 +1,7 @@
 ---
 slug: contract-consistency-check-free
 displayName: 合同一致性AI核对（免费版）
-version: 1.0.6
+version: 1.0.7
 summary: 把合同里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [合同审查, 免费, AI核对, 一致性检查, 条款编号, 金额校验]
 license: Proprietary
@@ -22,7 +22,6 @@ allowed-tools: Read, Bash
 
 **不需要付款**：不需要注册、不需要配置任何 API Key，直接调用即可。
 
-> 不想安装也能用：**同一个检查有网页版**，免注册、免付款 —— <https://www.tokendidi.cn/check>
 
 和"让模型读一遍合同再发表意见"的做法不同，这个工具只做**AI核对**：
 每一条结论都是可复算的算术或文本证据（原文、数字、行号），第三方拿同一份输入能得出同样的结果。
