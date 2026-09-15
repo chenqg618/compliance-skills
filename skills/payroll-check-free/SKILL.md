@@ -1,7 +1,7 @@
 ---
 slug: payroll-check-free
 displayName: 工资表发放前核对（免费版）
-version: 1.0.5
+version: 1.0.6
 summary: 发薪前把工资表算一遍——每个人的实发是不是等于应发减扣款、合计行是不是各列之和、有没有同一个人出现两行、有没有金额空缺或没替换的占位符。每条都带行号，不需要付款，也不需要注册。
 tags: [工资表, 发薪, 薪酬, 算薪, HR, 出纳, 会计, 免费, 核对]
 license: Proprietary
