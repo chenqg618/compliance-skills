@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>审计调整分录核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="审计调整分录核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"审计调整分录核对（免费版）","description":"审计调整分录核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>审计调整分录核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 不联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：<strong>年审期间</strong>，审计师把调整分录建议（审计调整）交过来，</p>
+<p>财务要在这张<strong>审计调整分录核对表</strong>上逐条落实、并与审计师来回核对清楚 —— 调错一行，报表就是错的。</p>
+<p><strong>这张表会逐项核对什么</strong>：一张表里每一行 = 一条调整分录的一个科目（借方或贷方一侧）。</p>
+<p>本工具把表里能<strong>算出来的东西</strong>全部复算一遍：</p>
+<ol>
+<li>借贷差额复算（借贷差额 = 借方合计 − 贷方合计，必须为 0）</li>
+<li>科目净影响复算（借方金额 − 贷方金额 = 科目净影响）</li>
+<li>合计行逐列复核（合计行 = 各明细行逐列相加）</li>
+<li>同一调整事项重复行检测（整行重复粘贴 = 调整被算两次）</li>
+<li>空白与占位符检测（编号/科目名称空着、借贷两列都没填、金额列写着"待填"）</li>
+<li>金额为负检测（红字冲销请单独列示，别与正常分录混在一起）</li>
+</ol>
+<p>（检查项的权威清单在引擎的 <code>CHECKS_GIVEN</code> / <code>CHECKS_WITHHELD</code> 里，跑 <code>--sample</code> 会打印实际执行了哪些。）</p>
+<p>每条结论都带<strong>原文行号与出处</strong>（<code>line</code> 就是表里的第几行），可被第三方用同一口径复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么（例如缺「借方金额」这一列）。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<p>入参写法：<code>{"text": "（把你那张表的<strong>表头</strong>和若干行一起复制进来，Tab 分隔最稳）"}</code>；</p>
+<p>也可以直接把核对表从 Excel 复制成文本存成文件传给 <code>--input</code>。</p>
+<h2>常见错法（这张表里真的会有人这么填）</h2>
+<ol>
+<li><strong>借贷两边抄得不平</strong>：调整分录的借贷必须相等。少抄一行、方向写反、小数位看错，都靠"借方合计 − 贷方合计"当场暴露；同一笔调整的这两边<strong>必须写同一个调整事项编号</strong>，否则连"是不是同一笔"都判不出来。</li>
+<li><strong>「科目净影响」按余额方向填反</strong>：净影响 = <strong>借方 − 贷方</strong>（贷方一侧是负数），不是"增加为正"。这是报表科目串位最常见的来源。</li>
+<li><strong>同一笔调整拆成多行却不写编号 / 不写说明</strong>：编号是把它与审计师的调整建议、底稿对上的钥匙；说明是判断"影响科目与金额是否与调整事项一致"的唯一依据。</li>
+<li><strong>整行复制粘贴导致重复调整</strong>：一行重复 = 调整被算两次。本工具按"事项 + 科目 + 借贷金额 + 净影响 + 说明"整行比对。</li>
+<li><strong>合计行手改</strong>：手改过的合计行与明细对不上；本工具会逐列复算合计行（借贷金额、科目净影响）。</li>
+</ol>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>借贷不平超过容差提示</li>
+<li>调整事项缺说明或编号提示</li>
+<li>同一科目同一事项重复调整提示</li>
+<li>调整金额超过参考重要性水平提示（参考口径）</li>
+<li>调整后科目方向异常（资产类为负）提示</li>
+</ul>
+<p>需要它们的话，同名工具的<strong>完整档</strong>里都有——完整档是<strong>另一个独立商品</strong>（在 SkillPay 货架上，条款与条件以它自己的商品页为准）。两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<ul>
+<li>货架：<strong>AI 核对工具铺</strong> <a href="https://skillpay.alipay.com/public/tokendidi">https://skillpay.alipay.com/public/tokendidi</a></li>
+<li>怎么买（含每个商品的商品号与官方购买指令）：<a href="https://chenqg618.github.io/compliance-skills/buy.html">https://chenqg618.github.io/compliance-skills/buy.html</a></li>
+<li>找它：按商品名 <strong>「审计调整分录核对 · 买断版」</strong></li>
+</ul>
+<p>把下面这段<strong>原样发给你的 AI 助手</strong>，它就能带你装好并买完（需要钱包授权或付款时由<strong>你本人</strong>确认）：</p>
+<pre><code>请通过 SkillPay 购买并安装 Skill「审计调整分录核对 · 买断版」。
+官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
+请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206853052。
+我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。</code></pre>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断 —— 例如"这笔调整的会计处理对不对""科目用得对不对""要不要调、要不要披露"，</p>
+<p>以及<strong>重要性水平、会计政策与科目方向</strong>（以审计计划、企业会计准则与审计师意见为准）。</p>
+<p>它只核<strong>内部勾稽</strong>：借贷差额、科目净影响、合计行、重复、空白、负数。</p>
+<p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/audit-adjustment-check-free">https://www.skillhub.cn/skills/user_ef162806/audit-adjustment-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
