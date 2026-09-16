@@ -1224,6 +1224,23 @@
     "hasSample": true
   },
   {
+    "tool": "check_export_monthly_selfcheck",
+    "package": "export-monthly-selfcheck-free",
+    "engine": "export-monthly-selfcheck-free/export-monthly-selfcheck.js",
+    "title": "外贸月度自查包（免费版）",
+    "given": [
+      "出口退税核算核对（分段核对）",
+      "出口报关与收汇核销核对（分段核对）",
+      "外币结算与汇兑损益核对（分段核对）"
+    ],
+    "withheld": [
+      "出口退税申报单证一致性核对",
+      "进口税费核算核对"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_export_rebate_check",
     "package": "export-rebate-check-free",
     "engine": "export-rebate-check-free/export-rebate-check.js",
@@ -1508,6 +1525,23 @@
       "平均房价偏离参考区间（100~5000 元）提示（参考口径）",
       "免费房（免单）比例超过参考上限（10%）提示（参考口径）",
       "渠道预付与渠道订单金额不符提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_hr_monthly_selfcheck",
+    "package": "hr-monthly-selfcheck-free",
+    "engine": "hr-monthly-selfcheck-free/hr-monthly-selfcheck.js",
+    "title": "人力资源月度自查包（免费版）",
+    "given": [
+      "工资表代扣与个税社保申报核对（分段核对）",
+      "工资个税累计预扣核对（分段核对）",
+      "社保公积金缴费基数核对（分段核对）"
+    ],
+    "withheld": [
+      "加班费核算核对",
+      "职工福利费与教育经费限额核对"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -1899,6 +1933,23 @@
       "付款比例与合同约定不一致提示",
       "审定金额超过申请金额提示",
       "同一工程重复付款提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_manufacturing_monthly_selfcheck",
+    "package": "manufacturing-monthly-selfcheck-free",
+    "engine": "manufacturing-monthly-selfcheck-free/manufacturing-monthly-selfcheck.js",
+    "title": "制造业月度自查包（免费版）",
+    "given": [
+      "生产投入产出与报废率核对（分段核对）",
+      "材料领用与定额损耗核对（分段核对）",
+      "存货出入库与加权平均成本核对（分段核对）"
+    ],
+    "withheld": [
+      "委外加工费与损耗核对",
+      "材料成本差异分摊核对"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -2849,6 +2900,23 @@
       "作废率超过参考上限（10%）提示（参考口径）",
       "作废或红冲发票无原因说明提示",
       "净开票金额与申报表口径不一致提示（差额超阈值）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_tax_monthly_selfcheck",
+    "package": "tax-monthly-selfcheck-free",
+    "engine": "tax-monthly-selfcheck-free/tax-monthly-selfcheck.js",
+    "title": "税务月度自查包（免费版）",
+    "given": [
+      "增值税进销项与税负率核对（分段核对）",
+      "增值税附加税费核对（分段核对）",
+      "预缴企业所得税核对（分段核对）"
+    ],
+    "withheld": [
+      "企业所得税纳税调整核对",
+      "税务风险指标自查核对"
     ],
     "outOfScope": [],
     "hasSample": true
