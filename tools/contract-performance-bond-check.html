@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>履约保证金与保函台账核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="履约保证金与保函台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"履约保证金与保函台账核对（免费版）","description":"履约保证金与保函台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>履约保证金与保函台账核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 不联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：财务、出纳等岗位在<strong>每月结账 / 对账 / 盘点</strong>这类固定节点上，</p>
+<p>必须把这张表核一遍才能往下走。</p>
+<p><strong>这张表会逐项核对什么</strong>：履约保证金与保函台账的逐行算术、合计勾稽、重复与空缺检测。</p>
+<p>每条结论都带<strong>原文行号与出处</strong>，可被第三方用同一口径复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么。</p>
+<h2>这个免费版查什么</h2>
+<p><strong>免费档逐行执行这 6 项</strong>（跑 <code>--sample</code> 会打印实际执行了哪些）：</p>
+<ol>
+<li><strong>应退金额复算</strong>：已缴金额 − 已退金额 = 应退金额。少减一笔已退，就是一笔钱躺在对方账上。</li>
+<li><strong>保函余额复算</strong>：保函金额 − 已释放金额 = 保函余额。</li>
+<li><strong>合计行逐列复核</strong>：合计行每一列都必须等于各明细行之和。</li>
+<li><strong>同一项目同一类型重复行检测</strong>：同项目 + 同保证金类型出现两行即报（会重复统计、重复退款）。</li>
+<li><strong>空白与占位符检测</strong>：必需列空着，或写成 <code>-</code>、<code>待补</code>、<code>无</code>，都会被点出来。</li>
+<li><strong>金额为负检测</strong>：已缴金额、已退金额、保函金额、已释放金额、保函费用出现负数即报。</li>
+</ol>
+<p><strong>本版不执行</strong>（会如实列进 <code>scope.checks_not_run</code>，不会用默认值编结论）：</p>
+<p>已退金额超过已缴金额、保函到期日早于项目结束日、保函余额为负、</p>
+<p>保证金超过合同金额比例上限、已缴金额为零却有保函费用。</p>
+<h2>常见错法（这张台账最容易填错的 5 处）</h2>
+<ol>
+<li><strong>把「合同金额」填进「已缴金额」</strong>：履约保证金一般只是合同金额的 3%~10%，</li>
+</ol>
+<p>一填成全额，整行的应退金额与比例关系全部虚高。</p>
+<ol>
+<li><strong>「应退金额」直接抄「已缴金额」</strong>：忘了减掉已经退过的部分 ——</li>
+</ol>
+<p>已在退款流程里的项目会被再退一次（漏退和重退都出在这一列）。</p>
+<ol>
+<li><strong>「保函余额」填成「保函金额」</strong>：保函已经部分释放却没写进「已释放金额」，</li>
+</ol>
+<p>余额看着还在，实际可用额度早就不够覆盖。</p>
+<ol>
+<li><strong>「保证金类型」写得太笼统</strong>（只写「保证金」）或项目名前后不一致（多一个空格、带「（一期）」）：</li>
+</ol>
+<p>重复行检测是按「项目 + 类型」配对的，配不上就查不出重复行。</p>
+<ol>
+<li><strong>「保函到期日」写成「长期」「无」「—」</strong>：日期认不出来时本工具<strong>不下结论</strong></li>
+</ol>
+<p>（而不是编一个结论），这一列的到期敞口就整列漏检。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>已退金额超过已缴金额检测</li>
+<li>保函到期日早于项目结束日提示</li>
+<li>保函余额为负检测</li>
+<li>保证金超过合同金额比例上限（10%）提示（参考口径）</li>
+<li>已缴金额为零却有保函费用检测</li>
+</ul>
+<p>需要它们的话，同名工具的<strong>完整档</strong>里都有——完整档是<strong>另一个独立商品</strong>（在 SkillPay 货架上，条款与条件以它自己的商品页为准）。两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<ul>
+<li>货架：<strong>AI 核对工具铺</strong> <a href="https://skillpay.alipay.com/public/tokendidi">https://skillpay.alipay.com/public/tokendidi</a></li>
+<li>找它：按商品名 <strong>「履约保证金与保函台账核对 · 买断版」</strong></li>
+</ul>
+<p>把下面这段<strong>原样发给你的 AI 助手</strong>，它就能带你装好并买完（需要钱包授权或付款时由<strong>你本人</strong>确认）：</p>
+<pre><code>请通过 SkillPay 购买并安装 Skill「履约保证金与保函台账核对 · 买断版」。
+官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
+请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206845526。
+我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。</code></pre>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断；</p>
+<p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/contract-performance-bond-check-free">https://www.skillhub.cn/skills/user_ef162806/contract-performance-bond-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
