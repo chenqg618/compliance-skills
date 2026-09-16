@@ -971,6 +971,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_clinic_daily_cashier_check",
+    "package": "clinic-daily-cashier-check-free",
+    "engine": "clinic-daily-cashier-check-free/clinic-daily-cashier-check.js",
+    "title": "门诊收费与退费日结核对（免费版）",
+    "given": [
+      "应收合计=各渠道收款合计复算（挂号 + 诊疗 + 药品 + 检查 = 应收合计）",
+      "实收净额复算（收款合计 − 退费合计 = 实收净额）",
+      "合计行逐列复核",
+      "同一收费员同一班次重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "系统日报金额与实收净额不符提示（收费系统日报与当日实收对不上）",
+      "退费超过当日收款提示（当日退费合计大于当日收款合计）",
+      "现金缴存额与现金收款不符（长短款）提示",
+      "同一单据重复退费提示（同一单据号出现两次且都带退费金额）",
+      "医保结算金额与医保回款不符提示（医保申报结算与医保实际到账对不上）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_clinic_revenue_check",
     "package": "clinic-revenue-check-free",
     "engine": "clinic-revenue-check-free/clinic-revenue-check.js",
@@ -2302,6 +2325,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_property_utility_apportionment_check",
+    "package": "property-utility-apportionment-check-free",
+    "engine": "property-utility-apportionment-check-free/property-utility-apportionment-check.js",
+    "title": "物业公共能耗分摊核对（免费版）",
+    "given": [
+      "分摊额复算（公共能耗总额 × 分摊比例，或 分摊基数 × 分摊单价）",
+      "分摊额合计 = 公共能耗总额 复算",
+      "合计行逐列复核",
+      "同一业主/单元重复行检测",
+      "空白与占位符检测",
+      "金额或比例为负检测"
+    ],
+    "withheld": [
+      "分摊比例合计不等于 100% 提示",
+      "分摊额超过公共能耗总额提示",
+      "单价与合同/公示单价不一致提示",
+      "空置房未按约定比例分摊提示",
+      "同一期间重复分摊提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_purchase_rebate_check",
     "package": "purchase-rebate-check-free",
     "engine": "purchase-rebate-check-free/purchase-rebate-check.js",
@@ -2906,6 +2952,29 @@
       "不得抵扣项目未转出提示",
       "转出比例大于 100% 异常提示",
       "分摊基数（全部销售额）为零却算出转出额提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_vehicle_insurance_amortization_check",
+    "package": "vehicle-insurance-amortization-check-free",
+    "engine": "vehicle-insurance-amortization-check-free/vehicle-insurance-amortization-check.js",
+    "title": "车辆保险与保费摊销核对（免费版）",
+    "given": [
+      "本期摊销额复算（保费总额 ÷ 保险月数 = 本期摊销额）",
+      "期末未摊销余额滚动复算（期初未摊销余额 + 本期新增保费 − 本期摊销额 = 期末未摊销余额）",
+      "合计行逐列复核",
+      "同一车牌同一保单同一期间重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "摊销月数与保险起止日期不一致提示",
+      "未摊销余额为负检测",
+      "已过保险期仍有未摊销余额提示",
+      "退保/批改未冲回未摊销余额提示",
+      "同一车牌重复投保同一险种提示"
     ],
     "outOfScope": [],
     "hasSample": true
