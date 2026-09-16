@@ -1656,6 +1656,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_insurance_agency_fee_check",
+    "package": "insurance-agency-fee-check-free",
+    "engine": "insurance-agency-fee-check-free/insurance-agency-fee-check.js",
+    "title": "保险代理手续费与佣金结算核对（免费版）",
+    "given": [
+      "应收手续费复算（保费金额 × 手续费率 = 应收手续费）",
+      "实收净额复算（应收手续费 − 退保追回 − 代扣税费 = 实收净额）",
+      "合计行逐列复核",
+      "同一保单号同一期间重复行检测",
+      "空白与占位符检测",
+      "金额或费率为负检测"
+    ],
+    "withheld": [
+      "手续费率与代理协议不一致提示",
+      "退保追回超过已结手续费提示",
+      "实收净额为负提示",
+      "同一保单重复结算同一期间提示",
+      "首期/续期标识与保单年度不一致提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_inventory_cost_flow_check",
     "package": "inventory-cost-flow-check-free",
     "engine": "inventory-cost-flow-check-free/inventory-cost-flow-check.js",
@@ -2628,6 +2651,52 @@
       "处理退款、撤销、抹零产生的跨日或跨月冲销",
       "做税务与收入确认判断（发票、增值税、收入截止性）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_restaurant_food_cost_check",
+    "package": "restaurant-food-cost-check-free",
+    "engine": "restaurant-food-cost-check-free/restaurant-food-cost-check.js",
+    "title": "餐饮菜品成本与出品率核对（免费版）",
+    "given": [
+      "理论耗用复算（出餐份数 × 单份标准用量 = 理论耗用）",
+      "成本差异复算（实际领用金额 − 理论成本 = 成本差异）",
+      "合计行逐列复核",
+      "同一菜品同一期间重复行检测",
+      "空白与占位符检测",
+      "数量或金额为负检测"
+    ],
+    "withheld": [
+      "出品率超出参考区间提示（默认 85%~105%）",
+      "成本差异率超出参考区间提示（默认 ±5%）",
+      "实际领用低于理论耗用提示（疑似漏记）",
+      "单份标准成本与成本卡不一致提示",
+      "同一菜品重复核算同一期间提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_retail_member_points_check",
+    "package": "retail-member-points-check-free",
+    "engine": "retail-member-points-check-free/retail-member-points-check.js",
+    "title": "会员积分与储值卡核销核对（免费版）",
+    "given": [
+      "储值卡期末余额滚动复算（期初 + 本期充值 − 本期消费 − 本期退卡 = 期末）",
+      "积分期末余额滚动复算（期初 + 本期发放 − 本期兑换 − 本期过期 = 期末）",
+      "合计行逐列复核",
+      "同一会员同一期间重复行检测",
+      "空白与占位符检测",
+      "金额或积分为负检测"
+    ],
+    "withheld": [
+      "消费金额超过储值卡余额提示",
+      "兑换积分超过可用积分提示",
+      "退卡金额超过剩余余额提示",
+      "充值赠送比例与活动口径不一致提示",
+      "积分兑换率偏离参考区间提示"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
