@@ -2307,6 +2307,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_platform_settlement_aging_check",
+    "package": "platform-settlement-aging-check-free",
+    "engine": "platform-settlement-aging-check-free/platform-settlement-aging-check.js",
+    "title": "平台账期与在途资金核对（免费版）",
+    "given": [
+      "净结算额复算（结算金额 − 平台扣费 − 冻结金额 = 净结算额）",
+      "在途余额滚动复算（期初在途 + 本期发生额 − 本期结算金额 = 期末在途）",
+      "合计行逐列复核",
+      "同一平台同一结算批次重复行检测",
+      "空白与占位符检测",
+      "金额或账期天数为负检测"
+    ],
+    "withheld": [
+      "账期天数超过参考上限提示（> 60 天）",
+      "结算金额超过本期发生额提示",
+      "在途余额为负提示",
+      "冻结金额占比偏离参考区间提示（参考区间 0 ~ 30%）",
+      "同一平台同一结算批次重复结算提示（同一批次跨期间又结算了一次）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_prepaid_card_consumption_check",
     "package": "prepaid-card-consumption-check-free",
     "engine": "prepaid-card-consumption-check-free/prepaid-card-consumption-check.js",
@@ -2459,6 +2482,29 @@
       "处理尚未开始或已取消的工作包（请先在表里剔除）",
       "给出项目管理建议或预测工期；读取 .xlsx（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_project_material_transfer_check",
+    "package": "project-material-transfer-check-free",
+    "engine": "project-material-transfer-check-free/project-material-transfer-check.js",
+    "title": "工程材料调拨与领用核对（免费版）",
+    "given": [
+      "结存数量复算（期初 + 调入 − 调出 − 领用 + 退库 = 结存）",
+      "领用金额复算（领用数量 × 单价 = 领用金额）",
+      "合计行逐列复核",
+      "同一材料编码同一项目同一期间重复行检测",
+      "空白与占位符检测",
+      "数量或金额为负检测"
+    ],
+    "withheld": [
+      "领用数量超过可用数量（期初 + 调入 − 调出）提示",
+      "退库数量超过累计领用数量提示",
+      "同一材料跨项目重复调拨同一单据号提示",
+      "单价与合同单价 / 预算单价不一致提示",
+      "结存数量为负提示"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
@@ -2622,6 +2668,29 @@
       "计算逾期利息、违约金与诉讼时效",
       "读取 ERP / 财务系统导出文件（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_rent_collection_check",
+    "package": "rent-collection-check-free",
+    "engine": "rent-collection-check-free/rent-collection-check.js",
+    "title": "租金收缴与欠租台账核对（免费版）",
+    "given": [
+      "应收租金复算（计租面积 × 租金单价 × 计租月数，或合同月租金 × 计租月数）",
+      "欠租金额复算（应收租金 + 滞纳金 − 已收金额）",
+      "合计行逐列复核",
+      "同一房号同一期间重复行检测",
+      "空白与占位符检测",
+      "金额或面积为负检测"
+    ],
+    "withheld": [
+      "已收金额超过应收租金加滞纳金提示（多收 / 预收挂账、租户退款）",
+      "免租期内仍计租提示（同一行既有免租期天数又有计租月数，免租期与计租期重叠）",
+      "欠租超过参考月数（3 个月）提示",
+      "同一房号重复计租同一期间提示（换租户 / 双合同把同一期间算了两遍）",
+      "滞纳金比例与合同约定不一致提示"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
