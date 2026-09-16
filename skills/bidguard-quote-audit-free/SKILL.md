@@ -10,7 +10,7 @@ display_name: 投标报价AI审查（免费版）
 display_name_en: BidGuard Quote Audit (Free)
 description: 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册。 本免费版执行 分项算术校验、缺漏项提示。触发词包括 投标报价AI审查、分项算术校验、缺漏项提示。
 description_zh: 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册。 本免费版执行 分项算术校验、缺漏项提示。
-description_en: A free mechanical pre-check for bidding documents. No payment, no registration, no API key.
+description_en: Free mechanical audit of a single bid quotation across line-item arithmetic, totals, the tender upper price cap and the written-figure cross-check.
 category: business-ops
 author: WorkBuddy 开放平台开发者
 allowed-tools: Read, Bash
