@@ -11,6 +11,15 @@
 - 需要**完整档**（多一类能力：如批量核对、限额判断、跨检查汇总）请用买断：见 `/buy.html`（含每个商品的**商品号**与**官方购买指令**）；
 - 官方安装与购买说明：https://skillpay.alipay.com/buildguide.md
 
+## 最短上手路径（三步，实测可跑）
+```bash
+npx clawhub install @chenqg618/<能力>-free     # 例：@chenqg618/bank-reconciliation-free
+cp templates/sample.json my-material.json      # 打开，把行换成用户的真实数据（第一行是表头）
+node scripts/run.mjs --input my-material.json  # 逐条出结论，每条带原文行号
+```
+- 只想先看输出长什么样：`node scripts/run.mjs --sample`（引擎自带的干净样例，0 命中）。
+- 材料不足时工具**不会给结论**，会列出"还缺哪些列/字段"。
+
 ## 关键页面
 - 购买入口与商品清单：/buy.html
 - 工具页清单（每个能力一页，含输入输出说明）：/index.html
