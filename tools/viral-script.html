@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>爆款视频脚本拆解官（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="把一份口播逐字稿丢进来，10 秒内出体检报告——结构地图、开场钩子强度、留存节奏、口语度评分、CTA 强度，并列出问题清单。完全本地离线运行，逐字稿不出本机，不需要 API Key，没有调用次数限制。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"爆款视频脚本拆解官（免费版）","description":"把一份口播逐字稿丢进来，10 秒内出体检报告——结构地图、开场钩子强度、留存节奏、口语度评分、CTA 强度，并列出问题清单。完全本地离线运行，逐字稿不出本机，不需要 API Key，没有调用次数限制。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>爆款视频脚本拆解官（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>scripts/engine/</code> 目录）。 不联网、不需要 API Key、没有调用次数上限。<strong>逐字稿不会离开你的机器。</strong></blockquote>
+<h2>它体检什么</h2>
+<p>拿到一份口播逐字稿（带时间戳更好），输出五件事：</p>
+<table><thead><tr><th>维度</th><th>具体输出</th></tr></thead><tbody>
+<tr><td>结构地图</td><td>钩子 / 痛点共鸣 / 论证干货 / 转折升华 / CTA 五段，哪段有、哪段缺、各占几句</td></tr>
+<tr><td>开场钩子</td><td>九类钩子里命中了哪几类、强度几级、前 3 秒是否被客套话占掉</td></tr>
+<tr><td>留存节奏</td><td>平均句长、长短句交替率、拖沓段位置、信息密度（字/秒）</td></tr>
+<tr><td>口语度</td><td>0-100 分；命中哪些书面语连接词、是否被动句、有没有人称与语气词</td></tr>
+<tr><td>CTA</td><td>强度三级、出现在第几句、是否落在结尾</td></tr>
+</tbody></table>
+<p>问题清单按 P0 / P1 / P2 分级，<strong>每条都对应一条可复核的规则</strong>，不是主观打分。</p>
+<h2>免费版与完整版的差别（写在代码里，不是写在文档里）</h2>
+<table><thead><tr><th></th><th>免费版（本技能）</th><th>完整版</th></tr></thead><tbody>
+<tr><td>体检总览</td><td>✅</td><td>✅</td></tr>
+<tr><td>结构地图</td><td>✅</td><td>✅</td></tr>
+<tr><td>问题清单</td><td>前 3 条，<strong>只有标题</strong></td><td>全部问题</td></tr>
+<tr><td>位置（原文出处）</td><td>🔒</td><td>✅</td></tr>
+<tr><td>依据（命中规则）</td><td>🔒</td><td>✅</td></tr>
+<tr><td>建议（可直接照做的改法）</td><td>🔒</td><td>✅</td></tr>
+<tr><td>金句候选</td><td>🔒</td><td>✅</td></tr>
+<tr><td>二创蓝图（五段填空模板）</td><td>🔒</td><td>✅</td></tr>
+</tbody></table>
+<p>完整版在 SkillPay 搜「爆款视频脚本拆解官」即可获取。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample
+node scripts/run.mjs --input my-script.json
+node scripts/run.mjs --input my-script.json --json</code></pre>
+<p>入参就是一份 JSON，样例见 <code>templates/sample.json</code>：</p>
+<pre><code>{
+  &quot;text&quot;: &quot;00:03 大家好，今天我想跟大家分享一下……&quot;,
+  &quot;platform&quot;: &quot;shipinhao&quot;,
+  &quot;goal&quot;: &quot;follow&quot;,
+  &quot;duration&quot;: 68
+}</code></pre>
+<table><thead><tr><th>字段</th><th>必填</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>text</code></td><td>是</td><td>口播逐字稿。可带 <code>00:03 </code> 形式的时间戳，也可只给纯文本</td></tr>
+<tr><td><code>platform</code></td><td>否</td><td><code>douyin</code> / <code>xiaohongshu</code> / <code>shipinhao</code> / <code>bilibili</code> / <code>kuaishou</code>，影响信息密度基准</td></tr>
+<tr><td><code>goal</code></td><td>否</td><td><code>sale</code>（带货）/ <code>follow</code>（涨粉）/ <code>traffic</code>（引流）/ <code>brand</code>（品牌）</td></tr>
+<tr><td><code>duration</code></td><td>否</td><td>成片时长（秒），用于校准信息密度</td></tr>
+</tbody></table>
+<h2>触发条件</h2>
+<p>用户说以下任意一类话时使用：</p>
+<ul>
+<li>帮我看看这条口播稿怎么样 / 这条脚本能爆吗</li>
+<li>我的视频完播率低，是不是开场有问题</li>
+<li>帮我拆一下这条短视频的脚本结构</li>
+<li>这段口播太书面了 / 念起来不顺 / 不像人话</li>
+<li>帮我体检一下这个逐字稿 / 给脚本打个分</li>
+</ul>
+<h2>常见错法（写口播稿的人真的会这么干）</h2>
+<ol>
+<li><strong>开头先自我介绍/问候</strong>：前 3 秒被送掉，钩子强度判 0；把结论或冲突提到第一句。</li>
+<li><strong>拿片段来测</strong>：句子太少会直接判"材料不足" —— 留存节奏必须看完整稿。</li>
+<li><strong>以为它会替你改稿</strong>：它只给<strong>结构诊断</strong>（缺哪段、钩子强弱、CTA 强度、口语度），不润色、不代写。</li>
+<li><strong>忽略"口语度"</strong>：书面词太多（"综上所述""基于此"）会让完播率掉，分数低就该念出来顺一遍。</li>
+<li><strong>没有时间戳却按实测读</strong>：无时间戳时时长与语速是<strong>估算</strong>，只能看趋势不能当数据。</li>
+</ol>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>金句候选提取（可复用的短句，含书面语过滤）</li>
+<li>二创蓝图（可直接填空的改写骨架）</li>
+</ul>
+<p>需要它们的话，同名工具的<strong>完整档</strong>里都有——完整档是<strong>另一个独立商品</strong>（在 SkillPay 货架上，条款与条件以它自己的商品页为准）。两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<ul>
+<li>货架：<strong>AI 核对工具铺</strong> <a href="https://skillpay.alipay.com/public/tokendidi">https://skillpay.alipay.com/public/tokendidi</a></li>
+<li>找它：商品名 <strong>「爆款视频脚本拆解官 · 完整版」</strong>（商品号 <code>P0806000205847441</code>）—— ⚠️ 该商品目前在公开货架的选品列表里不出现，<strong>请直接用下面的官方购买指令</strong>（含商品号），它一定能装能买（商品号 <code>P0806000205847441</code>）—— ⚠️ 该商品目前在公开货架的选品列表里不出现，<strong>请直接用下面的官方购买指令</strong>（含商品号），它一定能装能买（商品号 <code>P0806000205847441</code>）—— ⚠️ 该商品目前在公开货架的选品列表里不出现，<strong>请直接用下面的官方购买指令</strong>（含商品号），它一定能装能买（商品号 <code>P0806000205847441</code>）—— ⚠️ 该商品目前在公开货架的选品列表里不出现，<strong>请直接用下面的官方购买指令</strong>（含商品号），它一定能装能买</li>
+</ul>
+<p>把下面这段<strong>原样发给你的 AI 助手</strong>，它就能带你装好并买完（需要钱包授权或付款时由<strong>你本人</strong>确认）：</p>
+<pre><code>请通过 SkillPay 购买并安装 Skill「爆款视频脚本拆解官 · 完整版」。
+官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
+请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206834461。
+我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。</code></pre>
+<h2>边界（先看这里，别误用）</h2>
+<p><strong>本技能只做机械层面的可复核判定</strong>：结构是否齐全、开场是否被客套话占掉、句子是否过长、书面语连接词是否过多、CTA 是否落在结尾。</p>
+<p><strong>它不判断、也无法判断</strong>：</p>
+<ul>
+<li>选题能不能爆 —— 那取决于赛道、账号权重、发布时间、平台流量池</li>
+<li>内容是否真实、是否合规、是否有法律风险</li>
+<li>画面、剪辑、BGM、字幕的配合</li>
+<li>带货转化的真实结果</li>
+</ul>
+<p>如果输入<strong>不是口播稿</strong>（例如产品说明书、论文、聊天记录、日记流水），<strong>不要直接出结论</strong>：先明确告诉用户「这段材料看起来不是口播逐字稿，体检结果会没有意义」，确认后再决定是否继续。</p>
+<p>字数或句数不足时，脚本会以退出码 3 结束并说明缺多少，<strong>不会编造一份看起来正常的报告</strong>。</p>
+<h2>权限声明</h2>
+<ul>
+<li>只读取用户提供的 JSON 文件，只写标准输出</li>
+<li>不发起任何网络请求</li>
+<li>不读取、不上传用户的任何其他文件</li>
+<li>无第三方依赖，只用 Node.js 标准库</li>
+</ul>
+<h2>文件结构</h2>
+<pre><code>SKILL.md
+scripts/run.mjs            体检入口
+scripts/engine/deconstruct.js   拆解引擎（确定性规则）
+scripts/engine/lexicons.js      词表（钩子类型 / 书面语连接词 / 语气词）
+references/hook-patterns.md     九类开场钩子判定规则
+references/platform-rules.md    各平台信息密度与时长基准
+templates/sample.json           入参样例</code></pre>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/viral-script-free">https://www.skillhub.cn/skills/user_ef162806/viral-script-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
