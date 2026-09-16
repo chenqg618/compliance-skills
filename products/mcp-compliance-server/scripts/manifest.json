@@ -1,104 +1,8 @@
 [
   {
-    "tool": "check_quote_arithmetic",
-    "package": "bidguard-quote-audit-free",
-    "engine": "quote-audit.js",
-    "title": "投标报价AI审查（免费版）",
-    "given": [
-      "分项算术校验",
-      "缺漏项提示"
-    ],
-    "withheld": [
-      "分项加总校验",
-      "最高投标限价校验",
-      "大小写金额互校",
-      "投标保证金比例校验",
-      "不平衡报价预警"
-    ],
-    "outOfScope": [],
-    "hasSample": false
-  },
-  {
-    "tool": "screen_bid_collusion",
-    "package": "collusionscreen-collusion-screening-free",
-    "engine": "collusion-screening.js",
-    "title": "串通投标线索筛查（免费版）",
-    "given": [
-      "联系方式一致",
-      "项目成员交叉"
-    ],
-    "withheld": [
-      "文本异常一致",
-      "报价规律性差异",
-      "文件相互混装",
-      "同一处错漏",
-      "保证金同源",
-      "格式指纹一致"
-    ],
-    "outOfScope": [],
-    "hasSample": false
-  },
-  {
-    "tool": "checkup_bid_packages",
-    "package": "bidcheckup-batch-compliance-free",
-    "engine": "batch-quote-checkup.js",
-    "title": "多标书批量合规体检（免费版）",
-    "given": [
-      "逐家报价算术校验"
-    ],
-    "withheld": [
-      "否决条款响应核对",
-      "模板占位符扫描",
-      "基本要件扫描",
-      "跨家串通线索",
-      "报价离散度分析",
-      "按风险排序的整改清单"
-    ],
-    "outOfScope": [],
-    "hasSample": false
-  },
-  {
-    "tool": "audit_tender_compliance",
-    "package": "tenderaudit-full-compliance-free",
-    "engine": "tender-compliance-audit.js",
-    "title": "招投标全案合规审计（免费版）",
-    "given": [
-      "逐家报价算术校验",
-      "模板占位符扫描"
-    ],
-    "withheld": [
-      "招标文件要素体检",
-      "合同草案必备条款与陷阱条款扫描",
-      "跨家串通线索",
-      "统一整改清单与阻断判定"
-    ],
-    "outOfScope": [],
-    "hasSample": false
-  },
-  {
-    "tool": "check_ad_copy_compliance",
-    "package": "adcheckup-content-compliance-free",
-    "engine": "ad-compliance.js",
-    "title": "广告文案合规预检（免费版）",
-    "given": [
-      "绝对化用语检测（含《广告绝对化用语执法指南》豁免判定）"
-    ],
-    "withheld": [
-      "医疗／药品／医美违禁表述",
-      "保健食品功效断言",
-      "教育培训保证性承诺",
-      "投资理财与招商承诺",
-      "房地产升值回报承诺",
-      "虚假广告类保证性承诺",
-      "批量文案检测"
-    ],
-    "outOfScope": [],
-    "hasSample": false
-  },
-  {
     "tool": "check_contract_consistency",
     "package": "contract-consistency-check-free",
-    "engine": "contract-consistency.js",
+    "engine": "contract-consistency-check-free/contract-consistency.js",
     "title": "合同一致性AI核对（免费版）",
     "given": [
       "当事方名称不一致",
@@ -124,7 +28,7 @@
   {
     "tool": "compare_contract_clauses",
     "package": "contract-comparison-free",
-    "engine": "contract-comparison.js",
+    "engine": "contract-comparison-free/contract-comparison.js",
     "title": "多份合同条款差异比对（免费版）",
     "given": [
       "条款切分与横向对齐（把每份合同按「第X条」切开，按条款标题对齐）",
@@ -150,7 +54,7 @@
   {
     "tool": "check_invoice_consistency",
     "package": "invoice-consistency-check-free",
-    "engine": "invoice-consistency.js",
+    "engine": "invoice-consistency-check-free/invoice-consistency.js",
     "title": "票据一致性AI核对（免费版）",
     "given": [
       "行内算术",
@@ -180,7 +84,7 @@
   {
     "tool": "check_trade_documents",
     "package": "trade-doc-consistency-free",
-    "engine": "trade-doc-consistency.js",
+    "engine": "trade-doc-consistency-free/trade-doc-consistency.js",
     "title": "外贸单证单单一致核对（免费版）",
     "given": [
       "关键字段跨单据一致（发票号 / 合同号 / 信用证号）",
@@ -205,7 +109,7 @@
   {
     "tool": "match_purchase_order_receipt_invoice",
     "package": "three-way-match-free",
-    "engine": "three-way-match.js",
+    "engine": "three-way-match-free/three-way-match.js",
     "title": "三单匹配AI核对（免费版）",
     "given": [
       "关键字段跨单据一致（订单号 / 供应商 / 物料）",
@@ -229,7 +133,7 @@
   {
     "tool": "check_expense_claim",
     "package": "expense-compliance-free",
-    "engine": "expense-compliance.js",
+    "engine": "expense-compliance-free/expense-compliance.js",
     "title": "报销单合规预检（免费版）",
     "given": [
       "重复发票号（重复报销线索）",
@@ -250,29 +154,9 @@
     "hasSample": true
   },
   {
-    "tool": "compare_bid_quotations",
-    "package": "bid-comparison-free",
-    "engine": "bid-comparison.js",
-    "title": "多家报价横向比价（免费版）",
-    "given": [
-      "逐项对照表（按项目名对齐各家的数量 / 单价 / 合价）",
-      "缺项与多项（某家有、别家没有的项目）",
-      "各家合价合计与排序"
-    ],
-    "withheld": [
-      "单价离群检测（某项单价与各家中位数的偏离超过阈值）",
-      "不平衡报价线索（同一家内单价偏离方向不一致）",
-      "合价 = 数量 × 单价 的算术核对",
-      "数量在各家之间不一致的提示",
-      "最高限价与各家合计的对比（需提供 maxPrice）"
-    ],
-    "outOfScope": [],
-    "hasSample": false
-  },
-  {
     "tool": "reconcile_bank_statement",
     "package": "bank-reconciliation-free",
-    "engine": "bank-reconciliation.js",
+    "engine": "bank-reconciliation-free/bank-reconciliation.js",
     "title": "银行流水对账核对（免费版）",
     "given": [
       "逐笔自动配对（银行流水 ↔ 企业账面，按金额相等 + 日期在窗口内）",
@@ -298,7 +182,7 @@
   {
     "tool": "check_payroll_sheet",
     "package": "payroll-check-free",
-    "engine": "payroll-check.js",
+    "engine": "payroll-check-free/payroll-check.js",
     "title": "工资表发放前核对（免费版）",
     "given": [
       "逐人算术：实发工资 = 应发工资 − 各项扣款之和",
@@ -324,7 +208,7 @@
   {
     "tool": "check_ar_aging",
     "package": "ar-aging-check-free",
-    "engine": "ar-aging-check.js",
+    "engine": "ar-aging-check-free/ar-aging-check.js",
     "title": "应收账款账龄核对（免费版）",
     "given": [
       "逐客户余额勾稽（期初余额 + 本期应收 − 本期收款 = 期末余额）",
@@ -351,7 +235,7 @@
   {
     "tool": "check_depreciation",
     "package": "depreciation-check-free",
-    "engine": "depreciation-check.js",
+    "engine": "depreciation-check-free/depreciation-check.js",
     "title": "固定资产折旧核对（免费版）",
     "given": [
       "逐项月折旧额复核（(原值 × (1 − 残值率)) ÷ 使用年限 ÷ 12）",
@@ -379,7 +263,7 @@
   {
     "tool": "check_inventory",
     "package": "inventory-check-free",
-    "engine": "inventory-check.js",
+    "engine": "inventory-check-free/inventory-check.js",
     "title": "库存账实核对（免费版）",
     "given": [
       "逐品账面结存勾稽（期初 + 入库 − 出库 = 账面期末）",
@@ -407,7 +291,7 @@
   {
     "tool": "check_ap_reconciliation",
     "package": "ap-reconciliation-free",
-    "engine": "ap-reconciliation.js",
+    "engine": "ap-reconciliation-free/ap-reconciliation.js",
     "title": "供应商应付对账（免费版）",
     "given": [
       "逐家期末应付勾稽（期初应付 + 本期采购 − 本期付款 = 期末应付）",
@@ -435,7 +319,7 @@
   {
     "tool": "check_commission",
     "package": "commission-check-free",
-    "engine": "commission-check.js",
+    "engine": "commission-check-free/commission-check.js",
     "title": "销售提成核对（免费版）",
     "given": [
       "逐人计奖基数勾稽（销售额 + 其他加项 = 计奖基数）",
@@ -463,7 +347,7 @@
   {
     "tool": "check_freight",
     "package": "freight-reconciliation-free",
-    "engine": "freight-reconciliation.js",
+    "engine": "freight-reconciliation-free/freight-reconciliation.js",
     "title": "运费对账（免费版）",
     "given": [
       "逐单运费复核（重量 × 单价 = 运费）",
@@ -490,7 +374,7 @@
   {
     "tool": "check_social_insurance",
     "package": "social-insurance-check-free",
-    "engine": "social-insurance-check.js",
+    "engine": "social-insurance-check-free/social-insurance-check.js",
     "title": "社保公积金核对（免费版）",
     "given": [
       "逐人个人合计算术（个人养老 + 个人医疗 + 个人失业 = 个人合计）",
@@ -518,7 +402,7 @@
   {
     "tool": "check_platform_settlement",
     "package": "platform-settlement-check-free",
-    "engine": "platform-settlement-check.js",
+    "engine": "platform-settlement-check-free/platform-settlement-check.js",
     "title": "电商平台结算核对（免费版）",
     "given": [
       "逐单结算勾稽（销售额 − 平台佣金 − 技术服务费 − 运费 − 退款 = 结算金额）",
@@ -544,7 +428,7 @@
   {
     "tool": "check_lesson_hour",
     "package": "lesson-hour-check-free",
-    "engine": "lesson-hour-check.js",
+    "engine": "lesson-hour-check-free/lesson-hour-check.js",
     "title": "课时核销核对（免费版）",
     "given": [
       "逐人课时勾稽（购买课时 − 已耗课时 = 剩余课时）",
@@ -571,7 +455,7 @@
   {
     "tool": "check_utility_allocation",
     "package": "utility-allocation-check-free",
-    "engine": "utility-allocation-check.js",
+    "engine": "utility-allocation-check-free/utility-allocation-check.js",
     "title": "公共费用分摊核对（免费版）",
     "given": [
       "逐户应缴勾稽（电费分摊 + 水费分摊 + 物业费 = 应缴合计）",
@@ -597,7 +481,7 @@
   {
     "tool": "check_accrual_expense_check",
     "package": "accrual-expense-check-free",
-    "engine": "accrual-expense-check.js",
+    "engine": "accrual-expense-check-free/accrual-expense-check.js",
     "title": "预提费用与到票冲销核对（免费版）",
     "given": [
       "期末预提勾稽（期初 + 计提 − 到票冲销 = 期末）",
@@ -620,7 +504,7 @@
   {
     "tool": "check_advance_receipt_check",
     "package": "advance-receipt-check-free",
-    "engine": "advance-receipt-check.js",
+    "engine": "advance-receipt-check-free/advance-receipt-check.js",
     "title": "预收账款与收入确认核对（免费版）",
     "given": [
       "期末预收勾稽（期初 + 本期预收 − 本期确认收入 = 期末）",
@@ -643,7 +527,7 @@
   {
     "tool": "check_ap_aging_plan_check",
     "package": "ap-aging-plan-check-free",
-    "engine": "ap-aging-plan-check.js",
+    "engine": "ap-aging-plan-check-free/ap-aging-plan-check.js",
     "title": "应付账款账龄与付款计划核对（免费版）",
     "given": [
       "逾期金额超过应付余额检测",
@@ -664,9 +548,32 @@
     "hasSample": true
   },
   {
+    "tool": "check_ap_factoring_check",
+    "package": "ap-factoring-check-free",
+    "engine": "ap-factoring-check-free/ap-factoring-check.js",
+    "title": "应付账款保理与贴现核对（免费版）",
+    "given": [
+      "保理融资额复算（应付金额 × 融资比例 = 保理融资额）",
+      "到期扣款复算（应付金额 − 保理融资额 + 利息 + 手续费 = 到期扣款）",
+      "合计行逐列复核",
+      "同一供应商同一笔重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "保理融资额超过应付金额检测",
+      "利息或手续费为负检测",
+      "融资比例偏离参考区间（0~100%）提示（参考口径）",
+      "到期扣款与应付金额差异超过容差提示",
+      "已核销金额超过应付金额检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_asset_disposal_check",
     "package": "asset-disposal-check-free",
-    "engine": "asset-disposal-check.js",
+    "engine": "asset-disposal-check-free/asset-disposal-check.js",
     "title": "固定资产处置损益核对（免费版）",
     "given": [
       "账面净值勾稽（原值 − 累计折旧 = 账面净值）",
@@ -687,9 +594,32 @@
     "hasSample": true
   },
   {
+    "tool": "check_asset_impairment_check",
+    "package": "asset-impairment-check-free",
+    "engine": "asset-impairment-check-free/asset-impairment-check.js",
+    "title": "资产减值测试核对（免费版）",
+    "given": [
+      "减值损失复算（账面价值 − 可收回金额，负数按 0）",
+      "减值准备余额勾稽（期初 + 本期计提 − 本期转回或处置 = 期末）",
+      "合计行逐列复核",
+      "同一资产重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "可收回金额高于账面价值却计提减值检测",
+      "计提额超过减值损失检测",
+      "减值准备余额为负检测",
+      "折现率偏离参考区间（5%~15%）提示（参考口径）",
+      "资产组划分与账面价值合计不符提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_award_contract_consistency_check",
     "package": "award-contract-consistency-check-free",
-    "engine": "award-contract-consistency-check.js",
+    "engine": "award-contract-consistency-check-free/award-contract-consistency-check.js",
     "title": "中标结果与合同一致性核对（免费版）",
     "given": [
       "金额要素一致性核对（中标价 / 合同价）",
@@ -711,7 +641,7 @@
   {
     "tool": "check_bad_debt_provision_check",
     "package": "bad-debt-provision-check-free",
-    "engine": "bad-debt-provision-check.js",
+    "engine": "bad-debt-provision-check-free/bad-debt-provision-check.js",
     "title": "应收账款坏账准备计提核对（免费版）",
     "given": [
       "计提额勾稽（应收余额 × 计提比例 = 已计提金额）",
@@ -734,7 +664,7 @@
   {
     "tool": "check_bid_deposit_refund_check",
     "package": "bid-deposit-refund-check-free",
-    "engine": "bid-deposit-refund-check.js",
+    "engine": "bid-deposit-refund-check-free/bid-deposit-refund-check.js",
     "title": "投标保证金收退核对（免费版）",
     "given": [
       "应缴保证金勾稽（投标报价 × 保证金比例）",
@@ -757,7 +687,7 @@
   {
     "tool": "check_bonus_pool_check",
     "package": "bonus-pool-check-free",
-    "engine": "bonus-pool-check.js",
+    "engine": "bonus-pool-check-free/bonus-pool-check.js",
     "title": "年终奖池分配与个税核对（免费版）",
     "given": [
       "应发奖金勾稽（奖金池 × 绩效系数 ÷ 系数合计）",
@@ -784,7 +714,7 @@
   {
     "tool": "check_budget_variance_check",
     "package": "budget-variance-check-free",
-    "engine": "budget-variance-check.js",
+    "engine": "budget-variance-check-free/budget-variance-check.js",
     "title": "费用预算执行差异核对（免费版）",
     "given": [
       "差异勾稽（实际数 − 预算数 = 差异）",
@@ -807,7 +737,7 @@
   {
     "tool": "check_cash_count_check",
     "package": "cash-count-check-free",
-    "engine": "cash-count-check.js",
+    "engine": "cash-count-check-free/cash-count-check.js",
     "title": "现金盘点差异核对（免费版）",
     "given": [
       "应有现金勾稽（期初备用金 + 销售现金收入 − 现金支出）",
@@ -834,9 +764,170 @@
     "hasSample": true
   },
   {
+    "tool": "check_cip_transfer_check",
+    "package": "cip-transfer-check-free",
+    "engine": "cip-transfer-check-free/cip-transfer-check.js",
+    "title": "在建工程转固核对（免费版）",
+    "given": [
+      "转固金额复算（在建工程累计发生额 − 未转固余额 = 转固金额）",
+      "暂估与决算差异复算（决算金额 − 暂估金额 = 暂估与决算差异）",
+      "合计行逐列复核",
+      "同一项目重复转固检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "转固日期早于开工日期检测",
+      "转固金额超过在建工程累计发生额检测",
+      "折旧起始月早于转固月检测",
+      "暂估与决算差异率超过阈值（10%）提示（参考口径）",
+      "转固后仍有在建工程发生额提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_cit_adjustment_check",
+    "package": "cit-adjustment-check-free",
+    "engine": "cit-adjustment-check-free/cit-adjustment-check.js",
+    "title": "企业所得税纳税调整核对（免费版）",
+    "given": [
+      "应纳税所得额复算（利润总额 + 调增合计 − 调减合计 = 应纳税所得额）",
+      "调增/调减合计 = 各明细项之和复算",
+      "合计行逐列复核",
+      "同一调整项目重复行检测",
+      "空白与占位符检测",
+      "调增/调减金额为负（口径异常）检测"
+    ],
+    "withheld": [
+      "业务招待费超限额（发生额 60% 与营业收入 5‰ 孰低）未足额调增提示",
+      "广告费和业务宣传费超过营业收入 15% 未足额调增提示",
+      "公益性捐赠支出超过利润总额 12% 未足额调增提示",
+      "应纳税所得额为负却算出应纳税额检测",
+      "适用税率偏离法定 25%（小微 20%/5%、高新 15%）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_cit_prepay_check",
+    "package": "cit-prepay-check-free",
+    "engine": "cit-prepay-check-free/cit-prepay-check.js",
+    "title": "预缴企业所得税核对（免费版）",
+    "given": [
+      "应预缴所得税额复算（利润总额 × 适用税率 = 应预缴）",
+      "本期应补(退)税额复算（应预缴 − 已预缴 = 本期应补退）",
+      "合计行逐列复核",
+      "重复所属期检测",
+      "空白与占位符检测",
+      "利润总额或税率为负检测"
+    ],
+    "withheld": [
+      "适用税率偏离参考口径（法定 25%、小微 20%/5%、高新 15%）提示",
+      "已预缴所得税额为负检测",
+      "本期应补(退)与应预缴方向矛盾检测",
+      "利润总额为零却有应预缴检测",
+      "累计已预缴超过累计应预缴提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_clinic_revenue_check",
+    "package": "clinic-revenue-check-free",
+    "engine": "clinic-revenue-check-free/clinic-revenue-check.js",
+    "title": "医疗收费与医保结算核对（免费版）",
+    "given": [
+      "应收合计勾稽复算（应收合计 = 医保结算款 + 自费收款 + 医保拒付金额）",
+      "医保结算款复算（医保结算款 = 医保申报金额 × 结算比例）",
+      "合计行逐列复核",
+      "同一结算批次重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "医保拒付率超过参考上限（5%）提示（参考口径）",
+      "自付比例超出参考区间（0%~50%）提示（参考口径）",
+      "医保申报金额为零却有结算款检测",
+      "医保结算款超过医保申报金额检测",
+      "拒付金额与拒付率方向矛盾检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_construction_output_value_check",
+    "package": "construction-output-value-check-free",
+    "engine": "construction-output-value-check-free/construction-output-value-check.js",
+    "title": "工程产值与进度确认核对（免费版）",
+    "given": [
+      "计量金额复算（本期计量金额 = 本期已完产值 − 本期扣款）",
+      "累计计量与剩余产值勾稽（累计计量 + 剩余产值 = 合同额）",
+      "合计行逐列复核",
+      "同一项目同一期重复行检测",
+      "空白与占位符检测",
+      "金额或产值为负检测"
+    ],
+    "withheld": [
+      "已完产值超过合同额检测",
+      "形象进度与产值偏差超 10 个百分点提示（参考口径）",
+      "计量金额超过已完产值检测",
+      "扣款比例偏离参考区间（0%~10%）提示（参考口径）",
+      "累计计量与累计产值不一致提示（偏差超 10%，参考口径）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_contract_performance_bond_check",
+    "package": "contract-performance-bond-check-free",
+    "engine": "contract-performance-bond-check-free/contract-performance-bond-check.js",
+    "title": "履约保证金与保函台账核对（免费版）",
+    "given": [
+      "应退金额复算（已缴金额 − 已退金额 = 应退金额）",
+      "保函余额复算（保函金额 − 已释放金额 = 保函余额）",
+      "合计行逐列复核",
+      "同一项目同一类型重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "已退金额超过已缴金额检测",
+      "保函到期日早于项目结束日提示",
+      "保函余额为负检测",
+      "保证金超过合同金额比例上限（10%）提示（参考口径）",
+      "已缴金额为零却有保函费用检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_department_budget_execution_check",
+    "package": "department-budget-execution-check-free",
+    "engine": "department-budget-execution-check-free/department-budget-execution-check.js",
+    "title": "部门费用预算执行核对（免费版）",
+    "given": [
+      "剩余额度 = 预算金额 − 已发生金额 复算",
+      "执行率 = 已发生金额 ÷ 预算金额 复算",
+      "合计行逐列复核",
+      "同一部门同一科目重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "超支金额与执行率矛盾检测",
+      "执行率超过参考上限（100%）提示（参考口径）",
+      "预算为零却有发生额检测",
+      "已发生为负（冲销未标注）提示",
+      "同一科目跨部门预算重复分配提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_discount_interest_check",
     "package": "discount-interest-check-free",
-    "engine": "discount-interest-check.js",
+    "engine": "discount-interest-check-free/discount-interest-check.js",
     "title": "票据贴现利息核对（免费版）",
     "given": [
       "贴现利息勾稽（票面金额 × 年贴现率 ÷ 360 × 计息天数）",
@@ -863,9 +954,38 @@
     "hasSample": true
   },
   {
+    "tool": "check_export_fx_collection_check",
+    "package": "export-fx-collection-check-free",
+    "engine": "export-fx-collection-check-free/export-fx-collection-check.js",
+    "title": "出口报关与收汇核销核对（免费版）",
+    "given": [
+      "应收外汇勾稽（报关金额 × (1 − 佣金率) = 应收外汇）",
+      "核销差额勾稽（应收外汇 − 已收汇 = 核销差额）",
+      "合计行逐列复核",
+      "同一报关单号重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "收汇差额率超过参考上限（5%）提示（参考口径）",
+      "已收汇超过报关金额检测",
+      "汇率偏离参考区间（6~8）提示（参考口径）",
+      "报关金额为零却有收汇检测",
+      "佣金率超出参考区间（0~10%）提示（参考口径）"
+    ],
+    "outOfScope": [
+      "判断某笔出口是否满足退税条件（单证、备案、收汇期限等，以税务与外汇管理规定为准）",
+      "判断佣金率、汇率、核销差额是否\"合规\"（各笔合同与银行口径不同，本工具只提示明显超区间）",
+      "处理差额核销、逾期未收汇报告、远期结汇与套期保值",
+      "按币种折算或多币种合并（请先在表里折成同一币种）",
+      "读取 .xlsx / 银行回单 PDF（需要你先导出成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
     "tool": "check_export_rebate_check",
     "package": "export-rebate-check-free",
-    "engine": "export-rebate-check.js",
+    "engine": "export-rebate-check-free/export-rebate-check.js",
     "title": "出口退税核算核对（免费版）",
     "given": [
       "不得免征和抵扣税额勾稽（FOB × 汇率 × (征税率 − 退税率)）",
@@ -893,9 +1013,26 @@
     "hasSample": true
   },
   {
+    "tool": "check_finance_monthly_selfcheck",
+    "package": "finance-monthly-selfcheck-free",
+    "engine": "finance-monthly-selfcheck-free/finance-monthly-selfcheck.js",
+    "title": "财务月度自查包（免费版）",
+    "given": [
+      "应付账款账龄（分段核对）",
+      "预缴企业所得税（分段核对）",
+      "差旅费标准（分段核对）"
+    ],
+    "withheld": [
+      "现金盘点差异",
+      "发票领用存"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_fixed_asset_count_check",
     "package": "fixed-asset-count-check-free",
-    "engine": "fixed-asset-count-check.js",
+    "engine": "fixed-asset-count-check-free/fixed-asset-count-check.js",
     "title": "固定资产盘点账实核对（免费版）",
     "given": [
       "净值勾稽（原值 − 累计折旧 = 账面净值）",
@@ -916,9 +1053,32 @@
     "hasSample": true
   },
   {
+    "tool": "check_fleet_fuel_cost_check",
+    "package": "fleet-fuel-cost-check-free",
+    "engine": "fleet-fuel-cost-check-free/fleet-fuel-cost-check.js",
+    "title": "车队油耗与运费核对（免费版）",
+    "given": [
+      "定额油耗复算（行驶里程 ÷ 100 × 百公里油耗定额 = 定额油耗）",
+      "油耗差异复算（油卡加油量 − 定额油耗 = 油耗差异）",
+      "合计行逐列复核",
+      "同一车牌同一月份重复行检测",
+      "空白与占位符检测",
+      "数量或金额为负检测"
+    ],
+    "withheld": [
+      "单车油耗超定额比例超过参考上限（10%）提示（参考口径）",
+      "单车收入低于成本（油费金额 + 过路费）提示",
+      "油卡加油量与油卡充值额不一致检测（充值额 vs 加油量 × 油品单价）",
+      "里程为零却有油耗检测",
+      "百公里油耗偏离参考区间（20~50L/100km）提示（参考口径）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_franchise_royalty_check",
     "package": "franchise-royalty-check-free",
-    "engine": "franchise-royalty-check.js",
+    "engine": "franchise-royalty-check-free/franchise-royalty-check.js",
     "title": "加盟抽成与最低保底核对（免费版）",
     "given": [
       "抽成额勾稽（本月营业额 × 抽成率）",
@@ -945,9 +1105,37 @@
     "hasSample": true
   },
   {
+    "tool": "check_fresh_loss_check",
+    "package": "fresh-loss-check-free",
+    "engine": "fresh-loss-check-free/fresh-loss-check.js",
+    "title": "生鲜损耗与盘点差异核对（免费版）",
+    "given": [
+      "损耗量勾稽复算（进货量 + 期初库存 − 销售量 − 期末库存 = 损耗量）",
+      "损耗率复算（损耗量 ÷ 进货量 = 损耗率）",
+      "合计行逐列复核",
+      "同一品类同一期间重复行检测",
+      "空白与占位符检测",
+      "数量为负检测"
+    ],
+    "withheld": [
+      "损耗率超过参考上限（15%）提示（参考口径）",
+      "期末库存为负检测",
+      "销售量为零却有损耗提示",
+      "进货金额与进货量不符（单价异常）检测",
+      "损耗率与损耗量方向矛盾检测"
+    ],
+    "outOfScope": [
+      "判定损耗率是否属于正常范围、报损是否合规、该不该计提报废损失（品类与门店差异大，请以本单位盘点与报损制度为准）",
+      "区分陈列损耗、报损、称重误差与内盗（需要现场盘点、监控与称重记录，本工具只核对表内数字）",
+      "核对生鲜成本结转与毛利额（需要进销存系统与成本核算资料）",
+      "读取 POS / 进销存系统导出文件（需要你先导出成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
     "tool": "check_fx_settlement_check",
     "package": "fx-settlement-check-free",
-    "engine": "fx-settlement-check.js",
+    "engine": "fx-settlement-check-free/fx-settlement-check.js",
     "title": "外币结算与汇兑损益核对（免费版）",
     "given": [
       "记账本位币勾稽（外币金额 × 记账汇率）",
@@ -975,9 +1163,32 @@
     "hasSample": true
   },
   {
+    "tool": "check_hotel_night_audit_check",
+    "package": "hotel-night-audit-check-free",
+    "engine": "hotel-night-audit-check-free/hotel-night-audit-check.js",
+    "title": "酒店夜审与房费收入核对（免费版）",
+    "given": [
+      "应收房费复算（出租间夜 × 平均房价 = 应收房费）",
+      "实收合计复算（前台现金 + 前台刷卡 + 渠道预付 + 挂账 = 实收合计）",
+      "合计行逐列复核（均价列不参与加总）",
+      "同一房号同一营业日期重复行检测",
+      "空白与占位符检测",
+      "金额或间夜为负检测"
+    ],
+    "withheld": [
+      "实收与应收差额超过参考容差（1%）提示（参考口径）",
+      "出租间夜超过可售间夜检测",
+      "平均房价偏离参考区间（100~5000 元）提示（参考口径）",
+      "免费房（免单）比例超过参考上限（10%）提示（参考口径）",
+      "渠道预付与渠道订单金额不符提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_iit_withholding_check",
     "package": "iit-withholding-check-free",
-    "engine": "iit-withholding-check.js",
+    "engine": "iit-withholding-check-free/iit-withholding-check.js",
     "title": "工资个税累计预扣核对（免费版）",
     "given": [
       "累计应纳税所得额勾稽（累计收入 − 减除费用 − 专项扣除 − 专项附加扣除，负则按 0）",
@@ -1004,7 +1215,7 @@
   {
     "tool": "check_import_duty_check",
     "package": "import-duty-check-free",
-    "engine": "import-duty-check.js",
+    "engine": "import-duty-check-free/import-duty-check.js",
     "title": "进口税费核算核对（免费版）",
     "given": [
       "关税勾稽（完税价格 × 关税率）",
@@ -1033,7 +1244,7 @@
   {
     "tool": "check_input_vat_deduction_check",
     "package": "input-vat-deduction-check-free",
-    "engine": "input-vat-deduction-check.js",
+    "engine": "input-vat-deduction-check-free/input-vat-deduction-check.js",
     "title": "增值税进项税额认证与抵扣核对（免费版）",
     "given": [
       "抵扣勾稽（认证税额 − 转出税额 = 申报抵扣）",
@@ -1056,7 +1267,7 @@
   {
     "tool": "check_installment_rate_check",
     "package": "installment-rate-check-free",
-    "engine": "installment-rate-check.js",
+    "engine": "installment-rate-check-free/installment-rate-check.js",
     "title": "分期实际年化核对（免费版）",
     "given": [
       "名义总手续费勾稽（本金 × 名义月费率 × 期数）",
@@ -1086,7 +1297,7 @@
   {
     "tool": "check_inventory_cost_flow_check",
     "package": "inventory-cost-flow-check-free",
-    "engine": "inventory-cost-flow-check.js",
+    "engine": "inventory-cost-flow-check-free/inventory-cost-flow-check.js",
     "title": "存货出入库与加权平均成本核对（免费版）",
     "given": [
       "期末数量勾稽（期初 + 入库 − 出库 = 期末）",
@@ -1107,9 +1318,32 @@
     "hasSample": true
   },
   {
+    "tool": "check_inventory_scrap_approval_check",
+    "package": "inventory-scrap-approval-check-free",
+    "engine": "inventory-scrap-approval-check-free/inventory-scrap-approval-check.js",
+    "title": "存货报废与审批核对（免费版）",
+    "given": [
+      "报废金额复算（报废数量 × 单位成本 = 报废金额）",
+      "报废后库存复算（期初数量 + 本期入库数量 − 本期领用数量 − 报废数量 = 报废后库存）",
+      "合计行逐列复核",
+      "同一物料同一批次重复报废检测",
+      "空白与占位符检测",
+      "数量或金额为负检测（报废数量 / 单位成本 / 报废金额 / 期初、入库、领用数量）"
+    ],
+    "withheld": [
+      "报废金额超过审批金额提示",
+      "无审批人或审批金额为零的报废提示（缺审批不能税前扣除）",
+      "报废后库存为负检测",
+      "单位成本偏离参考区间（0.01~100000 元/单位）提示（参考口径）",
+      "同一批次报废率超过参考上限（5%）提示（参考口径）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_invoice_usage_stock_check",
     "package": "invoice-usage-stock-check-free",
-    "engine": "invoice-usage-stock-check.js",
+    "engine": "invoice-usage-stock-check-free/invoice-usage-stock-check.js",
     "title": "发票领用存与开票数据核对（免费版）",
     "given": [
       "库存勾稽（期初 + 领用 − 开出 − 作废 − 红冲 = 期末）",
@@ -1130,9 +1364,32 @@
     "hasSample": true
   },
   {
+    "tool": "check_labor_cost_allocation_check",
+    "package": "labor-cost-allocation-check-free",
+    "engine": "labor-cost-allocation-check-free/labor-cost-allocation-check.js",
+    "title": "工时与人工成本分摊核对（免费版）",
+    "given": [
+      "分摊金额复算（工时 × 小时费率 = 分摊金额）",
+      "分摊合计勾稽（人工成本总额 − 未分摊金额 = 分摊合计）",
+      "合计行逐列复核",
+      "同一员工同一项目重复行检测",
+      "空白与占位符检测",
+      "工时或费率为负检测"
+    ],
+    "withheld": [
+      "分摊合计超过人工成本总额检测",
+      "工时合计与考勤工时不一致检测",
+      "小时费率偏离参考区间（20~500 元/小时）提示（参考口径）",
+      "未分摊金额为负检测",
+      "工时为零却有分摊金额检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_late_fee_check",
     "package": "late-fee-check-free",
-    "engine": "late-fee-check.js",
+    "engine": "late-fee-check-free/late-fee-check.js",
     "title": "税款滞纳金计算核对（免费版）",
     "given": [
       "滞纳金复算（滞纳税额 × 日加收率 × 滞纳天数）",
@@ -1153,9 +1410,32 @@
     "hasSample": true
   },
   {
+    "tool": "check_lease_liability_check",
+    "package": "lease-liability-check-free",
+    "engine": "lease-liability-check-free/lease-liability-check.js",
+    "title": "租赁负债与使用权资产核对（免费版）",
+    "given": [
+      "期末租赁负债复算（期初 + 本期利息 − 本期付款 = 期末）",
+      "使用权资产净值复算（原值 − 累计折旧 = 净值）",
+      "合计行逐列复核",
+      "重复期次检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "利息与折现率勾稽检测（期初租赁负债 × 折现率 = 本期利息）",
+      "付款超过期初与利息之和（负债变负）检测",
+      "累计折旧超过使用权资产原值检测",
+      "折现率偏离常见区间提示（参考口径）",
+      "租赁期与摊销期次不匹配检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_lease_rent_check",
     "package": "lease-rent-check-free",
-    "engine": "lease-rent-check.js",
+    "engine": "lease-rent-check-free/lease-rent-check.js",
     "title": "租金账单与押金结算核对（免费版）",
     "given": [
       "本期应收租金勾稽（合同月租金 × 本期计租月数）",
@@ -1182,9 +1462,32 @@
     "hasSample": true
   },
   {
+    "tool": "check_logistics_storage_fee_check",
+    "package": "logistics-storage-fee-check-free",
+    "engine": "logistics-storage-fee-check-free/logistics-storage-fee-check.js",
+    "title": "物流仓储与操作费核对（免费版）",
+    "given": [
+      "仓储费复算（库存体积或托盘数 × 单价 × 库存天数 = 仓储费）",
+      "账单合计复算（仓储费 + 操作费 + 超期费 + 退仓费 = 账单金额）",
+      "合计行逐列复核",
+      "同一仓库同一期重复行检测",
+      "空白与占位符检测",
+      "数量或金额为负检测"
+    ],
+    "withheld": [
+      "账单金额与逐项加总不符提示（差额超重要性水平才算，参考口径）",
+      "单价偏离合同参考区间提示（合同单价下限 / 合同单价上限）",
+      "超期费比例超过参考上限提示（参考口径）",
+      "库存天数为零却有仓储费检测",
+      "同一计费项在本期重复出现提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_long_term_amortization_check",
     "package": "long-term-amortization-check-free",
-    "engine": "long-term-amortization-check.js",
+    "engine": "long-term-amortization-check-free/long-term-amortization-check.js",
     "title": "长期待摊费用摊销核对（免费版）",
     "given": [
       "月摊销额勾稽（原值 ÷ 摊销月数 = 月摊销额）",
@@ -1205,9 +1508,60 @@
     "hasSample": true
   },
   {
+    "tool": "check_material_usage_loss_check",
+    "package": "material-usage-loss-check-free",
+    "engine": "material-usage-loss-check-free/material-usage-loss-check.js",
+    "title": "材料领用与定额损耗核对（免费版）",
+    "given": [
+      "定额用量复算（工程量 × 单位定额 = 定额用量）",
+      "损耗量复算（领用量 − 定额用量 = 损耗量）",
+      "合计行逐列复核",
+      "同一材料重复行检测",
+      "空白与占位符检测",
+      "数量或单价为负检测"
+    ],
+    "withheld": [
+      "损耗率超过参考上限（5%）提示（参考口径）",
+      "领用量为零却有损耗检测",
+      "金额与数量乘单价不符检测（领用量 × 单价 = 金额）",
+      "工程量与定额单位不一致提示（单位定额须是\"每单位工程量\"的消耗量）",
+      "损耗量为负（退料未冲减）提示"
+    ],
+    "outOfScope": [
+      "判断行业/地方定额损耗标准与超耗的责任归属（以合同约定、施工规范与当地定额为准）",
+      "核对材料实际盘点数量与库存台账（需要仓库台账与盘点表）",
+      "区分甲供材料与乙供材料的计价与结算口径",
+      "读取 ERP / 物资系统导出文件（需要你先导出成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_mold_amortization_check",
+    "package": "mold-amortization-check-free",
+    "engine": "mold-amortization-check-free/mold-amortization-check.js",
+    "title": "模具与工装摊销核对（免费版）",
+    "given": [
+      "本期摊销额复算（可摊销总额 ÷ 摊销总产量 × 本期产量）",
+      "未摊销余额复算（可摊销总额 − 累计摊销）",
+      "合计行逐列复核",
+      "同一模具编号重复行检测",
+      "空白与占位符检测",
+      "金额或数量为负检测"
+    ],
+    "withheld": [
+      "累计摊销超过可摊销总额提示",
+      "本期产量超过摊销总产量检测",
+      "摊销总额为零却有摊销额检测",
+      "未摊销余额为负检测",
+      "摊销单价偏离参考区间（同表理论单价中位数 ±50%）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_ota_commission_check",
     "package": "ota-commission-check-free",
-    "engine": "ota-commission-check.js",
+    "engine": "ota-commission-check-free/ota-commission-check.js",
     "title": "OTA佣金与净结算核对（免费版）",
     "given": [
       "佣金勾稽（房费收入 × 佣金率）",
@@ -1234,7 +1588,7 @@
   {
     "tool": "check_overdue_interest_check",
     "package": "overdue-interest-check-free",
-    "engine": "overdue-interest-check.js",
+    "engine": "overdue-interest-check-free/overdue-interest-check.js",
     "title": "逾期利息核算核对（免费版）",
     "given": [
       "计息天数与起止日勾稽（按算头不算尾复算，并同时给出算头算尾的口径）",
@@ -1261,7 +1615,7 @@
   {
     "tool": "check_overtime_pay_check",
     "package": "overtime-pay-check-free",
-    "engine": "overtime-pay-check.js",
+    "engine": "overtime-pay-check-free/overtime-pay-check.js",
     "title": "加班费核算核对（免费版）",
     "given": [
       "小时工资勾稽（月工资 ÷ 计薪天数 ÷ 8；计薪天数缺省按法定 21.75）",
@@ -1291,7 +1645,7 @@
   {
     "tool": "check_payment_fee_check",
     "package": "payment-fee-check-free",
-    "engine": "payment-fee-check.js",
+    "engine": "payment-fee-check-free/payment-fee-check.js",
     "title": "收款手续费核对（免费版）",
     "given": [
       "应收手续费勾稽（交易金额 × 费率 + 固定费）",
@@ -1319,7 +1673,7 @@
   {
     "tool": "check_payroll_payable_check",
     "package": "payroll-payable-check-free",
-    "engine": "payroll-payable-check.js",
+    "engine": "payroll-payable-check-free/payroll-payable-check.js",
     "title": "应付职工薪酬计提与发放核对（免费版）",
     "given": [
       "期末应付勾稽（期初 + 计提 − 发放 − 代扣代缴 = 期末）",
@@ -1342,7 +1696,7 @@
   {
     "tool": "check_payroll_withholding_reconcile",
     "package": "payroll-withholding-reconcile-free",
-    "engine": "payroll-withholding-reconcile.js",
+    "engine": "payroll-withholding-reconcile-free/payroll-withholding-reconcile.js",
     "title": "工资表代扣与个税社保申报核对（免费版）",
     "given": [
       "代扣个税与个税申报税额一致性核对（逐人）",
@@ -1363,9 +1717,37 @@
     "hasSample": true
   },
   {
+    "tool": "check_prepaid_card_consumption_check",
+    "package": "prepaid-card-consumption-check-free",
+    "engine": "prepaid-card-consumption-check-free/prepaid-card-consumption-check.js",
+    "title": "预付卡消费核销核对（免费版）",
+    "given": [
+      "期末余额勾稽（期初余额 + 充值金额 − 消费金额 = 期末余额）",
+      "确认收入勾稽（消费金额 − 退卡退款 = 本期确认收入）",
+      "合计行逐列复核",
+      "同一卡号重复行检测（卡号 + 期间）",
+      "空白与占位符检测",
+      "金额为负检测（充值 / 赠送 / 消费 / 退款 / 确认收入）"
+    ],
+    "withheld": [
+      "余额为负（超支）检测（期初余额或期末余额为负）",
+      "消费金额超过期初余额与充值之和检测",
+      "退卡退款超过累计充值提示",
+      "长期无消费卡（连续未消费月数超过参考值 12 个月）提示",
+      "充值金额为零却有赠送金额提示"
+    ],
+    "outOfScope": [
+      "判断预收卡款何时确认收入、是否适用新收入准则与履约义务分摊（属会计政策判断）",
+      "核对赠送金额、退卡退款是否应当参与卡内余额与收入的两条等式（本工具按你这张表给定的口径复算，不替你们定口径）",
+      "核对充值资金是否真实到账、手续费与资金存管（属资金与银行流水核对）",
+      "读取会员系统 / 收银 POS 导出文件（需要你先导出成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
     "tool": "check_prepayment_offset_check",
     "package": "prepayment-offset-check-free",
-    "engine": "prepayment-offset-check.js",
+    "engine": "prepayment-offset-check-free/prepayment-offset-check.js",
     "title": "预付款与预付账款核销核对（免费版）",
     "given": [
       "期末余额勾稽（预付金额 − 已冲销金额）",
@@ -1386,9 +1768,32 @@
     "hasSample": true
   },
   {
+    "tool": "check_production_yield_scrap_check",
+    "package": "production-yield-scrap-check-free",
+    "engine": "production-yield-scrap-check-free/production-yield-scrap-check.js",
+    "title": "生产投入产出与报废率核对（免费版）",
+    "given": [
+      "投入产出与报废量勾稽复算（完工量 + 报废量 = 投入量 − 期末在制）",
+      "良率与完工量复算（良率 = 完工量 ÷ 投入量）",
+      "合计行逐列复核",
+      "同一工单同一工序重复行检测",
+      "空白与占位符检测",
+      "数量为负检测（投入量 / 完工量 / 期末在制）"
+    ],
+    "withheld": [
+      "报废率超过参考上限（3%）提示（参考口径）",
+      "良率与报废率之和不为 1 检测（期末在制为 0 的行）",
+      "投入量为零却有报废检测",
+      "报废量为负（返工/退料误记）提示",
+      "工序间数量不匹配（上工序产出 ≠ 下工序投入）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_progress_payment_check",
     "package": "progress-payment-check-free",
-    "engine": "progress-payment-check.js",
+    "engine": "progress-payment-check-free/progress-payment-check.js",
     "title": "工程进度款与质保金核对（免费版）",
     "given": [
       "本期应付进度款勾稽（本期完成产值 × 进度款比例）",
@@ -1415,9 +1820,32 @@
     "hasSample": true
   },
   {
+    "tool": "check_project_billing_collection_check",
+    "package": "project-billing-collection-check-free",
+    "engine": "project-billing-collection-check-free/project-billing-collection-check.js",
+    "title": "项目开票与回款核对（免费版）",
+    "given": [
+      "已开票 + 未开票余额 = 已验收金额复算（未开票余额 = 已验收 − 已开票）",
+      "未回款复算（未回款 = 已开票 − 已回款）",
+      "合计行逐列复核",
+      "同一项目同一期重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "已开票超过已验收金额提示（开票进度快于验收进度）",
+      "回款超过开票金额检测（回款多于已开票，必有串期或记错）",
+      "未回款超过参考账期（如 90 天）提示（参考口径）",
+      "验收进度与开票进度严重不匹配（差超 30 个百分点）提示",
+      "合同额为零却有开票检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_project_evm_check",
     "package": "project-evm-check-free",
-    "engine": "project-evm-check.js",
+    "engine": "project-evm-check-free/project-evm-check.js",
     "title": "项目挣值分析核对（免费版）",
     "given": [
       "CV 勾稽（EV − AC）",
@@ -1446,7 +1874,7 @@
   {
     "tool": "check_promo_subsidy_check",
     "package": "promo-subsidy-check-free",
-    "engine": "promo-subsidy-check.js",
+    "engine": "promo-subsidy-check-free/promo-subsidy-check.js",
     "title": "促销补贴与核销核对（免费版）",
     "given": [
       "应结补贴勾稽（实际销量 × 单件补贴）",
@@ -1474,7 +1902,7 @@
   {
     "tool": "check_property_fee_check",
     "package": "property-fee-check-free",
-    "engine": "property-fee-check.js",
+    "engine": "property-fee-check-free/property-fee-check.js",
     "title": "物业费与滞纳金核对（免费版）",
     "given": [
       "应收物业费勾稽（计费面积 × 单价 × 计费月数）",
@@ -1503,7 +1931,7 @@
   {
     "tool": "check_purchase_rebate_check",
     "package": "purchase-rebate-check-free",
-    "engine": "purchase-rebate-check.js",
+    "engine": "purchase-rebate-check-free/purchase-rebate-check.js",
     "title": "采购返利与阶梯核算核对（免费版）",
     "given": [
       "应得返利勾稽（年度采购额 × 适用返利率）",
@@ -1531,7 +1959,7 @@
   {
     "tool": "check_rd_expense_check",
     "package": "rd-expense-check-free",
-    "engine": "rd-expense-check.js",
+    "engine": "rd-expense-check-free/rd-expense-check.js",
     "title": "研发费用加计扣除归集核对（免费版）",
     "given": [
       "归集合计勾稽（各项费用之和 = 归集合计）",
@@ -1556,9 +1984,112 @@
     "hasSample": true
   },
   {
+    "tool": "check_receivable_collection_plan_check",
+    "package": "receivable-collection-plan-check-free",
+    "engine": "receivable-collection-plan-check-free/receivable-collection-plan-check.js",
+    "title": "应收账款催收计划与回款核对（免费版）",
+    "given": [
+      "期末应收勾稽复算（期初 + 新增 − 回款 − 核销 = 期末）",
+      "回款率复算（实际回款 ÷ 承诺回款）",
+      "合计行逐列复核",
+      "同一客户同一期间重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "逾期金额超过应收余额检测",
+      "回款率低于参考下限（80%）提示（参考口径）",
+      "承诺回款超过应收余额检测",
+      "账龄天数与逾期天数不匹配（相差超过 30 天）提示（参考口径）",
+      "核销金额超过应收余额检测"
+    ],
+    "outOfScope": [
+      "判断账龄口径、坏账政策与催收优先级（各企业不同，请以本单位制度与合同账期为准）",
+      "评价客户的真实偿付能力与信用风险（需要征信、银行流水等表外材料）",
+      "计算逾期利息、违约金与诉讼时效",
+      "读取 ERP / 财务系统导出文件（需要你先导出成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_restaurant_daily_sales_check",
+    "package": "restaurant-daily-sales-check-free",
+    "engine": "restaurant-daily-sales-check-free/restaurant-daily-sales-check.js",
+    "title": "餐饮门店日营业款核对（免费版）",
+    "given": [
+      "实收合计复算（现金 + 刷卡 + 平台到账 + 挂账 = 实收合计）",
+      "应收合计复算（营业额 − 折扣 − 免单 = 应收合计）",
+      "合计行逐列复核",
+      "同一门店同一营业日重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "平台扣点与「平台流水 × 平台扣点率」不符检测",
+      "实收合计超过应收合计（多收 / 重复入账）检测",
+      "折扣率超出常见区间（0~50%）提示（参考口径）",
+      "挂账金额超过应收合计检测",
+      "营业额为零却有实收检测"
+    ],
+    "outOfScope": [
+      "判断平台扣点率、佣金政策、折扣与免单政策本身是否合理（各家平台与各店政策不同，请以合同与门店制度为准）",
+      "核对收银机 / 外卖平台导出的原始流水（需要你先导出成文本贴进来）",
+      "处理跨日到账、T+1 结算、月结挂账的时间性差异（本表只核同一营业日内的口径）",
+      "处理退款、撤销、抹零产生的跨日或跨月冲销",
+      "做税务与收入确认判断（发票、增值税、收入截止性）"
+    ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_sales_commission_tier_check",
+    "package": "sales-commission-tier-check-free",
+    "engine": "sales-commission-tier-check-free/sales-commission-tier-check.js",
+    "title": "阶梯提成与销售业绩核对（免费版）",
+    "given": [
+      "提成基数勾稽（业绩额 − 退货金额 − 未回款部分 = 提成基数）",
+      "提成金额勾稽（提成基数 × 适用比例 = 提成金额）",
+      "合计行逐列复核",
+      "同一销售同一期重复行检测",
+      "空白与占位符检测",
+      "业绩或金额为负检测"
+    ],
+    "withheld": [
+      "比例与阶梯档位不匹配（落错档）检测",
+      "提成超过业绩额（比例超过 100%）提示",
+      "未回款部分仍计提成提示",
+      "同一人跨期业绩重复提示",
+      "实发为负（扣减项超过提成金额）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_social_insurance_base_check",
+    "package": "social-insurance-base-check-free",
+    "engine": "social-insurance-base-check-free/social-insurance-base-check.js",
+    "title": "社保公积金缴费基数核对（免费版）",
+    "given": [
+      "单位缴费复算（单位缴费基数 × 单位比例 = 单位缴费）",
+      "个人缴费复算（个人缴费基数 × 个人比例 = 个人缴费）",
+      "合计行逐列复核",
+      "同一人员同期重复行检测",
+      "空白与占位符检测",
+      "缴费基数或缴费比例为负检测"
+    ],
+    "withheld": [
+      "缴费基数低于下限或高于上限提示（参考区间）",
+      "单位与个人缴费基数不一致检测",
+      "缴费比例偏离常见区间提示（参考口径）",
+      "工资口径与缴费基数差异超过阈值提示",
+      "补缴金额与基数差额不一致检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_stamp_duty_base_check",
     "package": "stamp-duty-base-check-free",
-    "engine": "stamp-duty-base-check.js",
+    "engine": "stamp-duty-base-check-free/stamp-duty-base-check.js",
     "title": "印花税计税依据核对（免费版）",
     "given": [
       "税额勾稽（计税依据 × 适用税率 = 已缴税额）",
@@ -1581,7 +2112,7 @@
   {
     "tool": "check_store_sales_report_check",
     "package": "store-sales-report-check-free",
-    "engine": "store-sales-report-check.js",
+    "engine": "store-sales-report-check-free/store-sales-report-check.js",
     "title": "门店营收上报核对（免费版）",
     "given": [
       "渠道合计勾稽（POS现金 + POS刷卡 + 移动支付 + 外卖平台 + 团购券）",
@@ -1607,9 +2138,65 @@
     "hasSample": true
   },
   {
+    "tool": "check_store_transfer_check",
+    "package": "store-transfer-check-free",
+    "engine": "store-transfer-check-free/store-transfer-check.js",
+    "title": "连锁门店调拨与库存核对（免费版）",
+    "given": [
+      "调出 − 调入 = 在途 复算",
+      "期末库存 = 期初 + 调入 − 销售 − 调出 复算",
+      "合计行逐列复核",
+      "同一调拨单号重复行检测",
+      "空白与占位符检测",
+      "数量为负检测（期初 / 调出 / 调入 / 销售）"
+    ],
+    "withheld": [
+      "在途为负或超过调出量检测",
+      "期末库存为负检测",
+      "调拨量与库存变动不一致（差超阈值）提示",
+      "同一商品跨店调拨量差异超过参考比例提示",
+      "调出与调入数量不等（超过容差）提示"
+    ],
+    "outOfScope": [
+      "判断调拨该不该批、有没有超授权额度（那是审批流程的事）",
+      "核对调拨单价、调拨成本与内部结算价（表里没有单价就不算）",
+      "替代实物盘点：账上守恒**不代表**货真在架上",
+      "读取 ERP / WMS / POS 导出的原始文件（需要你先导出成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_subcontract_settlement_check",
+    "package": "subcontract-settlement-check-free",
+    "engine": "subcontract-settlement-check-free/subcontract-settlement-check.js",
+    "title": "分包结算与产值核对（免费版）",
+    "given": [
+      "本期应付勾稽（本期产值 − 质保金 − 代扣款 = 本期应付）",
+      "累计已付与未付余额勾稽（累计已付 + 未付余额 = 累计产值）",
+      "合计行逐列复核",
+      "同一分包同一期重复行检测",
+      "空白与占位符检测",
+      "金额或产值为负检测"
+    ],
+    "withheld": [
+      "本期产值超过合同额减已完成产值（超结算）提示",
+      "未付余额为负（多付）检测",
+      "质保金比例偏离参考区间（0%~10%）提示（参考口径）",
+      "代扣款超过本期应付提示",
+      "合同额为零却有产值检测"
+    ],
+    "outOfScope": [
+      "判断结算单价、工程量计量与变更签证是否成立（以合同约定与现场计量为准）",
+      "认定质保金退还条件、缺陷责任期与保修责任",
+      "核对发票开具、税率与增值税进项抵扣",
+      "读取结算软件或 ERP 导出文件（需要你先导出成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
     "tool": "check_surtax_check",
     "package": "surtax-check-free",
-    "engine": "surtax-check.js",
+    "engine": "surtax-check-free/surtax-check.js",
     "title": "增值税附加税费核对（免费版）",
     "given": [
       "城建税勾稽（增值税税额 × 城建税率）",
@@ -1636,9 +2223,78 @@
     "hasSample": true
   },
   {
+    "tool": "check_tax_invoice_void_check",
+    "package": "tax-invoice-void-check-free",
+    "engine": "tax-invoice-void-check-free/tax-invoice-void-check.js",
+    "title": "发票作废与红冲核对（免费版）",
+    "given": [
+      "净开票金额勾稽（开票金额 − 作废金额 − 红冲金额 = 净开票金额）",
+      "红冲金额勾稽（原发票金额 − 折让金额 = 红冲金额）",
+      "合计行逐列复核",
+      "同一发票号码重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "红冲金额超过原发票金额检测",
+      "作废发票已跨月（应红冲而非作废）提示",
+      "作废率超过参考上限（10%）提示（参考口径）",
+      "作废或红冲发票无原因说明提示",
+      "净开票金额与申报表口径不一致提示（差额超阈值）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_tax_risk_indicator_check",
+    "package": "tax-risk-indicator-check-free",
+    "engine": "tax-risk-indicator-check-free/tax-risk-indicator-check.js",
+    "title": "税务风险指标自查核对（免费版）",
+    "given": [
+      "税负率复算（应纳税额 ÷ 营业收入 = 税负率）",
+      "进销项比复算（进项税额 ÷ 销项税额 = 进销项比）",
+      "合计行逐列复核",
+      "同一期间重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "税负率低于参考下限（1%）提示（参考口径）",
+      "进销项比偏离参考区间（0.5~1.5）提示（参考口径）",
+      "收入与销项不匹配（按参考销项税率推算，差超 5%）提示",
+      "成本与进项不匹配（按参考进项税率推算，差超 5%）提示",
+      "留抵税额与进销项矛盾提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_travel_standard_check",
+    "package": "travel-standard-check-free",
+    "engine": "travel-standard-check-free/travel-standard-check.js",
+    "title": "差旅费标准与报销核对（免费版）",
+    "given": [
+      "报销合计勾稽（住宿费 + 交通费 + 伙食补助 + 其他 = 报销合计）",
+      "超标金额勾稽（实际金额 − 标准上限 = 超标金额，正数=超标）",
+      "合计行逐列复核",
+      "同一人同一行程重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "住宿费超标准提示（含超出金额）",
+      "交通费超标准提示（含超出金额）",
+      "伙食补助按天数 × 标准勾稽",
+      "出差天数与起止日期不一致检测",
+      "超标但无审批标记提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_tuition_refund_check",
     "package": "tuition-refund-check-free",
-    "engine": "tuition-refund-check.js",
+    "engine": "tuition-refund-check-free/tuition-refund-check.js",
     "title": "学费与退费核对（免费版）",
     "given": [
       "已耗课费勾稽（已上课时 × 课时单价）",
@@ -1667,7 +2323,7 @@
   {
     "tool": "check_union_reserve_check",
     "package": "union-reserve-check-free",
-    "engine": "union-reserve-check.js",
+    "engine": "union-reserve-check-free/union-reserve-check.js",
     "title": "工会经费与残保金计提核对（免费版）",
     "given": [
       "工会经费计提勾稽（工资总额 × 计提比例 = 已计提）",
@@ -1688,9 +2344,32 @@
     "hasSample": true
   },
   {
+    "tool": "check_utility_meter_reading_check",
+    "package": "utility-meter-reading-check-free",
+    "engine": "utility-meter-reading-check-free/utility-meter-reading-check.js",
+    "title": "水电抄表与账单核对（免费版）",
+    "given": [
+      "用量勾稽（用量 = 本期读数 − 上期读数）",
+      "应收金额勾稽（应收金额 = 用量 × 单价 + 基本费）",
+      "合计行逐列复核（每一列的合计是否等于各行之和）",
+      "同一表号同一期间重复行检测",
+      "关键字段缺失与占位符检测（期间/表号/上期读数/本期读数/用量/单价/应收金额）",
+      "读数或金额为负检测（上期读数/本期读数/应收金额/账单金额）"
+    ],
+    "withheld": [
+      "本期读数小于上期读数（倒走）检测",
+      "账单金额与应收金额不符提示（含差额）",
+      "单价偏离参考区间提示（参考口径）",
+      "用量异常偏高提示（超过同表历史均值 50%）",
+      "换表未标注或底度未结转提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_utility_tier_billing_check",
     "package": "utility-tier-billing-check-free",
-    "engine": "utility-tier-billing-check.js",
+    "engine": "utility-tier-billing-check-free/utility-tier-billing-check.js",
     "title": "电费分时计价核对（免费版）",
     "given": [
       "电度电费勾稽（用电量 × 单价，仅对同时填了电量与单价的行）",
@@ -1718,7 +2397,7 @@
   {
     "tool": "check_vat_burden_check",
     "package": "vat-burden-check-free",
-    "engine": "vat-burden-check.js",
+    "engine": "vat-burden-check-free/vat-burden-check.js",
     "title": "增值税进销项与税负率核对（免费版）",
     "given": [
       "应纳增值税勾稽（销项税额 − 进项税额 − 上期留抵，负数按 0）",
@@ -1746,7 +2425,7 @@
   {
     "tool": "check_vat_filing_reconcile",
     "package": "vat-filing-reconcile-free",
-    "engine": "vat-filing-reconcile.js",
+    "engine": "vat-filing-reconcile-free/vat-filing-reconcile.js",
     "title": "增值税申报与账载开票三方核对（免费版）",
     "given": [
       "账载收入与申报销售额差额检测",
@@ -1767,9 +2446,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_viral_script",
+    "package": "viral-script-free",
+    "engine": "viral-script-free/deconstruct.js",
+    "title": "爆款视频脚本拆解官（免费版）",
+    "given": [
+      "结构地图（钩子 / 痛点共鸣 / 论证干货 / 转折升华 / 行动指令 五段）",
+      "开场钩子判定（含\"客套开场\"识别与强度）",
+      "留存节奏诊断（逐段句数与估算时长）",
+      "口语度评分（书面语连接词、长句占比）",
+      "CTA 强度判定",
+      "问题分级清单（P0/P1/P2 + 位置与原文）"
+    ],
+    "withheld": [
+      "金句候选提取（可复用的短句，含书面语过滤）",
+      "二创蓝图（可直接填空的改写骨架）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_warehouse_fee_check",
     "package": "warehouse-fee-check-free",
-    "engine": "warehouse-fee-check.js",
+    "engine": "warehouse-fee-check-free/warehouse-fee-check.js",
     "title": "仓储费与超期费核对（免费版）",
     "given": [
       "仓储费勾稽（计费数量 × 单价 × 计费天数）",
@@ -1793,6 +2492,29 @@
       "判断损耗与赔偿；给出法律意见",
       "读取 .xlsx 或 WMS 账单文件（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_welfare_limit_check",
+    "package": "welfare-limit-check-free",
+    "engine": "welfare-limit-check-free/welfare-limit-check.js",
+    "title": "职工福利费与教育经费限额核对（免费版）",
+    "given": [
+      "职工福利费限额复算（工资总额 × 14% = 税前扣除限额）",
+      "职工教育经费限额复算（工资总额 × 8% = 税前扣除限额）",
+      "合计行逐列复核",
+      "同一费用类型重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "实际发生额超过税前扣除限额提示（含超支金额与纳税调整方向）",
+      "工会经费超过工资总额 2% 提示",
+      "工资总额为零却有计提检测",
+      "职工教育经费结转下年金额超过限额余额提示",
+      "计提比例偏离法定参考口径提示"
+    ],
+    "outOfScope": [],
     "hasSample": true
   }
 ]
