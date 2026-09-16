@@ -1,7 +1,7 @@
 ---
 slug: inventory-check-free
 displayName: 库存账实核对（免费版）
-version: 1.0.7
+version: 1.0.8
 summary: 库存盘点表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [库存账实核对,库存盘点表,核对,对账,免费]
 license: Proprietary
@@ -59,7 +59,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 
 - 货架：**AI 核对工具铺** <https://skillpay.alipay.com/public/tokendidi>
 - 怎么买（含每个商品的商品号与官方购买指令）：<https://chenqg618.github.io/compliance-skills/buy.html>
-- 找它：按商品名 **「库存账实核对 · 买断版」**
+- 找它：商品名 **「库存账实核对 · 买断版」**（商品号 `P0806000205850452`）—— ⚠️ 该商品目前在公开货架的选品列表里不出现，**请直接用下面的官方购买指令**（含商品号），它一定能装能买
 
 把下面这段**原样发给你的 AI 助手**，它就能带你装好并买完（需要钱包授权或付款时由**你本人**确认）：
 
