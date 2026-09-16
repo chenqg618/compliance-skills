@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>租金收缴与欠租台账核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="租金收缴与欠租台账核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"租金收缴与欠租台账核对（免费版）","description":"租金收缴与欠租台账核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>租金收缴与欠租台账核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 不联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：财务、出纳等岗位在<strong>每月结账 / 对账 / 盘点</strong>这类固定节点上，</p>
+<p>必须把这张表核一遍才能往下走。</p>
+<p><strong>这张表会逐项核对什么</strong>：租金收缴与欠租台账核对表的逐行算术、合计勾稽、重复与空缺检测。</p>
+<p>每条结论都带<strong>原文行号与出处</strong>，可被第三方用同一口径复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么。</p>
+<h2>这个免费版查什么</h2>
+<p>（检查项由引擎的 <code>CHECKS_*</code> 导出，跑 <code>--sample</code> 会打印实际执行了哪些。）</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<h2>常见错法（这张表里真的会有人这么填）</h2>
+<ol>
+<li><strong>免租期与计租期重叠</strong>：一行里既写了「免租期天数」，又按整月填了「计租月数」，</li>
+</ol>
+<p>免租的那几天照样算进了应收租金。免租期内的天数要么不计租（把计租月数按天折算扣减），</p>
+<p>要么明确它落在别的期间 —— 两者同时存在时，本期应收一定算多了，租户拿着合同就不认账。</p>
+<ol>
+<li><strong>递增租金未按年度切换</strong>：合同约定「第二年起每年递增 5%」，台账却全年都用首年单价</li>
+</ol>
+<p>（或者提前一个月就换了新单价）。递增生效日是按合同年度算的，换单价那一期要能说清</p>
+<p>起止日期：单价、合同月租金、应收租金三列必须一起改，只改一列就会和账单对不上。</p>
+<ol>
+<li><strong>滞纳金基数用含税还是不含税</strong>：合同写「按欠付租金的 0.05%/日」，台账却按含税租金</li>
+</ol>
+<p>（或按应收+物业费）计提，比例看着对、金额就是不一样的。基数口径要在台账里写明，</p>
+<p>同一份台账前后各期也要一致 —— 否则催收函上的数字自己都解释不通。</p>
+<ol>
+<li><strong>押金抵租未冲减应收</strong>：租户欠租后用押金抵了两个月租金，台账只在「已收金额」里体现，</li>
+</ol>
+<p>「应收租金」没动（甚至欠租还挂着）。押金抵租是<strong>冲减应收 / 核销欠租</strong>，</p>
+<p>不是收款：不冲减的话下个月开始每个月的欠租都会重复累计。</p>
+<ol>
+<li><strong>跨期收款未挂账</strong>：12 月底收的是次年 1 月的租金，直接记进了本期「已收金额」，</li>
+</ol>
+<p>本期变成多收、次年 1 月又重复计一次。跨期收款要按所属期间挂账（预收 / 待摊），</p>
+<p>记在哪个期间必须和账单期间一致，否则两个期间的欠租同时错。</p>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>已收金额超过应收租金加滞纳金提示（多收 / 预收挂账、租户退款）</li>
+<li>免租期内仍计租提示（同一行既有免租期天数又有计租月数，免租期与计租期重叠）</li>
+<li>欠租超过参考月数（3 个月）提示</li>
+<li>同一房号重复计租同一期间提示（换租户 / 双合同把同一期间算了两遍）</li>
+<li>滞纳金比例与合同约定不一致提示</li>
+</ul>
+<p>需要它们的话，同名工具的<strong>完整档</strong>里都有——完整档是<strong>另一个独立商品</strong>（在 SkillPay 货架上，条款与条件以它自己的商品页为准）。两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<ul>
+<li>货架：<strong>AI 核对工具铺</strong> <a href="https://skillpay.alipay.com/public/tokendidi">https://skillpay.alipay.com/public/tokendidi</a></li>
+<li>怎么买（含每个商品的商品号与官方购买指令）：<a href="https://chenqg618.github.io/compliance-skills/buy.html">https://chenqg618.github.io/compliance-skills/buy.html</a></li>
+<li>找它：按商品名 <strong>「租金收缴与欠租台账核对 · 买断版」</strong></li>
+</ul>
+<p>把下面这段<strong>原样发给你的 AI 助手</strong>，它就能带你装好并买完（需要钱包授权或付款时由<strong>你本人</strong>确认）：</p>
+<pre><code>请通过 SkillPay 购买并安装 Skill「租金收缴与欠租台账核对 · 买断版」。
+官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
+请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206862835。
+我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。</code></pre>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断；</p>
+<p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/rent-collection-check-free">https://www.skillhub.cn/skills/user_ef162806/rent-collection-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
