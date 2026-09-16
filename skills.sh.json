@@ -88,6 +88,7 @@
     "material-usage-loss-check-free",
     "mold-amortization-check-free",
     "outsourced-processing-fee-check-free",
+    "owner-supplied-material-check-free",
     "production-yield-scrap-check-free",
     "project-material-transfer-check-free",
     "restaurant-food-cost-check-free",
@@ -128,6 +129,7 @@
     "ap-factoring-check-free",
     "ap-reconciliation-free",
     "ar-aging-check-free",
+    "bank-acceptance-bill-check-free",
     "bank-loan-interest-check-free",
     "bank-reconciliation-free",
     "cash-count-check-free",
@@ -154,6 +156,7 @@
    "skills": [
     "audit-adjustment-check-free",
     "budget-variance-check-free",
+    "cargo-insurance-claim-check-free",
     "chain-store-settlement-check-free",
     "clinic-daily-cashier-check-free",
     "clinic-revenue-check-free",
@@ -216,6 +219,7 @@
     "toll-processing-manual-check-free",
     "training-hour-consumption-check-free",
     "travel-standard-check-free",
+    "trial-balance-check-free",
     "viral-script-free",
     "waybill-pod-cod-check-free"
    ]
