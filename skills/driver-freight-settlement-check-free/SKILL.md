@@ -1,7 +1,7 @@
 ---
 slug: driver-freight-settlement-check-free
 displayName: 承运司机运费结算核对（免费版）
-version: 1.0.2
+version: 1.0.3
 summary: 承运司机运费结算单逐项核对，逐单复算运费与应付运费、与对账单合计勾稽并定位差异单，每条结论都带原文行号与运单号，不需要付款，也不需要注册。
 tags: [承运司机运费结算核对,运费结算单,司机运费对账,回单扣款与油卡抵扣,核对,免费]
 license: Proprietary
