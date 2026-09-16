@@ -2985,6 +2985,34 @@
     "hasSample": true
   },
   {
+    "tool": "check_sku_profit_check",
+    "package": "sku-profit-check-free",
+    "engine": "sku-profit-check-free/sku-profit-check.js",
+    "title": "SKU级利润核算（免费版）",
+    "given": [
+      "真实毛利复算（售价×汇率 − 成本 − 头程运费 − 折算后售价×平台佣金率 − 广告费÷销量 − 折算后售价×退货率）",
+      "毛利率复算（真实毛利 ÷ 折算后售价）",
+      "合计行逐列复核（广告费、销量）",
+      "同一 SKU 编号重复行检测",
+      "空白与占位符检测",
+      "金额或比率为负检测"
+    ],
+    "withheld": [
+      "亏损 SKU 按亏损金额排序的清单",
+      "每条亏损 SKU 的调价建议/停售建议（含目标价）",
+      "广告费占比（广告费 ÷ 折算后销售额）诊断",
+      "整体月度亏损估算",
+      "跨期对比（与上月/上季度的毛利、毛利率对比）"
+    ],
+    "outOfScope": [
+      "选品建议（这个 SKU 该不该上、该进多少货、该不该砍）",
+      "竞品比价与市场价判断（对手卖多少钱、该不该跟价）",
+      "接入电商平台 / ERP / 广告后台 API 取数（佣金、广告、退货以你导出的表为准）",
+      "替代会计口径（收入确认时点、存货计价、税费、汇兑损益与账务处理）"
+    ],
+    "hasSample": true
+  },
+  {
     "tool": "check_social_insurance_base_check",
     "package": "social-insurance-base-check-free",
     "engine": "social-insurance-base-check-free/social-insurance-base-check.js",
