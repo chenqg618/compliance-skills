@@ -764,6 +764,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_cash_flow_variance_check",
+    "package": "cash-flow-variance-check-free",
+    "engine": "cash-flow-variance-check-free/cash-flow-variance-check.js",
+    "title": "现金流预测与实际差异核对（免费版）",
+    "given": [
+      "净流量复算（预测净流量 = 预测流入 − 预测流出；实际净流量 = 实际流入 − 实际流出）",
+      "差异复算（差异 = 实际 − 预测，流入/流出/净流量三列各自复核）",
+      "合计行逐列复核",
+      "同一项目同一期重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "差异率超过参考阈值（如 10%）提示（参考口径）",
+      "净流量方向与预测相反提示（预测净流入却实际净流出，或反之）",
+      "流入为负或流出为负（方向填反）提示",
+      "实际流入与应收账款回款不匹配提示",
+      "预测为 0 却有实际发生额提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_chain_store_settlement_check",
     "package": "chain-store-settlement-check-free",
     "engine": "chain-store-settlement-check-free/chain-store-settlement-check.js",
@@ -1763,6 +1786,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_petty_cash_check",
+    "package": "petty-cash-check-free",
+    "engine": "petty-cash-check-free/petty-cash-check.js",
+    "title": "备用金与报销核销核对（免费版）",
+    "given": [
+      "余额勾稽（上期余额 + 本期领用 − 本期报销核销 = 期末余额）",
+      "报销核销勾稽（报销金额 − 退还款 = 本期报销核销）",
+      "合计行逐列复核",
+      "同一人同一笔重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "期末余额为负（超额报销）检测",
+      "本期核销超过领用累计（上期余额 + 本期领用）检测",
+      "挂账超过参考天数（90 天）提示（参考口径）",
+      "同一人出现多笔未清余额提示",
+      "报销金额为零却有核销记录提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_prepaid_card_consumption_check",
     "package": "prepaid-card-consumption-check-free",
     "engine": "prepaid-card-consumption-check-free/prepaid-card-consumption-check.js",
@@ -2266,6 +2312,29 @@
       "处理消费税对应的附加税费（如涉及，请把消费税并入\"增值税税额\"列并注明）",
       "给出税务意见或做税负测算；读取 .xlsx（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_tax_incentive_eligibility_check",
+    "package": "tax-incentive-eligibility-check-free",
+    "engine": "tax-incentive-eligibility-check-free/tax-incentive-eligibility-check.js",
+    "title": "税收优惠适用条件自查核对（免费版）",
+    "given": [
+      "指标占比复算（指标分子 ÷ 指标分母 = 指标占比）",
+      "限额复算（限额基数 × 比例上限 = 准予扣除限额）",
+      "合计行逐列复核",
+      "同一优惠项目重复行检测",
+      "空白与占位符检测",
+      "金额或数量为负检测"
+    ],
+    "withheld": [
+      "高新收入占比低于 60% 提示（参考口径）",
+      "研发费用占比低于参考下限提示（参考口径，按销售收入分档）",
+      "小微三项指标（应纳税所得额 / 从业人数 / 资产总额）超限提示（参考口径）",
+      "安置比例不足却享受优惠提示（参考口径）",
+      "分子大于分母（比例 >100%）异常提示"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
