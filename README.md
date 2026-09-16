@@ -100,8 +100,11 @@ npx skills add chenqg618/compliance-skills
 claude plugin marketplace add chenqg618/compliance-skills
 ```
 
-**③ 使用 DSH 技能市场**：本仓库带 `dsh-skill` 话题 ——
-在 DeepSeek Harness 的「设置 → 技能市场」里搜索 `compliance-skills` 即可一键安装。
+**③ 在 DSH / SkillHub 的技能市场里按技能名安装**：
+在技能市场里搜**技能名**（例如 `bank-reconciliation-free`、`vat-burden-check-free`），
+或直接到 <https://www.skillhub.cn/> 搜同一批名字（我们已上架 102 个免费技能）。
+> 说明（第 255 轮核实后改写）：本仓库的 GitHub 话题是 `dsh-plugin` / `deepseek-harness` / `agent-skills` 等，
+> **并不存在 `dsh-skill` 这个已生效的话题** —— 之前那行写法是错的，已改掉（不写没核实过的话）。
 
 **④ ClawHub（免费包里下载量最大的渠道）** —— 按技能名单独安装：
 
