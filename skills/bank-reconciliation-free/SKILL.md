@@ -1,7 +1,7 @@
 ---
 slug: bank-reconciliation-free
 displayName: 银行流水对账核对（免费版）
-version: 1.0.8
+version: 1.0.9
 summary: 把银行流水和企业账面记录贴成两段，逐笔配对、列出两侧未达账项和重复记录——每月对账最费时的那一步。每条都带原文日期与金额，不需要付款，也不需要注册。
 tags: [对账, 银行流水, 未达账项, 银行对账, 财务, 出纳, 会计, 免费, AI核对]
 license: Proprietary
@@ -95,6 +95,7 @@ node scripts/run.mjs --input my-recon.json --json
 - 疑似跨期未达（另一侧有同金额记录，但日期超出匹配窗口）
 - 对账恒等式校验（银行合计 − 账面合计 = 银行未达 − 账面未达）
 - 自定义匹配窗口与金额容差（dayWindow / toleranceAbs）
+
 
 
 
