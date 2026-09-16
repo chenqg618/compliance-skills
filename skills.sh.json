@@ -191,14 +191,17 @@
    "skills": [
     "ad-agency-rebate-check-free",
     "bad-debt-provision-check-free",
+    "hospital-supply-consumption-check-free",
     "long-term-amortization-check-free",
     "purchase-rebate-check-free",
     "rd-expense-check-free",
     "receivable-collection-plan-check-free",
     "rent-collection-check-free",
     "three-way-match-free",
+    "training-hour-consumption-check-free",
     "travel-standard-check-free",
-    "viral-script-free"
+    "viral-script-free",
+    "waybill-pod-cod-check-free"
    ]
   }
  ]
