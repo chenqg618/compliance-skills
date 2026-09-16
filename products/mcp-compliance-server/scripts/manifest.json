@@ -1017,6 +1017,23 @@
     "hasSample": true
   },
   {
+    "tool": "check_construction_monthly_selfcheck",
+    "package": "construction-monthly-selfcheck-free",
+    "engine": "construction-monthly-selfcheck-free/construction-monthly-selfcheck.js",
+    "title": "建筑企业月度自查包（免费版）",
+    "given": [
+      "分包结算与产值核对（分段核对）",
+      "工程进度款与质保金核对（分段核对）",
+      "工程产值与进度确认核对（分段核对）"
+    ],
+    "withheld": [
+      "建筑工人工资专户发放核对",
+      "项目挣值分析核对"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_construction_output_value_check",
     "package": "construction-output-value-check-free",
     "engine": "construction-output-value-check-free/construction-output-value-check.js",
@@ -1135,6 +1152,23 @@
       "处理按实际天数/365 计息的口径（若合同如此约定，请先按 360 折算或在表里直接给出利息）",
       "给出金融或法律意见；读取 .xlsx（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_ecommerce_monthly_selfcheck",
+    "package": "ecommerce-monthly-selfcheck-free",
+    "engine": "ecommerce-monthly-selfcheck-free/ecommerce-monthly-selfcheck.js",
+    "title": "电商财务月度自查包（免费版）",
+    "given": [
+      "电商平台结算核对（分段核对）",
+      "促销补贴与核销核对（分段核对）",
+      "直播佣金与坑位费结算核对（分段核对）"
+    ],
+    "withheld": [
+      "电商退货退款与货款结算核对",
+      "广告代理返点与框架返点核对"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
@@ -1411,6 +1445,23 @@
       "与资产相关但无对应资产入账提示",
       "分摊期数与资产使用年限不一致提示",
       "已全额确认仍有递延余额提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_group_finance_monthly_selfcheck",
+    "package": "group-finance-monthly-selfcheck-free",
+    "engine": "group-finance-monthly-selfcheck-free/group-finance-monthly-selfcheck.js",
+    "title": "集团财务月度自查包（免费版）",
+    "given": [
+      "集团内部往来对账与抵消核对（分段核对）",
+      "供应商应付对账（分段核对）",
+      "应收账款账龄核对（分段核对）"
+    ],
+    "withheld": [
+      "应付账款账龄与付款计划核对",
+      "部门费用预算执行核对"
     ],
     "outOfScope": [],
     "hasSample": true
