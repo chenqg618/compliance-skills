@@ -106,7 +106,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **105 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **108 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -129,6 +129,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `bonus-pool-check-free` | 年终奖分配表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `budget-variance-check-free` | 预算执行表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `cash-count-check-free` | 现金盘点表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `chain-store-settlement-check-free` | 连锁门店结算核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `cip-transfer-check-free` | 在建工程转固台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `cit-adjustment-check-free` | 企业所得税纳税调整表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `cit-prepay-check-free` | 季度预缴所得税计算表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -177,6 +178,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `payment-fee-check-free` | 收款手续费核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `payroll-check-free` | 发薪前把工资表算一遍——每个人的实发是不是等于应发减扣款、合计行是不是各列之和、有没有同一个人出现两行、有没有金额空缺或没替换的占位符 |
 | `payroll-payable-check-free` | 应付职工薪酬台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `payroll-payment-bank-check-free` | 工资代发与银行回单核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `payroll-withholding-reconcile-free` | 工资表与个税社保申报对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `platform-settlement-check-free` | 平台结算单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `prepaid-card-consumption-check-free` | 预付卡消费核销表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -214,6 +216,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `vat-filing-reconcile-free` | 增值税申报与账载开票对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `viral-script-free` | 把一份口播逐字稿丢进来，10 秒内出体检报告——结构地图、开场钩子强度、留存节奏、口语度评分、CTA 强度，并列出问题清单 |
 | `warehouse-fee-check-free` | 仓储费结算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `warehouse-inventory-turnover-check-free` | 仓库周转与呆滞库存表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `welfare-limit-check-free` | 职工福利费与教育经费台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 <!-- SKILL_LIST_END -->
 
