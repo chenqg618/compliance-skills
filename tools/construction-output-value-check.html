@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>工程产值与进度确认核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="工程产值与进度确认表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"工程产值与进度确认核对（免费版）","description":"工程产值与进度确认表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>工程产值与进度确认核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 不联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：项目经理 / 商务 / 财务在<strong>每月末报产值、请甲方（监理、造价）确认之前</strong> ——</p>
+<p>「工程产值与进度确认表」经甲方签认后就是<strong>工程结算与收入确认的依据</strong>，签完再改要走变更流程。</p>
+<p><strong>这张表会逐项核对什么</strong>：本期计量金额复算、累计计量与合同额闭合、合计行、重复行、空缺与负数。</p>
+<p>每条结论都带<strong>原文行号与出处</strong>，可被第三方用同一口径复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么。</p>
+<h2>这个免费版查什么（6 项）</h2>
+<ol>
+<li><strong>计量金额复算</strong>：本期计量金额 = 本期已完产值 − 本期扣款</li>
+<li><strong>累计计量与剩余产值勾稽</strong>：累计计量 + 剩余产值 = 合同额</li>
+<li><strong>合计行逐列复核</strong>：合计行的本期已完产值、计量、扣款、应付 = 各明细行之和</li>
+<li><strong>同一项目同一期重复行检测</strong></li>
+<li><strong>空白与占位符检测</strong>（<code>—</code>、<code>待填</code>、<code>无</code>、<code>N/A</code> 都算没填）</li>
+<li><strong>金额或产值为负检测</strong></li>
+</ol>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<h2>常见错法（这张表里真的会有人这么填）</h2>
+<ol>
+<li><strong>本期计量金额直接抄本期已完产值</strong>：漏了本期扣款（质保金、预付款抵扣、代扣水电、违约扣款）。</li>
+</ol>
+<p>只要本期有扣款，<code>计量 = 已完产值</code> 这一行就一定不成立。</p>
+<ol>
+<li><strong>累计列只累加产值，忘记再减一次累计扣款</strong>：累计计量 = 累计已完产值 − <strong>累计</strong>扣款；</li>
+</ol>
+<p>只累加产值的话，差额会逐期滚大（第 3 期就差了 3 期的扣款）。</p>
+<ol>
+<li><strong>剩余产值用「合同额 − 累计已完产值」倒算</strong>：本表口径是 剩余产值 = 合同额 − <strong>累计计量</strong>，</li>
+</ol>
+<p>两者相差的正好是累计扣款；用错基数会同时带出累计勾稽不符。</p>
+<ol>
+<li><strong>同一项目同一期拆成两行填</strong>（月内两批报量各占一行）却都不合并：会被判重复行，</li>
+</ol>
+<p>且累计列容易被重复汇总；月内分批请在备注里说明，本期汇总成一行。</p>
+<ol>
+<li><strong>用「—」「待填」「无」「N/A」代替 0.00，把冲回直接写成负数行</strong>：</li>
+</ol>
+<p>占位符一律按"没填"处理（该是 0 就写 0.00）；负数金额会被单独挑出来要求说明来源。</p>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>已完产值超过合同额检测</li>
+<li>形象进度与产值偏差超 10 个百分点提示（参考口径）</li>
+<li>计量金额超过已完产值检测</li>
+<li>扣款比例偏离参考区间（0%~10%）提示（参考口径）</li>
+<li>累计计量与累计产值不一致提示（偏差超 10%，参考口径）</li>
+</ul>
+<p>需要它们的话，同名工具的<strong>完整档</strong>里都有——完整档是<strong>另一个独立商品</strong>（在 SkillPay 货架上，条款与条件以它自己的商品页为准）。两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<ul>
+<li>货架：<strong>AI 核对工具铺</strong> <a href="https://skillpay.alipay.com/public/tokendidi">https://skillpay.alipay.com/public/tokendidi</a></li>
+<li>找它：按商品名 <strong>「工程产值与进度确认核对 · 买断版」</strong></li>
+</ul>
+<p>把下面这段<strong>原样发给你的 AI 助手</strong>，它就能带你装好并买完（需要钱包授权或付款时由<strong>你本人</strong>确认）：</p>
+<pre><code>请通过 SkillPay 购买并安装 Skill「工程产值与进度确认核对 · 买断版」。
+官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
+请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206845531。
+我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。</code></pre>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断；</p>
+<p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/construction-output-value-check-free">https://www.skillhub.cn/skills/user_ef162806/construction-output-value-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
