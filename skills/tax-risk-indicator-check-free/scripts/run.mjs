@@ -196,8 +196,9 @@ function main() {
   console.log('');
   // 出口（升级触点）由上架后的 tools/add_paid_funnel.py → tools/add_runtime_upsell.py 写入：
   // 商品名与商品号必须取自本包 SKILL.md 里的**官方购买指令**，不能沿用脚手架模板里的旧值。
+  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   console.log('');  // __UPSELL__
-  console.log('如需完整档：税务风险指标自查核对 · 买断版（SkillPay 商品号 S0806000206845533）—— 本版本未执行的 5 项检查在完整档里都有。');
+  console.log('如需完整档：税务风险指标自查核对 · 买断版（SkillPay 商品号 S0806000206846736）—— 本版本未执行的 5 项检查在完整档里都有。');
   console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   console.log(JSON.stringify(view.result, null, 2));
   return 0;
