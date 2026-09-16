@@ -1,7 +1,7 @@
 ---
 slug: bidguard-quote-audit-free
 displayName: 投标报价AI审查（免费版）
-version: 1.0.14
+version: 1.0.15
 summary: 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [招投标, 免费, 分项算术校验, 标书检查, 投标自查]
 license: Proprietary
@@ -121,7 +121,7 @@ const outcome = engine.run(payload);
 
 - 货架：**AI 核对工具铺** <https://skillpay.alipay.com/public/tokendidi>
 - 怎么买（含每个商品的商品号与官方购买指令）：<https://chenqg618.github.io/compliance-skills/buy.html>
-- 找它：按商品名 **「投标报价AI审查 · 买断版」**
+- 找它：商品名 **「投标报价AI审查 · 买断版」**（商品号 `P0806000205847410`）—— ⚠️ 该商品目前在公开货架的选品列表里不出现，**请直接用下面的官方购买指令**（含商品号），它一定能装能买
 
 把下面这段**原样发给你的 AI 助手**，它就能带你装好并买完（需要钱包授权或付款时由**你本人**确认）：
 
