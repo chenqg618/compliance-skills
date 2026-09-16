@@ -21,6 +21,19 @@ node scripts/run.mjs --input my-material.json  # 逐条出结论，每条带原�
 - 只想先看输出长什么样：`node scripts/run.mjs --sample`（引擎自带的干净样例，0 命中）。
 - 材料不足时工具**不会给结论**，会列出"还缺哪些列/字段"。
 
+## 也可以直接把工具挂进 Agent（MCP，完全离线）
+```bash
+git clone https://github.com/chenqg618/compliance-skills.git
+node compliance-skills/products/mcp-compliance-server/server.mjs --list   # 先看有哪些工具（不需要 MCP 客户端）
+```
+把下面这段加进 MCP 客户端配置，就能让 Agent 直接调用**这一整套确定性核对工具**（数量以 `--list` 的输出为准；零依赖、不联网、无需 API Key）：
+```json
+{ "mcpServers": { "compliance": {
+    "command": "node",
+    "args": ["/绝对路径/compliance-skills/products/mcp-compliance-server/server.mjs"] } } }
+```
+每个工具都会**如实列出"本次没有执行的检查项"** —— Agent 就没法把"没查"说成"查过且干净"。
+
 ## 关键页面
 - 购买入口与商品清单：/buy.html
 - 工具页清单（每个能力一页，含输入输出说明）：/index.html
