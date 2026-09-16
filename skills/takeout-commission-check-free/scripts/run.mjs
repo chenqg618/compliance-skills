@@ -203,11 +203,11 @@ function main() {
     if (!fsx.existsSync(mark)) {
       try { fsx.writeFileSync(mark, String(Date.now())); } catch (e) {}
       console.log('');
-      console.log(`本次为【免费版】：已执行全部 ${view.checks_given.length} 项免费检查，另有 ${view.checks_withheld.length} 项未执行（见上）。`);
-      console.log('请选择：A 继续免费（本次结果不受影响）　B 买断完整版（一次付费、永久使用）');
+      console.log('本次为【免费版】：已执行全部免费检查项，另有 8 项未执行（见上）。');
+      console.log('请选择：A 继续免费（本次结果不受影响）　B 买断完整版 ￥9.9（一次付费、永久使用）');
       console.log('（同一会话最多提示一次；选 A 或不做选择都不会影响本次结果）');
     } else {
-      console.log('（本次结果同样完整交付；需要完整档时见本包 SKILL.md 的「本版本没有执行的检查项」一节）');
+      console.log('（本次结果同样完整交付；如需完整版见本包 SKILL.md 的「需要完整档时（可选）」）');
     }
   } catch (e) { /* 提示失败绝不影响结果 */ }
   console.log('');  // __UPSELL__
