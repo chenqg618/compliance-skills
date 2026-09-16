@@ -44,6 +44,19 @@ const DEFAULT_PROTOCOL = '2024-11-05';
 
 const SCRIPTS = path.join(HERE, 'scripts');   // manifest 与 engines 都在 scripts/ 下
 const manifest = JSON.parse(fs.readFileSync(path.join(SCRIPTS, 'manifest.json'), 'utf8'));
+
+/* 第 263 轮加：`--list` —— **不开 MCP 客户端也能查这套 server 到底有哪些工具**。
+   为什么要有：对外文案里写"154 个工具"，而人（或 Agent）想核实时不该被迫起一个 stdio 会话。
+   纯读 manifest，不加载任何引擎，不联网。 */
+if (process.argv.includes('--list')) {
+  console.log(`${SERVER_NAME} v${SERVER_VERSION} —— ${manifest.length} 个工具（完全离线、确定性、每条结论带原文出处）`);
+  for (const m of manifest) {
+    console.log(`  ${m.tool.padEnd(46)} ${m.title}`);
+    console.log(`  ${' '.repeat(46)} 会跑 ${m.given.length} 项 / 不跑 ${m.withheld.length} 项${m.hasSample ? ' / 带样例' : ''}`);
+  }
+  process.exit(0);
+}
+
 const ENGINES = new Map();
 for (const m of manifest) {
   ENGINES.set(m.tool, require(path.join(SCRIPTS, 'engines', m.engine)));
