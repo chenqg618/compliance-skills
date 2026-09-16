@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>广告文案违规体检（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="广告文案逐条体检、标出绝对化用语与医疗教育投资等违禁表述，每条结论带原文行号与法条依据。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"广告文案违规体检（免费版）","description":"广告文案逐条体检、标出绝对化用语与医疗教育投资等违禁表述，每条结论带原文行号与法条依据。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>广告文案违规体检（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已打包在本技能里（<code>scripts/engine/</code>）。 不联网、不需要 API Key、<strong>没有调用次数上限</strong>，你的文案不出本机。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：电商运营、品牌市场部、信息流投手每天要出十几条标题／主图文案／口播稿／详情页，</p>
+<p>发布前想先过一遍机器能判的表述风险。踩一次绝对化用语或疗效承诺，代价是下架、限流、罚款，</p>
+<p><strong>这是直接损失，不是"品牌调性"问题</strong>。</p>
+<p><strong>它做什么</strong>：把一段广告文案按行扫一遍，把违规点<strong>逐条标出来</strong> —— 每条给<strong>原文行号</strong>、</p>
+<p>命中的<strong>原词</strong>、以及<strong>一句法条依据</strong>，第三方拿同一份原文就能复算。</p>
+<p>一句话定位：<strong>发布前的"错别字检查"，只不过查的是法条层面的错。</strong></p>
+<h2>这个免费版查什么</h2>
+<p>引擎会跑下面 6 项（<code>--sample</code> 会打印实际执行了哪些）：</p>
+<table><thead><tr><th>#</th><th>检查项</th><th>主要依据</th><th>级别</th></tr></thead><tbody>
+<tr><td>①</td><td>绝对化用语（含《广告绝对化用语执法指南》豁免判定）</td><td>《广告法》第九条第三项</td><td>P0</td></tr>
+<tr><td>②</td><td>医疗／药品／医美违禁表述（疗效、根治、无副作用等）</td><td>《广告法》第十六条、第十七条</td><td>P0</td></tr>
+<tr><td>③</td><td>教育培训保证性承诺（保过、包就业、提分 X 分等）</td><td>《广告法》第二十四条第一项</td><td>P0</td></tr>
+<tr><td>④</td><td>投资理财／房地产承诺（保本、稳赚、升值回报等）</td><td>《广告法》第二十五条、第二十六条</td><td>P0</td></tr>
+<tr><td>⑤</td><td>虚假广告类保证性承诺（100% 有效、3 天见效等）</td><td>《广告法》第四条、第二十八条</td><td>P0</td></tr>
+<tr><td>⑥</td><td>缺失必要提示（保健食品未标「本品不能代替药物」等）</td><td>《广告法》第十八条第二款等</td><td>P2</td></tr>
+</tbody></table>
+<p><strong>结论只有三种</strong>：</p>
+<ul>
+<li><code>ERROR_FOUND</code> —— 有 P0/P1 命中（必须改）；</li>
+<li><code>NEEDS_REVIEW</code> —— 只有 P2（多为"漏了必要提示"，需人工补齐）；</li>
+<li><code>NO_ISSUE_FOUND</code> —— 0 命中（<strong>只有清理过的干净文案才会得到这个结论</strong>）。</li>
+</ul>
+<p><strong>它故意不报的东西也会列出来</strong>：<code>exempted</code> 里是<strong>按《执法指南》判定可豁免、因此没报成问题</strong>的表述</p>
+<p>（「最新款」「100% 羊毛」「一站式服务」「最后一步」这类），每条都写明豁免依据。</p>
+<p>这是精准度，也是可审计性 —— 你能看见机器放过了什么、凭什么放过。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                      # 先看样例（一段合规文案，0 命中）
+node scripts/run.mjs --input my-copy.json          # 跑自己的文案
+node scripts/run.mjs --input my-copy.json --json   # 机器可读输出</code></pre>
+<p>入参就是一段文案，<strong>一行一句最清晰</strong>（报出来的行号就对着你自己的原文）：</p>
+<pre><code>{&quot;text&quot;: &quot;秋季新款针织开衫，100% 羊毛。\n全国销量第一，穿一次就见效。&quot;}</code></pre>
+<p>也可以直接把文案存成纯文本文件用 <code>--input</code> 读入（不是合法 JSON 时按纯文本处理）。</p>
+<h2>输出长什么样</h2>
+<pre><code>免费AI核对完成
+本次执行的检查项：①绝对化用语（含《广告绝对化用语执法指南》豁免情形判定）、②医疗／药品…
+本版本不包含：给出改写后的整段可发布文案（免费档只标问题、不改写）、违禁词替换建议库…
+
+{
+  &quot;summary&quot;: { &quot;total&quot;: 2, &quot;p0&quot;: 2, &quot;p1&quot;: 0, &quot;p2&quot;: 0, &quot;verdict&quot;: &quot;ERROR_FOUND&quot; },
+  &quot;findings&quot;: [
+    {
+      &quot;check&quot;: &quot;ABSOLUTE_TERM&quot;, &quot;category&quot;: &quot;绝对化用语&quot;, &quot;level&quot;: &quot;P0&quot;,
+      &quot;line&quot;: 2, &quot;col&quot;: 1, &quot;term&quot;: &quot;销量第一&quot;,
+      &quot;evidence&quot;: &quot;全国销量第一，穿一次就见效。&quot;,
+      &quot;basis&quot;: &quot;《广告法》第九条第三项（广告不得使用“国家级”“最高级”“最佳”等用语）；《广告绝对化用语执法指南》…&quot;,
+      &quot;advice&quot;: &quot;删掉或改成可举证的具体描述…&quot;
+    }
+  ],
+  &quot;exempted&quot;: [
+    { &quot;term&quot;: &quot;100%&quot;, &quot;line&quot;: 1, &quot;exemption&quot;: &quot;COMPOSITION&quot;,
+      &quot;note&quot;: &quot;「100% 羊毛」是客观成分含量标示，不是“最高级”声称&quot; }
+  ]
+}</code></pre>
+<h2>完整档（服务端订阅版）能做、本免费版不做</h2>
+<p>本免费版<strong>只把问题标出来</strong>。下面这些能力<strong>本次没有执行</strong>，也不会用默认值编造 ——</p>
+<p>它们属于完整档（服务端订阅版）：</p>
+<ul>
+<li>给出改写后的整段可发布文案（免费档只标问题、不改写）</li>
+<li>违禁词替换建议库（持续更新）</li>
+<li>批量文案体检（一次几十条并给出合并整改清单）</li>
+<li>按发布平台（抖音／小红书／天猫等）差异化的口径</li>
+<li>违规风险分级与整改优先级建议</li>
+</ul>
+<p>（同样的清单在结果 JSON 的 <code>scope.checks_not_run</code> 与 <code>checks_withheld</code> 里，机器可读。）</p>
+<h2>常见错法</h2>
+<p>做广告文案体检时，人和工具都容易犯下面这 5 个错 —— 每一个都会让"体检"变成新的风险源：</p>
+<ol>
+<li><strong>见到「最」字就一刀切删掉。</strong> 「最新款」「最近上新」「最后一步」「尽最大努力」都是时间顺序词或服务态度表述，</li>
+</ol>
+<p>《指南》第二条、第五条明确不算绝对化用语；「100% 羊毛」「100% 纯棉」是客观成分标示，也不该删。</p>
+<p>一刀切会把能用的卖点改废，还让人不再信这个工具 —— <strong>本工具把这些登记进 <code>exempted</code> 并写明依据，而不是报成问题</strong>。</p>
+<ol>
+<li><strong>只换词、不换承诺。</strong> 把「最好」改成「特别好」「超好用」，对效果的绝对断言一点没变，</li>
+</ol>
+<p>平台和监管看的是<strong>承诺本身</strong>，不是那个字。正确做法是换成可举证的具体描述（具体参数、检测结论、报告编号）。</p>
+<ol>
+<li><strong>「销量第一」不写限定条件与来源。</strong> 这类写法的合法路径只有一条：<strong>限定具体时间／地域 + 确有事实依据</strong></li>
+</ol>
+<p>（例如「2024 年上半年华东区销量第一」并附第三方数据来源），依《指南》第六条第（六）项主张不适用；</p>
+<p>依第七条，<strong>无法证明真实性的仍会被查处</strong>。缺时间、缺来源，就是一条 P0。</p>
+<ol>
+<li><strong>拿行业禁语讲卖点，以为换个说法就没事。</strong> 医疗／药品／医美的「根治、无副作用、治愈率」，</li>
+</ol>
+<p>教育培训的「保过、包就业、提分 X 分」，投资理财的「保本、稳赚、无风险」，</p>
+<p>是三条各自独立的法条硬红线（②③④ 三项），换词不换承诺照样命中。</p>
+<ol>
+<li><strong>保健食品漏掉必要提示，或把功效写成疗效。</strong> 保健食品广告必须显著标明「本品不能代替药物」，</li>
+</ol>
+<p>漏掉就是形式违规（⑥，P2，最容易被抓）；把「增强免疫力」写成「降血糖」「治好失眠」，</p>
+<p>就从功效断言变成了疾病治疗功能（②，P0）。</p>
+<p>另外一条通用提醒：<strong>体检通过 ≠ 审核通过</strong>。本工具只做机械可判定的表述比对，</p>
+<p>平台细则、行业审批口径、画面与价格标示都不在其中（见下）。</p>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li>本工具<strong>不做</strong> <code>OUT_OF_SCOPE</code> 里列的判断：不判断广告整体是否违法、不替代法务与监管口径、</li>
+</ul>
+<p>不核查文案事实是否真实、不判断画面／代言人／价格标示、不做跨句语境推断、不覆盖特殊行业审批与境外法律。</p>
+<ul>
+<li><strong>材料不足时不给结论</strong>：<code>text</code> 为空、只有空白、只有一个字符或类型不对时，</li>
+</ul>
+<p>返回 <code>insufficient_input</code> 并列出缺什么，<strong>既不认定"违规"也不认定"合规"</strong>，更不会输出「未发现问题」。</p>
+<ul>
+<li>每个命中项都需要<strong>人工复核</strong>：反讽、引用法规原文、竞品评测的正当引用都可能被机械命中。</li>
+<li>本报告不构成法律意见；是否违法由市场监督管理部门结合广告整体语境、事实依据与社会危害程度依法认定。</li>
+</ul>
+<h2>可复算</h2>
+<p>引擎是纯 Node 标准库实现，<strong>没有大模型、不联网</strong>（源码里没有 <code>fetch</code>／<code>http</code>／<code>https</code>／<code>net</code>／<code>dns</code>／<code>tls</code>），</p>
+<p>也不 require 本技能包以外的任何文件。同一份文案跑两次，<code>findings</code>／<code>exempted</code>／<code>summary</code> <strong>逐字一致</strong>；</p>
+<p>每条结论都带 <code>line</code>／<code>col</code>／<code>term</code>／<code>basis</code>，你可以照着原文一行一行数回去。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/ad-copy-rewrite-free">https://www.skillhub.cn/skills/user_ef162806/ad-copy-rewrite-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
