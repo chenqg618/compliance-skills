@@ -1,7 +1,7 @@
 ---
 slug: vehicle-insurance-amortization-check-free
 displayName: 车辆保险与保费摊销核对（免费版）
-version: 1.0.3
+version: 1.0.4
 summary: 车辆保险与保费摊销核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [车辆保险与保费摊销核对,车辆保险与保费摊销核对表,核对,对账,免费]
 license: Proprietary
@@ -58,6 +58,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 5. **合计行手打、关键格留占位符、同一行粘两遍**：明细改了合计没跟着改；
    期初未摊销余额那格写着「待填」（看起来有值，其实整列没参与核对）；
    同一期间、同一车牌、同一保单的行被粘了两遍，保费与摊销额都重复计。
+
 
 ## 需要完整档时（可选）
 
