@@ -1,7 +1,7 @@
 ---
 slug: retention-money-check-free
 displayName: 工程质量保证金扣留与退还核对（免费版）
-version: 1.0.2
+version: 1.0.3
 summary: 质保金台账逐项核对，本期扣留金额、保修期届满日、退还金额三条算式逐行复算，加上合计勾稽与重复/空缺检测，每条结论都带台账原文行号，不需要付款，也不需要注册。
 tags: [工程质量保证金,质保金,保修金,质保金退还,工程结算,核对,免费]
 license: Proprietary
