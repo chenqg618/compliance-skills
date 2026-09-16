@@ -10,7 +10,7 @@ display_name: 多标书批量合规体检（免费版）
 display_name_en: BidCheckup Batch Compliance (Free)
 description: 一次把多家投标文件的报价算术全部核一遍，不需要付款，也不需要注册。 本免费版执行 逐家报价算术校验。触发词包括 多标书批量合规体检、逐家报价算术校验。
 description_zh: 一次把多家投标文件的报价算术全部核一遍，不需要付款，也不需要注册。 本免费版执行 逐家报价算术校验。
-description_en: A free mechanical pre-check for bidding documents. No payment, no registration, no API key.
+description_en: Free batch arithmetic check across up to three bidders in one pass, covering line-item math, totals and written-figure cross-check. No payment, no registration, no API key.
 category: office
 author: WorkBuddy 开放平台开发者
 allowed-tools: Read, Bash
