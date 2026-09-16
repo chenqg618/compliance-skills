@@ -47,10 +47,10 @@ POST /api/v1/three-way-match
 详见 [`products/agentpay-openapi/README.md`](products/agentpay-openapi/README.md)。
 
 <!-- MCP_SECTION_START -->
-## 也可以当 MCP server 用（158 个工具，完全离线）
+## 也可以当 MCP server 用（162 个工具，完全离线）
 
 同一个仓库里有一套 **MCP（Model Context Protocol）server** —— 任何支持 MCP 的 Agent
-（Claude Desktop / Cursor / 各类 Harness）都能直接调用这 158 个确定性核对工具：
+（Claude Desktop / Cursor / 各类 Harness）都能直接调用这 162 个确定性核对工具：
 
 ```bash
 git clone https://github.com/chenqg618/compliance-skills.git
@@ -138,7 +138,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **164 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **168 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -157,6 +157,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `audit-adjustment-check-free` | 审计调整分录核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `award-contract-consistency-check-free` | 中标通知书与合同草案逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `bad-debt-provision-check-free` | 坏账准备计提表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `bank-acceptance-bill-check-free` | 银行承兑汇票台账逐票核对（到期日复算、余额勾稽、票号重复、状态空缺、金额与期限非正、已兑付仍计余额），每条结论都带原文行号，不需要注册 |
 | `bank-loan-interest-check-free` | 银行贷款利息与还款计划核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `bank-reconciliation-free` | 把银行流水和企业账面记录贴成两段，逐笔配对、列出两侧未达账项和重复记录——每月对账最费时的那一步 |
 | `bid-comparison-free` | 把多家投标人的报价明细逐项摆在一起对齐——谁缺项、各家合计多少、从低到高怎么排 |
@@ -165,6 +166,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `bidguard-quote-audit-free` | 把一份投标报价单里能被算出来证明是错的问题找出来，不需要付款，也不需要注册 |
 | `bonus-pool-check-free` | 年终奖分配表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `budget-variance-check-free` | 预算执行表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `cargo-insurance-claim-check-free` | 货运险投保与货损理赔台账逐票复算，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `cash-count-check-free` | 现金盘点表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `cash-flow-variance-check-free` | 现金流预测与实际差异表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `chain-store-settlement-check-free` | 连锁门店结算核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -239,6 +241,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `outsourced-processing-fee-check-free` | 委外加工结算核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `overdue-interest-check-free` | 逾期利息计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `overtime-pay-check-free` | 加班费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `owner-supplied-material-check-free` | 甲供材台账与分包领用逐项核对，领用数量、领用金额、结算抵扣金额三条算式逐行复算，加上合计勾稽与重复/空缺/负值检测，每条结论都带台账原文行号，不需要付款，也不需要注册 |
 | `payment-fee-check-free` | 收款手续费核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `payroll-check-free` | 发薪前把工资表算一遍——每个人的实发是不是等于应发减扣款、合计行是不是各列之和、有没有同一个人出现两行、有没有金额空缺或没替换的占位符 |
 | `payroll-payable-check-free` | 应付职工薪酬台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -292,6 +295,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `trade-doc-consistency-free` | 把外贸单据之间对不上的地方找出来（发票号 / 合同号 / 信用证号 / 金额 / 数量 / 重量 / 港口 / 船名），每条都带原文证据，不需要付款，也不需要注册 |
 | `training-hour-consumption-check-free` | 教培课消与预收学费核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `travel-standard-check-free` | 差旅费报销与标准表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `trial-balance-check-free` | 科目余额表逐项核对（免费版） |
 | `tuition-refund-check-free` | 退费核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `union-reserve-check-free` | 工会经费与残保金计提表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `utility-allocation-check-free` | 费用分摊表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
