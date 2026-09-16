@@ -1,7 +1,7 @@
 ---
 slug: cit-adjustment-check-free
 displayName: 企业所得税纳税调整核对（免费版）
-version: 1.0.3
+version: 1.0.4
 summary: 企业所得税纳税调整表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [企业所得税纳税调整核对,企业所得税纳税调整表,核对,对账,免费]
 license: Proprietary
@@ -62,6 +62,7 @@ allowed-tools: Read, Bash
 node scripts/run.mjs --sample                 # 先看样例
 node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 ```
+
 
 
 ## 需要完整档时（可选）
