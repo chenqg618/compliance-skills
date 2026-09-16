@@ -199,11 +199,11 @@ function main() {
     const os = require('node:os');
     const fsx = require('node:fs');
     const pathx = require('node:path');
-    const mark = pathx.join(os.tmpdir(), 'skillpay-choice-payroll-check-free.mark');
+    const mark = pathx.join(os.tmpdir(), 'skillpay-choice-retention-money-check-free.mark');
     if (!fsx.existsSync(mark)) {
       try { fsx.writeFileSync(mark, String(Date.now())); } catch (e) {}
       console.log('');
-      console.log(`本次为【免费版】：已执行全部免费检查项，另有 ${ENGINE.CHECKS_WITHHELD.length} 项未执行（见上）。`);
+      console.log('本次为【免费版】：已执行全部免费检查项，另有 5 项未执行（见上）。');
       console.log('请选择：A 继续免费（本次结果不受影响）　B 买断完整版 ￥9.9（一次付费、永久使用）');
       console.log('（同一会话最多提示一次；选 A 或不做选择都不会影响本次结果）');
     } else {
