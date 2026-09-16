@@ -1507,6 +1507,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_hospital_supply_consumption_check",
+    "package": "hospital-supply-consumption-check-free",
+    "engine": "hospital-supply-consumption-check-free/hospital-supply-consumption-check.js",
+    "title": "药品耗材进销存与科室领用核对（免费版）",
+    "given": [
+      "期末结存数量复算（期初 + 入库 − 出库 − 科室领用 + 退货 = 期末结存）",
+      "领用金额复算（科室领用数量 × 单价 = 领用金额）",
+      "合计行逐列复核",
+      "同一药品编码同一期间重复行检测",
+      "空白与占位符检测",
+      "数量或金额为负检测"
+    ],
+    "withheld": [
+      "出库数量超过期初加入库提示（仓库里没有的量发不出去）",
+      "期末结存为负提示（账上不可能有负库存）",
+      "领用数量超过出库数量提示（科室领用必须先有出库）",
+      "单价与中标价 / 采购价不一致提示",
+      "同一药品同一期间重复入库（同一单据号）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_hotel_night_audit_check",
     "package": "hotel-night-audit-check-free",
     "engine": "hotel-night-audit-check-free/hotel-night-audit-check.js",
@@ -3083,6 +3106,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_training_hour_consumption_check",
+    "package": "training-hour-consumption-check-free",
+    "engine": "training-hour-consumption-check-free/training-hour-consumption-check.js",
+    "title": "教培课消与预收学费核对（免费版）",
+    "given": [
+      "课消金额复算（本期课消课时 × 课时单价 = 课消金额）",
+      "剩余课时滚动复算（期初课时 + 本期购买课时 − 本期课消课时 − 本期退费课时 = 剩余课时）",
+      "合计行逐列复核",
+      "同一学员同一期间重复行检测",
+      "空白与占位符检测",
+      "金额或课时为负检测"
+    ],
+    "withheld": [
+      "课消课时超过可用课时提示",
+      "剩余课时为负提示",
+      "退费金额超过已收学费提示",
+      "课时单价与合同不一致提示（同一学员同一课程跨期间单价突变，多为调价 / 优惠 / 含赠品折算）",
+      "同一学员同一期间重复课消提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_travel_standard_check",
     "package": "travel-standard-check-free",
     "engine": "travel-standard-check-free/travel-standard-check.js",
@@ -3381,6 +3427,29 @@
       "替代存货跌价准备的可变现净值测试与审计程序",
       "读取 ERP / WMS 导出文件（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_waybill_pod_cod_check",
+    "package": "waybill-pod-cod-check-free",
+    "engine": "waybill-pod-cod-check-free/waybill-pod-cod-check.js",
+    "title": "运单回单与代收货款核对（免费版）",
+    "given": [
+      "应结运费复算（运费 + 附加费 − 赔付金额 = 应结运费）",
+      "COD 未回款复算（代收货款金额 − 已回款金额 = COD 未回款）",
+      "合计行逐列复核",
+      "同一运单号同一期间重复行检测",
+      "空白与占位符检测",
+      "金额或天数为负检测"
+    ],
+    "withheld": [
+      "已回款金额超过代收货款提示",
+      "回单回收天数超过参考上限（30 天）提示",
+      "COD 未回款超过参考金额（5000 元）提示",
+      "同一运单重复结算提示（跨期间同号各结一次运费）",
+      "赔付金额超过运费提示"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
