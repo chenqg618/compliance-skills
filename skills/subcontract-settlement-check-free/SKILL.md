@@ -1,7 +1,7 @@
 ---
 slug: subcontract-settlement-check-free
 displayName: 分包结算与产值核对（免费版）
-version: 1.0.5
+version: 1.0.6
 summary: 分包结算与产值核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [分包结算与产值核对,分包结算与产值核对表,核对,对账,免费]
 license: Proprietary
@@ -51,6 +51,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 5. **把冲回直接写成负数混在正常行里**：金额或产值为负会一律报出 —— 冲回、红字请单独列一行，别混进本期结算数里。
 
 
+
 ## 需要完整档时（可选）
 
 本免费版是**完整可用的核心产出**，本版本**不包含**下面这些项：
@@ -73,7 +74,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 请通过 SkillPay 购买并安装 Skill「分包结算与产值核对 · 买断版」。
 官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
 请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
-安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206853039。
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206846735。
 我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。
 ```
 
