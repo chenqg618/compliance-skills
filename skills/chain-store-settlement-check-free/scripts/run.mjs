@@ -200,6 +200,8 @@ function main() {
   // 也不编一个买不到的商品号"）。等 add_paid_funnel.py 把官方购买指令写进 SKILL.md 后，
   // add_runtime_upsell.py --apply 会在这里补上真实触点。
   console.log('');  // __UPSELL__
+  console.log('如需完整档：连锁加盟门店结算核对 · 买断版（SkillPay 商品号 S0806000206851269）—— 本版本未执行的 5 项检查在完整档里都有。');
+  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   console.log(JSON.stringify(view.result, null, 2));
   return 0;
 }
