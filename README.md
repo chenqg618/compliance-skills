@@ -106,7 +106,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **108 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **111 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -129,6 +129,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `bonus-pool-check-free` | 年终奖分配表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `budget-variance-check-free` | 预算执行表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `cash-count-check-free` | 现金盘点表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `cash-flow-variance-check-free` | 现金流预测与实际差异表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `chain-store-settlement-check-free` | 连锁门店结算核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `cip-transfer-check-free` | 在建工程转固台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `cit-adjustment-check-free` | 企业所得税纳税调整表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -180,6 +181,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `payroll-payable-check-free` | 应付职工薪酬台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `payroll-payment-bank-check-free` | 工资代发与银行回单核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `payroll-withholding-reconcile-free` | 工资表与个税社保申报对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `petty-cash-check-free` | 备用金与报销核销表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `platform-settlement-check-free` | 平台结算单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `prepaid-card-consumption-check-free` | 预付卡消费核销表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `prepayment-offset-check-free` | 预付账款核销台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -201,6 +203,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `store-transfer-check-free` | 门店调拨与库存核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `subcontract-settlement-check-free` | 分包结算与产值核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `surtax-check-free` | 附加税费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `tax-incentive-eligibility-check-free` | 税收优惠适用条件自查表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `tax-invoice-void-check-free` | 发票作废与红冲台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `tax-risk-indicator-check-free` | 税务风险指标自查表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `tenderaudit-full-compliance-free` | 把一个项目的投标材料先做一轮免费的AI体检，报价算术 + 模板占位符，不需要付款，也不需要注册 |
