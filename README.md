@@ -106,7 +106,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **70 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **105 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -114,9 +114,11 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `adcheckup-content-compliance-free` | 发布前扫一遍文案里的绝对化用语，并且按监管的执法指南判断该不该报，不需要付款，也不需要注册 |
 | `advance-receipt-check-free` | 预收账款与收入确认台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `ap-aging-plan-check-free` | 应付账款账龄与付款计划表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `ap-factoring-check-free` | 应付账款保理与贴现表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `ap-reconciliation-free` | 供应商对账表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `ar-aging-check-free` | 应收对账表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `asset-disposal-check-free` | 固定资产处置表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `asset-impairment-check-free` | 资产减值测试表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `award-contract-consistency-check-free` | 中标通知书与合同草案逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `bad-debt-provision-check-free` | 坏账准备计提表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `bank-reconciliation-free` | 把银行流水和企业账面记录贴成两段，逐笔配对、列出两侧未达账项和重复记录——每月对账最费时的那一步 |
@@ -127,30 +129,48 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `bonus-pool-check-free` | 年终奖分配表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `budget-variance-check-free` | 预算执行表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `cash-count-check-free` | 现金盘点表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `cip-transfer-check-free` | 在建工程转固台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `cit-adjustment-check-free` | 企业所得税纳税调整表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `cit-prepay-check-free` | 季度预缴所得税计算表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `clinic-revenue-check-free` | 医疗收费与医保结算表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `collusionscreen-collusion-screening-free` | 把多家投标文件放在一起，找出客观可复算的雷同线索，不需要付款，也不需要注册 |
 | `commission-check-free` | 提成计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `construction-output-value-check-free` | 工程产值与进度确认表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `contract-comparison-free` | 把同一模板下签的多份合同摆在一起逐条对齐——某一份少了哪一条、哪一条被改过、同一条有几个版本 |
 | `contract-consistency-check-free` | 把合同里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册 |
+| `contract-performance-bond-check-free` | 履约保证金与保函台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `department-budget-execution-check-free` | 部门费用预算执行表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `depreciation-check-free` | 固定资产台账逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `discount-interest-check-free` | 票据贴现计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `expense-compliance-free` | 把一沓发票和一张报销单放在一起核一遍——揪出重复报销的发票号、要素不齐的发票、以及没替换的占位符 |
+| `export-fx-collection-check-free` | 出口报关与收汇核销表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `export-rebate-check-free` | 出口退税（免抵退）计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `finance-monthly-selfcheck-free` | 分段财务核对材料逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `fixed-asset-count-check-free` | 固定资产盘点表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `fleet-fuel-cost-check-free` | 车辆油耗与运费台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `franchise-royalty-check-free` | 加盟结算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `freight-reconciliation-free` | 运费月结单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `fresh-loss-check-free` | 生鲜损耗与盘点表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `fx-settlement-check-free` | 外币结算核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `hotel-night-audit-check-free` | 酒店夜审与房费收入表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `iit-withholding-check-free` | 个税累计预扣计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `import-duty-check-free` | 进口税费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `input-vat-deduction-check-free` | 进项税额认证与抵扣对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `installment-rate-check-free` | 分期方案核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `inventory-check-free` | 库存盘点表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `inventory-cost-flow-check-free` | 存货出入库与成本表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `inventory-scrap-approval-check-free` | 存货报废与审批台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `invoice-consistency-check-free` | 把票据里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册 |
 | `invoice-usage-stock-check-free` | 发票领用存台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `labor-cost-allocation-check-free` | 工时与人工成本分摊表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `late-fee-check-free` | 滞纳金计算表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `lease-liability-check-free` | 租赁负债摊销表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `lease-rent-check-free` | 租金账单/租赁结算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `lesson-hour-check-free` | 课时核销表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `logistics-storage-fee-check-free` | 物流仓储与操作费结算表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `long-term-amortization-check-free` | 长期待摊费用摊销台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `material-usage-loss-check-free` | 材料领用与损耗表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `mold-amortization-check-free` | 模具与工装摊销台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `ota-commission-check-free` | 渠道结算核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `overdue-interest-check-free` | 逾期利息计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `overtime-pay-check-free` | 加班费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
@@ -159,27 +179,42 @@ claude plugin marketplace add chenqg618/compliance-skills
 | `payroll-payable-check-free` | 应付职工薪酬台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `payroll-withholding-reconcile-free` | 工资表与个税社保申报对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `platform-settlement-check-free` | 平台结算单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `prepaid-card-consumption-check-free` | 预付卡消费核销表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `prepayment-offset-check-free` | 预付账款核销台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `production-yield-scrap-check-free` | 生产投入产出与报废表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `progress-payment-check-free` | 工程进度款支付计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `project-billing-collection-check-free` | 项目开票与回款台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `project-evm-check-free` | 挣值分析表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `promo-subsidy-check-free` | 促销补贴核销表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `property-fee-check-free` | 物业费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `purchase-rebate-check-free` | 采购返利核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `rd-expense-check-free` | 研发费用归集表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `receivable-collection-plan-check-free` | 应收账款催收计划与回款表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `restaurant-daily-sales-check-free` | 门店日营业款上报表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `sales-commission-tier-check-free` | 销售提成与业绩核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `social-insurance-base-check-free` | 社保缴费基数核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `social-insurance-check-free` | 社保申报明细逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `stamp-duty-base-check-free` | 印花税计税依据台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `store-sales-report-check-free` | 门店营收上报表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `store-transfer-check-free` | 门店调拨与库存核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `subcontract-settlement-check-free` | 分包结算与产值核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `surtax-check-free` | 附加税费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `tax-invoice-void-check-free` | 发票作废与红冲台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `tax-risk-indicator-check-free` | 税务风险指标自查表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `tenderaudit-full-compliance-free` | 把一个项目的投标材料先做一轮免费的AI体检，报价算术 + 模板占位符，不需要付款，也不需要注册 |
 | `three-way-match-free` | 把采购订单、入库单、发票放在一起核一遍——订单号、供应商、物料、数量、单价、金额在各单据间对不对得上，另外揪出重复发票号与未替换的占位符 |
 | `trade-doc-consistency-free` | 把外贸单据之间对不上的地方找出来（发票号 / 合同号 / 信用证号 / 金额 / 数量 / 重量 / 港口 / 船名），每条都带原文证据，不需要付款，也不需要注册 |
+| `travel-standard-check-free` | 差旅费报销与标准表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `tuition-refund-check-free` | 退费核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `union-reserve-check-free` | 工会经费与残保金计提表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `utility-allocation-check-free` | 费用分摊表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `utility-meter-reading-check-free` | 水电抄表与账单核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `utility-tier-billing-check-free` | 电费账单核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `vat-burden-check-free` | 增值税进销项汇总表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `vat-filing-reconcile-free` | 增值税申报与账载开票对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `viral-script-free` | 把一份口播逐字稿丢进来，10 秒内出体检报告——结构地图、开场钩子强度、留存节奏、口语度评分、CTA 强度，并列出问题清单 |
 | `warehouse-fee-check-free` | 仓储费结算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `welfare-limit-check-free` | 职工福利费与教育经费台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 <!-- SKILL_LIST_END -->
 
 ## 怎么用
