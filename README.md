@@ -94,6 +94,13 @@ node compliance-skills/products/mcp-compliance-server/server.mjs   # stdio 上�
 npx skills add chenqg618/compliance-skills
 ```
 
+> **非交互装全部 142 个技能**（第 256 轮**实测跑通**：克隆后报 `Found 142 skills`，
+> 装出 `./.agents/skills/*` 与 `./.claude/skills/*`）：
+> ```bash
+> npx --yes skills@latest add chenqg618/compliance-skills --agent '*' -y
+> ```
+> 不带 `--agent`/`-y` 时会**弹出交互选择**（在脚本或 CI 里会直接卡住/取消）。
+
 **② 作为 Claude Code 插件市场**
 
 ```bash
