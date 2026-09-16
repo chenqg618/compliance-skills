@@ -103,6 +103,23 @@ claude plugin marketplace add chenqg618/compliance-skills
 **③ 使用 DSH 技能市场**：本仓库带 `dsh-skill` 话题 ——
 在 DeepSeek Harness 的「设置 → 技能市场」里搜索 `compliance-skills` 即可一键安装。
 
+**④ ClawHub（免费包里下载量最大的渠道）** —— 按技能名单独安装：
+
+```bash
+npx clawhub install @chenqg618/<技能包名>      # 例：@chenqg618/bank-reconciliation-free
+```
+
+装完先在技能目录里跑一遍样例（**下面这两条是实测跑得通的**，样例文件就在包里）：
+
+```bash
+cp templates/sample.json my-material.json       # 打开它，把行换成你自己的数据（第一行是表头）
+node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号；材料不足会明说缺什么
+```
+
+> 买断完整档（多一类能力，如批量、跨期间勾稽）在 **SkillPay**：
+> <https://skillpay.alipay.com/public/tokendidi>；
+> 商品名 + 商品号 + 官方购买指令汇总在 <https://chenqg618.github.io/compliance-skills/buy.html>。
+
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
