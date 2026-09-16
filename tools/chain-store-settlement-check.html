@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>连锁加盟门店结算核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="连锁门店结算核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"连锁加盟门店结算核对（免费版）","description":"连锁门店结算核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>连锁加盟门店结算核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 不联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：财务、出纳等岗位在<strong>每月结账 / 对账 / 盘点</strong>这类固定节点上，</p>
+<p>必须把这张表核一遍才能往下走。</p>
+<p><strong>这张表会逐项核对什么</strong>：连锁门店结算核对表的逐行算术、合计勾稽、重复与空缺检测。</p>
+<p>每条结论都带<strong>原文行号与出处</strong>，可被第三方用同一口径复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么。</p>
+<h2>这个免费版查什么</h2>
+<p>（检查项由引擎的 <code>CHECKS_*</code> 导出，跑 <code>--sample</code> 会打印实际执行了哪些。）</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<h2>常见错法（这张表里真的会有人这么填）</h2>
+<ol>
+<li><strong>抽成比例填错一位</strong>：<code>15%</code> 写成 <code>1.5%</code>（或 <code>51%</code>）。抽成 = 营业额 × 抽成比例，比例错一位抽成就错十倍，加盟商自己按营业额一乘就能发现。</li>
+<li><strong>实付算式自己加项</strong>：本表的算式是「实付 = 营业额 − 抽成 − 物料供应款 − 其他扣款」，<strong>保证金</strong>是单独挂账的一列、不在算式里；把保证金也减进去（或漏减物料供应款）就会差出一笔。</li>
+<li><strong>营业额口径不一致</strong>：结算表用系统/POS 营业额，门店报的是自家账上的营业额（含不含退款、外卖平台佣金前后口径不同），差超 2% 时抽成一定对不上，先跟门店把口径对清。</li>
+<li><strong>把上期行复制下来改数字</strong>：门店与期间照抄，同一门店同一期出现两行，抽成与实付会被重复计算；每月按门店逐期核一遍。</li>
+<li><strong>本期没有就留空</strong>：物料供应款、其他扣款本期为 0 要写 <code>0.00</code>，留空或写 <code>—</code>/<code>待补</code> 会让这一行的实付无法复算（工具会直接报「关键字段缺失」）。</li>
+</ol>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>抽成比例偏离合同参考区间（合同抽成比例 ± 0.5 个百分点）提示</li>
+<li>实付为负（扣款超过营业额）提示</li>
+<li>扣款合计超过营业额检测</li>
+<li>营业额与门店上报不一致（差超 2%）提示</li>
+<li>同一门店同期出现两种抽成比例提示</li>
+</ul>
+<p>需要它们的话，同名工具的<strong>完整档</strong>里都有——完整档是<strong>另一个独立商品</strong>（在 SkillPay 货架上，条款与条件以它自己的商品页为准）。两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<ul>
+<li>货架：<strong>AI 核对工具铺</strong> <a href="https://skillpay.alipay.com/public/tokendidi">https://skillpay.alipay.com/public/tokendidi</a></li>
+<li>怎么买（含每个商品的商品号与官方购买指令）：<a href="https://chenqg618.github.io/compliance-skills/buy.html">https://chenqg618.github.io/compliance-skills/buy.html</a></li>
+<li>找它：按商品名 <strong>「连锁加盟门店结算核对 · 买断版」</strong></li>
+</ul>
+<p>把下面这段<strong>原样发给你的 AI 助手</strong>，它就能带你装好并买完（需要钱包授权或付款时由<strong>你本人</strong>确认）：</p>
+<pre><code>请通过 SkillPay 购买并安装 Skill「连锁加盟门店结算核对 · 买断版」。
+官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
+请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206851269。
+我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。</code></pre>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断；</p>
+<p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/chain-store-settlement-check-free">https://www.skillhub.cn/skills/user_ef162806/chain-store-settlement-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
