@@ -1155,6 +1155,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_drg_settlement_check",
+    "package": "drg-settlement-check-free",
+    "engine": "drg-settlement-check-free/drg-settlement-check.js",
+    "title": "医保结算清单与DRG入组核对（免费版）",
+    "given": [
+      "个人自付复算（费用总额 − 医保支付金额 = 个人自付）",
+      "医保支付金额复算（费用总额 − 个人自付 = 医保支付金额；与上式双向勾稽，同一笔差异只报一条）",
+      "合计行逐列复核",
+      "同一病历号重复行检测",
+      "空白与占位符检测",
+      "金额或权重为负检测"
+    ],
+    "withheld": [
+      "DRG 组代码为空或含占位符提示（未入组）",
+      "权重超出参考区间（0~10）提示",
+      "医保支付金额大于费用总额提示",
+      "同一病历号重复入组提示",
+      "高低倍率病例（费用总额偏离 DRG 支付标准 ±50%）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_ecommerce_monthly_selfcheck",
     "package": "ecommerce-monthly-selfcheck-free",
     "engine": "ecommerce-monthly-selfcheck-free/ecommerce-monthly-selfcheck.js",
@@ -1984,6 +2007,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_mall_concession_check",
+    "package": "mall-concession-check-free",
+    "engine": "mall-concession-check-free/mall-concession-check.js",
+    "title": "商场联营抽成与保底核对（免费版）",
+    "given": [
+      "抽成租金复算（销售额 × 抽成率 = 抽成租金）",
+      "应收合计复算（max(抽成租金, 保底租金) + 物业费 + 推广费 = 应收合计）",
+      "合计行逐列复核",
+      "同一铺位同一期间重复行检测",
+      "空白与占位符检测",
+      "金额或比例为负检测"
+    ],
+    "withheld": [
+      "已收金额超过应收合计提示",
+      "抽成率与合同约定抽成率不一致提示（阶梯切换 / 临时降点未同步）",
+      "保底租金未按孰高原则计收提示（抽成低于保底却按抽成计）",
+      "同一铺位重复计租同一期间提示（金额不同、按行数重复计租）",
+      "空置铺位仍有应收提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_manufacturing_monthly_selfcheck",
     "package": "manufacturing-monthly-selfcheck-free",
     "engine": "manufacturing-monthly-selfcheck-free/manufacturing-monthly-selfcheck.js",
@@ -2098,6 +2144,29 @@
       "摊销总额为零却有摊销额检测",
       "未摊销余额为负检测",
       "摊销单价偏离参考区间（同表理论单价中位数 ±50%）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_oem_rebate_policy_check",
+    "package": "oem-rebate-policy-check-free",
+    "engine": "oem-rebate-policy-check-free/oem-rebate-policy-check.js",
+    "title": "整车厂返利与商务政策核对（免费版）",
+    "given": [
+      "单车返利金额复算（返利金额 ÷ 台数 = 单车返利金额）",
+      "应返利金额复算（台数 × 单车返利标准 = 应返利金额）",
+      "合计行逐列复核",
+      "同一期间同一返利类型重复行检测",
+      "空白与占位符检测",
+      "金额或台数为负检测"
+    ],
+    "withheld": [
+      "零售台数超过提车台数（异常）提示",
+      "达标率未达考核线却计提达标返利提示",
+      "已收返利超过应返利金额提示",
+      "单车返利标准与商务政策不一致提示",
+      "同一台数重复计入不同返利类型提示"
     ],
     "outOfScope": [],
     "hasSample": true
