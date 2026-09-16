@@ -1,7 +1,7 @@
 ---
 slug: department-budget-execution-check-free
 displayName: 部门费用预算执行核对（免费版）
-version: 1.0.3
+version: 1.0.4
 summary: 部门费用预算执行表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [部门费用预算执行核对,部门费用预算执行表,核对,对账,免费]
 license: Proprietary
@@ -54,6 +54,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
    预算为零时执行率本身无定义（分母为 0），应显式写 0% 并在备注里说明。
 5. **从 Excel 复制时没带表头、或列顺序被调换** —— 表头认不出必需列时本工具会直接判「材料不足」
    并列出缺哪几列，**不给结论、也不套默认值**（这是有意设计，不是故障）。
+
 
 
 ## 需要完整档时（可选）
