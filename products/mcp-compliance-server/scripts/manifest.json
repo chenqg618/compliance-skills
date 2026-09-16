@@ -1280,6 +1280,36 @@
     "hasSample": true
   },
   {
+    "tool": "check_equipment_maintenance_cost_check",
+    "package": "equipment-maintenance-cost-check-free",
+    "engine": "equipment-maintenance-cost-check-free/equipment-maintenance-cost-check.js",
+    "title": "设备维保与备件领用费用核对（免费版）",
+    "given": [
+      "工时费复算（维修工时 × 工时单价）",
+      "备件金额复算（领用数量 × 备件单价）",
+      "月度维保费用归集与预算对比（工时费 + 备件金额 + 外委实际结算）",
+      "合计行逐列复核（工时费 / 备件金额 / 外委实际结算）",
+      "整行内容重复检测（同一设备同一备件的行被复制了一遍）",
+      "同一行既有自修费用又有外委结算（重复计费嫌疑）",
+      "关键字段空缺或占位符检测",
+      "明细出现负值检测（冲销、退库需要单独列行）"
+    ],
+    "withheld": [
+      "保修期内应免费却计费判定（在保设备被收了工时费 / 备件费 / 外委结算）",
+      "外委维修实际结算超报价判定（超支金额与超支比例）",
+      "备件领用超领判定（领用数量 > 出库数量，差额按备件单价折成金额）",
+      "按金额排序的处理清单（该找谁、要回多少钱，逐条带原文行号）"
+    ],
+    "outOfScope": [
+      "判断一台设备到底在不在保修期内（本工具只认你填的「保修状态」列，不读合同、不查厂家系统）",
+      "判断外委超报价是否有正当理由（变更单、追加项目属商务判断，不在算术范围）",
+      "判断备件单价、工时单价是否合理（那是采购比价与工时定额的事）",
+      "处理备件退库、质保返修、跨月费用分摊等特殊口径（请把它们单独列行）",
+      "给出税务或成本会计意见；读取 .xlsx（需要你先导出成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
     "tool": "check_export_fx_collection_check",
     "package": "export-fx-collection-check-free",
     "engine": "export-fx-collection-check-free/export-fx-collection-check.js",
@@ -2165,6 +2195,37 @@
     "hasSample": true
   },
   {
+    "tool": "check_medical_consumable_markup_check",
+    "package": "medical-consumable-markup-check-free",
+    "engine": "medical-consumable-markup-check-free/medical-consumable-markup-check.js",
+    "title": "医院耗材加成与零差率核对（免费版）",
+    "given": [
+      "结存数量勾稽（期初数量 + 入库数量 − 出库数量 = 结存数量）",
+      "结存金额勾稽（结存数量 × 采购单价 = 结存金额）",
+      "加成率勾稽（（收费价 − 采购单价）÷ 采购单价 = 加成率）",
+      "合计行逐列复核（每一列的合计是否等于各行之和）",
+      "同一期间同一耗材重复行检测",
+      "空白与占位符检测",
+      "数量、单价或金额为负检测"
+    ],
+    "withheld": [
+      "零差率（据实收费等不计加成）耗材被加价判定 —— 逐项给出单件价差与影响金额",
+      "收费价低于采购成本的亏损判定 —— 逐项给出单件亏损与期间亏损金额",
+      "进销存金额三段勾稽（期初金额 + 入库金额 − 出库金额 = 结存金额）—— 给出差异金额与折合数量",
+      "按影响金额排序的「调整 / 申诉清单」（逐条带原文行号与建议动作）"
+    ],
+    "outOfScope": [
+      "判断地方物价政策是否适用、医疗服务价格项目与耗材编码该挂哪一档（以医保局 / 卫健委发布的价格文件为准）",
+      "判断集采中选价、挂网价、中标价本身填得对不对（以招采平台结果与调价文件为准）",
+      "给出医疗、诊疗、用药与临床使用建议（本工具只核表内可算关系，不做任何诊疗判断）",
+      "核对实物是否在库：账上勾稽通过**不代表**实物在场，那要靠耗材库实物盘点",
+      "处理植入类耗材的追溯码 / UDI、跟台记录与患者计费明细的对应关系",
+      "处理增值税、医保结算、DRG / DIP 支付与财政补助口径",
+      "读取 HIS / SPD / 耗材管理系统 / Excel 导出文件（需要你先导出成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
     "tool": "check_medical_insurance_denial_check",
     "package": "medical-insurance-denial-check-free",
     "engine": "medical-insurance-denial-check-free/medical-insurance-denial-check.js",
@@ -2461,6 +2522,36 @@
     "hasSample": true
   },
   {
+    "tool": "check_piece_rate_wage_check",
+    "package": "piece-rate-wage-check-free",
+    "engine": "piece-rate-wage-check-free/piece-rate-wage-check.js",
+    "title": "计件工资与工序单价核对（免费版）",
+    "given": [
+      "计件工资复算（合格数量 × 工序单价）",
+      "应付计件工资勾稽（计件工资 − 返工扣款 − 报废扣款 + 保底补差 + 加班补差）",
+      "合格数量超过产量检测",
+      "负值检测（数量 / 单价 / 金额 / 扣款 / 补差）",
+      "合计行逐列复核（每一列的合计是否等于各行之和）",
+      "同一员工同一工序重复行检测",
+      "空白与占位符检测"
+    ],
+    "withheld": [
+      "工序单价与工序标准单价不符检测（标准单价取 payload.std_rates，未提供时取同一工序多数行所用单价）",
+      "保底补差复算（保底补差 = 保底工资 − 净计件工资，低于保底要补、高于保底不补）",
+      "返工 / 报废扣款重复扣检测（扣款折合数量超过这一行的不合格数量）",
+      "计件工资与产量记录不平检测（产量 − 返工数量 − 报废数量 ≠ 合格数量）",
+      "发薪前必须处理清单与差异归因（按差额从大到小排序，逐条带员工 / 工序行号、建议动作与归因口径）"
+    ],
+    "outOfScope": [
+      "判断工序单价、保底工资、加班补差该定多少（那是劳动合同、集体协议与公司薪酬制度的事）",
+      "判断返工/报废扣款该不该扣、该扣多少（那是质检与公司制度的事；本工具只核票面金额之间的算术关系）",
+      "核考勤工时与加班费是否符合劳动法（不核工时合规，也不给法律意见）",
+      "把这张表与银行代发流水、个税申报表、考勤系统做跨系统核对（本工具只核这一张表内部的勾稽）",
+      "读取 .xlsx 或考勤/ERP 系统导出文件（需要你先导出成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
     "tool": "check_platform_settlement_aging_check",
     "package": "platform-settlement-aging-check-free",
     "engine": "platform-settlement-aging-check-free/platform-settlement-aging-check.js",
@@ -2715,6 +2806,34 @@
       "处理分期缴纳、预收与退款",
       "判断滞纳金是否超过法定上限（那是司法裁量与合同条款的事）",
       "读取 .xlsx 或收费系统导出文件（需要你先导出成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_property_public_income_check",
+    "package": "property-public-income-check-free",
+    "engine": "property-public-income-check-free/property-public-income-check.js",
+    "title": "物业公共收益公示与分成核对（免费版）",
+    "given": [
+      "应分成业主金额复算（实收金额 × 业主分成比例）",
+      "按季汇总勾稽（季度小计行 = 本季度各明细行之和）",
+      "合计行逐列复核（合同金额、实收金额、应分成业主金额、公示金额）",
+      "同一合同号在同一季度重复登记检测",
+      "关键字段空缺与占位符检测",
+      "业主分成比例不在 0~1 的检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "公示合规判定：公示金额与台账差额归因（漏登实收 / 分成比例用错 / 跨期计入）",
+      "公共维修资金转存核对（应转存未转存 / 已转存超过应转存）",
+      "欠收检测（合同金额已到期未收足）",
+      "公示前必须处理清单（按影响金额排序，逐条带原文行号）"
+    ],
+    "outOfScope": [
+      "判断合同约定的分成比例本身是否合法：分成比例以你提供的合同约定为准，不判断地方物业管理条例的适用性与比例下限",
+      "推算公共维修资金应转存比例：按台账给出的「应转存维修资金」认定，不替你算地方规定比例",
+      "判断合同到期日的算法与法律效力：按台账给出的「到期状态」认定，不推算账龄、也不判断诉讼时效",
+      "给法律或审计意见；读取 .xlsx（需要你先导出成文本贴进来）"
     ],
     "hasSample": true
   },
