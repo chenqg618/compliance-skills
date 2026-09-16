@@ -1,7 +1,7 @@
 ---
 slug: ap-reconciliation-free
 displayName: 供应商应付对账（免费版）
-version: 1.0.8
+version: 1.0.9
 summary: 供应商对账表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [供应商应付对账,供应商对账表,核对,对账,免费]
 license: Proprietary
@@ -40,6 +40,7 @@ allowed-tools: Read, Bash
 node scripts/run.mjs --sample                 # 先看样例
 node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 ```
+
 
 
 
