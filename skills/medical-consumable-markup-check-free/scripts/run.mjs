@@ -199,7 +199,7 @@ function main() {
   console.log('完整档：医院耗材加成与零差率核对 · 买断版 —— 除上面这些，多了「零差率耗材被加价 / '
     + '收费价低于成本 / 进销存金额三段不平」的判定，以及按影响金额排序的调整清单（本机离线、没有次数上限）。');
   console.log('获取入口：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
-  // __VERSION_CHOICE__ —— 版本选择协议：结果之后提示一次 A/B，同一会话最多 1 次
+  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
   try {
     const os = require('node:os');
     const fsx = require('node:fs');
@@ -208,12 +208,11 @@ function main() {
     if (!fsx.existsSync(mark)) {
       try { fsx.writeFileSync(mark, String(Date.now())); } catch (e) {}
       console.log('');
-      console.log(`本次为【免费版】：已执行全部 ${ENGINE.CHECKS_GIVEN.length} 项免费检查项，`
-        + `另有 ${ENGINE.CHECKS_WITHHELD.length} 项未执行（见上）。`);
-      console.log('请选择：A 继续免费（本次结果不受影响）　B 买断版（一次付费、长期使用）');
+      console.log('本次为【免费版】：已执行全部免费检查项，另有 4 项未执行（见上）。');
+      console.log('请选择：A 继续免费（本次结果不受影响）　B 买断完整版 ￥9.9（一次付费、永久使用）');
       console.log('（同一会话最多提示一次；选 A 或不做选择都不会影响本次结果）');
     } else {
-      console.log('（本次结果同样完整交付；完整档见本包 SKILL.md 的「需要完整档时（可选）」）');
+      console.log('（本次结果同样完整交付；如需完整版见本包 SKILL.md 的「需要完整档时（可选）」）');
     }
   } catch (e) { /* 提示失败绝不影响结果 */ }
   console.log('');  // __UPSELL__
