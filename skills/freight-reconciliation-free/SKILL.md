@@ -1,7 +1,7 @@
 ---
 slug: freight-reconciliation-free
 displayName: 运费对账（免费版）
-version: 1.1.7
+version: 1.1.8
 summary: 运费月结单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [运费对账,运费月结单,核对,对账,免费]
 license: Proprietary
@@ -58,7 +58,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 
 - 货架：**AI 核对工具铺** <https://skillpay.alipay.com/public/tokendidi>
 - 怎么买（含每个商品的商品号与官方购买指令）：<https://chenqg618.github.io/compliance-skills/buy.html>
-- 找它：按商品名 **「运费对账 · 买断版」**
+- 找它：商品名 **「运费对账 · 买断版」**（商品号 `P0806000205850466`）—— ⚠️ 该商品目前在公开货架的选品列表里不出现，**请直接用下面的官方购买指令**（含商品号），它一定能装能买
 
 把下面这段**原样发给你的 AI 助手**，它就能带你装好并买完（需要钱包授权或付款时由**你本人**确认）：
 
