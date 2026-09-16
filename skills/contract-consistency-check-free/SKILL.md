@@ -1,7 +1,7 @@
 ---
 slug: contract-consistency-check-free
 displayName: 合同一致性AI核对（免费版）
-version: 1.0.12
+version: 1.0.13
 summary: 把合同里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [合同审查, 免费, AI核对, 一致性检查, 条款编号, 金额校验]
 license: Proprietary
@@ -121,6 +121,7 @@ const outcome = engine.run({ text: contractText });
 - ❌ 拿它替代律师审阅 —— 它不看条款是否合理，只看前后是否打架。
 - ❌ 输入只有一句话就怪结果没用 —— 材料不足时它会明确说缺什么（退出码 3），不会假装查过了。
 - ❌ 把 findings 当成"必须改"的强制结论 —— 每条都附了原文证据，你先核对证据，再决定改不改。
+
 
 
 
