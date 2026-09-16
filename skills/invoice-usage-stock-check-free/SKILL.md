@@ -1,7 +1,7 @@
 ---
 slug: invoice-usage-stock-check-free
 displayName: 发票领用存与开票数据核对（免费版）
-version: 1.0.6
+version: 1.0.7
 summary: 发票领用存台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [发票领用存与开票数据核对,发票领用存台账,核对,对账,免费]
 license: Proprietary
@@ -53,6 +53,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 
 
 
+
 ## 需要完整档时（可选）
 
 本免费版是**完整可用的核心产出**，本版本**不包含**下面这些项：
@@ -66,6 +67,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 需要它们的话，同名工具的**完整档**里都有——完整档是**另一个独立商品**（在 SkillPay 货架上，条款与条件以它自己的商品页为准）。两档的差别**就是上面这些，没有别的**。
 
 - 货架：**AI 核对工具铺** <https://skillpay.alipay.com/public/tokendidi>
+- 怎么买（含每个商品的商品号与官方购买指令）：<https://chenqg618.github.io/compliance-skills/buy.html>
 - 找它：按商品名 **「发票领用存与开票数据核对 · 买断版」**
 
 把下面这段**原样发给你的 AI 助手**，它就能带你装好并买完（需要钱包授权或付款时由**你本人**确认）：
