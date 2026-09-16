@@ -13,7 +13,8 @@
 
 ## 最短上手路径（三步，实测可跑）
 ```bash
-npx clawhub install @chenqg618/<能力>-free     # 例：@chenqg618/bank-reconciliation-free
+npx --yes skills@latest add chenqg618/compliance-skills --agent '*' -y   # 一次装全部免费技能（实测 Found 142 skills）
+npx clawhub install @chenqg618/<能力>-free     # 或者只装某一个：@chenqg618/bank-reconciliation-free
 cp templates/sample.json my-material.json      # 打开，把行换成用户的真实数据（第一行是表头）
 node scripts/run.mjs --input my-material.json  # 逐条出结论，每条带原文行号
 ```
