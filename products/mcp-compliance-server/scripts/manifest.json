@@ -764,6 +764,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_chain_store_settlement_check",
+    "package": "chain-store-settlement-check-free",
+    "engine": "chain-store-settlement-check-free/chain-store-settlement-check.js",
+    "title": "连锁加盟门店结算核对（免费版）",
+    "given": [
+      "抽成勾稽（营业额 × 抽成比例 = 抽成金额）",
+      "实付复算（营业额 − 抽成金额 − 物料供应款 − 其他扣款 = 实付金额）",
+      "合计行逐列复核（每一列的合计是否等于各门店之和）",
+      "同一门店同一期重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "抽成比例偏离合同参考区间（合同抽成比例 ± 0.5 个百分点）提示",
+      "实付为负（扣款超过营业额）提示",
+      "扣款合计超过营业额检测",
+      "营业额与门店上报不一致（差超 2%）提示",
+      "同一门店同期出现两种抽成比例提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_cip_transfer_check",
     "package": "cip-transfer-check-free",
     "engine": "cip-transfer-check-free/cip-transfer-check.js",
@@ -1694,6 +1717,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_payroll_payment_bank_check",
+    "package": "payroll-payment-bank-check-free",
+    "engine": "payroll-payment-bank-check-free/payroll-payment-bank-check.js",
+    "title": "工资代发与银行回单核对（免费版）",
+    "given": [
+      "代发合计与成功笔数金额之和的复算（合计行代发金额 = 成功行代发金额之和）",
+      "应发合计与代发加退回之和不符检测（应发合计 = 代发金额 + 失败退回金额）",
+      "合计行逐列复核",
+      "同一员工同一期重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "银行回单金额与代发金额不符提示（差额超过容差）",
+      "成功笔数与明细行数不一致检测",
+      "失败退回未在次月重发提示",
+      "同一银行账号同一期出现多笔（疑似重复发薪）提示",
+      "实发为负检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_payroll_withholding_reconcile",
     "package": "payroll-withholding-reconcile-free",
     "engine": "payroll-withholding-reconcile-free/payroll-withholding-reconcile.js",
@@ -2491,6 +2537,35 @@
       "处理按体积重与实重取大的计费规则（请先在表里把计费数量算好）",
       "判断损耗与赔偿；给出法律意见",
       "读取 .xlsx 或 WMS 账单文件（需要你先导出成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_warehouse_inventory_turnover_check",
+    "package": "warehouse-inventory-turnover-check-free",
+    "engine": "warehouse-inventory-turnover-check-free/warehouse-inventory-turnover-check.js",
+    "title": "仓库周转与呆滞库存核对（免费版）",
+    "given": [
+      "周转天数复算（库存金额 ÷ 日均出库金额 = 周转天数）",
+      "呆滞金额复算（超期库存数量 × 单位成本 = 呆滞金额）",
+      "合计行逐列复核",
+      "同一物料同一仓库重复行检测",
+      "空白与占位符检测",
+      "数量或金额为负检测"
+    ],
+    "withheld": [
+      "库存周转天数超过参考上限（180 天）提示（参考口径）",
+      "呆滞比例超过参考上限（10%）提示（参考口径）",
+      "跌价准备超过呆滞金额检测",
+      "期末库存为负检测",
+      "出库金额为零却有周转天数检测"
+    ],
+    "outOfScope": [
+      "判断周转天数、呆滞比例与跌价准备的**企业口径与计提政策**（行业与会计政策不同，请以本单位存货政策与准则为准）",
+      "复核库存金额的计价方法（先进先出 / 加权平均 / 个别计价）与成本还原过程",
+      "重算期初 + 入库 − 出库 = 期末的收发存账（本工具只核表内自洽，不核明细账）",
+      "替代存货跌价准备的可变现净值测试与审计程序",
+      "读取 ERP / WMS 导出文件（需要你先导出成文本贴进来）"
     ],
     "hasSample": true
   },
