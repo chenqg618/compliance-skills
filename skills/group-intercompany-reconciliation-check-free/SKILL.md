@@ -1,7 +1,7 @@
 ---
 slug: group-intercompany-reconciliation-check-free
 displayName: 集团内部往来对账与抵消核对（免费版）
-version: 1.0.2
+version: 1.0.3
 summary: 集团内部往来对账与抵消核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [集团内部往来对账与抵消核对,集团内部往来对账与抵消核对表,核对,对账,免费]
 license: Proprietary
@@ -50,6 +50,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 4. **「待填」「-」「N/A」留着当 0 用**：占位符不是零。关键字段（期间、主体、方向、交易类型、四个金额）缺一个，本工具就不出结论。
 5. **合计行手工敲数**：合计行的五列都必须等于明细行相加，手敲漏一列整张表的控制数就废了。
 
+
 ## 需要完整档时（可选）
 
 本免费版是**完整可用的核心产出**，本版本**不包含**下面这些项：
@@ -72,7 +73,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 请通过 SkillPay 购买并安装 Skill「集团内部往来对账与抵消核对 · 买断版」。
 官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
 请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
-安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206846713。
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206845560。
 我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。
 ```
 
