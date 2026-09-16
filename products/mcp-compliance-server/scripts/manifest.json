@@ -685,6 +685,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_bank_loan_interest_check",
+    "package": "bank-loan-interest-check-free",
+    "engine": "bank-loan-interest-check-free/bank-loan-interest-check.js",
+    "title": "银行贷款利息与还款计划核对（免费版）",
+    "given": [
+      "本期利息复算（期初本金 × 年利率 ÷ 12 × 计息月数 = 本期利息）",
+      "期末本金滚动复算（期初本金 − 本期还本 = 期末本金）",
+      "合计行逐列复核",
+      "同一贷款合同同一期间重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "利息与本金×利率×期数不符提示（合同口径粗算，超容差才报）",
+      "本期还本额超过期初本金检测",
+      "还款计划合计与合同金额不符提示",
+      "利率与合同利率不一致提示（LPR 重定价未更新）",
+      "本金已还清仍计提利息提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_bid_deposit_refund_check",
     "package": "bid-deposit-refund-check-free",
     "engine": "bid-deposit-refund-check-free/bid-deposit-refund-check.js",
@@ -1232,6 +1255,52 @@
     "hasSample": true
   },
   {
+    "tool": "check_gov_subsidy_deferred_income_check",
+    "package": "gov-subsidy-deferred-income-check-free",
+    "engine": "gov-subsidy-deferred-income-check-free/gov-subsidy-deferred-income-check.js",
+    "title": "政府补助与递延收益核对（免费版）",
+    "given": [
+      "本期分摊额复算（补助总额 ÷ 分摊期数 = 本期分摊额）",
+      "期末递延余额滚动复算（期初递延余额 + 本期新增补助 − 本期确认收益 = 期末递延余额）",
+      "合计行逐列复核",
+      "同一补助文件号重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "分摊额超过补助总额提示",
+      "递延余额为负检测",
+      "与资产相关但无对应资产入账提示",
+      "分摊期数与资产使用年限不一致提示",
+      "已全额确认仍有递延余额提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_group_intercompany_reconciliation_check",
+    "package": "group-intercompany-reconciliation-check-free",
+    "engine": "group-intercompany-reconciliation-check-free/group-intercompany-reconciliation-check.js",
+    "title": "集团内部往来对账与抵消核对（免费版）",
+    "given": [
+      "双方差额 = 本方余额 − 对方余额 复算（差额列必须等于两余额之差；对得上的表必须为 0）",
+      "抵消金额 = 往来余额与内部交易额孰低 复算",
+      "合计行逐列复核",
+      "同一往来单位重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "双方差额超过容差提示（双方账面没对上的挂账风险）",
+      "同一对往来主体方向相反（一方应收一方应付）未抵消干净提示",
+      "抵消金额超过往来余额提示（超抵消）",
+      "内部交易未配比（有销售无采购）提示",
+      "往来单位名称疑似同一主体多写法提示（名称包含关系）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_hotel_night_audit_check",
     "package": "hotel-night-audit-check-free",
     "engine": "hotel-night-audit-check-free/hotel-night-audit-check.js",
@@ -1551,6 +1620,29 @@
       "押金的收付与退还分录（本工具只核租金账单上的算术）",
       "给出法律或税务意见；读取 .xlsx（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_live_commerce_commission_check",
+    "package": "live-commerce-commission-check-free",
+    "engine": "live-commerce-commission-check-free/live-commerce-commission-check.js",
+    "title": "直播佣金与坑位费结算核对（免费版）",
+    "given": [
+      "应付佣金复算（结算 GMV × 佣金率 = 应付佣金）",
+      "实际应付复算（应付佣金 + 坑位费 − 退货扣减 = 实际应付）",
+      "合计行逐列复核",
+      "同一场次重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "佣金率与合同佣金率不一致提示",
+      "退货扣减超过结算 GMV 提示",
+      "佣金超过结算 GMV 提示",
+      "同一达人同一场次重复结算提示",
+      "坑位费为零却有坑位约定（备注含坑位）提示"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
