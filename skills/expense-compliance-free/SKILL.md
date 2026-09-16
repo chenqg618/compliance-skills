@@ -1,7 +1,7 @@
 ---
 slug: expense-compliance-free
 displayName: 报销单合规预检（免费版）
-version: 1.0.8
+version: 1.0.9
 summary: 把一沓发票和一张报销单放在一起核一遍——揪出重复报销的发票号、要素不齐的发票、以及没替换的占位符。每条都带原文行号，不需要付款，也不需要注册。
 tags: [报销, 发票, 重复报销, 合规预检, 财务, 免费, AI核对, 要素完整性]
 license: Proprietary
@@ -104,7 +104,7 @@ node scripts/run.mjs --input my-expense.json --json
 
 - 货架：**AI 核对工具铺** <https://skillpay.alipay.com/public/tokendidi>
 - 怎么买（含每个商品的商品号与官方购买指令）：<https://chenqg618.github.io/compliance-skills/buy.html>
-- 找它：按商品名 **「报销单合规预检 · 买断版」**
+- 找它：商品名 **「报销单合规预检 · 买断版」**（商品号 `P0806000205849035`）—— ⚠️ 该商品目前在公开货架的选品列表里不出现，**请直接用下面的官方购买指令**（含商品号），它一定能装能买
 
 把下面这段**原样发给你的 AI 助手**，它就能带你装好并买完（需要钱包授权或付款时由**你本人**确认）：
 
