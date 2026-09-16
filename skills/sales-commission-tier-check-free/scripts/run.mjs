@@ -198,7 +198,7 @@ function main() {
   // 从本包 SKILL.md 的官方购买指令里读取写入；模板里带的占位行是别家的商品名与商品号，已删除。
   console.log('');  // __UPSELL__
   console.log('如需完整档：阶梯提成与销售业绩核对 · 买断版（SkillPay 商品号 S0806000206853041）—— 本版本未执行的 5 项检查在完整档里都有。');
-  console.log('官方购买/安装指令见本包 SKILL.md 的「需要完整档时（可选）」一节。');
+  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   console.log(JSON.stringify(view.result, null, 2));
   return 0;
 }
