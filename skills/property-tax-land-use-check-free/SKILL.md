@@ -1,7 +1,7 @@
 ---
 slug: property-tax-land-use-check-free
 displayName: 房产税与城镇土地使用税申报核对（免费版）
-version: 1.0.1
+version: 1.0.2
 summary: 房产税与城镇土地使用税申报核对表逐处复算（从价/从租/土地使用税 + 分期与申报勾稽 + 差异定位），每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [房产税与城镇土地使用税申报核对,房产税申报核对,城镇土地使用税申报核对,从价计征,从租计征,土地等级税额,核对,免费]
 license: Proprietary
