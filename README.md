@@ -47,10 +47,10 @@ POST /api/v1/three-way-match
 详见 [`products/agentpay-openapi/README.md`](products/agentpay-openapi/README.md)。
 
 <!-- MCP_SECTION_START -->
-## 也可以当 MCP server 用（154 个工具，完全离线）
+## 也可以当 MCP server 用（158 个工具，完全离线）
 
 同一个仓库里有一套 **MCP（Model Context Protocol）server** —— 任何支持 MCP 的 Agent
-（Claude Desktop / Cursor / 各类 Harness）都能直接调用这 154 个确定性核对工具：
+（Claude Desktop / Cursor / 各类 Harness）都能直接调用这 158 个确定性核对工具：
 
 ```bash
 git clone https://github.com/chenqg618/compliance-skills.git
@@ -231,7 +231,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `manufacturing-monthly-selfcheck-free` | 制造业月度自查包（免费版）共 3 类核对，含 生产投入产出与报废率核对、材料领用与定额损耗核对、存货出入库与加权平均成本核对 |
 | `material-cost-variance-check-free` | 材料成本差异分摊核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `material-usage-loss-check-free` | 材料领用与损耗表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
-| `medical-consumable-markup-check-free` | 医院/诊所卫生耗材的进销存与加价：采购单价、入库/出库/结存、零差率与加成率、可收费耗材（含植入类）的收费价格与成本、进销存勾稽与损耗逐项核对，每条结论都带原文依据，不需要付款… |
+| `medical-consumable-markup-check-free` | 医院/诊所每月结账与物价检查前的卫生耗材核对表，逐项复算结存数量、结存金额、加成率逐项复算，合计行勾稽、重复行与空缺检测，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `medical-insurance-denial-check-free` | 医保拒付与申诉核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `mold-amortization-check-free` | 模具与工装摊销台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `oem-rebate-policy-check-free` | 整车厂返利与商务政策核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -245,7 +245,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `payroll-payment-bank-check-free` | 工资代发与银行回单核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `payroll-withholding-reconcile-free` | 工资表与个税社保申报对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `petty-cash-check-free` | 备用金与报销核销表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
-| `piece-rate-wage-check-free` | 制造/服装/电子组装的计件工资表：工序单价×合格数量、返工与报废扣款、保底与加班补差、小组分配、应付计件工资与考勤/产量记录勾稽逐项核对，每条结论都带原文依据，不需要付款，也不… |
+| `piece-rate-wage-check-free` | 计件工资表逐项核对，计件工资（合格数量 × 工序单价）、应付计件工资（扣返工/报废、加保底/加班补差）、合格数与产量比对、合计勾稽、重复行与空缺负值检测，每条结论都带原文行号，… |
 | `platform-settlement-aging-check-free` | 平台账期与在途资金核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `platform-settlement-check-free` | 平台结算单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `prepaid-card-consumption-check-free` | 预付卡消费核销表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -257,7 +257,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `project-material-transfer-check-free` | 工程材料调拨与领用核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `promo-subsidy-check-free` | 促销补贴核销表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `property-fee-check-free` | 物业费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
-| `property-public-income-check-free` | 小区公共收益台账（电梯/道闸广告、场地租赁、快递柜、临时停车）逐项核对：应分成业主金额复算、季度小计与合计勾稽、重复登记、空缺与负值，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `property-public-income-check-free` | 小区公共收益台账（电梯/道闸广告、场地租赁、快递柜、临时停车）逐项核对，应分成业主金额复算、季度小计与合计勾稽、重复登记、空缺与负值，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `property-tax-land-use-check-free` | 房产税与城镇土地使用税申报核对表逐处复算（从价/从租/土地使用税 + 分期与申报勾稽 + 差异定位），每条结论都带原文行号，不需要付款，也不需要注册 |
 | `property-utility-apportionment-check-free` | 物业公共能耗分摊核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `purchase-rebate-check-free` | 采购返利核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
