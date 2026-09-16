@@ -1,7 +1,7 @@
 ---
 slug: takeout-commission-check-free
 displayName: 外卖平台抽佣与配送费核对（免费版）
-version: 1.0.2
+version: 1.0.3
 summary: 外卖平台（美团、饿了么、抖音外卖）月度账单逐行核对，佣金、配送费商家承担、活动补贴与商家实收算得对不对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [外卖平台抽佣与配送费核对,外卖账单对账,佣金核对,配送费核对,免费]
 license: Proprietary
