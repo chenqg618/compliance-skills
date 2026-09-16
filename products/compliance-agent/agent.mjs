@@ -64,7 +64,19 @@ const RULES = [
     hints: [['广告', 4], ['销量第一', 5], ['全国第一', 5], ['100%', 3], ['无效退款', 4], ['最', 1]] },
 ];
 
-const loadEngine = (f) => require(path.join(ENGINES_DIR, f));
+// ⚠️ 第 241 轮：MCP 的引擎改成**按包名分目录**存放（`engines/<包名>/<文件>`）以避免同名覆盖，
+//    所以这里不能再假设引擎文件平铺在 ENGINES_DIR 下 —— 先在平铺位置找，找不到再在子目录里搜。
+const fsx = require('fs');
+function resolveEngine(f) {
+  const flat = path.join(ENGINES_DIR, f);
+  if (fsx.existsSync(flat)) return flat;
+  for (const d of fsx.readdirSync(ENGINES_DIR)) {
+    const cand = path.join(ENGINES_DIR, d, f);
+    if (fsx.existsSync(cand)) return cand;
+  }
+  throw new Error('找不到引擎：' + f);
+}
+const loadEngine = (f) => require(resolveEngine(f));
 
 function detect(text) {
   const scores = RULES.map((r) => {
