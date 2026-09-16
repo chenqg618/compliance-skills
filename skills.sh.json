@@ -1,23 +1,202 @@
 {
-  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
-  "notGrouped": "bottom",
-  "groupings": [
-    {
-      "title": "招投标材料核对",
-      "description": "投标报价、标书一致性与串通线索的机械核对，结论可被第三方复算。",
-      "skills": [
-        "bidguard-quote-audit-free",
-        "bidcheckup-batch-compliance-free",
-        "tenderaudit-full-compliance-free",
-        "collusionscreen-collusion-screening-free"
-      ]
-    },
-    {
-      "title": "广告合规",
-      "description": "广告文案绝对化用语检测，并按《广告绝对化用语执法指南》做豁免判定。",
-      "skills": [
-        "adcheckup-content-compliance-free"
-      ]
-    }
-  ]
+ "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+ "notGrouped": "bottom",
+ "groupings": [
+  {
+   "title": "行业月度自查包",
+   "description": "把一整个行业每月该做的核对打包成一个商品：分段贴材料，一次跑完并给汇总整改清单。",
+   "skills": [
+    "construction-monthly-selfcheck-free",
+    "ecommerce-monthly-selfcheck-free",
+    "export-monthly-selfcheck-free",
+    "finance-monthly-selfcheck-free",
+    "group-finance-monthly-selfcheck-free",
+    "hr-monthly-selfcheck-free",
+    "manufacturing-monthly-selfcheck-free",
+    "tax-monthly-selfcheck-free"
+   ]
+  },
+  {
+   "title": "招投标与合规",
+   "description": "招投标材料体检、串通投标线索筛查、报价审查、广告文案合规预检等发布前检查。",
+   "skills": [
+    "adcheckup-content-compliance-free",
+    "bid-comparison-free",
+    "bid-deposit-refund-check-free",
+    "bidcheckup-batch-compliance-free",
+    "bidguard-quote-audit-free",
+    "collusionscreen-collusion-screening-free",
+    "expense-compliance-free",
+    "tenderaudit-full-compliance-free"
+   ]
+  },
+  {
+   "title": "合同与单证",
+   "description": "合同条款比对、合同一致性、票据一致性、外贸单证一致性等逐条比对。",
+   "skills": [
+    "award-contract-consistency-check-free",
+    "contract-comparison-free",
+    "contract-consistency-check-free",
+    "contract-performance-bond-check-free",
+    "invoice-consistency-check-free",
+    "subcontract-settlement-check-free",
+    "trade-doc-consistency-free"
+   ]
+  },
+  {
+   "title": "税务与发票",
+   "description": "增值税、附加税费、企业所得税、个税、印花税、发票领用存与红冲作废核对。",
+   "skills": [
+    "agri-purchase-invoice-deduction-check-free",
+    "cit-adjustment-check-free",
+    "cit-prepay-check-free",
+    "export-rebate-check-free",
+    "export-rebate-doc-consistency-check-free",
+    "iit-withholding-check-free",
+    "import-duty-check-free",
+    "input-vat-deduction-check-free",
+    "invoice-usage-stock-check-free",
+    "stamp-duty-base-check-free",
+    "surtax-check-free",
+    "tax-incentive-eligibility-check-free",
+    "tax-invoice-void-check-free",
+    "tax-risk-indicator-check-free",
+    "vat-burden-check-free",
+    "vat-filing-reconcile-free",
+    "vat-input-transfer-out-check-free"
+   ]
+  },
+  {
+   "title": "成本与存货",
+   "description": "材料领用与定额损耗、存货加权平均成本、委外加工、报废与跌价、仓储与周转。",
+   "skills": [
+    "asset-disposal-check-free",
+    "asset-impairment-check-free",
+    "cip-transfer-check-free",
+    "depreciation-check-free",
+    "fixed-asset-count-check-free",
+    "fleet-fuel-cost-check-free",
+    "fresh-loss-check-free",
+    "inventory-check-free",
+    "inventory-cost-flow-check-free",
+    "inventory-provision-check-free",
+    "inventory-scrap-approval-check-free",
+    "labor-cost-allocation-check-free",
+    "material-cost-variance-check-free",
+    "material-usage-loss-check-free",
+    "mold-amortization-check-free",
+    "outsourced-processing-fee-check-free",
+    "production-yield-scrap-check-free",
+    "restaurant-food-cost-check-free",
+    "warehouse-fee-check-free",
+    "warehouse-inventory-turnover-check-free"
+   ]
+  },
+  {
+   "title": "人力与薪酬",
+   "description": "工资表、代扣与申报、个税累计预扣、社保公积金基数、加班费与福利费限额。",
+   "skills": [
+    "bonus-pool-check-free",
+    "commission-check-free",
+    "lesson-hour-check-free",
+    "live-commerce-commission-check-free",
+    "ota-commission-check-free",
+    "overtime-pay-check-free",
+    "payroll-check-free",
+    "payroll-payable-check-free",
+    "payroll-payment-bank-check-free",
+    "payroll-withholding-reconcile-free",
+    "sales-commission-tier-check-free",
+    "social-insurance-base-check-free",
+    "social-insurance-check-free",
+    "union-reserve-check-free",
+    "welfare-limit-check-free"
+   ]
+  },
+  {
+   "title": "资金与对账",
+   "description": "银行流水对账、应收应付与账龄、保理贴现、贷款利息、备用金、现金盘点、预收预付。",
+   "skills": [
+    "accrual-expense-check-free",
+    "advance-receipt-check-free",
+    "ap-aging-plan-check-free",
+    "ap-factoring-check-free",
+    "ap-reconciliation-free",
+    "ar-aging-check-free",
+    "bank-loan-interest-check-free",
+    "bank-reconciliation-free",
+    "cash-count-check-free",
+    "cash-flow-variance-check-free",
+    "discount-interest-check-free",
+    "ecommerce-refund-settlement-check-free",
+    "freight-reconciliation-free",
+    "group-intercompany-reconciliation-check-free",
+    "installment-rate-check-free",
+    "late-fee-check-free",
+    "lease-liability-check-free",
+    "lease-rent-check-free",
+    "maintenance-fund-payment-check-free",
+    "overdue-interest-check-free",
+    "payment-fee-check-free",
+    "petty-cash-check-free",
+    "prepayment-offset-check-free",
+    "tuition-refund-check-free"
+   ]
+  },
+  {
+   "title": "行业专项",
+   "description": "餐饮、酒店、医疗、电商、外贸、物业、教培、物流等具体行业的月度核对。",
+   "skills": [
+    "audit-adjustment-check-free",
+    "budget-variance-check-free",
+    "chain-store-settlement-check-free",
+    "clinic-daily-cashier-check-free",
+    "clinic-revenue-check-free",
+    "construction-output-value-check-free",
+    "construction-wage-special-account-check-free",
+    "department-budget-execution-check-free",
+    "export-fx-collection-check-free",
+    "franchise-royalty-check-free",
+    "fx-settlement-check-free",
+    "gov-subsidy-deferred-income-check-free",
+    "hotel-night-audit-check-free",
+    "insurance-agency-fee-check-free",
+    "logistics-storage-fee-check-free",
+    "medical-insurance-denial-check-free",
+    "platform-settlement-check-free",
+    "prepaid-card-consumption-check-free",
+    "progress-payment-check-free",
+    "project-billing-collection-check-free",
+    "project-evm-check-free",
+    "promo-subsidy-check-free",
+    "property-fee-check-free",
+    "property-utility-apportionment-check-free",
+    "restaurant-daily-sales-check-free",
+    "retail-member-points-check-free",
+    "saas-revenue-recognition-check-free",
+    "software-outsource-milestone-check-free",
+    "store-sales-report-check-free",
+    "store-transfer-check-free",
+    "utility-allocation-check-free",
+    "utility-meter-reading-check-free",
+    "utility-tier-billing-check-free",
+    "vehicle-insurance-amortization-check-free"
+   ]
+  },
+  {
+   "title": "其他",
+   "description": "暂未归类的核对工具。",
+   "skills": [
+    "ad-agency-rebate-check-free",
+    "bad-debt-provision-check-free",
+    "long-term-amortization-check-free",
+    "purchase-rebate-check-free",
+    "rd-expense-check-free",
+    "receivable-collection-plan-check-free",
+    "three-way-match-free",
+    "travel-standard-check-free",
+    "viral-script-free"
+   ]
+  }
+ ]
 }
