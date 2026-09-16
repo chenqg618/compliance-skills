@@ -89,6 +89,7 @@
     "production-yield-scrap-check-free",
     "project-material-transfer-check-free",
     "restaurant-food-cost-check-free",
+    "safety-production-fee-check-free",
     "warehouse-fee-check-free",
     "warehouse-inventory-turnover-check-free"
    ]
@@ -197,7 +198,9 @@
     "rd-expense-check-free",
     "receivable-collection-plan-check-free",
     "rent-collection-check-free",
+    "royalty-settlement-check-free",
     "three-way-match-free",
+    "toll-processing-manual-check-free",
     "training-hour-consumption-check-free",
     "travel-standard-check-free",
     "viral-script-free",
