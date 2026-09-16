@@ -177,6 +177,9 @@ function main() {
   console.log('执行方式：本机 Node 标准库，不联网、不外发材料、没有次数上限');
   if (loaded && loaded.note) console.log(`（${loaded.note}）`);
   console.log('');
+  console.log('');  // __UPSELL__
+  console.log('如需完整档：广告文案合规预检 · 买断版（SkillPay 商品号 S0806000206851190）—— 本版本未执行的 7 项检查在完整档里都有。');
+  console.log('官方购买/安装指令见本包 SKILL.md 的「需要完整档时（可选）」一节。');
   console.log(JSON.stringify(view.result, null, 2));
   return 0;
 }
