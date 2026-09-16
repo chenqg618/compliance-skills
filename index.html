@@ -31,20 +31,31 @@ footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
 </head>
 <body><div class="wrap">
 <p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
-<p><strong><a href="buy.html">➜ 怎么买（买断商品清单与官方购买指令）</a></strong></p>
 <h1>AI核对型 AI 工具</h1>
 <p>招投标、合同、票据、外贸单证、三单匹配、报销、银行对账、多家比价 ——
 这些都是<strong>确定性核对</strong>的工作：能被算出来证明是错的地方，就不该靠人眼逐字找。</p>
 <p>我们把这些场景的<strong>判断口径</strong>整理成了可以照着做的实操指南（不装工具也能用），
 并把其中确定性最高的部分做成了<strong>完全离线</strong>的核对引擎：
 同一份材料谁来跑结论都一样，每条结论都附原文出处，可被第三方复算。</p>
+<h2>怎么装（三条命令，任选一条）</h2>
+<p>全部工具<strong>本机离线运行</strong>、不需要 API Key、没有次数上限；也不用注册。</p>
+<pre><code># ① 一次装全部免费技能（通用 agent skills：Claude Code / Codex / DSH / OpenClaw 等）
+npx --yes skills@latest add chenqg618/compliance-skills --agent '*' -y
+
+# ② 只装某一个（ClawHub）
+npx clawhub install @chenqg618/bank-reconciliation-free
+
+# ③ 装完先跑样例，再换成自己的材料
+cp templates/sample.json my-material.json &amp;&amp; node scripts/run.mjs --input my-material.json</code></pre>
+<p>需要<strong>完整档</strong>（多一类能力：批量核对、限额判断、跨检查汇总整改清单）在
+<a href="buy.html">购买页</a>：每个商品都列了<strong>商品号</strong>与<strong>官方购买指令</strong>，买断一次 ¥9.9、不订阅不按次。</p>
 <h2>实操指南</h2>
 <ul class="cards">
 <li><a href="guides/bank-reconciliation.html">未达账项怎么找：一份可照着做的对账流程</a><span class="d">对账实务：逐笔配对的四个口径、未达账项的四类成因（手续费/跨月/在途/录错），以及一个能自证有没有算错的对账恒等式。附免费在线核对工具。</span></li>
 <li><a href="guides/three-way-match.html">三单匹配怎么做：付款前那一步的完整口径</a><span class="d">应付账款三单匹配（采购订单/入库单/发票）的完整口径：三张单据各证明什么、容差为什么必须显式给、最容易犯的三个错。附免费在线核对工具。</span></li>
 <li><a href="guides/contract-comparison.html">同一模板签的一叠合同，怎么快速看出哪一份被改过</a><span class="d">同一模板签的一叠合同怎么做横向比对：为什么必须按条款标题而不是编号对齐、要看的四类差异、为什么不该做&quot;语义等价&quot;判断。附免费在线核对工具。</span></li>
 </ul>
-<h2>工具清单（142 个，全部免费）</h2>
+<h2>工具清单（145 个，全部免费）</h2>
 <ul class="cards">
 <li><a href="tools/accrual-expense-check.html">预提费用与到票冲销核对（免费版）</a><span class="d">预提费用台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/ad-agency-rebate-check.html">广告代理返点与框架返点核对（免费版）</a><span class="d">广告代理返点与框架返点核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
@@ -141,6 +152,7 @@ footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
 <li><a href="tools/payroll-payment-bank-check.html">工资代发与银行回单核对（免费版）</a><span class="d">工资代发与银行回单核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/payroll-withholding-reconcile.html">工资表代扣与个税社保申报核对（免费版）</a><span class="d">工资表与个税社保申报对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/petty-cash-check.html">备用金与报销核销核对（免费版）</a><span class="d">备用金与报销核销表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
+<li><a href="tools/platform-settlement-aging-check.html">平台账期与在途资金核对（免费版）</a><span class="d">平台账期与在途资金核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/platform-settlement-check.html">电商平台结算核对（免费版）</a><span class="d">平台结算单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/prepaid-card-consumption-check.html">预付卡消费核销核对（免费版）</a><span class="d">预付卡消费核销表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/prepayment-offset-check.html">预付款与预付账款核销核对（免费版）</a><span class="d">预付账款核销台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
@@ -148,12 +160,14 @@ footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
 <li><a href="tools/progress-payment-check.html">工程进度款与质保金核对（免费版）</a><span class="d">工程进度款支付计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/project-billing-collection-check.html">项目开票与回款核对（免费版）</a><span class="d">项目开票与回款台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/project-evm-check.html">项目挣值分析核对（免费版）</a><span class="d">挣值分析表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。</span></li>
+<li><a href="tools/project-material-transfer-check.html">工程材料调拨与领用核对（免费版）</a><span class="d">工程材料调拨与领用核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/promo-subsidy-check.html">促销补贴与核销核对（免费版）</a><span class="d">促销补贴核销表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/property-fee-check.html">物业费与滞纳金核对（免费版）</a><span class="d">物业费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/property-utility-apportionment-check.html">物业公共能耗分摊核对（免费版）</a><span class="d">物业公共能耗分摊核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/purchase-rebate-check.html">采购返利与阶梯核算核对（免费版）</a><span class="d">采购返利核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/rd-expense-check.html">研发费用加计扣除归集核对（免费版）</a><span class="d">研发费用归集表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/receivable-collection-plan-check.html">应收账款催收计划与回款核对（免费版）</a><span class="d">应收账款催收计划与回款表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
+<li><a href="tools/rent-collection-check.html">租金收缴与欠租台账核对（免费版）</a><span class="d">租金收缴与欠租台账核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/restaurant-daily-sales-check.html">餐饮门店日营业款核对（免费版）</a><span class="d">门店日营业款上报表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/restaurant-food-cost-check.html">餐饮菜品成本与出品率核对（免费版）</a><span class="d">餐饮菜品成本与出品率核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
 <li><a href="tools/retail-member-points-check.html">会员积分与储值卡核销核对（免费版）</a><span class="d">会员积分与储值卡核销核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。</span></li>
