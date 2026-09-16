@@ -2792,6 +2792,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_royalty_settlement_check",
+    "package": "royalty-settlement-check-free",
+    "engine": "royalty-settlement-check-free/royalty-settlement-check.js",
+    "title": "版税与授权金结算核对（免费版）",
+    "given": [
+      "净销售数量复算（销售数量 − 退货数量 = 净销售数量）",
+      "应付版税复算（净销售数量 × 定价 × 版税率 = 应付版税）",
+      "合计行逐列复核",
+      "同一书号/授权标的同一期间重复行检测",
+      "空白与占位符检测",
+      "数量或金额为负检测"
+    ],
+    "withheld": [
+      "退货数量超过销售数量提示（退货冲减后净销量为负）",
+      "版税率与合同约定版税率不一致提示",
+      "阶梯费率未按累计销售数量切换提示",
+      "预付版税未冲抵提示（预付余额大于本期应付版税）",
+      "同一授权标的同一期间重复结算提示（不同书号、同一标的）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_saas_revenue_recognition_check",
     "package": "saas-revenue-recognition-check-free",
     "engine": "saas-revenue-recognition-check-free/saas-revenue-recognition-check.js",
@@ -2810,6 +2833,29 @@
       "分摊期数与服务起止日期不一致提示（跨期错配）",
       "确认比例与履约进度偏离参考区间（0~100%）提示",
       "同一合同重复建行（合同号重复但客户不同）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_safety_production_fee_check",
+    "package": "safety-production-fee-check-free",
+    "engine": "safety-production-fee-check-free/safety-production-fee-check.js",
+    "title": "安全生产费用提取与使用核对（免费版）",
+    "given": [
+      "应提取金额复算（营业收入或产量口径基数 × 提取比例 = 应提取金额）",
+      "期末余额滚动复算（期初余额 + 本期提取 − 本期使用 = 期末余额）",
+      "合计行逐列复核",
+      "同一核算主体同一期间重复行检测",
+      "空白与占位符检测",
+      "金额或比例为负检测"
+    ],
+    "withheld": [
+      "提取比例低于规定下限提示（按行业类别的内置参考下限，超容差才报）",
+      "本期使用超过可用余额（挪用/超支）提示",
+      "期末余额为负提示",
+      "当期提取为 0 提示",
+      "累计使用与累计提取比例异常（使用率超过 100%）提示"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -3101,6 +3147,29 @@
       "收入与销项不匹配（按参考销项税率推算，差超 5%）提示",
       "成本与进项不匹配（按参考进项税率推算，差超 5%）提示",
       "留抵税额与进销项矛盾提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_toll_processing_manual_check",
+    "package": "toll-processing-manual-check-free",
+    "engine": "toll-processing-manual-check-free/toll-processing-manual-check.js",
+    "title": "加工贸易手册与保税料件核对（免费版）",
+    "given": [
+      "理论耗用复算（出口成品数量 × 单耗 = 理论耗用数量）",
+      "期末结存滚动复算（期初结存 + 进口料件 − 理论耗用 − 余料结转 − 内销补税数量 = 期末结存）",
+      "合计行逐列复核",
+      "同一手册号同一料件同一期间重复行检测",
+      "空白与占位符检测",
+      "数量或金额为负检测"
+    ],
+    "withheld": [
+      "实际耗用超过理论耗用提示（实际耗用大于出口成品数量 × 单耗，超容差才报）",
+      "期末结存为负提示（结存倒挂，说明耗用与进出口对不上）",
+      "内销补税数量占总进口比例超过参考上限（10%）提示",
+      "同一手册同一料件重复申报出口提示（同一出口报关单号出现在多行）",
+      "余料结转数量超过期初加进口提示"
     ],
     "outOfScope": [],
     "hasSample": true
