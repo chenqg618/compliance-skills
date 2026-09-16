@@ -502,6 +502,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_ad_agency_rebate_check",
+    "package": "ad-agency-rebate-check-free",
+    "engine": "ad-agency-rebate-check-free/ad-agency-rebate-check.js",
+    "title": "广告代理返点与框架返点核对（免费版）",
+    "given": [
+      "应收返点复算（投放消耗 × 返点比例 = 应收返点）",
+      "净应付复算（投放消耗 + 代理服务费 − 应收返点 = 净应付）",
+      "合计行逐列复核",
+      "同一媒体同一期间重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "返点比例与框架协议不一致提示（适用比例既不等于框架返点比例、也不等于阶梯返点比例）",
+      "返点超过投放消耗提示",
+      "未达框架量却按高阶梯返点计算提示",
+      "同一媒体重复计返点提示（媒体写法不同但实为同一媒体）",
+      "服务费费率偏离参考区间（0~20%）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_advance_receipt_check",
     "package": "advance-receipt-check-free",
     "engine": "advance-receipt-check-free/advance-receipt-check.js",
@@ -520,6 +543,29 @@
       "预收余额超过合同总额检测",
       "本期已确认收入超过合同总额检测",
       "本期预收为 0 却确认收入检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_agri_purchase_invoice_deduction_check",
+    "package": "agri-purchase-invoice-deduction-check-free",
+    "engine": "agri-purchase-invoice-deduction-check-free/agri-purchase-invoice-deduction-check.js",
+    "title": "农产品收购发票与进项抵扣核对（免费版）",
+    "given": [
+      "可抵扣进项复算（买价 × 扣除率 = 可抵扣进项）",
+      "加计扣除额复算（可抵扣进项 × 加计比例 = 加计扣除额）",
+      "合计行逐列复核",
+      "同一收购凭证号重复行检测",
+      "空白与占位符检测",
+      "金额或比例为负检测"
+    ],
+    "withheld": [
+      "扣除率与政策参考口径不一致提示（参考区间 9% / 10%）",
+      "加计比例超出参考区间提示（参考区间 0~1%）",
+      "收购金额与发票金额不符提示",
+      "同一农户同一日大额多笔拆分提示（单笔参考上限 10 万元）",
+      "已抵扣但无收购发票号提示"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -966,6 +1012,29 @@
       "计量金额超过已完产值检测",
       "扣款比例偏离参考区间（0%~10%）提示（参考口径）",
       "累计计量与累计产值不一致提示（偏差超 10%，参考口径）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_construction_wage_special_account_check",
+    "package": "construction-wage-special-account-check-free",
+    "engine": "construction-wage-special-account-check-free/construction-wage-special-account-check.js",
+    "title": "建筑工人工资专户发放核对（免费版）",
+    "given": [
+      "应发工资复算（考勤工时 × 小时工资，或计件数量 × 计件单价 = 应发工资）",
+      "实发工资复算（应发工资 − 代扣项合计 = 实发工资）",
+      "合计行逐列复核",
+      "同一工人同一项目同一期间重复行检测",
+      "空白与占位符检测",
+      "工时或金额为负检测"
+    ],
+    "withheld": [
+      "实发工资合计与专户代发流水合计不符提示",
+      "实发工资低于当地最低工资标准提示（参考口径）",
+      "同一工人跨项目重复发放提示",
+      "代扣项合计超过应发工资提示",
+      "已发工资但无实名制考勤记录提示"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -2409,6 +2478,29 @@
       "缴费比例偏离常见区间提示（参考口径）",
       "工资口径与缴费基数差异超过阈值提示",
       "补缴金额与基数差额不一致检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_software_outsource_milestone_check",
+    "package": "software-outsource-milestone-check-free",
+    "engine": "software-outsource-milestone-check-free/software-outsource-milestone-check.js",
+    "title": "软件外包里程碑验收与付款核对（免费版）",
+    "given": [
+      "本期应付复算（里程碑金额 × 付款比例 = 本期应付）",
+      "累计已付复算（前期已付 + 本期应付 = 累计已付）",
+      "合计行逐列复核",
+      "同一里程碑重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "累计已付超过合同总额提示（付超合同）",
+      "未验收却已付款提示（验收状态与已付款额矛盾）",
+      "质保金比例与合同不符提示",
+      "付款比例合计不等于 100% 提示（里程碑没付完 / 比例填错）",
+      "同一里程碑重复付款提示（同一里程碑被付了两次）"
     ],
     "outOfScope": [],
     "hasSample": true
