@@ -1,7 +1,7 @@
 ---
 slug: prepaid-card-consumption-check-free
 displayName: 预付卡消费核销核对（免费版）
-version: 1.0.3
+version: 1.0.4
 summary: 预付卡消费核销表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [预付卡消费核销核对,预付卡消费核销表,核对,对账,免费]
 license: Proprietary
@@ -55,6 +55,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
    这一列只有本期发生额，累计充值不是这张表的列。
 5. **关键列留空或写占位符**：卡号写 `/`、期初余额空着、金额写「待确认」
    ⇒ 报「关键字段缺失或为占位符」，而且余额与收入两条勾稽会直接跳过——等于这一行没查。
+
 
 
 ## 需要完整档时（可选）
