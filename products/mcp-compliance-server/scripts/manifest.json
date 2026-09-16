@@ -617,6 +617,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_audit_adjustment_check",
+    "package": "audit-adjustment-check-free",
+    "engine": "audit-adjustment-check-free/audit-adjustment-check.js",
+    "title": "审计调整分录核对（免费版）",
+    "given": [
+      "借贷差额复算（借贷差额 = 借方合计 − 贷方合计，必须为 0）",
+      "科目净影响复算（借方金额 − 贷方金额 = 科目净影响）",
+      "合计行逐列复核",
+      "同一调整事项重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "借贷不平超过容差提示",
+      "调整事项缺说明或编号提示",
+      "同一科目同一事项重复调整提示",
+      "调整金额超过参考重要性水平提示（参考口径）",
+      "调整后科目方向异常（资产类为负）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_award_contract_consistency_check",
     "package": "award-contract-consistency-check-free",
     "engine": "award-contract-consistency-check-free/award-contract-consistency-check.js",
@@ -1364,6 +1387,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_inventory_provision_check",
+    "package": "inventory-provision-check-free",
+    "engine": "inventory-provision-check-free/inventory-provision-check.js",
+    "title": "存货跌价准备核对（免费版）",
+    "given": [
+      "应计提跌价准备复算（存货成本 − 可变现净值，小于 0 取 0）",
+      "准备余额勾稽（期初 + 本期计提 − 本期转回或结转 = 期末）",
+      "合计行逐列复核",
+      "同一存货（同期间）重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "可变现净值高于成本却仍计提/保留跌价准备检测",
+      "本期计提额超过应计提额检测",
+      "准备余额为负检测",
+      "本期转回超过期初余额提示",
+      "跌价率偏离参考区间（0%~50%）提示（参考口径）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_inventory_scrap_approval_check",
     "package": "inventory-scrap-approval-check-free",
     "engine": "inventory-scrap-approval-check-free/inventory-scrap-approval-check.js",
@@ -1554,6 +1600,34 @@
     "hasSample": true
   },
   {
+    "tool": "check_material_cost_variance_check",
+    "package": "material-cost-variance-check-free",
+    "engine": "material-cost-variance-check-free/material-cost-variance-check.js",
+    "title": "材料成本差异分摊核对（免费版）",
+    "given": [
+      "差异分摊额 = 发出金额 × 差异率 复算",
+      "差异率 = 差异总额 ÷ 计划成本总额 复算",
+      "合计行逐列复核",
+      "同一材料编码重复行检测",
+      "空白与占位符检测",
+      "金额为负检测（计划成本类三列）"
+    ],
+    "withheld": [
+      "分摊额与差异率计算不符提示（结存分摊差异额）",
+      "差异率超过参考区间（−20%~20%）提示",
+      "分摊额合计与差异总额不符提示",
+      "发出与结存分摊方向异常（同号）提示",
+      "计划成本总额为零却有差异提示"
+    ],
+    "outOfScope": [
+      "判断差异该按哪条口径分摊、差异率要不要分类（原材料/主要材料/全部材料）计算（那属于会计政策，请按企业会计制度与主管会计口径）",
+      "核对总账「材料成本差异」科目余额与这张分摊表的期末余额是否一致、抽查记账凭证与原始单据",
+      "重算计划成本单价、材料成本差异的发生额（那要读入库单、发票与计划价目录，本工具只核你贴进来的这张表）",
+      "读取 ERP / 财务系统导出文件（需要你先导出成文本或 JSON 贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
     "tool": "check_material_usage_loss_check",
     "package": "material-usage-loss-check-free",
     "engine": "material-usage-loss-check-free/material-usage-loss-check.js",
@@ -1579,6 +1653,29 @@
       "区分甲供材料与乙供材料的计价与结算口径",
       "读取 ERP / 物资系统导出文件（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_medical_insurance_denial_check",
+    "package": "medical-insurance-denial-check-free",
+    "engine": "medical-insurance-denial-check-free/medical-insurance-denial-check.js",
+    "title": "医保拒付与申诉核对（免费版）",
+    "given": [
+      "应申诉金额复算（拒付明细金额 − 已放弃金额 = 应申诉金额）",
+      "未回款金额复算（拒付明细金额 − 已申诉金额 = 未回款金额）",
+      "合计行逐列复核",
+      "同一拒付单号重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "申诉金额超过拒付明细金额提示",
+      "申诉时限已过仍未申诉提示（按拒付日期 + 参考 60 天时限）",
+      "同一拒付单号重复申诉提示",
+      "申诉状态为已申诉但申诉金额为零提示",
+      "拒付率偏离参考区间（0~20%）提示"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
@@ -1629,6 +1726,29 @@
       "判断收入确认时点与开票口径；给出税务意见",
       "读取 .xlsx 或渠道账单文件（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_outsourced_processing_fee_check",
+    "package": "outsourced-processing-fee-check-free",
+    "engine": "outsourced-processing-fee-check-free/outsourced-processing-fee-check.js",
+    "title": "委外加工费与损耗核对（免费版）",
+    "given": [
+      "加工费复算（加工数量 × 加工费单价 = 加工费）",
+      "损耗量复算（发出数量 − 收回数量 − 结存数量 = 损耗量）",
+      "合计行逐列复核",
+      "同一加工单重复行检测（加工单号 + 物料名称相同）",
+      "空白与占位符检测",
+      "数量或金额为负检测"
+    ],
+    "withheld": [
+      "损耗率超过约定上限（参考 3%）提示",
+      "加工费与合同单价不一致提示",
+      "收回数量大于发出数量检测",
+      "结存数量与期末盘点不一致提示",
+      "加工数量为零却有加工费提示"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
@@ -2133,6 +2253,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_saas_revenue_recognition_check",
+    "package": "saas-revenue-recognition-check-free",
+    "engine": "saas-revenue-recognition-check-free/saas-revenue-recognition-check.js",
+    "title": "SaaS订阅收入确认核对（免费版）",
+    "given": [
+      "应确认收入复算（合同金额 ÷ 分摊期数 = 本期确认收入）",
+      "期末递延余额滚动复算（期初递延 + 本期收款 − 本期确认 = 期末递延）",
+      "合计行逐列复核",
+      "同一客户同一期间重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "确认金额超过合同期内可确认总额提示",
+      "递延余额为负检测",
+      "分摊期数与服务起止日期不一致提示（跨期错配）",
+      "确认比例与履约进度偏离参考区间（0~100%）提示",
+      "同一合同重复建行（合同号重复但客户不同）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_sales_commission_tier_check",
     "package": "sales-commission-tier-check-free",
     "engine": "sales-commission-tier-check-free/sales-commission-tier-check.js",
@@ -2556,6 +2699,29 @@
       "开票税额与申报销项税额差额检测",
       "适用税率超出常见档位（1%/3%/5%/6%/9%/13%）检测",
       "销售额或税额为负检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_vat_input_transfer_out_check",
+    "package": "vat-input-transfer-out-check-free",
+    "engine": "vat-input-transfer-out-check-free/vat-input-transfer-out-check.js",
+    "title": "进项税额转出核对（免费版）",
+    "given": [
+      "应转出额复算（对应销售额 ÷ 全部销售额 × 当期进项税额 = 应转出进项税额）",
+      "转出合计与各项目之和不符检测",
+      "合计行逐列复核",
+      "同一期间同一项目重复行检测",
+      "空白与占位符检测",
+      "金额或比例为负检测"
+    ],
+    "withheld": [
+      "转出比例与销售额占比不符提示（差超容差）",
+      "转出额超过当期进项税额检测",
+      "不得抵扣项目未转出提示",
+      "转出比例大于 100% 异常提示",
+      "分摊基数（全部销售额）为零却算出转出额提示"
     ],
     "outOfScope": [],
     "hasSample": true
