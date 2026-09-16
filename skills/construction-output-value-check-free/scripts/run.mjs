@@ -194,8 +194,9 @@ function main() {
   console.log('执行方式：本机 Node 标准库，不联网、不外发材料、没有次数上限');
   if (loaded && loaded.note) console.log(`（${loaded.note}）`);
   console.log('');
+  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   console.log('');  // __UPSELL__
-  console.log('如需完整档：工程产值与进度确认核对 · 买断版（SkillPay 商品号 S0806000206845531）—— 本版本未执行的 5 项检查在完整档里都有。');
+  console.log('如需完整档：工程产值与进度确认核对 · 买断版（SkillPay 商品号 S0806000206845557）—— 本版本未执行的 5 项检查在完整档里都有。');
   console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   console.log(JSON.stringify(view.result, null, 2));
   return 0;
