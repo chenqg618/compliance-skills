@@ -1138,6 +1138,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_ecommerce_refund_settlement_check",
+    "package": "ecommerce-refund-settlement-check-free",
+    "engine": "ecommerce-refund-settlement-check-free/ecommerce-refund-settlement-check.js",
+    "title": "电商退货退款与货款结算核对（免费版）",
+    "given": [
+      "应结货款复算（订单金额 − 退款金额 − 平台佣金 = 应结货款）",
+      "结算净额复算（应结货款 + 赔付金额 − 扣款金额 = 结算净额）",
+      "合计行逐列复核",
+      "同一订单号同一期间重复行检测",
+      "空白与占位符检测",
+      "金额为负检测"
+    ],
+    "withheld": [
+      "退款金额超过订单金额提示",
+      "平台佣金率与合同佣金率不一致提示",
+      "退货已退款但未回收入库提示",
+      "结算净额为负提示",
+      "同一订单跨期间重复结算提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_export_fx_collection_check",
     "package": "export-fx-collection-check-free",
     "engine": "export-fx-collection-check-free/export-fx-collection-check.js",
@@ -1194,6 +1217,29 @@
       "处理跨月结转的期末留抵税额（请用当期申报表里的数字）",
       "给出税务意见；读取 .xlsx（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_export_rebate_doc_consistency_check",
+    "package": "export-rebate-doc-consistency-check-free",
+    "engine": "export-rebate-doc-consistency-check-free/export-rebate-doc-consistency-check.js",
+    "title": "出口退税申报单证一致性核对（免费版）",
+    "given": [
+      "报关金额与发票金额差额复算（报关金额 − 发票金额 = 差额）",
+      "应退税额复算（计税金额 × 退税率 = 应退税额）",
+      "合计行逐列复核",
+      "同一报关单号重复行检测",
+      "空白与占位符检测",
+      "金额或数量为负检测"
+    ],
+    "withheld": [
+      "报关金额与发票金额不符超容差提示（两张单证本身对不上，超过尾差容差才报）",
+      "收汇金额与报关金额不符提示",
+      "退税率与商品编码适用税率不一致提示",
+      "进项发票金额不足（小于应退税额对应进项）提示",
+      "同一报关单重复申报提示（同一报关单号横跨两个所属期）"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
@@ -1779,6 +1825,29 @@
       "本期摊销月数不是 1 检测（补提或漏提月）",
       "摊销月数为零或非整数检测",
       "账面余额为负或原值为负检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_maintenance_fund_payment_check",
+    "package": "maintenance-fund-payment-check-free",
+    "engine": "maintenance-fund-payment-check-free/maintenance-fund-payment-check.js",
+    "title": "维修资金与专项工程付款核对（免费版）",
+    "given": [
+      "应付工程款复算（审定金额 × 付款比例 = 应付工程款）",
+      "期末余额滚动复算（期初余额 + 本期归集 − 本期支出 = 期末余额）",
+      "合计行逐列复核",
+      "同一工程/申请单重复行检测",
+      "空白与占位符检测",
+      "金额或比例为负检测"
+    ],
+    "withheld": [
+      "累计付款超过审定金额提示",
+      "余额为负（超支）提示",
+      "付款比例与合同约定不一致提示",
+      "审定金额超过申请金额提示",
+      "同一工程重复付款提示"
     ],
     "outOfScope": [],
     "hasSample": true
