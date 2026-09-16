@@ -1,7 +1,7 @@
 ---
 slug: asset-impairment-check-free
 displayName: 资产减值测试核对（免费版）
-version: 1.0.4
+version: 1.0.5
 summary: 资产减值测试表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [资产减值测试核对,资产减值测试表,核对,对账,免费]
 license: Proprietary
@@ -51,6 +51,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 5. **资产组重划后只改了一边**：资产组的账面价值合计与组内各行账面价值相加不等，多半是重划资产组后只改了合计或只改了明细；同一个资产组每行填的合计数也必须一致。
 
 
+
 ## 需要完整档时（可选）
 
 本免费版是**完整可用的核心产出**，本版本**不包含**下面这些项：
@@ -73,7 +74,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 请通过 SkillPay 购买并安装 Skill「资产减值测试核对 · 买断版」。
 官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
 请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
-安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206853040。
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206851282。
 我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。
 ```
 
