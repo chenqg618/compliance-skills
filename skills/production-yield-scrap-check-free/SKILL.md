@@ -1,7 +1,7 @@
 ---
 slug: production-yield-scrap-check-free
 displayName: 生产投入产出与报废率核对（免费版）
-version: 1.0.3
+version: 1.0.4
 summary: 生产投入产出与报废表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [生产投入产出与报废率核对,生产投入产出与报废表,核对,对账,免费]
 license: Proprietary
@@ -61,6 +61,7 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
    整表就和明细对不上——率列不能相加，只能重新按总量算。
 5. **同一工单同一工序贴了两遍**：两个班组各报一次、两张 Excel 合并时又没去重，
    数量被重复统计（注意：同一工单的**不同工序**多行是正常转序，不算重复）。
+
 
 
 ## 需要完整档时（可选）
