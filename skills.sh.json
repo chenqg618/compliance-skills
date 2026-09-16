@@ -87,6 +87,7 @@
     "mold-amortization-check-free",
     "outsourced-processing-fee-check-free",
     "production-yield-scrap-check-free",
+    "project-material-transfer-check-free",
     "restaurant-food-cost-check-free",
     "warehouse-fee-check-free",
     "warehouse-inventory-turnover-check-free"
@@ -163,6 +164,7 @@
     "insurance-agency-fee-check-free",
     "logistics-storage-fee-check-free",
     "medical-insurance-denial-check-free",
+    "platform-settlement-aging-check-free",
     "platform-settlement-check-free",
     "prepaid-card-consumption-check-free",
     "progress-payment-check-free",
@@ -193,6 +195,7 @@
     "purchase-rebate-check-free",
     "rd-expense-check-free",
     "receivable-collection-plan-check-free",
+    "rent-collection-check-free",
     "three-way-match-free",
     "travel-standard-check-free",
     "viral-script-free"
