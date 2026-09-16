@@ -10,7 +10,7 @@ display_name: 串通投标线索筛查（免费版）
 display_name_en: CollusionScreen (Free)
 description: 把多家投标文件放在一起，找出客观可复算的雷同线索，不需要付款，也不需要注册。 本免费版执行 联系方式一致、项目成员交叉。触发词包括 串通投标线索筛查、联系方式一致、项目成员交叉。
 description_zh: 把多家投标文件放在一起，找出客观可复算的雷同线索，不需要付款，也不需要注册。 本免费版执行 联系方式一致、项目成员交叉。
-description_en: A free mechanical pre-check for bidding documents. No payment, no registration, no API key.
+description_en: Free cross-bidder screening for objective bid-rigging clues, such as identical contact details and overlapping project staff.
 category: office
 author: WorkBuddy 开放平台开发者
 allowed-tools: Read, Bash
