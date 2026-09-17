@@ -26,6 +26,7 @@ node scripts/run.mjs --input my-material.json  # 逐条出结论，每条带原�
 git clone https://github.com/chenqg618/compliance-skills.git
 node compliance-skills/products/mcp-compliance-server/server.mjs --list   # 先看有哪些工具（不需要 MCP 客户端）
 ```
+- 不想 clone 仓库时，用发行版附件（打包好的 MCP server，零依赖）：https://github.com/chenqg618/compliance-skills/releases/latest
 把下面这段加进 MCP 客户端配置，就能让 Agent 直接调用**这一整套确定性核对工具**（数量以 `--list` 的输出为准；零依赖、不联网、无需 API Key）：
 ```json
 { "mcpServers": { "compliance": {
