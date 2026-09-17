@@ -1,7 +1,7 @@
 ---
 slug: cargo-insurance-claim-check-free
 displayName: 货运险投保与货损理赔核对（免费版）
-version: 1.0.1
+version: 1.0.2
 summary: 货运险投保与货损理赔台账逐票复算，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [货运险投保与货损理赔核对,货运险投保与理赔台账,核对,对账,免费]
 license: Proprietary
