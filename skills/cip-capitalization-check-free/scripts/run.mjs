@@ -194,25 +194,25 @@ function main() {
   console.log('执行方式：本机 Node 标准库，不联网、不外发材料、没有次数上限');
   if (loaded && loaded.note) console.log(`（${loaded.note}）`);
   console.log('');
-  console.log('');  // __UPSELL__
-  console.log('如需完整档：在建工程台账：工程成本归集（材料/人工/分包/其他）、达到预定可使用状态的转固时点、暂估转固与后续调整、专门借款利息资本化金额与资本化率、借款费用停止资本化时点发放前核对 · 买断版（SkillPay 商品号 S0806000206845453）—— 本版本未执行的 4 项检查在完整档里都有。');
-  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
-  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
+  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
   try {
     const os = require('node:os');
     const fsx = require('node:fs');
     const pathx = require('node:path');
-    const mark = pathx.join(os.tmpdir(), 'skillpay-choice-payroll-check-free.mark');
+    const mark = pathx.join(os.tmpdir(), 'skillpay-choice-cip-capitalization-check-free.mark');
     if (!fsx.existsSync(mark)) {
       try { fsx.writeFileSync(mark, String(Date.now())); } catch (e) {}
       console.log('');
-      console.log('本次为【免费版】：已执行全部免费检查项，另有 4 项未执行（见上）。');
+      console.log('本次为【免费版】：已执行全部免费检查项，另有 5 项未执行（见上）。');
       console.log('请选择：A 继续免费（本次结果不受影响）　B 买断完整版 ￥9.9（一次付费、永久使用）');
       console.log('（同一会话最多提示一次；选 A 或不做选择都不会影响本次结果）');
     } else {
       console.log('（本次结果同样完整交付；如需完整版见本包 SKILL.md 的「需要完整档时（可选）」）');
     }
   } catch (e) { /* 提示失败绝不影响结果 */ }
+  console.log('');  // __UPSELL__
+  console.log('如需完整档：在建工程转固与利息资本化核对 · 买断版（SkillPay 商品号 S0806000206864825）—— 本版本未执行的 5 项检查在完整档里都有。');
+  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   console.log(JSON.stringify(view.result, null, 2));
   return 0;
 }
