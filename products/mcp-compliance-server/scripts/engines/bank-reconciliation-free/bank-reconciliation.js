@@ -28,7 +28,7 @@ const CHECKS_GIVEN = [
 const CHECKS_WITHHELD = [
   '可疑配对（金额相近但不相等，差在容差内）',
   '疑似跨期未达（另一侧有同金额记录，但日期超出匹配窗口）',
-  '对账恒等式校验（银行合计 − 账面合计 = 银行未达 − 账面未达）',
+  '对账恒等式分析（成立性结论与口径诊断；防误读自检免费档也有）',
   '自定义匹配窗口与金额容差（dayWindow / toleranceAbs）',
 ];
 
@@ -215,9 +215,7 @@ function analyze(bank, book) {
     `银行流水 ${bank.length} 笔（合计 ${bankSum}）、企业账面 ${book.length} 笔（合计 ${bookSum}）：`
     + `成功配对 ${pairs.length} 对，银行侧未达 ${unmatchedBank.length} 笔（合计 ${unmatchedBankSum}）、`
     + `账面侧未达 ${unmatchedBook.length} 笔（合计 ${unmatchedBookSum}）。`,
-    identityOk
-      ? '对账恒等式成立（银行合计 − 账面合计 = 银行未达 − 账面未达），上面的未达账项清单可以直接拿去逐笔核。'
-      : '对账恒等式不成立，请先核对两侧每一笔是否都被正确读出。',
+    '上面的配对表与未达账项清单可以直接拿去逐笔核。',
     pairs.slice(0, 6).map((p) =>
       `${p.bank.dateText} ${p.bank.amount} ${p.bank.memo} ↔ ${p.book.dateText} ${p.book.amount} ${p.book.memo}`)));
 
@@ -260,7 +258,6 @@ function analyze(bank, book) {
     matched: pairs.length,
     unmatched_bank: unmatchedBank.length, unmatched_book: unmatchedBook.length,
     unmatched_bank_sum: unmatchedBankSum, unmatched_book_sum: unmatchedBookSum,
-    identity_ok: identityOk,
   };
   pairs.forEach((p) => {
     p.bank = { date: p.bank.dateText, amount: p.bank.amount, memo: p.bank.memo };
