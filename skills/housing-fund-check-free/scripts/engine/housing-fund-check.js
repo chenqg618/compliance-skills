@@ -7,19 +7,25 @@
  *   ① 单位月缴存额 = 缴存基数 × 单位比例
  *   ② 个人月缴存额 = 缴存基数 × 个人比例
  *   ③ 缴存合计     = 单位月缴存额 + 个人月缴存额
- * 再加上：基数必须落在当地上下限之内、比例必须取允许的整数档、
- * 新增/离职人员的缴存月份要对应、有断缴的月份影响连续性、
- * 表内的公积金口径还要与工资表应缴口径一致。
+ * 再加上：基数要落在当地上下限内、比例要取允许的整数档、新增/离职人员的缴存月份要对应、
+ * 有断缴的月份影响连续性、表内的公积金口径还要与工资表应缴口径一致。
  * 基数用错、比例不合法、离职人员多缴漏缴、单位与个人合计对不上，
  * 都是**每个月都在发生的钱与合规风险**；纯算术，但人一多、月份一多，人眼极易错。
  *
  * 与已有能力的区别：`social-insurance-check` 核的是**社保**申报明细（养老/医疗/失业/工伤/生育
  * 各自的单位与个人部分）。社保与公积金是**两套独立系统**：基数上下限各自定、比例各自定、
  * 汇缴渠道也不同。本能力**只核住房公积金**，不看社保任何一个险种。
- *
+ * * ⚠️ 本文件是 **免费档子集**：只实现免费检查项；**完整档（付费）的实现不在这个包里**。
+ * `CHECKS_WITHHELD` 只是"未执行的检查项"的**说明文本**，不是实现。
+
  * 契约：run(payload) -> {status:'success',result} | {status:'insufficient_input',missing,advice}
  * 刻意不做：不联网、不查政策文库、不调用大模型；**不给法律/合规意见**；
  * 材料不足时不给结论（绝不输出"未发现问题"）。
+ *
+ * ⚠️ 本文件的结构**有硬约束**（tools/strip_free_engine.py 依赖它）：
+ *    下面那行「完整档（付费）才执行的检查」MARKER 之前只放**共享件**（常量、解析、归一化、免费档检查）；
+ *    付费实现全部放在 MARKER 与 `function run(` 之间。
+ *    共享件若被放进付费区，剥离器会先删掉它们，再连锁删掉所有引用它们的函数（实测踩过）。
  */
 'use strict';
 
@@ -69,9 +75,12 @@ const SAMPLE_TEXT = [
   '合计\t\t\t\t\t\t7310.00\t7310.00\t14620.00\t\t\t\t\t\t7310.00\t7310.00\t\t',
 ].join('\n');
 
+/* ============================== 共享件（免费档也要用） ============================== */
+
 const TOL = 0.01;              // 金额容差（分）
 const PCT_TOL = 0.02;          // 比例百分数容差（比例保留两位小数）
 const AMOUNT_CENTS = (n) => Math.round(n * 100);
+const round2 = (n) => Math.round(n * 100) / 100;
 
 /** 允许的公积金缴存比例整数档（元以下不取）。表内没给「比例档位」时不判这一项。 */
 const ALLOWED_RATE_STEPS = [5, 6, 7, 8, 9, 10, 11, 12];
@@ -83,7 +92,7 @@ const ALLOWED_RATE_STEPS = [5, 6, 7, 8, 9, 10, 11, 12];
 //      · 「基数下限」「缴存基数下限」必须排在「缴存基数」之前（否则被 base 抢走）；
 //      · 「新增月份」「离职月份」必须排在「月份」之前（否则被 period 抢走）；
 //      · 「工资单位缴存额」必须排在「单位月缴存额」之前，「工资个人缴存额」同理；
-//      · 「比例档位」必须排在「比例」之前（本引擎没有单列「比例」，但别名要防）。
+//      · 「比例档位」必须排在「比例」之前（本引擎没有单列「比例」的别名，但顺序要防）。
 const ROLES = {
   baseMin: ['基数下限', '缴存基数下限', '下限'],
   baseMax: ['基数上限', '缴存基数上限', '上限'],
@@ -115,22 +124,10 @@ const LABELS = {
 };
 
 const REQUIRED = ['period', 'name', 'base', 'unitRate', 'personRate', 'unitAmt', 'personAmt', 'totalAmt'];
+/* 合计行要逐列复核的列：单位、个人、缴存合计三列。
+   ⚠️ 工资口径两列**不进**这个清单 —— 它们是"每人各自的工资表口径数"，
+   首行那两格不是公司合计，拿它跟各人之和比会整片误报（实测踩过）。 */
 const SUM_ROLES = ['unitAmt', 'personAmt', 'totalAmt'];
-
-/* ===== 以下为完整档（付费）才执行的检查 ===== */
-
-/** 公积金口径 vs 工资表口径：两条口径都算出来，差异按行（人·月）列出 */
-const PAID_CATEGORIES = [
-  '缴存基数低于下限',
-  '缴存基数超过上限',
-  '缴存比例不在允许档',
-  '缴存比例与表内档位不符',
-  '单位与个人缴存比例不一致',
-  '新增 / 离职月份应在职区间不符',
-  '区间内存在断缴月份',
-  '与工资表应缴口径差异（个人部分）',
-  '与工资表应缴口径差异（单位部分）',
-];
 
 function insufficient(missing) {
   return {
@@ -165,20 +162,17 @@ function normNumber(raw) {
   return Number.isFinite(n) ? n : null;
 }
 
-const round2 = (n) => Math.round(n * 100) / 100;
-
 /** 期间归一：'2026-3' / '2026/3' / '2026年3月' -> '2026-03'；认不出返回 null */
 function normMonth(raw) {
   if (isBlank(raw)) return null;
-  const s = String(raw).trim();
-  const m = s.match(/^(\d{4})\s*[-/年.]\s*(\d{1,2})/);
+  const m = String(raw).trim().match(/^(\d{4})\s*[-/年.]\s*(\d{1,2})/);
   if (!m) return null;
   const mm = Number(m[2]);
   if (!(mm >= 1 && mm <= 12)) return null;
   return `${m[1]}-${String(mm).padStart(2, '0')}`;
 }
 
-/** 比例归一：'12%' -> 12；认不出返回 null */
+/** 比例归一：'12%' -> 12；'0.12' -> 12；认不出返回 null */
 function normRate(raw) {
   const n = normNumber(raw);
   if (n === null) return null;
@@ -186,13 +180,6 @@ function normRate(raw) {
 }
 
 /** 月序号（用于比较先后）：'2026-03' -> 2026*12+2；认不出返回 null */
-function monthIndex(mon) {
-  if (!mon) return null;
-  const [y, m] = String(mon).split('-').map(Number);
-  if (!y || !m) return null;
-  return y * 12 + (m - 1);
-}
-
 function parseTable(text) {
   const raw = String(text).split(/\r?\n/).filter((l) => l.trim() !== '');
   if (!raw.length) return { error: 'empty' };
@@ -235,7 +222,7 @@ const keyOf = (it) => {
   return id || String(it.byRole.name || '').trim();
 };
 
-/* -------------------- 免费档检查（7 项） -------------------- */
+/* ============================== 免费档检查（7 项） ============================== */
 
 function checkUnitAmount(it) {
   const base = num(it, 'base');
@@ -323,8 +310,8 @@ function checkDuplicates(items) {
         level: 'P1', category: '同一期间重复人员', line: it.line,
         subject: tag(it), amount: null, person: String(it.byRole.name || '').trim(),
         message: `${who(it)}与第 ${seen.get(merged)} 行是同一期间（${mon}）的同一职工（${key}）：`
-          + '一个人头出现两次，单位和个人两侧都会按两倍汇缴。',
-        advice: '同一个月内一个人只能有一行；分档缴存的请按政策分行并注明，不要同一行头重复出现。',
+          + '一个人头出现两次，单位与个人两侧都会按两倍汇缴。',
+        advice: '同一个月内一个人只能有一行；分档缴存的请分列并注明，不要让同一人头重复出现。',
       });
     } else {
       seen.set(merged, it.line);
@@ -358,14 +345,15 @@ function checkNegatives(items) {
   const out = [];
   for (const it of items) {
     for (const role of ['base', 'unitAmt', 'personAmt', 'totalAmt', 'unitRate', 'personRate']) {
-      const v = role === 'unitRate' || role === 'personRate' ? normRate(it.byRole[role]) : num(it, role);
+      const isRate = role === 'unitRate' || role === 'personRate';
+      const v = isRate ? normRate(it.byRole[role]) : num(it, role);
       if (v !== null && v < 0) {
         out.push({
           level: 'P0', category: '关键字段为负数', line: it.line,
           subject: `${tag(it)}「${LABELS[role]}」`, amount: null, role,
           person: String(it.byRole.name || '').trim(),
           message: `${who(it)}的「${LABELS[role]}」是 ${v}。`,
-          advice: '基数、比例、缴存额都不会是负数；出现负值通常是粘贴时带进了减号或把冲销行混进了本期。',
+          advice: '基数、比例、缴存额都不会是负数；出现负值通常是粘贴时带进了减号，或把冲销行混进了本期。',
         });
       }
     }
@@ -391,279 +379,6 @@ function checkBaseRange(items) {
   return out;
 }
 
-/* -------------------- 完整档（付费）检查 -------------------- */
-
-/** 超出上下限的基准值：低于下限取下限，高于上限取上限，否则取原值 */
-function clampedBase(it) {
-  const base = num(it, 'base');
-  const min = num(it, 'baseMin');
-  const max = num(it, 'baseMax');
-  if (base === null) return null;
-  let v = base;
-  if (min !== null && base < min - TOL) v = min;
-  if (max !== null && base > max + TOL) v = max;
-  return round2(v);
-}
-
-function checkBaseBelowMin(it) {
-  const base = num(it, 'base');
-  const min = num(it, 'baseMin');
-  if (base === null || min === null) return null;
-  if (!(base < min - TOL)) return null;
-  const fixed = round2(min);
-  const u = num(it, 'unitAmt');
-  const p = num(it, 'personAmt');
-  const uRate = normRate(it.byRole.unitRate);
-  const pRate = normRate(it.byRole.personRate);
-  const expect = (amount, rate) => (amount === null || rate === null ? null : round2(fixed * rate / 100));
-  const uExpect = expect(u, uRate);
-  const pExpect = expect(p, pRate);
-  const diff = (u === null || uExpect === null ? 0 : round2(uExpect - u))
-    + (p === null || pExpect === null ? 0 : round2(pExpect - p));
-  return {
-    level: 'P0', category: '缴存基数低于下限', line: it.line,
-    subject: tag(it), person: String(it.byRole.name || '').trim(),
-    base, base_limit: fixed, adjust_base: fixed, amount: diff,
-    unit_amount: u, unit_expected: uExpect, person_amount: p, person_expected: pExpect, rate_step: uRate,
-    message: `${who(it)}的缴存基数是 ${base.toFixed(2)}，低于表内给定的基数下限 ${min.toFixed(2)}；`
-      + `应调整基数为 ${fixed.toFixed(2)}：按同比例复算 单位 ${uExpect === null ? '(比例或金额缺失，算不出)' : uExpect.toFixed(2)}`
-      + ` / 个人 ${pExpect === null ? '(比例或金额缺失，算不出)' : pExpect.toFixed(2)}；`
-      + `与原缴存额相比，月差额合计 ${diff.toFixed(2)}（正数=应补缴，负数=多缴）。`,
-    advice: '基数低于下限属于少缴：按政策允许的档位把基数抬到下限（或补足差额），并确认补缴月份。',
-  };
-}
-
-function checkBaseAboveMax(it) {
-  const base = num(it, 'base');
-  const max = num(it, 'baseMax');
-  if (base === null || max === null) return null;
-  if (!(base > max + TOL)) return null;
-  const fixed = round2(max);
-  const u = num(it, 'unitAmt');
-  const p = num(it, 'personAmt');
-  const uRate = normRate(it.byRole.unitRate);
-  const pRate = normRate(it.byRole.personRate);
-  const expect = (amount, rate) => (amount === null || rate === null ? null : round2(fixed * rate / 100));
-  const uExpect = expect(u, uRate);
-  const pExpect = expect(p, pRate);
-  const diff = (u === null || uExpect === null ? 0 : round2(uExpect - u))
-    + (p === null || pExpect === null ? 0 : round2(pExpect - p));
-  return {
-    level: 'P0', category: '缴存基数超过上限', line: it.line,
-    subject: tag(it), person: String(it.byRole.name || '').trim(),
-    base, base_limit: fixed, adjust_base: fixed, amount: diff,
-    unit_amount: u, unit_expected: uExpect, person_amount: p, person_expected: pExpect, rate_step: uRate,
-    message: `${who(it)}的缴存基数是 ${base.toFixed(2)}，高于表内给定的基数上限 ${max.toFixed(2)}；`
-      + `应调整基数为 ${fixed.toFixed(2)}：按同比例复算 单位 ${uExpect === null ? '(比例或金额缺失，算不出)' : uExpect.toFixed(2)}`
-      + ` / 个人 ${pExpect === null ? '(比例或金额缺失，算不出)' : pExpect.toFixed(2)}；`
-      + `与原缴存额相比，月差额合计 ${diff.toFixed(2)}（负数=多缴，应退或冲抵下期）。`,
-    advice: '基数超过上限属于多缴：把基数压回上限，多缴部分按规定办理退缴或冲抵下期汇缴。',
-  };
-}
-
-function checkRateStep(it) {
-  const out = [];
-  for (const [role, label2] of [['unitRate', '单位比例'], ['personRate', '个人比例']]) {
-    const r = normRate(it.byRole[role]);
-    if (r === null) continue;
-    if (ALLOWED_RATE_STEPS.some((s) => Math.abs(s - r) <= PCT_TOL)) continue;
-    const nearest = ALLOWED_RATE_STEPS.reduce((a, b) => (Math.abs(b - r) < Math.abs(a - r) ? b : a));
-    out.push({
-      level: 'P0', category: '缴存比例不在允许档', line: it.line,
-      subject: `${tag(it)}「${label2}」`, person: String(it.byRole.name || '').trim(),
-      amount: null, rate: r, nearest_step: nearest,
-      message: `${who(it)}的「${label2}」是 ${r}%，不在允许的整数档`
-        + `（${ALLOWED_RATE_STEPS.join(' / ')}%，以表内给定口径为准）之内；最接近的合法档是 ${nearest}%。`,
-      advice: '比例只能取政策允许的整数档；比例一走偏，单位、个人、合计三笔金额都会跟着走偏。',
-    });
-  }
-  return out;
-}
-
-function checkRateMatchesStep(it) {
-  const stated = normRate(it.byRole.rateStep);
-  if (stated === null) return null;
-  for (const [role, label2] of [['unitRate', '单位比例'], ['personRate', '个人比例']]) {
-    const r = normRate(it.byRole[role]);
-    if (r === null) continue;
-    if (Math.abs(r - stated) <= PCT_TOL) continue;
-    return {
-      level: 'P1', category: '缴存比例与表内档位不符', line: it.line,
-      subject: `${tag(it)}「${label2}」`, person: String(it.byRole.name || '').trim(),
-      amount: null, rate: r, rate_step: stated,
-      message: `${who(it)}的「${label2}」是 ${r}%，与表内给出的比例档位 ${stated}% 不符。`,
-      advice: '比例档位是这张表的表内口径；要么档位填错、要么比例用错了档，两列必须一致才谈得上"按档执行"。',
-    };
-  }
-  return null;
-}
-
-function checkRateParity(it) {
-  const u = normRate(it.byRole.unitRate);
-  const p = normRate(it.byRole.personRate);
-  if (u === null || p === null) return null;
-  if (Math.abs(u - p) <= PCT_TOL) return null;
-  return {
-    level: 'P1', category: '单位与个人缴存比例不一致', line: it.line,
-    subject: tag(it), person: String(it.byRole.name || '').trim(),
-    amount: null, unit_rate: u, person_rate: p,
-    message: `${who(it)}的单位比例是 ${u}%、个人比例是 ${p}%：不一致（本口径下两栏应当同档同值）。`,
-    advice: '若当地确实允许两者取不同档，请在备注里写明依据；否则请改成同一档。',
-  };
-}
-
-function wageGap(it, wageRole, actualRole, label2) {
-  const wage = num(it, wageRole);
-  const actual = num(it, actualRole);
-  if (wage === null || actual === null) return null;
-  if (AMOUNT_CENTS(wage) === AMOUNT_CENTS(actual)) return null;
-  const diff = round2(actual - wage);
-  return {
-    level: 'P1', category: `与工资表应缴口径差异（${label2}）`, line: it.line,
-    subject: tag(it), person: String(it.byRole.name || '').trim(),
-    amount: diff, wage_amount: wage, fund_amount: actual,
-    message: `${who(it)}的${label2}：工资表口径是 ${wage.toFixed(2)}，公积金汇缴口径是 ${actual.toFixed(2)}，`
-      + `相差 ${diff.toFixed(2)}（正数=公积金侧多缴）。`,
-    advice: '两个口径必须同源：要么工资表代扣数没跟着基数/比例更新，要么公积金表改了但工资表没同步。',
-  };
-}
-
-function checkWagePersonDiff(it) {
-  return wageGap(it, 'wagePerson', 'personAmt', '个人部分');
-}
-
-function checkWageUnitDiff(it) {
-  return wageGap(it, 'wageUnit', 'unitAmt', '单位部分');
-}
-
-function checkJoinLeaveMonths(it) {
-  const out = [];
-  const pIdx = monthIndex(normMonth(it.byRole.period));
-  if (pIdx === null) return out;
-  const joinIdx = monthIndex(normMonth(it.byRole.joinMonth));
-  const leaveIdx = monthIndex(normMonth(it.byRole.leaveMonth));
-  const amt = num(it, 'totalAmt');
-  const person = String(it.byRole.name || '').trim();
-  const fmt = (idx) => `${Math.floor(idx / 12)}-${String((idx % 12) + 1).padStart(2, '0')}`;
-  const periodTxt = normMonth(it.byRole.period);
-  if (joinIdx !== null && joinIdx > pIdx) {
-    out.push({
-      level: 'P0', category: '新增 / 离职月份应在职区间不符', line: it.line,
-      subject: tag(it), person, amount: amt,
-      kind: '早缴', period: periodTxt,
-      message: `${who(it)}标为新增，但新增月份是 ${fmt(joinIdx)}，晚于本期 ${periodTxt}：`
-        + `本期本不应缴（已列缴存合计 ${amt === null ? '(缺失)' : amt.toFixed(2)}）。`,
-      advice: '新增人员从入职当月起缴（各地口径不同，请以表内区间为准）：本期多列的这笔要么删行、要么改成补缴月份行。',
-    });
-  }
-  if (leaveIdx !== null && leaveIdx < pIdx) {
-    out.push({
-      level: 'P0', category: '新增 / 离职月份应在职区间不符', line: it.line,
-      subject: tag(it), person, amount: amt,
-      kind: '多缴', period: periodTxt,
-      message: `${who(it)}标为离职，但离职月份是 ${fmt(leaveIdx)}，早于本期 ${periodTxt}：`
-        + `本期本不应缴（已列缴存合计 ${amt === null ? '(缺失)' : amt.toFixed(2)}）。`,
-      advice: '离职人员应在离职当月缴足后停止汇缴：本期这一行属于离职后多缴，应办理退缴或冲抵。',
-    });
-  }
-  return out;
-}
-
-/** 断缴：把每个人的缴存月份与表内整体区间对比，缺的月份就是断缴月 */
-function checkGapMonths(items) {
-  const all = new Set();
-  for (const it of items) {
-    const m = normMonth(it.byRole.period);
-    if (m) all.add(m);
-  }
-  const sorted = [...all].sort();
-  if (sorted.length < 2) return [];
-  const lo = monthIndex(sorted[0]);
-  const hi = monthIndex(sorted[sorted.length - 1]);
-  const perPerson = new Map();
-  for (const it of items) {
-    const key = keyOf(it);
-    const m = normMonth(it.byRole.period);
-    if (!key || !m) continue;
-    if (!perPerson.has(key)) perPerson.set(key, { months: new Set(), lines: [] });
-    const rec = perPerson.get(key);
-    rec.months.add(m);
-    rec.lines.push(it.line);
-  }
-  const out = [];
-  for (const [key, rec] of perPerson) {
-    const missing = [];
-    for (let i = lo; i <= hi; i += 1) {
-      const mon = `${Math.floor(i / 12)}-${String((i % 12) + 1).padStart(2, '0')}`;
-      if (!rec.months.has(mon)) missing.push(mon);
-    }
-    if (!missing.length) continue;
-    out.push({
-      level: 'P1', category: '区间内存在断缴月份', line: rec.lines[0],
-      subject: `${key}`, person: key, amount: null, months: missing,
-      message: `${key}在第 ${rec.lines.join('、')} 行出现，缴存月份为 ${[...rec.months].sort().join('、')}；`
-        + `表内整体区间是 ${sorted[0]} ~ ${sorted[sorted.length - 1]}，其中 ${missing.join('、')} 没有缴存记录（断缴）。`,
-      advice: '断缴影响连续性：确认是当月漏缴（应补缴）还是离职后停缴（应在表内注明离职月份）。',
-    });
-  }
-  return out;
-}
-
-const ACTION_BY_CATEGORY = {
-  缴存基数低于下限: '按表内下限调整基数并补缴差额（补缴月份见备注）',
-  缴存基数超过上限: '把基数压回上限，多缴部分办理退缴或冲抵下期',
-  '缴存基数超出表内上下限': '按表内上下限调整基数后重新复算',
-  缴存比例不在允许档: '改用允许的整数档重算，并同步更新单位与个人两栏',
-  缴存比例与表内档位不符: '让比例与表内档位一致（两者只能有一个是对的）',
-  单位与个人缴存比例不一致: '确认当地是否允许两者不同档；不允许则改成同档',
-  '新增 / 离职月份应在职区间不符': '删除本期多列的行，或改列为补缴/退缴月份行',
-  区间内存在断缴月份: '确认漏缴月份并办理补缴，或在表内补记离职月份',
-  与工资表应缴口径差异: '把工资表代扣数同步到与基数、比例一致的口径',
-};
-
-function actionOf(category) {
-  if (ACTION_BY_CATEGORY[category]) return ACTION_BY_CATEGORY[category];
-  if (category.indexOf('与工资表应缴口径差异') === 0) return ACTION_BY_CATEGORY['与工资表应缴口径差异'];
-  return '按表内口径重新复算这一行';
-}
-
-const ACTION_LEVELS = new Set(['P0', 'P1']);
-
-/** 补退处理清单：只收"能算出金额或能定位人月"的结论，按金额从大到小排（金额待定的排最后） */
-function buildActions(findings) {
-  const rows = findings.filter((f) => ACTION_LEVELS.has(f.level)
-    && (ACTION_BY_CATEGORY[f.category] || f.category.indexOf('与工资表应缴口径差异') === 0));
-  return rows.map((f) => ({
-    level: f.level,
-    category: f.category,
-    line: f.line,
-    subject: f.subject,
-    person: f.person,
-    period: f.period || null,
-    months: f.months || null,
-    amount: f.amount === undefined ? null : f.amount,
-    adjust_base: f.adjust_base === undefined ? null : f.adjust_base,
-    base: f.base === undefined ? null : f.base,
-    base_limit: f.base_limit === undefined ? null : f.base_limit,
-    unit_amount: f.unit_amount === undefined ? null : f.unit_amount,
-    unit_expected: f.unit_expected === undefined ? null : f.unit_expected,
-    person_amount: f.person_amount === undefined ? null : f.person_amount,
-    person_expected: f.person_expected === undefined ? null : f.person_expected,
-    rate: f.rate === undefined ? null : f.rate,
-    nearest_step: f.nearest_step === undefined ? null : f.nearest_step,
-    message: f.message,
-    action: actionOf(f.category),
-  })).sort((a, b) => {
-    const an = a.amount === null ? null : Math.abs(a.amount);
-    const bn = b.amount === null ? null : Math.abs(b.amount);
-    if (an === null && bn === null) return a.line - b.line;
-    if (an === null) return 1;
-    if (bn === null) return -1;
-    if (bn !== an) return bn - an;
-    return a.line - b.line;
-  });
-}
-
 function run(payload) {
   const text = (payload && (payload.text || payload.content)) || '';
   if (!String(text).trim()) return insufficient(['原文（text）']);
@@ -680,10 +395,10 @@ function run(payload) {
   }
   if (!t.items.length) return insufficient(['至少一行的职工缴存明细（只有表头或只有合计行时不做任何认定）']);
 
-  const paid = Boolean(payload && (payload.full || payload.credit || payload.token));
   const findings = [];
   const notRun = [];
 
+  /* 免费档：逐人复算 + 合计勾稽 + 重复 / 空缺 / 负数 / 超上下限 */
   for (const it of t.items) {
     const a = checkUnitAmount(it); if (a) findings.push(a);
     const b = checkPersonAmount(it); if (b) findings.push(b);
@@ -698,22 +413,8 @@ function run(payload) {
   for (const f of checkBaseRange(t.items)) findings.push(f);
 
   let actions = [];
-  if (paid) {
-    for (const it of t.items) {
-      const a = checkBaseBelowMin(it); if (a) findings.push(a);
-      const b = checkBaseAboveMax(it); if (b) findings.push(b);
-      for (const f of checkRateStep(it)) findings.push(f);
-      const d = checkRateMatchesStep(it); if (d) findings.push(d);
-      const e = checkRateParity(it); if (e) findings.push(e);
-      for (const f of checkJoinLeaveMonths(it)) findings.push(f);
-      const g = checkWagePersonDiff(it); if (g) findings.push(g);
-      const h = checkWageUnitDiff(it); if (h) findings.push(h);
-    }
-    for (const f of checkGapMonths(t.items)) findings.push(f);
-    actions = buildActions(findings);
-  } else {
     notRun.push.apply(notRun, CHECKS_WITHHELD);
-  }
+  
 
   findings.sort((x, y) => (x.line - y.line) || String(x.category).localeCompare(String(y.category)));
   const sumOf = (role) => round2(t.items.reduce((s, it) => {
@@ -722,9 +423,13 @@ function run(payload) {
   }, 0));
   const bases = t.items.map((it) => num(it, 'base')).filter((v) => v !== null);
   const periods = [...new Set(t.items.map((it) => normMonth(it.byRole.period)).filter(Boolean))].sort();
-  const adjustable = paid
-    ? findings.filter((f) => f.adjust_base !== undefined && f.adjust_base !== null)
-    : [];
+  /* 免费档没有"调整基数"这类结论 ⇒ 这个计数天然是 0，不是漏算 */
+  const adjustable = findings.filter((f) => f.adjust_base !== undefined && f.adjust_base !== null);
+  /* 补退处理清单只有完整档才产出；免费档如实为 null（"这类交付物本档没有"，不是 0 条）。
+     ⚠️ 这里必须写成**带大括号的付费分支**，不要写多行三元：剥离器只认大括号分支与单行三元。 */
+  let actionScope = null;
+  let baseAdjustAmount = null;
+
 
   const result = {
     findings,
@@ -745,14 +450,14 @@ function run(payload) {
     columns: t.cols.map((c) => c.header),
     checks_given: CHECKS_GIVEN,
     checks_withheld: CHECKS_WITHHELD,
-    checks_executed: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
+    checks_executed: CHECKS_GIVEN,
     checks_out_of_scope: OUT_OF_SCOPE,
     scope: {
       rows: t.items.length,
       periods,
       total_rows: t.totals.length,
-      checks: paid ? CHECKS_GIVEN.concat(CHECKS_WITHHELD) : CHECKS_GIVEN,
-      checks_not_run: paid ? [] : CHECKS_WITHHELD.slice(),
+      checks: CHECKS_GIVEN,
+      checks_not_run: CHECKS_WITHHELD.slice(),
       base_limit_column: t.cols.some((c) => c.role === 'baseMin') && t.cols.some((c) => c.role === 'baseMax'),
       rate_step_column: t.cols.some((c) => c.role === 'rateStep'),
       wage_column: t.cols.some((c) => c.role === 'wageUnit' || c.role === 'wagePerson'),
@@ -761,12 +466,8 @@ function run(payload) {
       person_total: sumOf('personAmt'),
       grand_total: sumOf('totalAmt'),
       base_adjusted_rows: adjustable.length,
-      base_adjust_amount: paid ? round2(adjustable.reduce((s, f) => s + (f.amount || 0), 0)) : null,
-      actions: paid ? {
-        count: actions.length,
-        amount_total: round2(actions.reduce((s, a) => s + (a.amount === null ? 0 : a.amount), 0)),
-        unknown_amount_count: actions.filter((a) => a.amount === null).length,
-      } : null,
+      base_adjust_amount: baseAdjustAmount,
+      actions: actionScope,
     },
   };
   if (actions.length) result.actions = actions;
@@ -780,7 +481,5 @@ function run(payload) {
 }
 
 module.exports = {
-  run, parseTable, splitRow, roleOf, normNumber, normMonth, normRate, monthIndex, isBlank, round2,
-  CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT,
-  LABELS, ROLES, REQUIRED, SUM_ROLES, ALLOWED_RATE_STEPS, PAID_CATEGORIES,
+  run, parseTable, splitRow, roleOf, normNumber, normMonth, normRate, isBlank, round2, CHECKS_GIVEN, CHECKS_WITHHELD, CHECKS_OUT_OF_SCOPE: OUT_OF_SCOPE, SAMPLE_TEXT, LABELS, ROLES, REQUIRED, SUM_ROLES, ALLOWED_RATE_STEPS,
 };
