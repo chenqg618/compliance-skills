@@ -194,8 +194,7 @@ function main() {
   console.log('执行方式：本机 Node 标准库，不联网、不外发材料、没有次数上限');
   if (loaded && loaded.note) console.log(`（${loaded.note}）`);
   console.log('');
-  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html');
-  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
+  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html');  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
   try {
     const os = require('node:os');
     const fsx = require('node:fs');
@@ -204,7 +203,7 @@ function main() {
     if (!fsx.existsSync(mark)) {
       try { fsx.writeFileSync(mark, String(Date.now())); } catch (e) {}
       console.log('');
-      console.log(`本次为【免费版】：已执行全部 ${view.checks_given.length} 项复算检查，另有 ${view.checks_withheld.length} 项未执行（见上）。`);
+      console.log('本次为【免费版】：已执行全部免费检查项，另有 5 项未执行（见上）。');
       console.log('请选择：A 继续免费（本次结果不受影响）　B 买断完整版 ￥9.9（一次付费、永久使用）');
       console.log('（同一会话最多提示一次；选 A 或不做选择都不会影响本次结果）');
     } else {
