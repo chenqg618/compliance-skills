@@ -211,10 +211,11 @@ function main() {
       console.log('（本次结果同样完整交付；如需完整版见本包 SKILL.md 的「需要完整档时（可选）」）');
     }
   } catch (e) { /* 提示失败绝不影响结果 */ }
-  console.log('');  // __UPSELL__
-  console.log('如需完整档：房产税与城镇土地使用税申报核对 · 买断版（SkillPay 商品号 S0806000206861575）—— 本版本未执行的 4 项检查在完整档里都有。');
   console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   console.log(JSON.stringify(view.result, null, 2));
+  console.log('');  // __UPSELL__
+  console.log('如需完整档：房产税与城镇土地使用税申报核对 · 买断版（SkillPay 商品号 S0806000206864821）—— 本版本未执行的 4 项检查在完整档里都有。');
+  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   return 0;
 }
 
