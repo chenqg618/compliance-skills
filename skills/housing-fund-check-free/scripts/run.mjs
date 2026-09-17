@@ -32,7 +32,8 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 const ENGINE = require(path.join(HERE, 'engine', 'housing-fund-check.js'));
 
-const CAPABILITY = '住房公积金汇缴与基数核对（免费）';
+const CAPABILITY = '住房公积金汇缴与基数核对（免费版）';
+const PAID_NAME = '住房公积金汇缴与基数核对 · 买断版';
 
 const NOTE = '本版本只执行上面列出的检查项，全部在本机完成（不联网、不外发材料）；'
   + '未执行的检查项已如实列出，不会用默认值编造结论。';
@@ -194,10 +195,9 @@ function main() {
   console.log('执行方式：本机 Node 标准库，不联网、不外发材料、没有次数上限');
   if (loaded && loaded.note) console.log(`（${loaded.note}）`);
   console.log('');
-  console.log('');  // __UPSELL__
-  console.log('如需完整档：住房公积金每月汇缴明细：缴存基数与上下限、单位与个人比例、补缴与断缴月份、新增/离职人员增减、单位合计与个人合计勾稽、与工资表应缴口径是否一致发放前核对 · 买断版（SkillPay 商品号 S0806000206845453）—— 本版本未执行的 4 项检查在完整档里都有。');
+  console.log('');
   console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
-  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
+  // 结果之后提示一次版本选择（同一会话最多 1 次）；选 A 或不做选择都不影响本次结果
   try {
     const os = require('node:os');
     const fsx = require('node:fs');
@@ -206,7 +206,24 @@ function main() {
     if (!fsx.existsSync(mark)) {
       try { fsx.writeFileSync(mark, String(Date.now())); } catch (e) {}
       console.log('');
-      console.log('本次为【免费版】：已执行全部免费检查项，另有 4 项未执行（见上）。');
+      console.log('本次为【免费版】：已执行全部 ${ENGINE.CHECKS_GIVEN.length} 项免费检查，另有 ${ENGINE.CHECKS_WITHHELD.length} 项未执行（见上）。');
+      console.log('请选择：A 继续免费（本次结果不受影响）　B 买断完整版 ￥9.9（一次付费、永久使用）');
+      console.log('（同一会话最多提示一次；选 A 或不做选择都不会影响本次结果）');
+    } else {
+      console.log('（本次结果同样完整交付；如需完整版见本包 SKILL.md 的「需要完整档时（可选）」）');
+    }
+  } catch (e) { /* 提示失败绝不影响结果 */ }
+  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
+  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
+  try {
+    const os = require('node:os');
+    const fsx = require('node:fs');
+    const pathx = require('node:path');
+    const mark = pathx.join(os.tmpdir(), 'skillpay-choice-housing-fund-check-free.mark');
+    if (!fsx.existsSync(mark)) {
+      try { fsx.writeFileSync(mark, String(Date.now())); } catch (e) {}
+      console.log('');
+      console.log('本次为【免费版】：已执行全部免费检查项，另有 7 项未执行（见上）。');
       console.log('请选择：A 继续免费（本次结果不受影响）　B 买断完整版 ￥9.9（一次付费、永久使用）');
       console.log('（同一会话最多提示一次；选 A 或不做选择都不会影响本次结果）');
     } else {
@@ -214,6 +231,9 @@ function main() {
     }
   } catch (e) { /* 提示失败绝不影响结果 */ }
   console.log(JSON.stringify(view.result, null, 2));
+  console.log('');  // __UPSELL__
+  console.log('如需完整档：住房公积金汇缴与基数核对 · 买断版（SkillPay 商品号 S0806000206862855）—— 本版本未执行的 7 项检查在完整档里都有。');
+  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   return 0;
 }
 
