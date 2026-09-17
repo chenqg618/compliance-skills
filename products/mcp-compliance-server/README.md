@@ -1,6 +1,9 @@
-# compliance-mcp —— 机械核对型 MCP server（13 个工具，完全离线）
+# compliance-mcp —— 机械核对型 MCP server（全量工具、零依赖、完全离线）
 
-把 13 个**确定性**的文档核对能力暴露成 [MCP](https://modelcontextprotocol.io/) 工具，
+> **不想 clone 仓库？** 用官方发行版附件（打包好的 MCP server，零依赖）：<https://github.com/chenqg618/compliance-skills/releases/latest> 里的 `compliance-mcp.zip`，解压后 `node compliance-mcp/server.mjs --list` 直接看工具清单。
+
+
+把仓库里**全部免费核对能力**（当前数量见 `node server.mjs --list`）暴露成 [MCP](https://modelcontextprotocol.io/) 工具，
 任何支持 MCP 的 Agent（Claude Desktop / Cursor / 各类 Harness 等）都能直接调用：
 
 | 工具 | 做什么 |
@@ -82,7 +85,7 @@ node server.mjs        # 直接跑，stdin/stdout 上讲 JSON-RPC
 
 ## 可选：用已购额度跑完整版（付费）
 
-默认是**完全离线**的 13 个免费工具。如果你**已经购买过调用次数**，可以显式打开付费工具：
+默认是**完全离线**的全部免费工具（`--list` 看清单）。如果你**已经购买过调用次数**，可以显式打开付费工具：
 
 ```bash
 COMPLIANCE_MCP_ENABLE_API=1 node server.mjs
@@ -91,7 +94,7 @@ COMPLIANCE_MCP_ENABLE_API=1 node server.mjs
 打开后会多出一个 `run_full_check` 工具，入参 `{ capability, text, api_token }` ——
 `api_token` 就是付款后拿到的凭证（形如 `sk_…`）。它会用掉**一次已购额度**并返回完整版结论。
 
-- **只在你显式设置环境变量时才会出现**，也**只有它**会联网；13 个免费工具始终离线；
+- **只在你显式设置环境变量时才会出现**，也**只有它**会联网；免费工具始终离线；
 - **失败不扣额度**：材料不足、预检不过、业务出错都不会消耗你的次数（服务端负责退还）；
 - 另有 `COMPLIANCE_API_BASE`（换端点）与 `COMPLIANCE_MCP_API_TIMEOUT_MS`（默认 30 秒超时）两个可选环境变量。
 
@@ -110,7 +113,7 @@ COMPLIANCE_MCP_ENABLE_API=1 node server.mjs
 python3 tools/build_mcp_server.py
 python3 tools/build_mcp_server.py --check   # 只校验产物是否最新
 
-# 端到端测试：真起子进程、真发 JSON-RPC、13 个工具逐个真调
+# 端到端测试：真起子进程、真发 JSON-RPC、全部工具逐个真调
 node tools/mcp_server_test.mjs
 ```
 
