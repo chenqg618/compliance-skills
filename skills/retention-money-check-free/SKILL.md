@@ -1,7 +1,7 @@
 ---
 slug: retention-money-check-free
 displayName: 工程质量保证金扣留与退还核对（免费版）
-version: 1.0.3
+version: 1.0.4
 summary: 质保金台账逐项核对，本期扣留金额、保修期届满日、退还金额三条算式逐行复算，加上合计勾稽与重复/空缺检测，每条结论都带台账原文行号，不需要付款，也不需要注册。
 tags: [工程质量保证金,质保金,保修金,质保金退还,工程结算,核对,免费]
 license: Proprietary
@@ -92,6 +92,7 @@ node scripts/run.mjs --input 你的台账.json     # 跑自己的材料（{"text
 
 （完整档的商品名、商品号与官方购买指令见本文件「需要完整档时（可选）」一节。）
 
+
 ## 需要完整档时（可选）
 
 本免费版是**完整可用的核心产出**，本版本**不包含**下面这些项：
@@ -114,7 +115,7 @@ node scripts/run.mjs --input 你的台账.json     # 跑自己的材料（{"text
 请通过 SkillPay 购买并安装 Skill「工程质量保证金扣留与退还核对 · 买断版」。
 官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
 请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
-安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206864818。
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206862850。
 我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。
 ```
 
@@ -131,4 +132,3 @@ node scripts/run.mjs --input 你的台账.json     # 跑自己的材料（{"text
 - 质保金应退未退的排期与逾期天数计算
 - 质保金应退未退的可执行催办清单（含合同依据行号与建议动作）
 - 保修期未满即已退还（提前退还）检测
-
