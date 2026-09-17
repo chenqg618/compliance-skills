@@ -12,8 +12,8 @@
  *
  * 用法：
  *   node scripts/run.mjs --sample
- *   node scripts/run.mjs --input my-match.json
- *   node scripts/run.mjs --input my-match.json --json
+ *   node scripts/run.mjs --input my-ledger.json
+ *   node scripts/run.mjs --input my-ledger.json --json
  *
  * 退出码：
  *   0  已执行检查（结果里有问题项或没有问题项都算执行成功）
@@ -24,6 +24,7 @@
  */
 
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
@@ -33,11 +34,14 @@ const require = createRequire(import.meta.url);
 const ENGINE = require(path.join(HERE, 'engine', 'deferred-tax-check.js'));
 
 const CAPABILITY = '递延所得税与暂时性差异核对（免费）';
+const BUY_PAGE = 'https://chenqg618.github.io/compliance-skills/buy.html';
+const FULL_NAME = '递延所得税与暂时性差异核对 · 买断版';
+const WHAT = '递延所得税台账（项目、方向、账面价值、计税基础、暂时性差异、适用税率、期初/期末余额、本期变动）';
 
 const NOTE = '本版本只执行上面列出的检查项，全部在本机完成（不联网、不外发材料）；'
   + '未执行的检查项已如实列出，不会用默认值编造结论。';
 
-const SAMPLE = { text: ENGINE.SAMPLE_TEXT };   // 样例本身就是一张带表头的递延所得税台账：资产/负债账面价值与计税基础、可抵扣/应纳税暂时性差异、适用税率、递延所得税资产/负债余额与本期变动、可抵扣亏损与结转期、所得税费用与应交税费勾稽
+const SAMPLE = { text: ENGINE.SAMPLE_TEXT };
 
 const USAGE = `递延所得税与暂时性差异核对（免费） —— 本机执行的AI核对
 
@@ -47,14 +51,14 @@ const USAGE = `递延所得税与暂时性差异核对（免费） —— 本机
 
 用法：
   node scripts/run.mjs --sample
-  node scripts/run.mjs --input my-match.json
+  node scripts/run.mjs --input my-ledger.json
 
 入参写法：
-  · {"text":"（把你那张表的**表头**和若干行一起复制进来，Tab 分隔最稳）"}
-  · 直接把递延所得税台账：资产/负债账面价值与计税基础、可抵扣/应纳税暂时性差异、适用税率、递延所得税资产/负债余额与本期变动、可抵扣亏损与结转期、所得税费用与应交税费勾稽（**含表头**）从 Excel 复制成文本粘进来即可，Tab 分隔最稳
+  · {"text":"（把你那张表含表头的若干行一起复制进来，Tab 分隔最稳）"}
+  · 直接把递延所得税台账从 Excel 复制成文本粘进来即可，Tab 分隔最稳
 
 参数：
-  -i, --input    入参 JSON 文件路径（也接受直接粘贴的递延所得税台账：资产/负债账面价值与计税基础、可抵扣/应纳税暂时性差异、适用税率、递延所得税资产/负债余额与本期变动、可抵扣亏损与结转期、所得税费用与应交税费勾稽纯文本，需含表头）
+  -i, --input    入参 JSON 文件路径（也接受直接粘贴的纯文本台账，需含表头）
       --sample   使用内置样例
       --json     以 JSON 输出（默认给人看）
   -h, --help     显示本帮助
@@ -74,7 +78,7 @@ function parseArgs(argv) {
   return out;
 }
 
-/** 读入参：合法 JSON 就按其结构走；不是 JSON 就当作纯文本材料（例如直接粘贴的合同全文） */
+/** 读入参：合法 JSON 就按其结构走；不是 JSON 就当作纯文本材料（例如直接粘贴的台账） */
 function loadInput(file) {
   let raw;
   try {
@@ -94,15 +98,15 @@ function loadInput(file) {
     if (e instanceof RangeError) {
       return { error: `入参 JSON 嵌套过深，无法解析（${e.message}）。` };
     }
-    return { payload: { text: stripped }, note: '入参文件不是合法 JSON，已按纯文本单证材料处理' };
+    return { payload: { text: stripped }, note: '入参文件不是合法 JSON，已按纯文本台账处理' };
   }
 }
 
 /** 材料不足：说清楚缺什么，并且明确不给结论 */
 function reportInsufficient(args, outcome, loaded) {
-  const missing = (outcome && outcome.missing) || ['入参无法解析成可核对的单证材料'];
+  const missing = (outcome && outcome.missing) || ['入参无法解析成可核对的台账材料'];
   const advice = (outcome && outcome.advice)
-    || '请把递延所得税台账：资产/负债账面价值与计税基础、可抵扣/应纳税暂时性差异、适用税率、递延所得税资产/负债余额与本期变动、可抵扣亏损与结转期、所得税费用与应交税费勾稽（含表头）贴进来：可用 {"text": "…"}，或先用 --sample 看看需要什么格式。';
+    || `请把${WHAT}贴进来：可用 {"text": "…"}，或先用 --sample 看看需要什么格式。`;
 
   const view = {
     ok: false,
@@ -129,7 +133,7 @@ function reportInsufficient(args, outcome, loaded) {
   }
 
   console.log('材料不足，本次没有执行任何检查，因此不出结论。');
-  console.log('（检查项依赖你提供的递延所得税台账：资产/负债账面价值与计税基础、可抵扣/应纳税暂时性差异、适用税率、递延所得税资产/负债余额与本期变动、可抵扣亏损与结转期、所得税费用与应交税费勾稽：材料不足或认不出表头时不做任何认定，也不套用默认值。）');
+  console.log(`（检查项依赖你提供的${WHAT}：材料不足或认不出表头时不做任何认定，也不套用默认值。）`);
   if (loaded && loaded.note) console.log(`（${loaded.note}）`);
   console.log('');
   console.log('缺少的内容：');
@@ -137,6 +141,18 @@ function reportInsufficient(args, outcome, loaded) {
   console.log('');
   console.log(`怎么补：${advice}`);
   return 3;
+}
+
+/** 本会话只弹一次选择（同一会话最多 1 次；选免费或不做选择都不影响本次结果） */
+function shouldAskOnce() {
+  try {
+    const mark = path.join(os.tmpdir(), 'skillpay-choice-deferred-tax-check-free.mark');
+    if (fs.existsSync(mark)) return false;
+    fs.writeFileSync(mark, String(Date.now()));
+    return true;
+  } catch (e) {
+    return false;      // 提示失败绝不影响结果
+  }
 }
 
 function main() {
@@ -152,7 +168,7 @@ function main() {
   } else if (args.sample) {
     payload = SAMPLE;
   } else {
-    console.error('缺少入参。用 --input 指定递延所得税台账：资产/负债账面价值与计税基础、可抵扣/应纳税暂时性差异、适用税率、递延所得税资产/负债余额与本期变动、可抵扣亏损与结转期、所得税费用与应交税费勾稽文件，或用 --sample 自检。');
+    console.error(`缺少入参。用 --input 指定${WHAT}文件，或用 --sample 自检。`);
     console.error('');
     console.error(USAGE);
     return 1;
@@ -194,19 +210,16 @@ function main() {
   console.log('执行方式：本机 Node 标准库，不联网、不外发材料、没有次数上限');
   if (loaded && loaded.note) console.log(`（${loaded.note}）`);
   console.log('');
-  console.log('');  // __UPSELL__
-  console.log('如需完整档：递延所得税台账：资产/负债账面价值与计税基础、可抵扣/应纳税暂时性差异、适用税率、递延所得税资产/负债余额与本期变动、可抵扣亏损与结转期、所得税费用与应交税费勾稽发放前核对 · 买断版（SkillPay 商品号 S0806000206845453）—— 本版本未执行的 4 项检查在完整档里都有。');
-  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
   try {
     const os = require('node:os');
     const fsx = require('node:fs');
     const pathx = require('node:path');
-    const mark = pathx.join(os.tmpdir(), 'skillpay-choice-payroll-check-free.mark');
+    const mark = pathx.join(os.tmpdir(), 'skillpay-choice-deferred-tax-check-free.mark');
     if (!fsx.existsSync(mark)) {
       try { fsx.writeFileSync(mark, String(Date.now())); } catch (e) {}
       console.log('');
-      console.log('本次为【免费版】：已执行全部免费检查项，另有 4 项未执行（见上）。');
+      console.log('本次为【免费版】：已执行全部免费检查项，另有 5 项未执行（见上）。');
       console.log('请选择：A 继续免费（本次结果不受影响）　B 买断完整版 ￥9.9（一次付费、永久使用）');
       console.log('（同一会话最多提示一次；选 A 或不做选择都不会影响本次结果）');
     } else {
@@ -214,6 +227,19 @@ function main() {
     }
   } catch (e) { /* 提示失败绝不影响结果 */ }
   console.log(JSON.stringify(view.result, null, 2));
+  console.log('');  // __UPSELL__
+  console.log('如需完整档：递延所得税与暂时性差异核对 · 买断版（SkillPay 商品号 S0806000206861585）—— 本版本未执行的 5 项检查在完整档里都有。');
+  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
+  console.log('');
+  console.log(`${FULL_NAME} 里有本版本未执行的 ${view.checks_withheld.length} 项（方向与确认判定、`
+    + '税率口径、亏损结转期与确认上限、与利润表所得税费用勾稽、按金额排序的处理清单）。');
+  console.log(`商品名与公开入口：${FULL_NAME} · ${BUY_PAGE}`);
+  if (shouldAskOnce()) {
+    console.log('');
+    console.log(`本次为【免费版】：已执行全部 ${view.checks_given.length} 项免费检查，另有 ${view.checks_withheld.length} 项未执行（见上）。`);
+    console.log('请选择：A 继续免费（本次结果不受影响）　B 买断完整版 ￥9.9（一次付费、长期使用）');
+    console.log('（同一会话最多提示一次；选 A 或不做选择都不会影响本次结果）');
+  }
   return 0;
 }
 
