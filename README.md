@@ -47,10 +47,10 @@ POST /api/v1/three-way-match
 详见 [`products/agentpay-openapi/README.md`](products/agentpay-openapi/README.md)。
 
 <!-- MCP_SECTION_START -->
-## 也可以当 MCP server 用（166 个工具，完全离线）
+## 也可以当 MCP server 用（170 个工具，完全离线）
 
 同一个仓库里有一套 **MCP（Model Context Protocol）server** —— 任何支持 MCP 的 Agent
-（Claude Desktop / Cursor / 各类 Harness）都能直接调用这 166 个确定性核对工具：
+（Claude Desktop / Cursor / 各类 Harness）都能直接调用这 170 个确定性核对工具：
 
 ```bash
 git clone https://github.com/chenqg618/compliance-skills.git
@@ -138,7 +138,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **172 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **176 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -150,6 +150,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `agri-purchase-invoice-deduction-check-free` | 农产品收购发票与进项抵扣核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `ap-aging-plan-check-free` | 应付账款账龄与付款计划表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `ap-factoring-check-free` | 应付账款保理与贴现表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `ap-provisional-check-free` | 应付暂估台账逐项核对，核暂估金额（数量乘单价）、冲回与暂估勾稽、暂估与发票差异、暂估余额滚动、合计逐列、重复单号与空缺负值，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `ap-reconciliation-free` | 供应商对账表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `ar-aging-check-free` | 应收对账表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `asset-disposal-check-free` | 固定资产处置表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -209,6 +210,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `gov-subsidy-deferred-income-check-free` | 政府补助与递延收益核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `group-finance-monthly-selfcheck-free` | 集团财务月度自查包（免费版）共 3 类核对，含 集团内部往来对账与抵消核对、供应商应付对账、应收账款账龄核对 |
 | `group-intercompany-reconciliation-check-free` | 集团内部往来对账与抵消核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `guarantee-letter-check-free` | 银行保函台账逐项核对，保函金额与保证金比例复算、到期日复算、保函号唯一性、注销与状态自洽、到期未注销仍占额度，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `hospital-supply-consumption-check-free` | 药品耗材进销存与科室领用核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `hotel-night-audit-check-free` | 酒店夜审与房费收入表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `housing-fund-check-free` | 住房公积金每月汇缴明细逐项核对，逐人复算单位与个人月缴存额、缴存合计勾稽、合计行与明细复核、重复人员与空缺负数、基数超出上下限，每条结论都带原文行号，不需要付款，也不需要注册 |
@@ -279,9 +281,11 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `saas-revenue-recognition-check-free` | SaaS订阅收入确认表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `safety-production-fee-check-free` | 安全生产费用提取与使用核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `sales-commission-tier-check-free` | 销售提成与业绩核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `scrap-sale-check-free` | 废料边角料台账逐行复算与勾稽核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `sku-profit-check-free` | 按 SKU 复算真实毛利与毛利率（售价 − 成本 − 头程运费 − 平台佣金 − 广告费 − 退货损失，含汇率折算），逐行标出算错的与毛利率异常低的，不需要付款，也不需要注册 |
 | `social-insurance-base-check-free` | 社保缴费基数核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `social-insurance-check-free` | 社保申报明细逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `software-license-check-free` | 软件许可与云资源台账逐项核对（年费用与月均复算、订阅起止与账期月数勾稽、装机或账号数超许可数、重复行与合计勾稽、空缺负值与日期倒挂检测），每条结论都带原文行号，不需要付款，也不… |
 | `software-outsource-milestone-check-free` | 软件外包里程碑验收与付款核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `stamp-duty-base-check-free` | 印花税计税依据台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `store-sales-report-check-free` | 门店营收上报表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
