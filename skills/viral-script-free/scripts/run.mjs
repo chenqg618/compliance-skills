@@ -160,8 +160,7 @@ async function main() {
   console.log('  另有「二创蓝图（五段填空模板，换人群换痛点即可用）」未展示。');
   console.log('  完整版：全部问题 + 逐条位置/依据/建议 + 金句候选 + 二创蓝图。');
   console.log('  在 SkillPay 搜「爆款视频脚本拆解官」即可取完整版。');
-  console.log('');
-  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
+  console.log('');  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
   try {
     const os = require('node:os');
     const fsx = require('node:fs');
@@ -170,7 +169,7 @@ async function main() {
     if (!fsx.existsSync(mark)) {
       try { fsx.writeFileSync(mark, String(Date.now())); } catch (e) {}
       console.log('');
-      console.log('本次为【免费版】：已给出全部免费结果，另有完整版专属项未执行（见上）。');
+      console.log('本次为【免费版】：已执行全部免费检查项，另有 2 项未执行（见上）。');
       console.log('请选择：A 继续免费（本次结果不受影响）　B 买断完整版 ￥9.9（一次付费、永久使用）');
       console.log('（同一会话最多提示一次；选 A 或不做选择都不会影响本次结果）');
     } else {
