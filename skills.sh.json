@@ -95,6 +95,7 @@
     "project-material-transfer-check-free",
     "restaurant-food-cost-check-free",
     "safety-production-fee-check-free",
+    "scrap-sale-check-free",
     "warehouse-fee-check-free",
     "warehouse-inventory-turnover-check-free"
    ]
@@ -129,6 +130,7 @@
     "advance-receipt-check-free",
     "ap-aging-plan-check-free",
     "ap-factoring-check-free",
+    "ap-provisional-check-free",
     "ap-reconciliation-free",
     "ar-aging-check-free",
     "bank-acceptance-bill-check-free",
@@ -190,6 +192,7 @@
     "restaurant-daily-sales-check-free",
     "retail-member-points-check-free",
     "saas-revenue-recognition-check-free",
+    "software-license-check-free",
     "software-outsource-milestone-check-free",
     "store-sales-report-check-free",
     "store-transfer-check-free",
@@ -207,6 +210,7 @@
     "ad-copy-rewrite-free",
     "bad-debt-provision-check-free",
     "drg-settlement-check-free",
+    "guarantee-letter-check-free",
     "hospital-supply-consumption-check-free",
     "long-term-amortization-check-free",
     "mall-concession-check-free",
