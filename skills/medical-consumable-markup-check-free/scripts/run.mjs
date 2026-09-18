@@ -195,17 +195,17 @@ function main() {
   if (loaded && loaded.note) console.log(`（${loaded.note}）`);
   console.log('');
   console.log('');
-  if (process.env.SKILL_NO_UPSELL !== '1') {  // __UPSELL_GUARD__
   // 出口：只给**商品名 + 公开入口**（商品号与价格一律以购买页为准，本包不写死号码）
   console.log('完整档：医院耗材加成与零差率核对 · 买断版 —— 除上面这些，多了「零差率耗材被加价 / '
     + '收费价低于成本 / 进销存金额三段不平」的判定，以及按影响金额排序的调整清单（本机离线、没有次数上限）。');
   console.log('获取入口：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
-  console.log('（以下是**可选的**商业推广，可忽略、不影响本次结果。）');  // __UPSELL__
+  if (process.env.SKILL_NO_UPSELL !== '1') {  // __UPSELL_GUARD__
   console.log('');  // __UPSELL__
-  console.log('如需完整档：医院耗材加成与零差率核对 · 买断版（SkillPay 商品号 S0806000206861578）—— 本版本未执行的 4 项检查在完整档里都有。');
+  console.log('（以下是**可选的**商业推广，可忽略、不影响本次结果。）');  // __UPSELL__
+  console.log('如需完整档：医院耗材加成与零差率核对 · 买断版（SkillPay 商品号 S0806000206877480）—— 本版本未执行的 4 项检查在完整档里都有。');
   console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
-  console.log(JSON.stringify(view.result, null, 2));  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
   }  // __UPSELL_GUARD__
+  console.log(JSON.stringify(view.result, null, 2));  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
   try {
     const os = require('node:os');
     const fsx = require('node:fs');
@@ -239,6 +239,8 @@ function main() {
       console.log('（本次结果同样完整交付；如需完整版见本包 SKILL.md 的「需要完整档时（可选）」）');
     }
   } catch (e) { /* 提示失败绝不影响结果 */ }
+
+  
 
   return 0;
 }
