@@ -1,7 +1,7 @@
 ---
 slug: freight-reconciliation-free
 displayName: 运费对账（免费版）
-version: 1.1.17
+version: 1.1.20
 summary: 运费月结单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [运费对账,运费月结单,核对,对账,免费]
 license: Proprietary
@@ -83,6 +83,10 @@ node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
 - 怎么买（含每个商品的商品号与官方购买指令）：<https://chenqg618.github.io/compliance-skills/buy.html>
 - ⚠️ **现状（2026-09-17 核对）**：完整档「运费对账 · 买断版」**当前不在公开货架上**，也**读不到它的官方购买指令** ⇒ **先别按名字去找，免得白跑**。它重新上架后，在上面那页按商品名提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。
 ```
+
+- 💡 **同类一起买更划算**（fee-budget-pack）：同类检查都在「费用与预算技能包 · 买断版」里（一包覆盖 **14** 项同类检查，一次买断、永久可用）：<http://110.40.221.75/buy/fee-budget-pack>
+
+- 💡 **同类一起买更划算**（foreign-trade-pack）：同类检查都在「外贸与出口技能包 · 买断版」里（一包覆盖 **14** 项同类检查，一次买断、永久可用）：<http://110.40.221.75/buy/foreign-trade-pack>
 
 ## 边界（请务必知道）
 
