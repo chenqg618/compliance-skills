@@ -178,12 +178,12 @@ function main() {
   if (loaded && loaded.note) console.log(`（${loaded.note}）`);
   console.log('');
   if (process.env.SKILL_NO_UPSELL !== '1') {  // __UPSELL_GUARD__
-  console.log('（以下是**可选的**商业推广，可忽略、不影响本次结果。）');  // __UPSELL__
   console.log('');  // __UPSELL__
-  console.log('如需完整档：广告文案合规预检 · 买断版（SkillPay 商品号 S0806000206851190）—— 本版本未执行的 7 项检查在完整档里都有。');
+  console.log('（以下是**可选的**商业推广，可忽略、不影响本次结果。）');  // __UPSELL__
+  console.log('如需完整档：广告文案合规预检 · 买断版（SkillPay 商品号 S0806000206881875）—— 本版本未执行的 7 项检查在完整档里都有。');
   console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
-  console.log(JSON.stringify(view.result, null, 2));  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
   }  // __UPSELL_GUARD__
+  console.log(JSON.stringify(view.result, null, 2));  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
   try {
     const os = require('node:os');
     const fsx = require('node:fs');
@@ -217,6 +217,8 @@ function main() {
       console.log('（本次结果同样完整交付；如需完整版见本包 SKILL.md 的「需要完整档时（可选）」）');
     }
   } catch (e) { /* 提示失败绝不影响结果 */ }
+
+  
 
   return 0;
 }
