@@ -1433,6 +1433,30 @@
     "hasSample": true
   },
   {
+    "tool": "check_cutoff_test_check",
+    "package": "cutoff-test-check-free",
+    "engine": "cutoff-test-check-free/cutoff-test-check.js",
+    "title": "收入与成本截止性核对（免费版）",
+    "given": [
+      "合计行逐列复核（单据金额 / 期后事项金额）",
+      "同一单据号重复行检测",
+      "记账期间 = 业务日期所属期间（跨期即截止性错误）",
+      "业务日期不得晚于记账期间末日（先记账后发生）",
+      "单据金额为零检测",
+      "单据类型不在常见口径提示（发货单/发票/入库单/出库单/退货单）",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "跨期超过 30 天（跨两个及以上期间）检测",
+      "期后事项金额超过原单据金额检测",
+      "期末最后 3 天的单据未填写处理说明提示（截止性重点样本）",
+      "期后事项金额为负（应作为红冲处理）提示",
+      "跨期单据数量占比超过 20% 提示（整体期间归属可信度下降）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_deferred_tax_check",
     "package": "deferred-tax-check-free",
     "engine": "deferred-tax-check-free/deferred-tax-check.js",
@@ -2064,6 +2088,30 @@
     "hasSample": true
   },
   {
+    "tool": "check_goodwill_impairment_check",
+    "package": "goodwill-impairment-check-free",
+    "engine": "goodwill-impairment-check-free/goodwill-impairment-check.js",
+    "title": "商誉减值测试底稿核对（免费版）",
+    "given": [
+      "合计行逐列复核（明细逐行相加 = 合计）",
+      "同一资产组重复行检测",
+      "资产组账面价值 = 商誉账面价值 + 可辨认净资产账面价值",
+      "减值损失 = max(0, 资产组账面价值 − 可收回金额)",
+      "商誉减值 ≤ 商誉账面价值（不能超冲商誉）",
+      "本期商誉净额 = 商誉账面价值 − 商誉减值",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "减值损失小于商誉减值（先冲商誉的顺序错了）检测",
+      "本期商誉净额为负检测",
+      "可收回金额为负检测",
+      "账面价值 > 可收回金额却未计提减值（漏提）检测",
+      "减值测试方法不在常见口径（收益法/市场法/公允价值减处置费用等）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_gov_subsidy_deferred_income_check",
     "package": "gov-subsidy-deferred-income-check-free",
     "engine": "gov-subsidy-deferred-income-check-free/gov-subsidy-deferred-income-check.js",
@@ -2250,6 +2298,25 @@
     "withheld": [
       "加班费核算核对",
       "职工福利费与教育经费限额核对"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_hr_statutory_pack",
+    "package": "hr-statutory-pack-free",
+    "engine": "hr-statutory-pack-free/hr-statutory-pack.js",
+    "title": "人力法定费用技能包（免费版）",
+    "given": [
+      "残疾人就业保障金核对",
+      "工会经费计提与上缴核对",
+      "职工福利费与教育经费限额核对"
+    ],
+    "withheld": [
+      "跨主体汇总台账（全部主体 × 全部 3 项核对合并成一张总表）",
+      "人力费用风险排序清单（按 P0/P1/P2 排序，带主体名与原文文件行号）",
+      "跨主体共性问题归类（同一个问题命中 2 家及以上主体时合并成一条共性项）",
+      "人力费用台账导出（Markdown 与 CSV 文本，直接用于年度申报与汇算说明）"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -2646,6 +2713,24 @@
       "滞纳金为负检测",
       "滞纳天数超过 3650 天（约 10 年）异常提示",
       "滞纳金与滞纳税额之比超过 100% 提示（长期滞纳的常见信号）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_lease_deferred_pack",
+    "package": "lease-deferred-pack-free",
+    "engine": "lease-deferred-pack-free/lease-deferred-pack.js",
+    "title": "租赁与递延收益技能包（免费版）",
+    "given": [
+      "租赁负债与使用权资产核对",
+      "政府补助递延收益核对"
+    ],
+    "withheld": [
+      "跨合同汇总台账（全部合同 × 全部 2 项核对合并成一张总表）",
+      "跨期项目风险排序清单（按 P0/P1/P2 排序，带合同名与原文文件行号）",
+      "跨合同共性问题归类（同一个问题命中 2 份及以上合同时合并成一条共性项）",
+      "跨期项目台账导出（Markdown 与 CSV 文本，直接用于月度摊销与汇算说明）"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -3797,6 +3882,30 @@
     "hasSample": true
   },
   {
+    "tool": "check_rd_capitalization_check",
+    "package": "rd-capitalization-check-free",
+    "engine": "rd-capitalization-check-free/rd-capitalization-check.js",
+    "title": "研发支出资本化与费用化划分核对（免费版）",
+    "given": [
+      "合计行逐列复核（发生额 / 资本化 / 费用化 / 累计资本化 / 累计摊销 / 本期摊销 / 期末余额）",
+      "同一项目同一阶段重复行检测",
+      "本期发生额 = 资本化金额 + 费用化金额",
+      "期末无形资产余额 = 累计资本化金额 − 累计摊销额",
+      "资本化金额或费用化金额为负检测",
+      "本期摊销额为负检测",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "研究阶段却有资本化金额检测（研究阶段支出应费用化）",
+      "开发阶段但资本化金额为 0 提示（可能该资本化而未资本化）",
+      "本期摊销额与直线法（累计资本化 ÷ 摊销月数）偏离超过 5% 提示",
+      "资本化金额超过本期发生额检测",
+      "期末无形资产余额为负检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_rd_expense_check",
     "package": "rd-expense-check-free",
     "engine": "rd-expense-check-free/rd-expense-check.js",
@@ -3877,6 +3986,30 @@
       "跨客户风险排序处理清单（按 P0/P1/P2 排序，带客户名与原文文件行号）",
       "跨客户共性问题归类（同一问题命中 2 个及以上客户时合并成一条共性项）",
       "往来台账导出（Markdown 与 CSV 文本，直接用于结账前复核说明）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_related_party_transaction_check",
+    "package": "related-party-transaction-check-free",
+    "engine": "related-party-transaction-check-free/related-party-transaction-check.js",
+    "title": "关联方交易与同期资料一致性核对（免费版）",
+    "given": [
+      "合计行逐列复核（交易金额 / 台账金额 / 报告表金额 / 往来余额）",
+      "同一关联方同一交易类型重复行检测",
+      "报告表填报金额 = 台账金额（一致性）",
+      "本期交易金额 = 台账金额（账表一致）",
+      "期末往来余额为负检测",
+      "定价方法空白或占位符检测（无法说明定价依据）",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "报告表金额与台账金额差异率超过 5% 提示（差异率要能解释）",
+      "关联交易占营业收入比例超过 50% 提示（重大关联交易，关注特别纳税调整）",
+      "期末往来余额超过本期交易金额（长期挂账）提示",
+      "定价方法不在常见五法口径（可比非受控价格法/再销售价格法/成本加成法/交易净利润法/利润分割法）提示",
+      "交易金额达到同期资料门槛却填「未准备/无」提示"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -4155,6 +4288,29 @@
       "处理含税/不含税的换算与废料收入的增值税申报（请把口径统一成一种再贴进来）",
       "读取 .xlsx / ERP 导出文件（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_share_based_payment_check",
+    "package": "share-based-payment-check-free",
+    "engine": "share-based-payment-check-free/share-based-payment-check.js",
+    "title": "股份支付费用分摊核对（免费版）",
+    "given": [
+      "合计行逐列复核（明细逐行相加 = 合计）",
+      "期末未分摊 = 期初未分摊 − 本期实摊金额",
+      "期末未分摊 = 授予数量 × 授予日公允价值 − 累计已分摊金额",
+      "本期实摊金额为负检测",
+      "同一计划同一期间重复行检测",
+      "空白与占位符检测"
+    ],
+    "withheld": [
+      "本期实摊与直线法口径（授予总额 ÷ 等待期月数）偏离超过 5% 提示",
+      "累计已分摊超过授予总额（超额分摊）检测",
+      "已过月数超过等待期月数却仍在分摊（等待期已满）检测",
+      "等待期已满但期末未分摊余额未归零提示",
+      "累计已分摊 + 期末未分摊 ≠ 授予总额 检测"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
@@ -4661,6 +4817,24 @@
     "hasSample": true
   },
   {
+    "tool": "check_travel_toll_pack",
+    "package": "travel-toll-pack-free",
+    "engine": "travel-toll-pack-free/travel-toll-pack.js",
+    "title": "差旅与通行费技能包（免费版）",
+    "given": [
+      "差旅费标准与超标核对",
+      "通行费与过路过桥核对"
+    ],
+    "withheld": [
+      "跨部门汇总台账（全部部门 × 全部 2 项核对合并成一张总表）",
+      "费用风险排序清单（按 P0/P1/P2 排序，带部门名与原文文件行号）",
+      "跨部门共性问题归类（同一个问题命中 2 个及以上部门时合并成一条共性项）",
+      "差旅台账导出（Markdown 与 CSV 文本，直接用于月度费用复核说明）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_treasury_bill_pack",
     "package": "treasury-bill-pack-free",
     "engine": "treasury-bill-pack-free/treasury-bill-pack.js",
@@ -4846,6 +5020,29 @@
       "处理多档税率在同一期间的分摊（请把不同税率分行列示）",
       "给出税务意见或做税负筹划；读取 .xlsx（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_vat_deduction_addon_check",
+    "package": "vat-deduction-addon-check-free",
+    "engine": "vat-deduction-addon-check-free/vat-deduction-addon-check.js",
+    "title": "增值税加计抵减核对（免费版）",
+    "given": [
+      "合计行逐列复核（明细逐行相加 = 合计；余额列不相加）",
+      "期末余额 = 期初余额 + 本期计提 − 本期调减 − 本期实际抵减",
+      "本期实际抵减 ≤ 抵减前应纳税额（抵减不能超过当期应纳税额）",
+      "期末余额为负检测",
+      "同一所属期重复行检测",
+      "空白与占位符检测"
+    ],
+    "withheld": [
+      "本期计提 = 当期可抵扣进项税额 × 加计抵减比例 复算",
+      "四项服务销售额占比低于 50% 却计提加计抵减（资格存疑）提示",
+      "本期实际抵减超过可用额度（期初 + 计提 − 调减）检测",
+      "加计抵减比例不在政策档位（5% / 10% / 15%）提示",
+      "抵减前应纳税额为 0 或负数却仍有实际抵减提示"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
