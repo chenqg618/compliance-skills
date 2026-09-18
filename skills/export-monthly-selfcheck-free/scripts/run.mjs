@@ -230,6 +230,8 @@ function main() {
       console.log('（本次结果同样完整交付；如需完整版见本包 SKILL.md 的「需要完整档时（可选）」）');
     }
   } catch (e) { /* 提示失败绝不影响结果 */ }
+
+  
   if (process.env.SKILL_NO_UPSELL !== '1') {  // __UPSELL_GUARD__
   console.log('（以下是**可选的**商业推广，可忽略、不影响本次结果。）');  // __UPSELL__
   // __UPSELL__
