@@ -502,6 +502,30 @@
     "hasSample": true
   },
   {
+    "tool": "check_accrued_expense_amortization_check",
+    "package": "accrued-expense-amortization-check-free",
+    "engine": "accrued-expense-amortization-check-free/accrued-expense-amortization-check.js",
+    "title": "预提费用与待摊费用摊销核对（免费版）",
+    "given": [
+      "合计行逐列复核（总金额 / 期初未摊余额 / 本期应摊金额 / 本期实摊金额 / 累计已摊金额 / 期末未摊余额）",
+      "同一「费用项目 + 受益起始月」重复行检测",
+      "期末未摊余额 = 期初未摊余额 − 本期实摊金额（逐行滚动勾稽）",
+      "累计已摊金额 + 期末未摊余额 = 总金额（总额勾稽）",
+      "本期实摊金额为负检测",
+      "本期实摊金额超过期初未摊余额（超摊）提示",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "直线法偏离检测（本期实摊金额偏离「总金额 ÷ 受益月数」超过 5%）",
+      "期末未摊余额为负检测",
+      "受益月数为 0 或空但本期仍在摊销检测",
+      "累计已摊金额超过总金额（超摊）检测",
+      "费用类型不在「预提费用 / 待摊费用」口径内的提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_ad_agency_rebate_check",
     "package": "ad-agency-rebate-check-free",
     "engine": "ad-agency-rebate-check-free/ad-agency-rebate-check.js",
@@ -1380,6 +1404,36 @@
     "hasSample": true
   },
   {
+    "tool": "check_contract_fulfillment_cost_check",
+    "package": "contract-fulfillment-cost-check-free",
+    "engine": "contract-fulfillment-cost-check-free/contract-fulfillment-cost-check.js",
+    "title": "合同履约成本与收入配比核对（免费版）",
+    "given": [
+      "合计行逐列复核（合同总金额 / 累计收入 / 本期收入 / 累计成本 / 本期成本 / 已开票 / 已收款）",
+      "同一合同编号重复行检测",
+      "本期确认收入 = 合同总金额 × 履约进度 −（累计已确认收入 − 本期确认收入）",
+      "累计已确认收入不得超过合同总金额",
+      "成本与收入配比（累计履约成本 ÷ 累计已确认收入 对比 合同预计总成本 ÷ 合同总金额）",
+      "已收款 / 已开票 不得超过合同总金额",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "履约进度为 0 或 100% 但本期仍有确认收入 / 成本提示",
+      "履约进度不在 0 ~ 100% 区间检测",
+      "累计履约成本超过合同预计总成本检测",
+      "已收款超过已开票 110% 提示（先收款后开票本身正常）",
+      "累计已确认收入与「合同总金额 × 履约进度」差异超 1% 检测"
+    ],
+    "outOfScope": [
+      "判断履约进度本身算得对不对（投入法 / 产出法、完工百分比如何计量属于会计判断）",
+      "判断控制权何时转移、该不该确认收入（那是收入准则的判断）",
+      "代替审计抽凭程序，也不出具审计或鉴证意见",
+      "核对合同、发票、回款流水的**真伪**，或与 ERP / 合同系统的逐行明细比对",
+      "读取 ERP / 合同系统 / 开票系统的导出文件（需要你先导出成文本贴进来）"
+    ],
+    "hasSample": true
+  },
+  {
     "tool": "check_contract_performance_bond_check",
     "package": "contract-performance-bond-check-free",
     "engine": "contract-performance-bond-check-free/contract-performance-bond-check.js",
@@ -1398,6 +1452,30 @@
       "保函余额为负检测",
       "保证金超过合同金额比例上限（10%）提示（参考口径）",
       "已缴金额为零却有保函费用检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_cost_allocation_check",
+    "package": "cost-allocation-check-free",
+    "engine": "cost-allocation-check-free/cost-allocation-check.js",
+    "title": "在产品与完工产品成本分配核对（免费版）",
+    "given": [
+      "合计行逐列复核（期初 / 材料 / 人工 / 制造费用 / 投入合计 / 完工数量 / 在产品数量 / 完工产品成本 / 期末在产品成本）",
+      "同一「产品/批次 + 工序或车间」重复行检测",
+      "本期投入合计 = 本期投入材料 + 本期投入人工 + 本期投入制造费用",
+      "完工产品成本 + 期末在产品成本 = 期初在产品成本 + 本期投入合计（成本守恒）",
+      "完工数量 + 在产品数量 ≤ 0 时不给分配结论（数量缺失/为零）",
+      "完工产品成本为负或期末在产品成本为负检测",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "分配方法不在常见口径（约当产量法 / 定额比例法 / 在产品按定额成本计算 / 不计算在产品成本）提示",
+      "单位完工成本 = 完工产品成本 ÷ 完工数量，与其所在工序平均值偏离超过 30% 提示",
+      "在产品数量 > 0 但期末在产品成本为 0（漏留在产品）检测",
+      "完工数量 > 期初数量 + 本期投入数量（数量口径缺失）提示",
+      "期初在产品成本占本期投入合计比例超过 50% 提示（期初异常大）"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -1776,6 +1854,30 @@
       "处理备件退库、质保返修、跨月费用分摊等特殊口径（请把它们单独列行）",
       "给出税务或成本会计意见；读取 .xlsx（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_equity_method_investment_check",
+    "package": "equity-method-investment-check-free",
+    "engine": "equity-method-investment-check-free/equity-method-investment-check.js",
+    "title": "长期股权投资权益法核对（免费版）",
+    "given": [
+      "合计行逐列复核（期初 / 投资收益 / 其他综合收益 / 其他权益变动 / 宣告分红 / 新增投资 / 期末）",
+      "同一被投资单位重复行检测",
+      "权益法滚动：期末 = 期初 + 投资收益 + 其他综合收益 + 其他权益变动 − 宣告分红 + 新增投资",
+      "本期投资收益 = 被投资方净利润 × 持股比例（优先用投资方享有比例）",
+      "持股比例 > 50% 却仍按权益法（应纳入合并范围）检测",
+      "本期宣告分红为负检测",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "期末账面价值为负检测",
+      "投资收益为负但被投资方净利润为正（或反之）口径提示",
+      "持股比例不在 20%~50% 区间提示（权益法通常适用区间）",
+      "长期股权投资账面价值超过被投资方净利润 × 比例 × 3 倍提示",
+      "本期新增投资但持股比例未变提示"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
@@ -2539,6 +2641,30 @@
     "hasSample": true
   },
   {
+    "tool": "check_inventory_count_variance_check",
+    "package": "inventory-count-variance-check-free",
+    "engine": "inventory-count-variance-check-free/inventory-count-variance-check.js",
+    "title": "存货盘点差异与账实调整核对（免费版）",
+    "given": [
+      "合计行逐列复核（账面数量 / 账面金额 / 实盘数量 / 实盘金额 / 差异数量 / 差异金额）",
+      "同一「仓库 + 存货编码」重复行检测",
+      "差异数量 = 实盘数量 − 账面数量（不符报 P0）",
+      "差异金额 = 实盘金额 − 账面金额（不符报 P0）",
+      "账面金额 = 账面数量 × 账面前单价（不符报 P1，容差 0.02）",
+      "实盘金额 = 实盘数量 × 盘点单价（不符报 P1，容差 0.02）",
+      "空白与占位符检测（含必需列缺失 —— 只缺个别列照常给结论并报「列缺失」）"
+    ],
+    "withheld": [
+      "差异金额为正（盘盈）但差异原因空白提示",
+      "差异金额为负（盘亏）但差异原因空白提示",
+      "差异金额绝对值超过账面金额 30%（重大差异）提示",
+      "实盘数量为负（实盘数填错）检测",
+      "差异原因为「未查明 / 待查 / 不详」提示（要求写清责任与处理）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_inventory_provision_check",
     "package": "inventory-provision-check-free",
     "engine": "inventory-provision-check-free/inventory-provision-check.js",
@@ -2852,6 +2978,30 @@
       "本期摊销月数不是 1 检测（补提或漏提月）",
       "摊销月数为零或非整数检测",
       "账面余额为负或原值为负检测"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_low_value_consumables_check",
+    "package": "low-value-consumables-check-free",
+    "engine": "low-value-consumables-check-free/low-value-consumables-check.js",
+    "title": "低值易耗品与周转材料摊销核对（免费版）",
+    "given": [
+      "合计行逐列复核（期初数量/期初金额/入库数量/入库金额/领用数量/摊销/累计摊销/期末数量/期末金额）",
+      "同一物品名称+类别重复行检测",
+      "期末数量 = 期初数量 + 本期入库数量 − 本期领用数量（不符报 P0）",
+      "期末金额 = 期初金额 + 本期入库金额 − 本期摊销金额（不符报 P0）",
+      "本期摊销金额 ≤ 期初金额 + 本期入库金额（超摊报 P0）",
+      "累计已摊销金额 ≤ 期初金额 + 本期入库金额（累计超摊报 P1）",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "期末数量为负（P0）",
+      "期末金额为负（P1）",
+      "本期摊销金额为负（P1）",
+      "摊销方法不在常见口径（P2）提示",
+      "本期领用数量 > 期初数量 + 本期入库数量（领用超库存，P1）提示"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -3240,6 +3390,30 @@
       "处理损耗率、定额含量、材料节约分成等商务条款的合法性",
       "给出法律意见或造价鉴定结论；读取 .xlsx（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_paid_in_capital_check",
+    "package": "paid-in-capital-check-free",
+    "engine": "paid-in-capital-check-free/paid-in-capital-check.js",
+    "title": "实收资本与股东出资核对（免费版）",
+    "given": [
+      "合计行逐列复核（认缴 / 累计实缴 / 本期实缴 / 未缴 / 实收资本 / 资本公积 / 银行进账 —— 明细逐行相加 = 合计）",
+      "同一股东重复行检测",
+      "未缴出资额 = 认缴出资额 − 累计实缴出资额",
+      "累计实缴出资额 ≤ 认缴出资额（超额实缴）",
+      "持股比例与认缴出资额匹配（该股东认缴 ÷ 各股东认缴合计 = 填报比例，误差 > 0.02 个百分点）",
+      "所有者投入勾稽（实收资本 + 资本公积 = 认缴合计 − 未缴合计）",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "本期实缴出资额 ≠ 银行进账金额（本期出资没有对应进账 / 进账被记到别的期间）",
+      "未缴出资额为负（实缴超过认缴，通常伴随认缴或累计实缴填错）",
+      "各股东持股比例合计 ≠ 100%（比例与认缴口径至少有一处错）",
+      "单一股东持股 > 50% 提示（> 67% 时注明\"绝对控股\"，需确认章程/协议里的表决权安排）",
+      "累计实缴出资额为 0 的股东提示（认而未缴，需核对出资期限）"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
@@ -3991,6 +4165,37 @@
     "hasSample": true
   },
   {
+    "tool": "check_related_party_fund_occupation_check",
+    "package": "related-party-fund-occupation-check-free",
+    "engine": "related-party-fund-occupation-check-free/related-party-fund-occupation-check.js",
+    "title": "关联方资金占用与往来清理核对（免费版）",
+    "given": [
+      "合计行逐列复核（期初余额 / 本期增加 / 本期减少 / 期末余额）",
+      "同一关联方 + 往来性质重复行检测",
+      "期末余额 = 期初余额 + 本期增加 − 本期减少（不符报 P0）",
+      "期末余额为负检测（报 P0）",
+      "期末余额与期初余额符号相反且金额差异较大提示（往来性质可能填错，报 P1）",
+      "计息情况空白或占位符检测（资金占用必须说明是否计息，报 P1）",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "往来性质为「非经营性资金占用」且期末余额 > 0 检测（监管重点，应制定清理计划，报 P1）",
+      "账龄天数 > 365 天检测（长期未清理，报 P1）",
+      "期末余额 > 期初余额 + 本期增加 检测（逻辑不可能，报 P0）",
+      "清理计划为空白或占位符检测（报 P2）",
+      "计息情况为「不计息」且期末余额超过 1000 万提示（大额无偿占用，报 P2）"
+    ],
+    "outOfScope": [
+      "判断某笔往来的**实质**是经营性还是非经营性资金占用（属于会计与监管判断，本工具只按你填的「往来性质」核对）",
+      "认定资金占用是否构成违规占用、是否触发监管处罚或信息披露义务",
+      "代替审计抽凭程序，也不出具审计意见或鉴证结论",
+      "核对往来发生额的真伪，或与银行流水 / 明细账逐笔比对",
+      "读取 ERP / 财务系统的导出文件（需要你先导出成文本贴进来）",
+      "判断清理计划是否可执行、是否需要计提资金占用利息或坏账准备"
+    ],
+    "hasSample": true
+  },
+  {
     "tool": "check_related_party_transaction_check",
     "package": "related-party-transaction-check-free",
     "engine": "related-party-transaction-check-free/related-party-transaction-check.js",
@@ -4253,6 +4458,30 @@
       "未回款部分仍计提成提示",
       "同一人跨期业绩重复提示",
       "实发为负（扣减项超过提成金额）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_sales_rebate_check",
+    "package": "sales-rebate-check-free",
+    "engine": "sales-rebate-check-free/sales-rebate-check.js",
+    "title": "销售返利与渠道返点核对（免费版）",
+    "given": [
+      "合计行逐列复核（计算基数 / 应计返利 / 期初已计提 / 本期计提 / 本期实际兑付 / 期末已计提未兑付）",
+      "同一「客户/渠道 + 返利政策」重复行检测",
+      "应计返利 = 计算基数 × 返利比例（不符即报）",
+      "期末已计提未兑付 = 期初已计提 + 本期计提 − 本期实际兑付（滚动勾稽）",
+      "本期实际兑付为负（负数兑付）检测",
+      "应计返利为负（负数计提）检测",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "本期实际兑付超过 期初已计提 + 本期计提（超兑）检测",
+      "返利比例不在常见档位（0~20%）提示",
+      "期末已计提未兑付为负检测",
+      "返利比例为 0 但应计返利 > 0（口径矛盾）检测",
+      "兑付方式空白或「待定」提示"
     ],
     "outOfScope": [],
     "hasSample": true
