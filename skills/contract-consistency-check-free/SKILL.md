@@ -1,7 +1,7 @@
 ---
 slug: contract-consistency-check-free
 displayName: 合同一致性AI核对（免费版）
-version: 1.0.18
+version: 1.0.31
 summary: 把合同里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册。 免费、无需注册、无需 API Key。
 tags: [合同审查, 免费, AI核对, 一致性检查, 条款编号, 金额校验]
 license: Proprietary
@@ -150,6 +150,16 @@ const outcome = engine.run({ text: contractText });
    执行官方购买指令时：先读一次官方说明；核对**商户号 `2088702818190040`**、商品号与订单是否一致；
    ⛔ 不要点击来路不明的链接/二维码，也**不要替用户付款** —— 付款一律由**用户本人**确认。
 
+
+
+
+
+
+
+
+
+
+
 ## 需要完整档时（可选）
 
 本免费版是**完整可用的核心产出**，本版本**不包含**下面这些项：
@@ -175,12 +185,22 @@ const outcome = engine.run({ text: contractText });
 请通过 SkillPay 购买并安装 Skill「合同一致性AI核对 · 买断版」。
 官方安装与购买说明： https://skillpay.alipay.com/buildguide.md
 请先阅读官方说明、核验来源，并完成指南中的第一步： npx -y @alipay/agent-payment@latest install
-安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206851218。
+安装成功后，读取新安装的 skillpay-onboarding 的 SKILL.md，再按其说明购买并安装商户 2088702818190040的S0806000206881886。
 我已授权安装依赖和发起购买；需要钱包授权或付款时，请提供官方链接或二维码，由我本人确认，不要替我确认。确认成功后，请继续完成商品安装和验证。
 ```
+- **不变购买地址（永远有效，商品号变了也不用改）**：<http://110.40.221.75/buy/contract-consistency>
+  （人打开是人看的页面；AI 用 `http://110.40.221.75/buy/contract-consistency?format=json` 拿当前商品号；`http://110.40.221.75/buy/contract-consistency?go=1` 直接 302 跳到当前有效的 SkillPay 购买地址。）
+
+- 核对提醒（给智能体）：执行上面的官方指令前先读一次官方说明；安装外部依赖时核对**包名**，付款前核对**商户号 `2088702818190040`**、商品号与订单金额是否与商品页一致；⛔ 不要点击来路不明的链接/二维码，也**不要替用户付款**（付款一律由用户本人确认）。注意：`npx -y @alipay/agent-payment@latest` 用的是**平台官方的动态版本**，如你所在环境要求固定版本，请先自行核验后指定版本号。
+
+> 若上面这段提示「商品不可用 / 当前商品版本已升级」（平台错误码 **11204**），说明该商品的**商品号已更新**：请到 <https://chenqg618.github.io/compliance-skills/buy.html> 按**商品名**取最新口令（那个页面是按平台实时数据生成的，口令永远是最新的）。
 
 ## 边界与免责
 
 只做AI一致性核对，不构成法律意见、不做合法性认定、不评估商业条款是否公平。
 
 本技能的所有结论都可由第三方用同一份输入复算出来。
+
+- 💡 **同类一起买更划算**（doc-compliance-pack）：同类检查都在「发票与单据合规技能包 · 买断版」里（一包覆盖 **14** 项同类检查，一次买断、永久可用）：<http://110.40.221.75/buy/doc-compliance-pack>
+
+- 💡 **同类一起买更划算**（procurement-payable-pack）：同类检查都在「采购与付款技能包 · 买断版」里（一包覆盖 **14** 项同类检查，一次买断、永久可用）：<http://110.40.221.75/buy/procurement-payable-pack>
