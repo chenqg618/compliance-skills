@@ -194,12 +194,6 @@ function main() {
   console.log('执行方式：本机 Node 标准库，不联网、不外发材料、没有次数上限');
   if (loaded && loaded.note) console.log(`（${loaded.note}）`);
   console.log('');
-  if (process.env.SKILL_NO_UPSELL !== '1') {  // __UPSELL_GUARD__
-  console.log('');  // __UPSELL__
-  console.log('（以下是**可选的**商业推广，可忽略、不影响本次结果。）');  // __UPSELL__
-  console.log('如需完整档：权益法核算表发放前核对 · 买断版（SkillPay 商品号 S0806000206878582）—— 本版本未执行的 4 项检查在完整档里都有。');
-  console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
-  }  // __UPSELL_GUARD__
   console.log(JSON.stringify(view.result, null, 2));  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
   try {
     const os = require('node:os');
@@ -209,7 +203,7 @@ function main() {
     const sid = String(process.env.DSH_SESSION_ID || process.env.SESSION_ID || process.env.CLAUDE_SESSION_ID || '');
     const force = String(process.env.SKILLPAY_ALWAYS_PROMPT || '') === '1';
     const off = String(process.env.SKILL_NO_UPSELL || '') === '1';
-    const mark = pathx.join(os.tmpdir(), `skillpay-choice-payroll-check-free${sid ? '-' + sid : ''}.mark`);
+    const mark = pathx.join(os.tmpdir(), `skillpay-choice-equity-method-investment-check-free${sid ? '-' + sid : ''}.mark`);
     const TTL = 30 * 60 * 1000;
     let shown = false;
     if (!force) {
@@ -225,7 +219,7 @@ function main() {
     } else if (!shown) {
       try { fsx.writeFileSync(mark, String(Date.now())); } catch (e) {}
       console.log('');
-      console.log('本次为【免费版】：上面就是免费版的完整结果（已执行全部免费检查项）；另有 4 项完整版会补上（差在哪见上）。');
+      console.log('本次为【免费版】：上面就是免费版的完整结果（已执行全部免费检查项）；另有 0 项完整版会补上（差在哪见上）。');
       console.log('（以下是**可选的**商业推广，可忽略、不影响本次结果；设 SKILL_NO_UPSELL=1 可永久不再提示。）');
       console.log('请选择：A 继续免费（本次结果不受影响）　B 买断完整版 ￥9.9（一次付费、永久使用）');
       console.log('（同一会话最多提示一次；选 A 或不做选择都不会影响本次结果）');
@@ -234,6 +228,8 @@ function main() {
       console.log('（本次结果同样完整交付；如需完整版见本包 SKILL.md 的「需要完整档时（可选）」）');
     }
   } catch (e) { /* 提示失败绝不影响结果 */ }
+
+  
 
   
 
