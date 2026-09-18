@@ -580,6 +580,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_agency_monthly_close",
+    "package": "agency-monthly-close-free",
+    "engine": "agency-monthly-close-free/agency-monthly-close.js",
+    "title": "代账月结交付技能包（免费版）",
+    "given": [
+      "财务月度自查包",
+      "人力资源月度自查包",
+      "制造业月度自查包",
+      "建筑企业月度自查包",
+      "电商财务月度自查包",
+      "外贸月度自查包",
+      "集团财务月度自查包"
+    ],
+    "withheld": [
+      "跨客户汇总台账（全部客户 × 全部检查项合并成一张总表）",
+      "跨客户风险排序处理清单（按 P0/P1/未执行排序，带客户与原文定位）",
+      "跨客户共性问题归类（同一问题命中 2 个及以上客户时合并成一条共性项）",
+      "交付台账导出（Markdown 与 CSV 文本，直接用于月结交付说明）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_agri_purchase_invoice_deduction_check",
     "package": "agri-purchase-invoice-deduction-check-free",
     "engine": "agri-purchase-invoice-deduction-check-free/agri-purchase-invoice-deduction-check.js",
@@ -745,6 +768,36 @@
       "同一科目同一事项重复调整提示",
       "调整金额超过参考重要性水平提示（参考口径）",
       "调整后科目方向异常（资产类为负）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_audit_adjustment_pack",
+    "package": "audit-adjustment-pack-free",
+    "engine": "audit-adjustment-pack-free/audit-adjustment-pack.js",
+    "title": "审计与账务调整技能包（免费版）",
+    "given": [
+      "试算平衡与科目余额核对",
+      "审计调整分录核对",
+      "资产减值准备核对",
+      "资产处置损益核对",
+      "固定资产折旧核对",
+      "无形资产摊销核对",
+      "模具摊销核对",
+      "坏账准备计提核对",
+      "预提费用核对",
+      "预付款与预付账款核销核对",
+      "长期待摊费用摊销核对",
+      "存货跌价准备核对",
+      "现金盘点与长短款核对",
+      "罚款与违约金结算核对"
+    ],
+    "withheld": [
+      "跨被审计单位汇总台账（全部单位 × 全部 14 项检查合并成一张总表）",
+      "账务调整风险排序清单（按 P0/P1/P2 排序，带被审计单位名与原文文件行号）",
+      "跨单位共性问题归类（同一问题命中 2 个及以上被审计单位时合并成一条共性项）",
+      "审计调整台账导出（Markdown 与 CSV 文本，直接用于调整分录汇总与复核说明附件）"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -1350,6 +1403,36 @@
     "hasSample": true
   },
   {
+    "tool": "check_cost_inventory_pack",
+    "package": "cost-inventory-pack-free",
+    "engine": "cost-inventory-pack-free/cost-inventory-pack.js",
+    "title": "成本与存货技能包（免费版）",
+    "given": [
+      "库存账实核对",
+      "存货出入库与加权平均成本",
+      "存货跌价准备",
+      "存货报废与审批",
+      "BOM用量与损耗差异",
+      "材料领用与定额损耗",
+      "材料成本差异分摊",
+      "生产投入产出与报废率",
+      "委外加工费与损耗",
+      "甲供材料与分包领用",
+      "工程材料调拨与领用",
+      "工时与人工成本分摊",
+      "固定资产盘点账实",
+      "生鲜损耗与盘点差异"
+    ],
+    "withheld": [
+      "跨客户汇总台账（全部客户 × 全部 14 项检查合并成一张总表）",
+      "跨客户风险排序处理清单（按 P0/P1/P2 排序，带客户名与原文文件行号）",
+      "跨客户共性问题归类（同一问题命中 2 个及以上客户时合并成一条共性项）",
+      "台账导出（Markdown 与 CSV 文本，直接用于成本与存货复核说明）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_deferred_tax_check",
     "package": "deferred-tax-check-free",
     "engine": "deferred-tax-check-free/deferred-tax-check.js",
@@ -1460,6 +1543,36 @@
     "hasSample": true
   },
   {
+    "tool": "check_doc_compliance_pack",
+    "package": "doc-compliance-pack-free",
+    "engine": "doc-compliance-pack-free/doc-compliance-pack.js",
+    "title": "发票与单据合规技能包（免费版）",
+    "given": [
+      "发票领用存与开票数据",
+      "发票作废与红冲",
+      "农产品收购发票与进项抵扣",
+      "应付暂估与发票未到",
+      "合同一致性",
+      "多份合同条款差异",
+      "中标结果与合同一致性",
+      "投标报价明细",
+      "广告文案合规",
+      "广告文案违规体检",
+      "出口退税单证一致性",
+      "报销单合规",
+      "采购三单匹配",
+      "外贸单证单单一致"
+    ],
+    "withheld": [
+      "跨材料体检台账（全部材料 × 全部 14 项检查合并成一张总表）",
+      "按风险排序的「能不能签 / 能不能付」处置清单（带材料名与原文文件行号）",
+      "跨材料共性问题归类（同一类问题命中 2 份及以上材料时合并成一条共性项）",
+      "体检报告导出（Markdown 与 CSV 文本，直接交给签字/付款复核环节）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_drg_settlement_check",
     "package": "drg-settlement-check-free",
     "engine": "drg-settlement-check-free/drg-settlement-check.js",
@@ -1510,6 +1623,36 @@
       "计算个税 / 社保 / 发票税额，或处理平台司机、劳务外包等非承运结算口径",
       "读取 Excel / TMS / 油卡系统导出文件（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_ecom_platform_pack",
+    "package": "ecom-platform-pack-free",
+    "engine": "ecom-platform-pack-free/ecom-platform-pack.js",
+    "title": "电商与平台结算技能包（免费版）",
+    "given": [
+      "电商平台结算核对",
+      "退货退款与货款结算核对",
+      "平台账期与在途资金核对",
+      "直播佣金与坑位费结算核对",
+      "OTA佣金与净结算核对",
+      "商场联营抽成与保底核对",
+      "加盟抽成与最低保底核对",
+      "连锁加盟门店结算核对",
+      "会员积分与储值卡核销核对",
+      "促销补贴与核销核对",
+      "采购返利与阶梯核算核对",
+      "整车厂返利与商务政策核对",
+      "寄售代销结算核对",
+      "餐饮门店日营业款核对"
+    ],
+    "withheld": [
+      "跨客户汇总台账（全部客户 × 全部 14 项检查合并成一张总表）",
+      "结算差异风险排序清单（按 P0/P1/P2 排序，带客户名与原文文件行号）",
+      "跨客户共性问题归类（同一问题命中 2 个及以上客户时合并成一条共性项）",
+      "电商与平台结算台账导出（Markdown 与 CSV 文本，直接用于与平台/商场对账说明）"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
@@ -1711,6 +1854,36 @@
     "hasSample": true
   },
   {
+    "tool": "check_fee_budget_pack",
+    "package": "fee-budget-pack-free",
+    "engine": "fee-budget-pack-free/fee-budget-pack.js",
+    "title": "费用与预算技能包（免费版）",
+    "given": [
+      "预提费用与到票冲销核对",
+      "费用预算执行差异核对",
+      "部门费用预算执行核对",
+      "报销单合规预检",
+      "租金账单与押金结算核对",
+      "物流仓储与操作费核对",
+      "设备维保与备件领用费用核对",
+      "承运司机运费结算核对",
+      "运费对账",
+      "车队油耗与运费核对",
+      "物业费与滞纳金核对",
+      "物业公共能耗分摊核对",
+      "物业公共收益公示与分成核对",
+      "长期待摊费用摊销核对"
+    ],
+    "withheld": [
+      "跨客户汇总台账（全部客户 × 全部 14 项检查合并成一张总表）",
+      "跨客户风险排序处理清单（按 P0/P1/P2 排序，带客户名与原文文件行号）",
+      "跨客户共性问题归类（同一问题命中 2 个及以上客户时合并成一条共性项）",
+      "费用台账导出（Markdown 与 CSV 文本，直接用于月度费用复核说明）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_finance_monthly_selfcheck",
     "package": "finance-monthly-selfcheck-free",
     "engine": "finance-monthly-selfcheck-free/finance-monthly-selfcheck.js",
@@ -1769,6 +1942,36 @@
       "油卡加油量与油卡充值额不一致检测（充值额 vs 加油量 × 油品单价）",
       "里程为零却有油耗检测",
       "百公里油耗偏离参考区间（20~50L/100km）提示（参考口径）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_foreign_trade_pack",
+    "package": "foreign-trade-pack-free",
+    "engine": "foreign-trade-pack-free/foreign-trade-pack.js",
+    "title": "外贸与出口技能包（免费版）",
+    "given": [
+      "出口退税核算核对",
+      "出口退税申报单证一致性核对",
+      "出口报关与收汇核销核对",
+      "外币结算与汇兑损益核对",
+      "进口税费核算核对",
+      "货运险投保与货损理赔核对",
+      "运单回单与代收货款核对",
+      "运费对账核对",
+      "物流仓储与操作费核对",
+      "保函台账与到期失效核对",
+      "增值税进项税额认证与抵扣核对",
+      "发票作废与红冲核对",
+      "发票领用存与开票数据核对",
+      "寄售代销结算核对"
+    ],
+    "withheld": [
+      "跨对象汇总台账（全部核对对象 × 全部 14 项检查合并成一张总表）",
+      "出口风险排序清单（按 P0/P1/P2 排序，带对象名与原文文件行号）",
+      "跨对象共性问题归类（同一问题命中 2 个及以上对象时合并成一条共性项）",
+      "外贸出口台账导出（Markdown 与 CSV 文本，直接用于报关退税复核说明与付款审批附件）"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -2105,6 +2308,36 @@
       "处理汇率折算（请在表里就把外币折成人民币后再核）",
       "给出报关或税务意见；读取 .xlsx（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_industry_vertical_pack",
+    "package": "industry-vertical-pack-free",
+    "engine": "industry-vertical-pack-free/industry-vertical-pack.js",
+    "title": "行业专项技能包（免费版）",
+    "given": [
+      "门诊收费与退费日结核对",
+      "医疗收费与医保结算核对",
+      "医保拒付与申诉核对",
+      "医保结算清单与DRG入组核对",
+      "医院耗材加成与零差率核对",
+      "药品耗材进销存与科室领用核对",
+      "教培课消与预收学费核对",
+      "学费与退费核对",
+      "餐饮菜品成本与出品率核对",
+      "酒店夜审与房费收入核对",
+      "车辆保险与保费摊销核对",
+      "银行贷款利息与还款计划核对",
+      "出口报关与收汇核销核对",
+      "电费分时计价核对"
+    ],
+    "withheld": [
+      "跨机构汇总台账（全部机构 × 全部 14 项检查合并成一张总表）",
+      "行业风险排序清单（按 P0/P1/P2 排序，带机构名与原文文件行号）",
+      "跨机构共性问题归类（同一个问题命中 2 家及以上机构时合并成一条共性项）",
+      "行业台账导出（Markdown 与 CSV 文本，直接用于集团月度复核说明）"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
@@ -2602,6 +2835,36 @@
     "hasSample": true
   },
   {
+    "tool": "check_manufacturing_ops_pack",
+    "package": "manufacturing-ops-pack-free",
+    "engine": "manufacturing-ops-pack-free/manufacturing-ops-pack.js",
+    "title": "制造与生产技能包（免费版）",
+    "given": [
+      "生产投入产出与报废率核对",
+      "材料成本差异分摊核对",
+      "材料领用与定额损耗核对",
+      "工时与人工成本分摊核对",
+      "BOM用量与损耗差异核对",
+      "委外加工费与损耗核对",
+      "模具与工装摊销核对",
+      "设备维保与备件领用费用核对",
+      "固定资产盘点账实核对",
+      "存货出入库与加权平均成本核对",
+      "分包结算与产值核对",
+      "安全生产费用提取与使用核对",
+      "仓库周转与呆滞库存核对",
+      "证照与特种设备年检到期台账核对"
+    ],
+    "withheld": [
+      "跨对象汇总台账（全部对象 × 全部 14 项检查合并成一张总表）",
+      "制造与生产风险排序清单（按 P0/P1/P2 排序，带对象名与原文文件行号）",
+      "跨对象共性问题归类（同一问题命中 2 个及以上对象时合并成一条共性项）",
+      "制造生产台账导出（Markdown 与 CSV 文本，直接用于成本复核说明与月度生产分析附件）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_material_cost_variance_check",
     "package": "material-cost-variance-check-free",
     "engine": "material-cost-variance-check-free/material-cost-variance-check.js",
@@ -2923,6 +3186,36 @@
     "hasSample": true
   },
   {
+    "tool": "check_payroll_hr_pack",
+    "package": "payroll-hr-pack-free",
+    "engine": "payroll-hr-pack-free/payroll-hr-pack.js",
+    "title": "薪酬社保与人力技能包（免费版）",
+    "given": [
+      "工资表发放前核对",
+      "应付职工薪酬勾稽核对",
+      "工资代发与银行回单核对",
+      "代扣个税社保与申报核对",
+      "个人所得税累计预扣核对",
+      "社保缴纳明细核对",
+      "社保缴费基数核对",
+      "住房公积金缴存核对",
+      "加班费核对",
+      "计件工资核对",
+      "年终奖与奖金池核对",
+      "提成与底薪核对",
+      "销售阶梯提成核对",
+      "农民工工资专户核对"
+    ],
+    "withheld": [
+      "跨客户汇总台账（全部客户 × 全部 14 项检查合并成一张总表）",
+      "薪酬与社保风险排序清单（按 P0/P1/P2 排序，带客户名与原文文件行号）",
+      "跨客户共性问题归类（同一问题命中 2 个及以上客户时合并成一条共性项）",
+      "薪酬社保台账导出（Markdown 与 CSV 文本，直接用于发薪前复核说明）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_payroll_payable_check",
     "package": "payroll-payable-check-free",
     "engine": "payroll-payable-check-free/payroll-payable-check.js",
@@ -3148,6 +3441,36 @@
     "hasSample": true
   },
   {
+    "tool": "check_procurement_payable_pack",
+    "package": "procurement-payable-pack-free",
+    "engine": "procurement-payable-pack-free/procurement-payable-pack.js",
+    "title": "采购与付款技能包（免费版）",
+    "given": [
+      "供应商应付对账",
+      "应付账款账龄与付款计划核对",
+      "应付暂估与发票未到核对",
+      "应付账款保理与贴现核对",
+      "采购返利与阶梯核算核对",
+      "投标保证金收退核对",
+      "履约保证金与保函台账核对",
+      "中标结果与合同一致性核对",
+      "合同一致性AI核对",
+      "多份合同条款差异比对",
+      "三单匹配AI核对",
+      "报销单合规预检",
+      "预付卡消费核销核对",
+      "预收账款与收入确认核对"
+    ],
+    "withheld": [
+      "跨对象汇总台账（全部对象 × 全部 14 项检查合并成一张总表）",
+      "采购付款风险排序清单（按 P0/P1/P2 排序，带对象名与原文文件行号）",
+      "跨对象共性问题归类（同一问题命中 2 个及以上对象时合并成一条共性项）",
+      "采购付款台账导出（Markdown 与 CSV 文本，直接用于付款审批附件与结账前复核说明）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_production_yield_scrap_check",
     "package": "production-yield-scrap-check-free",
     "engine": "production-yield-scrap-check-free/production-yield-scrap-check.js",
@@ -3270,6 +3593,36 @@
       "同一材料跨项目重复调拨同一单据号提示",
       "单价与合同单价 / 预算单价不一致提示",
       "结存数量为负提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_project_settlement_pack",
+    "package": "project-settlement-pack-free",
+    "engine": "project-settlement-pack-free/project-settlement-pack.js",
+    "title": "工程与项目结算技能包（免费版）",
+    "given": [
+      "工程产值与进度确认核对",
+      "工程进度款与质保金核算核对",
+      "工程质量保证金扣留与退还核对",
+      "项目开票与回款核对",
+      "项目挣值分析（EVM）核对",
+      "在建工程转固与利息资本化核对",
+      "在建工程转固核对",
+      "维修资金与专项工程付款核对",
+      "分包结算与产值核对",
+      "预付款与预付账款核销核对",
+      "罚款与违约金结算核对",
+      "安全生产费用提取与使用核对",
+      "投标保证金收退核对",
+      "软件外包里程碑验收与付款核对"
+    ],
+    "withheld": [
+      "跨项目汇总台账（全部项目 × 全部 14 项检查合并成一张总表）",
+      "结算风险排序清单（按 P0/P1/P2 排序，带项目名与原文文件行号）",
+      "跨项目共性问题归类（同一问题命中 2 个及以上项目时合并成一条共性项）",
+      "结算台账导出（Markdown 与 CSV 文本，直接用于结算复核说明与付款审批附件）"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -3499,6 +3852,36 @@
     "hasSample": true
   },
   {
+    "tool": "check_recon_receivables_pack",
+    "package": "recon-receivables-pack-free",
+    "engine": "recon-receivables-pack-free/recon-receivables-pack.js",
+    "title": "对账与往来款技能包（免费版）",
+    "given": [
+      "供应商应付对账",
+      "应付账款账龄与付款计划",
+      "应收账款账龄",
+      "应收账款坏账准备计提",
+      "预收账款与收入确认",
+      "应付暂估与发票未到",
+      "应付账款保理与贴现",
+      "票据贴现利息",
+      "银行承兑汇票台账与到期兑付",
+      "银行流水对账",
+      "集团内部往来对账与抵消",
+      "保函台账",
+      "履约保证金与保函台账",
+      "备用金与报销核销"
+    ],
+    "withheld": [
+      "跨客户汇总台账（全部客户 × 全部 14 项检查合并成一张总表）",
+      "跨客户风险排序处理清单（按 P0/P1/P2 排序，带客户名与原文文件行号）",
+      "跨客户共性问题归类（同一问题命中 2 个及以上客户时合并成一条共性项）",
+      "往来台账导出（Markdown 与 CSV 文本，直接用于结账前复核说明）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_rent_collection_check",
     "package": "rent-collection-check-free",
     "engine": "rent-collection-check-free/rent-collection-check.js",
@@ -3627,6 +4010,29 @@
     "hasSample": true
   },
   {
+    "tool": "check_revenue_recognition_pack",
+    "package": "revenue-recognition-pack-free",
+    "engine": "revenue-recognition-pack-free/revenue-recognition-pack.js",
+    "title": "收入确认与结算技能包（免费版）",
+    "given": [
+      "SaaS 订阅收入确认核对",
+      "版税与保底分成结算核对",
+      "软件许可与授权期摊销核对",
+      "门店销售报表与收款方式核对",
+      "租金账单与免租期核对",
+      "分期收款本金与利息拆分核对",
+      "应收催收计划与账龄核对"
+    ],
+    "withheld": [
+      "跨项目汇总台账（全部项目 × 全部 7 项核对合并成一张总表）",
+      "收入风险排序清单（按 P0/P1/P2 排序，带项目名与原文文件行号）",
+      "跨项目共性问题归类（同一个问题命中 2 个及以上项目时合并成一条共性项）",
+      "收入台账导出（Markdown 与 CSV 文本，直接用于月度收入复核说明）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_royalty_settlement_check",
     "package": "royalty-settlement-check-free",
     "engine": "royalty-settlement-check-free/royalty-settlement-check.js",
@@ -3749,6 +4155,28 @@
       "处理含税/不含税的换算与废料收入的增值税申报（请把口径统一成一种再贴进来）",
       "读取 .xlsx / ERP 导出文件（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_shared_cost_pack",
+    "package": "shared-cost-pack-free",
+    "engine": "shared-cost-pack-free/shared-cost-pack.js",
+    "title": "公共费用与分摊技能包（免费版）",
+    "given": [
+      "水电表抄见与计费核对",
+      "公共能耗费分摊核对",
+      "仓储费与超期费核对",
+      "支付手续费与结算金额核对",
+      "保险代理手续费与佣金核对",
+      "废料与边角料处置核对"
+    ],
+    "withheld": [
+      "跨门店汇总台账（全部门店 × 全部 6 项核对合并成一张总表）",
+      "费用风险排序清单（按 P0/P1/P2 排序，带门店名与原文文件行号）",
+      "跨门店共性问题归类（同一个问题命中 2 家及以上门店时合并成一条共性项）",
+      "分摊台账导出（Markdown 与 CSV 文本，直接用于月度费用复核说明）"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
@@ -4027,6 +4455,36 @@
     "hasSample": true
   },
   {
+    "tool": "check_tax_filing_pack",
+    "package": "tax-filing-pack-free",
+    "engine": "tax-filing-pack-free/tax-filing-pack.js",
+    "title": "税务与涉税申报技能包（免费版）",
+    "given": [
+      "农产品收购发票与进项抵扣核对",
+      "应付暂估与发票未到核对",
+      "增值税进项税额认证与抵扣核对",
+      "进项税额转出核对",
+      "增值税附加税费核对",
+      "印花税计税依据核对",
+      "研发费用加计扣除归集核对",
+      "出口退税申报单证一致性核对",
+      "企业所得税纳税调整核对",
+      "预缴企业所得税核对",
+      "递延所得税与暂时性差异核对",
+      "房产税与城镇土地使用税申报核对",
+      "土地增值税预缴与清算核对",
+      "环境保护税申报核对"
+    ],
+    "withheld": [
+      "跨对象汇总台账（全部对象 × 全部 14 项检查合并成一张总表）",
+      "跨对象风险排序处理清单（按 P0/P1/P2 排序，带对象名与原文文件行号）",
+      "跨对象共性问题归类（同一问题命中 2 个及以上对象时合并成一条共性项）",
+      "申报台账导出（Markdown 与 CSV 文本，直接用于申报前复核说明）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_tax_incentive_eligibility_check",
     "package": "tax-incentive-eligibility-check-free",
     "engine": "tax-incentive-eligibility-check-free/tax-incentive-eligibility-check.js",
@@ -4085,6 +4543,27 @@
     "withheld": [
       "企业所得税纳税调整核对",
       "税务风险指标自查核对"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_tax_risk_benefit_pack",
+    "package": "tax-risk-benefit-pack-free",
+    "engine": "tax-risk-benefit-pack-free/tax-risk-benefit-pack.js",
+    "title": "税费自查与优惠技能包（免费版）",
+    "given": [
+      "增值税税负率与行业预警核对",
+      "增值税申报表与账面收入比对",
+      "税务风险指标异常项核对",
+      "税收优惠资格适用条件核对",
+      "税收滞纳金与罚款核对"
+    ],
+    "withheld": [
+      "跨客户汇总台账（全部客户 × 全部 5 项自查合并成一张总表）",
+      "税务风险排序清单（按 P0/P1/P2 排序，带客户名与原文文件行号）",
+      "跨客户共性问题归类（同一个问题命中 2 家及以上客户时合并成一条共性项）",
+      "自查台账导出（Markdown 与 CSV 文本，直接用于申报后复核说明）"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -4177,6 +4656,36 @@
       "伙食补助按天数 × 标准勾稽",
       "出差天数与起止日期不一致检测",
       "超标但无审批标记提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_treasury_bill_pack",
+    "package": "treasury-bill-pack-free",
+    "engine": "treasury-bill-pack-free/treasury-bill-pack.js",
+    "title": "资金与票据技能包（免费版）",
+    "given": [
+      "现金盘点差异核对",
+      "现金流预测与实际差异核对",
+      "银行流水对账核对",
+      "银行承兑汇票台账与到期兑付核对",
+      "票据贴现利息核对",
+      "应付账款保理与贴现核对",
+      "逾期利息核算核对",
+      "银行贷款利息与还款计划核对",
+      "备用金与报销核销核对",
+      "票据一致性核对",
+      "外币结算与汇兑损益核对",
+      "连锁门店调拨与库存核对",
+      "仓库周转与呆滞库存核对",
+      "保函台账与到期失效核对"
+    ],
+    "withheld": [
+      "跨对象汇总台账（全部对象 × 全部 14 项检查合并成一张总表）",
+      "资金与票据风险排序清单（按 P0/P1/P2 排序，带对象名与原文文件行号）",
+      "跨对象共性问题归类（同一问题命中 2 个及以上对象时合并成一条共性项）",
+      "资金票据台账导出（Markdown 与 CSV 文本，直接用于结账前复核说明与付款审批附件）"
     ],
     "outOfScope": [],
     "hasSample": true
