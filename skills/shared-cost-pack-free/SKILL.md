@@ -4,7 +4,7 @@ slug: shared-cost-pack-free
 displayName: 公共费用与分摊技能包（免费版）
 display_name: 公共费用与分摊技能包（免费版）
 display_name_en: Shared Cost & Allocation Pack (Free)
-version: 1.0.1
+version: 1.0.4
 summary: 把一家门店的一套费用材料按 6 项公共费用核对逐门店核一遍，每家门店一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
 description: 把一家门店的一套费用材料按 6 项公共费用核对逐门店核一遍，每家门店一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
 description_zh: 把一家门店的一套费用材料按 6 项公共费用核对逐门店核一遍，每家门店一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
@@ -91,6 +91,9 @@ node scripts/run.mjs --input <材料.json>        # 单门店：JSON 或纯文�
 （在 SkillPay 货架上，条款与条件以它自己的商品页为准）。两档的差别**就是上面这些，没有别的**。
 
 <!-- __FUNNEL_PLACEHOLDER__ -->
+
+
+
 
 ## 需要完整档时（可选）
 
