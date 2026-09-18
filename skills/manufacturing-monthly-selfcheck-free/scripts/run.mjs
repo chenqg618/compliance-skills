@@ -200,7 +200,6 @@ function main() {
   console.log('如需完整档：制造业月度自查包 · 买断版（SkillPay 商品号 S0806000206861566）—— 本版本未执行的 2 项检查在完整档里都有。');
   console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   console.log(JSON.stringify(view.result, null, 2));  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
-  }  // __UPSELL_GUARD__
   try {
     const os = require('node:os');
     const fsx = require('node:fs');
@@ -234,6 +233,9 @@ function main() {
       console.log('（本次结果同样完整交付；如需完整版见本包 SKILL.md 的「需要完整档时（可选）」）');
     }
   } catch (e) { /* 提示失败绝不影响结果 */ }
+
+  }  // __UPSELL_GUARD__
+  
 
   return 0;
 }
