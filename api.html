@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>按次调用的能力 API（公网 IP 直接可用）</title>
+<style>
+ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+   max-width:960px;margin:0 auto;padding:24px;line-height:1.7;color:#1f2329}
+ h1{font-size:24px} h2{margin-top:32px;font-size:19px}
+ code{background:#f5f6f7;padding:1px 5px;border-radius:4px;font-size:13px}
+ pre{background:#0f172a;color:#e6edf3;padding:14px;border-radius:8px;overflow:auto;font-size:13px}
+ table{border-collapse:collapse;width:100%;font-size:14px}
+ th,td{border:1px solid #e5e6eb;padding:8px 10px;text-align:left;vertical-align:top}
+ th{background:#fafafa} .note{background:#fff8e6;border-left:4px solid #f5a623;padding:10px 14px;border-radius:4px}
+</style></head><body>
+<h1>按次调用的能力 API（公网 IP 直接可用）</h1>
+<p>入口：<code>http://110.40.221.75</code> —— <strong>不需要域名、与域名备案无关</strong>（备案只影响域名这个好看的主机名）。</p>
+
+<h2>怎么用（三步）</h2>
+<pre># 1) 先看有哪些能力（免费，无需凭证）
+curl -s http://110.40.221.75/api/v1/capabilities
+
+# 2) 免费端点：不需要付款、不需要注册，直接 POST（每项能力每天每 IP 有次数上限）
+curl -s -X POST -H 'Content-Type: application/json' \
+  -d '{"text":"银行\n2026-05-08 -1240.00 酒店消费\n账面\n2026-05-08 -1240.00 差旅报销"}' \
+  http://110.40.221.75/api/v1/bank-reconciliation/free
+
+# 3) 收费端点：直接 POST ⇒ 返回 <strong>HTTP 402 Payment-Needed</strong>（含价格与订单号）
+#    按 402 账单完成支付后，带支付凭证重试同一请求即可（每次调用单独结算）
+curl -i -X POST -H 'Content-Type: application/json' -d '{"text":"…"}' \
+  http://110.40.221.75/api/v1/bank-reconciliation</pre>
+
+<h2>支付流程（402 协议）</h2>
+<ol>
+ <li>POST 收费端点 → <code>402</code> + <code>code: Payment-Needed</code> + <code>price</code> + <code>outTradeNo</code>；</li>
+ <li>按账单完成支付（支付宝）；</li>
+ <li>携带支付凭证重试<strong>同一个请求</strong> ⇒ 返回完整结果。</li>
+</ol>
+<p class="note">免费端点与收费端点是**同一套规则**的两档：免费档执行部分检查项，收费档执行全部并给出跨样本比对与统一整改清单。
+先把免费档跑通、确认有用，再按次付费——<strong>不订阅、不包月</strong>。</p>
+
+<h2>能力清单（现读线上接口，共 27 项）</h2>
+<table><thead><tr><th>能力</th><th>能力 ID</th><th>免费端点</th><th>收费端点</th><th>价格</th></tr></thead>
+<tbody>
+<tr><td>投标报价AI审查</td><td><code>quote-audit</code></td><td><code>http://110.40.221.75/api/v1/quote-audit/free</code></td><td><code>http://110.40.221.75/api/v1/quote-audit</code></td><td>¥0.30 / per_call</td></tr>
+<tr><td>串通投标线索AI筛查</td><td><code>collusion-screen</code></td><td><code>http://110.40.221.75/api/v1/collusion-screen/free</code></td><td><code>http://110.40.221.75/api/v1/collusion-screen</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>多标书批量合规体检</td><td><code>batch-bid-checkup</code></td><td><code>http://110.40.221.75/api/v1/batch-bid-checkup/free</code></td><td><code>http://110.40.221.75/api/v1/batch-bid-checkup</code></td><td>¥4.99 / per_call</td></tr>
+<tr><td>招投标全案合规审计</td><td><code>tender-compliance-audit</code></td><td><code>http://110.40.221.75/api/v1/tender-compliance-audit/free</code></td><td><code>http://110.40.221.75/api/v1/tender-compliance-audit</code></td><td>¥9.99 / per_call</td></tr>
+<tr><td>投标文件递交前终检</td><td><code>bid-final-check</code></td><td><code>http://110.40.221.75/api/v1/bid-final-check/free</code></td><td><code>http://110.40.221.75/api/v1/bid-final-check</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>广告文案合规预检</td><td><code>ad-compliance-check</code></td><td><code>http://110.40.221.75/api/v1/ad-compliance-check/free</code></td><td><code>http://110.40.221.75/api/v1/ad-compliance-check</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>广告文案违规改写</td><td><code>ad-copy-rewrite</code></td><td><code>http://110.40.221.75/api/v1/ad-copy-rewrite/free</code></td><td><code>http://110.40.221.75/api/v1/ad-copy-rewrite</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>SKU利润核算与调价建议</td><td><code>sku-profit-advisor</code></td><td><code>http://110.40.221.75/api/v1/sku-profit-advisor/free</code></td><td><code>http://110.40.221.75/api/v1/sku-profit-advisor</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>合同一致性AI核对</td><td><code>contract-consistency</code></td><td><code>http://110.40.221.75/api/v1/contract-consistency/free</code></td><td><code>http://110.40.221.75/api/v1/contract-consistency</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>多家报价横向比价</td><td><code>bid-comparison</code></td><td><code>http://110.40.221.75/api/v1/bid-comparison/free</code></td><td><code>http://110.40.221.75/api/v1/bid-comparison</code></td><td>¥4.99 / per_call</td></tr>
+<tr><td>银行流水对账核对</td><td><code>bank-reconciliation</code></td><td><code>http://110.40.221.75/api/v1/bank-reconciliation/free</code></td><td><code>http://110.40.221.75/api/v1/bank-reconciliation</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>多份合同条款差异比对</td><td><code>contract-comparison</code></td><td><code>http://110.40.221.75/api/v1/contract-comparison/free</code></td><td><code>http://110.40.221.75/api/v1/contract-comparison</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>工资表发放前核对</td><td><code>payroll-check</code></td><td><code>http://110.40.221.75/api/v1/payroll-check/free</code></td><td><code>http://110.40.221.75/api/v1/payroll-check</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>报销单合规预检</td><td><code>expense-compliance</code></td><td><code>http://110.40.221.75/api/v1/expense-compliance/free</code></td><td><code>http://110.40.221.75/api/v1/expense-compliance</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>三单匹配AI核对</td><td><code>three-way-match</code></td><td><code>http://110.40.221.75/api/v1/three-way-match/free</code></td><td><code>http://110.40.221.75/api/v1/three-way-match</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>外贸单证单单一致核对</td><td><code>trade-doc-consistency</code></td><td><code>http://110.40.221.75/api/v1/trade-doc-consistency/free</code></td><td><code>http://110.40.221.75/api/v1/trade-doc-consistency</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>票据一致性AI核对</td><td><code>invoice-consistency</code></td><td><code>http://110.40.221.75/api/v1/invoice-consistency/free</code></td><td><code>http://110.40.221.75/api/v1/invoice-consistency</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>社保公积金核对</td><td><code>social-insurance-check</code></td><td><code>http://110.40.221.75/api/v1/social-insurance-check/free</code></td><td><code>http://110.40.221.75/api/v1/social-insurance-check</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>应收账款账龄核对</td><td><code>ar-aging-check</code></td><td><code>http://110.40.221.75/api/v1/ar-aging-check/free</code></td><td><code>http://110.40.221.75/api/v1/ar-aging-check</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>固定资产折旧核对</td><td><code>depreciation-check</code></td><td><code>http://110.40.221.75/api/v1/depreciation-check/free</code></td><td><code>http://110.40.221.75/api/v1/depreciation-check</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>库存账实核对</td><td><code>inventory-check</code></td><td><code>http://110.40.221.75/api/v1/inventory-check/free</code></td><td><code>http://110.40.221.75/api/v1/inventory-check</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>供应商应付对账</td><td><code>ap-reconciliation</code></td><td><code>http://110.40.221.75/api/v1/ap-reconciliation/free</code></td><td><code>http://110.40.221.75/api/v1/ap-reconciliation</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>销售提成核对</td><td><code>commission-check</code></td><td><code>http://110.40.221.75/api/v1/commission-check/free</code></td><td><code>http://110.40.221.75/api/v1/commission-check</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>运费对账</td><td><code>freight-reconciliation</code></td><td><code>http://110.40.221.75/api/v1/freight-reconciliation/free</code></td><td><code>http://110.40.221.75/api/v1/freight-reconciliation</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>电商平台结算核对</td><td><code>platform-settlement-check</code></td><td><code>http://110.40.221.75/api/v1/platform-settlement-check/free</code></td><td><code>http://110.40.221.75/api/v1/platform-settlement-check</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>课时核销核对</td><td><code>lesson-hour-check</code></td><td><code>http://110.40.221.75/api/v1/lesson-hour-check/free</code></td><td><code>http://110.40.221.75/api/v1/lesson-hour-check</code></td><td>¥0.99 / per_call</td></tr>
+<tr><td>公共费用分摊核对</td><td><code>utility-allocation-check</code></td><td><code>http://110.40.221.75/api/v1/utility-allocation-check/free</code></td><td><code>http://110.40.221.75/api/v1/utility-allocation-check</code></td><td>¥0.99 / per_call</td></tr>
+</tbody></table>
+
+<h2>本地离线版（免费技能 / 买断）</h2>
+<p>不想走 API 的，可以用<strong>本机离线</strong>的技能包：免费版直接装、买断版一次付费长期用，
+见 <a href="./buy.html">buy.html</a>（含每个商品的商品号与官方购买指令）。</p>
+</body></html>
