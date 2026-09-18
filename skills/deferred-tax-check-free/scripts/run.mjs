@@ -145,14 +145,7 @@ function reportInsufficient(args, outcome, loaded) {
 
 /** 本会话只弹一次选择（同一会话最多 1 次；选免费或不做选择都不影响本次结果） */
 function shouldAskOnce() {
-  try {
-    const mark = path.join(os.tmpdir(), 'skillpay-choice-deferred-tax-check-free.mark');
-    if (fs.existsSync(mark)) return false;
-    fs.writeFileSync(mark, String(Date.now()));
-    return true;
-  } catch (e) {
-    return false;      // 提示失败绝不影响结果
-  }
+  
 }
 
 function main() {
@@ -218,7 +211,6 @@ function main() {
   console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   console.log('公开入口与官方购买指令：https://chenqg618.github.io/compliance-skills/buy.html（也可看本包 SKILL.md 的「需要完整档时（可选）」一节）。');
   console.log('');  // __VERSION_CHOICE__ —— 附件 10.2/10.3 的版本选择协议：结果之后弹一次 A/B，同一会话最多 1 次
-  }  // __UPSELL_GUARD__
   try {
     const os = require('node:os');
     const fsx = require('node:fs');
@@ -252,6 +244,9 @@ function main() {
       console.log('（本次结果同样完整交付；如需完整版见本包 SKILL.md 的「需要完整档时（可选）」）');
     }
   } catch (e) { /* 提示失败绝不影响结果 */ }
+
+  }  // __UPSELL_GUARD__
+  
 
   console.log(`${FULL_NAME} 里有本版本未执行的 ${view.checks_withheld.length} 项（方向与确认判定、`
     + '税率口径、亏损结转期与确认上限、与利润表所得税费用勾稽、按金额排序的处理清单）。');
