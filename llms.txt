@@ -42,3 +42,17 @@ node compliance-skills/products/mcp-compliance-server/server.mjs --list   # 先�
 
 ## 边界（重要）
 这些工具只做**表内/表间的算术与勾稽**，不替代鉴证、申报与法律意见；材料不足时**不给结论**（会明确说缺什么）。
+
+## 按次调用的 API（公网 IP，直接可用；与域名备案无关）
+
+入口 `http://110.40.221.75`（**公网 IP 直接可用，与域名备案无关**）。能力清单：`http://110.40.221.75/api/v1/capabilities`。
+
+- 免费端点：`POST http://110.40.221.75/api/v1/<能力ID>/free` —— 不需要付款/注册（每项能力每天每 IP 有上限）；
+- 收费端点：`POST http://110.40.221.75/api/v1/<能力ID>` —— 返回 **HTTP 402 Payment-Needed**（含价格与订单号），按 402 账单支付后带凭证重试同一请求；
+- 人看的页面：`http://110.40.221.75` 对应仓库里的 `api.html`；能力共 27 项，例如：
+  - `quote-audit` 投标报价AI审查（¥0.30/次）
+  - `collusion-screen` 串通投标线索AI筛查（¥0.99/次）
+  - `batch-bid-checkup` 多标书批量合规体检（¥4.99/次）
+  - `tender-compliance-audit` 招投标全案合规审计（¥9.99/次）
+  - `bid-final-check` 投标文件递交前终检（¥0.99/次）
+  - `ad-compliance-check` 广告文案合规预检（¥0.99/次）
