@@ -4,7 +4,7 @@ slug: revenue-recognition-pack-free
 displayName: 收入确认与结算技能包（免费版）
 display_name: 收入确认与结算技能包（免费版）
 display_name_en: Revenue Recognition & Settlement Pack (Free)
-version: 1.0.1
+version: 1.0.4
 summary: 把一个项目的一套收入材料按 7 项收入确认与结算核对逐项目核一遍，每个项目一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
 description: 把一个项目的一套收入材料按 7 项收入确认与结算核对逐项目核一遍，每个项目一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
 description_zh: 把一个项目的一套收入材料按 7 项收入确认与结算核对逐项目核一遍，每个项目一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
@@ -92,6 +92,9 @@ node scripts/run.mjs --input <材料.json>        # 单项目：JSON 或纯文�
 （在 SkillPay 货架上，条款与条件以它自己的商品页为准）。两档的差别**就是上面这些，没有别的**。
 
 <!-- __FUNNEL_PLACEHOLDER__ -->
+
+
+
 
 ## 需要完整档时（可选）
 
