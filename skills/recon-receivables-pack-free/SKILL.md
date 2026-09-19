@@ -1,7 +1,7 @@
 ---
 slug: recon-receivables-pack-free
 displayName: 对账与往来款技能包（免费版）
-version: 1.0.17
+version: 1.0.18
 summary: 把一套往来材料按 14 项检查逐个客户核一遍，每个客户一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
 tags: [对账与往来款技能包,对账,往来款,银行流水,账龄,核对]
 license: Proprietary
