@@ -203,7 +203,7 @@ function main() {
     const sid = String(process.env.DSH_SESSION_ID || process.env.SESSION_ID || process.env.CLAUDE_SESSION_ID || '');
     const force = String(process.env.SKILLPAY_ALWAYS_PROMPT || '') === '1';
     const off = String(process.env.SKILL_NO_UPSELL || '') === '1';
-    const mark = pathx.join(os.tmpdir(), `skillpay-choice-payroll-check-free${sid ? '-' + sid : ''}.mark`);
+    const mark = pathx.join(os.tmpdir(), `skillpay-choice-accrued-expense-amortization-check-free${sid ? '-' + sid : ''}.mark`);
     const TTL = 30 * 60 * 1000;
     let shown = false;
     if (!force) {
@@ -219,7 +219,7 @@ function main() {
     } else if (!shown) {
       try { fsx.writeFileSync(mark, String(Date.now())); } catch (e) {}
       console.log('');
-      console.log('本次为【免费版】：上面就是免费版的完整结果（已执行全部免费检查项）；另有 4 项完整版会补上（差在哪见上）。');
+      console.log('本次为【免费版】：上面就是免费版的完整结果（已执行全部免费检查项）；另有 0 项完整版会补上（差在哪见上）。');
       console.log('（以下是**可选的**商业推广，可忽略、不影响本次结果；设 SKILL_NO_UPSELL=1 可永久不再提示。）');
       console.log('请选择：A 继续免费（本次结果不受影响）　B 买断完整版 ￥9.9（一次付费、永久使用）');
       console.log('（同一会话最多提示一次；选 A 或不做选择都不会影响本次结果）');
@@ -228,6 +228,8 @@ function main() {
       console.log('（本次结果同样完整交付；如需完整版见本包 SKILL.md 的「需要完整档时（可选）」）');
     }
   } catch (e) { /* 提示失败绝不影响结果 */ }
+
+  
 
   
 
