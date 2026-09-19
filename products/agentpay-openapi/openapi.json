@@ -1,39 +1,37 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "机械核对型能力 API",
+    "title": "确定性核对能力 API（按次计费）",
     "version": "1.0.0",
-    "description": "招投标 / 合同 / 票据 / 外贸单证 / 三单匹配 / 报销 / 银行对账 / 多家比价 的确定性核对能力。同一份材料谁来跑结论都一样，每条结论都附原文出处、可复算；材料不足时明确说缺什么，不会输出\"未发现问题\"。免费档会如实列出\"本次没有执行的检查项\"。"
+    "description": "把\"表算对\"的确定性核对能力做成 API：同一份材料谁来跑结论都一样、每条都带原文行号。免费端点可直接调用；收费端点按次计费（402 流程）。"
   },
   "servers": [
     {
+      "url": "http://110.40.221.75",
+      "description": "生产环境（公网 IP 直连，推荐）"
+    },
+    {
       "url": "https://www.tokendidi.cn",
-      "description": "生产环境"
+      "description": "备用入口（域名）"
     }
   ],
   "paths": {
     "/api/v1/capabilities": {
       "get": {
+        "summary": "能力清单",
         "operationId": "listCapabilities",
-        "summary": "列出全部能力（含免费端点、档位、输入说明）",
         "responses": {
           "200": {
-            "description": "能力目录",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
+            "description": "能力清单（含免费端点与按次价格）"
           }
         }
       }
     },
-    "/api/v1/try": {
+    "/api/v1/quote-audit/free": {
       "post": {
-        "operationId": "runFreeCheck",
-        "summary": "免费核对（粘贴正文即可；带 X-API-Token 时按已购额度跑完整版）",
+        "summary": "投标报价AI审查（免费档）",
+        "operationId": "quote_audit_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
         "requestBody": {
           "required": true,
           "content": {
@@ -41,57 +39,34 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "capability": {
-                    "type": "string",
-                    "description": "能力 id，见 /api/v1/capabilities"
-                  },
                   "text": {
                     "type": "string",
-                    "description": "要核对的正文；多份材料用单独一行分节标题或空行分隔"
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "required": [
-                  "capability",
-                  "text"
-                ],
-                "additionalProperties": false
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "可选：已购调用凭证（sk_ 开头）。带上则跑完整版并核销一次；不带则是免费档。"
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果（含 summary / findings / 本次未执行的检查项）",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（明确说明缺什么，且不计费）"
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/quote-audit": {
       "post": {
-        "operationId": "run_quote_audit",
-        "summary": "投标报价AI审查（按次 ¥0.30）",
-        "description": "按次计费 ¥0.30/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "投标报价AI审查（按次付费）",
+        "operationId": "quote_audit_paid",
+        "description": "按次计费 ¥0.30；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -100,49 +75,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/collusion-screen/free": {
+      "post": {
+        "summary": "串通投标线索AI筛查（免费档）",
+        "operationId": "collusion_screen_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/collusion-screen": {
       "post": {
-        "operationId": "run_collusion_screen",
-        "summary": "串通投标线索AI筛查（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "串通投标线索AI筛查（按次付费）",
+        "operationId": "collusion_screen_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -151,49 +148,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/batch-bid-checkup/free": {
+      "post": {
+        "summary": "多标书批量合规体检（免费档）",
+        "operationId": "batch_bid_checkup_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/batch-bid-checkup": {
       "post": {
-        "operationId": "run_batch_bid_checkup",
-        "summary": "多标书批量合规体检（按次 ¥4.99）",
-        "description": "按次计费 ¥4.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "多标书批量合规体检（按次付费）",
+        "operationId": "batch_bid_checkup_paid",
+        "description": "按次计费 ¥4.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -202,49 +221,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/tender-compliance-audit/free": {
+      "post": {
+        "summary": "招投标全案合规审计（免费档）",
+        "operationId": "tender_compliance_audit_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/tender-compliance-audit": {
       "post": {
-        "operationId": "run_tender_compliance_audit",
-        "summary": "招投标全案合规审计（按次 ¥9.99）",
-        "description": "按次计费 ¥9.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "招投标全案合规审计（按次付费）",
+        "operationId": "tender_compliance_audit_paid",
+        "description": "按次计费 ¥9.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -253,49 +294,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/bid-final-check/free": {
+      "post": {
+        "summary": "投标文件递交前终检（免费档）",
+        "operationId": "bid_final_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/bid-final-check": {
       "post": {
-        "operationId": "run_bid_final_check",
-        "summary": "投标文件递交前终检（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "投标文件递交前终检（按次付费）",
+        "operationId": "bid_final_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -304,49 +367,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/ad-compliance-check/free": {
+      "post": {
+        "summary": "广告文案合规预检（免费档）",
+        "operationId": "ad_compliance_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/ad-compliance-check": {
       "post": {
-        "operationId": "run_ad_compliance_check",
-        "summary": "广告文案合规预检（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "广告文案合规预检（按次付费）",
+        "operationId": "ad_compliance_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -355,49 +440,217 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/ad-copy-rewrite/free": {
+      "post": {
+        "summary": "广告文案违规改写（免费档）",
+        "operationId": "ad_copy_rewrite_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
+          }
+        }
+      }
+    },
+    "/api/v1/ad-copy-rewrite": {
+      "post": {
+        "summary": "广告文案违规改写（按次付费）",
+        "operationId": "ad_copy_rewrite_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（免费档不含的检查项在付费档执行）"
           },
           "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/sku-profit-advisor/free": {
+      "post": {
+        "summary": "SKU利润核算与调价建议（免费档）",
+        "operationId": "sku_profit_advisor_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
+          }
+        }
+      }
+    },
+    "/api/v1/sku-profit-advisor": {
+      "post": {
+        "summary": "SKU利润核算与调价建议（按次付费）",
+        "operationId": "sku_profit_advisor_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/contract-consistency/free": {
+      "post": {
+        "summary": "合同一致性AI核对（免费档）",
+        "operationId": "contract_consistency_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/contract-consistency": {
       "post": {
-        "operationId": "run_contract_consistency",
-        "summary": "合同一致性AI核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "合同一致性AI核对（按次付费）",
+        "operationId": "contract_consistency_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -406,49 +659,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/bid-comparison/free": {
+      "post": {
+        "summary": "多家报价横向比价（免费档）",
+        "operationId": "bid_comparison_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/bid-comparison": {
       "post": {
-        "operationId": "run_bid_comparison",
-        "summary": "多家报价横向比价（按次 ¥4.99）",
-        "description": "按次计费 ¥4.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "多家报价横向比价（按次付费）",
+        "operationId": "bid_comparison_paid",
+        "description": "按次计费 ¥4.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -457,49 +732,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/bank-reconciliation/free": {
+      "post": {
+        "summary": "银行流水对账核对（免费档）",
+        "operationId": "bank_reconciliation_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/bank-reconciliation": {
       "post": {
-        "operationId": "run_bank_reconciliation",
-        "summary": "银行流水对账核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "银行流水对账核对（按次付费）",
+        "operationId": "bank_reconciliation_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -508,49 +805,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/contract-comparison/free": {
+      "post": {
+        "summary": "多份合同条款差异比对（免费档）",
+        "operationId": "contract_comparison_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/contract-comparison": {
       "post": {
-        "operationId": "run_contract_comparison",
-        "summary": "多份合同条款差异比对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "多份合同条款差异比对（按次付费）",
+        "operationId": "contract_comparison_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -559,49 +878,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/payroll-check/free": {
+      "post": {
+        "summary": "工资表发放前核对（免费档）",
+        "operationId": "payroll_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/payroll-check": {
       "post": {
-        "operationId": "run_payroll_check",
-        "summary": "工资表发放前核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "工资表发放前核对（按次付费）",
+        "operationId": "payroll_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -610,49 +951,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/expense-compliance/free": {
+      "post": {
+        "summary": "报销单合规预检（免费档）",
+        "operationId": "expense_compliance_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/expense-compliance": {
       "post": {
-        "operationId": "run_expense_compliance",
-        "summary": "报销单合规预检（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "报销单合规预检（按次付费）",
+        "operationId": "expense_compliance_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -661,49 +1024,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/three-way-match/free": {
+      "post": {
+        "summary": "三单匹配AI核对（免费档）",
+        "operationId": "three_way_match_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/three-way-match": {
       "post": {
-        "operationId": "run_three_way_match",
-        "summary": "三单匹配AI核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "三单匹配AI核对（按次付费）",
+        "operationId": "three_way_match_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -712,49 +1097,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/trade-doc-consistency/free": {
+      "post": {
+        "summary": "外贸单证单单一致核对（免费档）",
+        "operationId": "trade_doc_consistency_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/trade-doc-consistency": {
       "post": {
-        "operationId": "run_trade_doc_consistency",
-        "summary": "外贸单证单单一致核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "外贸单证单单一致核对（按次付费）",
+        "operationId": "trade_doc_consistency_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -763,49 +1170,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/invoice-consistency/free": {
+      "post": {
+        "summary": "票据一致性AI核对（免费档）",
+        "operationId": "invoice_consistency_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/invoice-consistency": {
       "post": {
-        "operationId": "run_invoice_consistency",
-        "summary": "票据一致性AI核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "票据一致性AI核对（按次付费）",
+        "operationId": "invoice_consistency_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -814,49 +1243,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/social-insurance-check/free": {
+      "post": {
+        "summary": "社保公积金核对（免费档）",
+        "operationId": "social_insurance_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/social-insurance-check": {
       "post": {
-        "operationId": "run_social_insurance_check",
-        "summary": "社保公积金核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "社保公积金核对（按次付费）",
+        "operationId": "social_insurance_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -865,49 +1316,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/ar-aging-check/free": {
+      "post": {
+        "summary": "应收账款账龄核对（免费档）",
+        "operationId": "ar_aging_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/ar-aging-check": {
       "post": {
-        "operationId": "run_ar_aging_check",
-        "summary": "应收账款账龄核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "应收账款账龄核对（按次付费）",
+        "operationId": "ar_aging_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -916,49 +1389,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/depreciation-check/free": {
+      "post": {
+        "summary": "固定资产折旧核对（免费档）",
+        "operationId": "depreciation_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/depreciation-check": {
       "post": {
-        "operationId": "run_depreciation_check",
-        "summary": "固定资产折旧核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "固定资产折旧核对（按次付费）",
+        "operationId": "depreciation_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -967,49 +1462,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/inventory-check/free": {
+      "post": {
+        "summary": "库存账实核对（免费档）",
+        "operationId": "inventory_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/inventory-check": {
       "post": {
-        "operationId": "run_inventory_check",
-        "summary": "库存账实核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "库存账实核对（按次付费）",
+        "operationId": "inventory_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -1018,49 +1535,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/ap-reconciliation/free": {
+      "post": {
+        "summary": "供应商应付对账（免费档）",
+        "operationId": "ap_reconciliation_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/ap-reconciliation": {
       "post": {
-        "operationId": "run_ap_reconciliation",
-        "summary": "供应商应付对账（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "供应商应付对账（按次付费）",
+        "operationId": "ap_reconciliation_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -1069,49 +1608,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/commission-check/free": {
+      "post": {
+        "summary": "销售提成核对（免费档）",
+        "operationId": "commission_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/commission-check": {
       "post": {
-        "operationId": "run_commission_check",
-        "summary": "销售提成核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "销售提成核对（按次付费）",
+        "operationId": "commission_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -1120,49 +1681,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/freight-reconciliation/free": {
+      "post": {
+        "summary": "运费对账（免费档）",
+        "operationId": "freight_reconciliation_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/freight-reconciliation": {
       "post": {
-        "operationId": "run_freight_reconciliation",
-        "summary": "运费对账（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "运费对账（按次付费）",
+        "operationId": "freight_reconciliation_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -1171,49 +1754,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/platform-settlement-check/free": {
+      "post": {
+        "summary": "电商平台结算核对（免费档）",
+        "operationId": "platform_settlement_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/platform-settlement-check": {
       "post": {
-        "operationId": "run_platform_settlement_check",
-        "summary": "电商平台结算核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "电商平台结算核对（按次付费）",
+        "operationId": "platform_settlement_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -1222,49 +1827,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/lesson-hour-check/free": {
+      "post": {
+        "summary": "课时核销核对（免费档）",
+        "operationId": "lesson_hour_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/lesson-hour-check": {
       "post": {
-        "operationId": "run_lesson_hour_check",
-        "summary": "课时核销核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "课时核销核对（按次付费）",
+        "operationId": "lesson_hour_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -1273,49 +1900,71 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/utility-allocation-check/free": {
+      "post": {
+        "summary": "公共费用分摊核对（免费档）",
+        "operationId": "utility_allocation_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
                 }
               }
             }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
-          },
-          "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
           }
         }
       }
     },
     "/api/v1/utility-allocation-check": {
       "post": {
-        "operationId": "run_utility_allocation_check",
-        "summary": "公共费用分摊核对（按次 ¥0.99）",
-        "description": "按次计费 ¥0.99/次。未携带有效凭证时返回 HTTP 402 与 Payment-Needed 账单；携带 X-API-Token（已购额度）时直接返回结果并核销一次。",
+        "summary": "公共费用分摊核对（按次付费）",
+        "operationId": "utility_allocation_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
           "content": {
@@ -1324,40 +1973,27 @@
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
                   }
-                },
-                "additionalProperties": true
+                }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "name": "X-API-Token",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "核对结果",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "入参不合法或材料不足（不计费）"
+            "description": "结论（免费档不含的检查项在付费档执行）"
           },
           "402": {
-            "description": "需要付款（响应头 Payment-Needed 内含账单）"
+            "description": "Payment-Needed：需支付后重试"
           }
         }
       }
