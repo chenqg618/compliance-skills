@@ -1,7 +1,7 @@
 ---
 slug: fee-budget-pack-free
 displayName: 费用与预算技能包（免费版）
-version: 1.0.16
+version: 1.0.17
 summary: 把一套费用与预算材料按 14 项检查逐个客户核一遍，每个客户一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
 tags: [费用与预算技能包,费用核对,预算执行,报销合规,物业费用,离线]
 license: Proprietary
