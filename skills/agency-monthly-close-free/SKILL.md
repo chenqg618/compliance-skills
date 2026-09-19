@@ -1,7 +1,7 @@
 ---
 slug: agency-monthly-close-free
 displayName: 代账月结交付技能包（免费版）
-version: 1.0.12
+version: 1.0.13
 summary: 一次跑完所有代账客户的月度自查（7 个行业月度自查包 × 目录里全部客户），每个客户一行结论，每条结论都带原文文件与行号，不需要付款，也不需要注册。
 tags: [代账客户月结交付包,代账月结,批量核对,客户月结交付,月度自查,免费]
 license: Proprietary
