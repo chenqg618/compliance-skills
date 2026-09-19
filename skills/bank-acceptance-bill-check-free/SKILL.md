@@ -1,7 +1,7 @@
 ---
 slug: bank-acceptance-bill-check-free
 displayName: 银行承兑汇票台账与到期兑付核对（免费版）
-version: 1.0.44
+version: 1.0.45
 summary: 银行承兑汇票台账逐票核对（到期日复算、余额勾稽、票号重复、状态空缺、金额与期限非正、已兑付仍计余额），每条结论都带原文行号，不需要注册。
 tags: [银行承兑汇票台账与到期兑付核对,银行承兑汇票台账,票据台账,到期日核对,免费]
 license: Proprietary
