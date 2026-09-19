@@ -1,7 +1,7 @@
 ---
 slug: iit-annual-settlement-check-free
 displayName: 个税年度汇算（综合所得）核对（免费版）
-version: 1.0.2
+version: 1.0.3
 summary: 个税年度汇算表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [个税年度汇算（综合所得）核对,个税年度汇算表,核对,对账,免费]
 license: Proprietary
