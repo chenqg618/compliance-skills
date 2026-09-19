@@ -1,7 +1,7 @@
 ---
 slug: waybill-pod-cod-check-free
 displayName: 运单回单与代收货款核对（免费版）
-version: 1.0.37
+version: 1.0.38
 summary: 运单回单与代收货款核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [运单回单与代收货款核对,运单回单与代收货款核对表,核对,对账,免费]
 license: Proprietary
