@@ -1,7 +1,7 @@
 ---
 slug: land-appreciation-check-free
 displayName: 土地增值税预缴与清算核对（免费版）
-version: 1.0.10
+version: 1.0.11
 summary: 土地增值税预缴与清算表逐项核对（扣除项目合计、增值额、增值率、档位应纳税额、应预缴税额、已预缴差异、合计行、重复与空缺），每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [土地增值税预缴与清算核对,土地增值税清算,扣除项目,增值额与增值率,预征率,免费]
 license: Proprietary
