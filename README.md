@@ -21,6 +21,13 @@
 | **技能包** | 已经用 Claude Code / SkillHub / ClawHub 等 | 下面的「直接下载」或 `skills/` |
 | **MCP server** | 已经用 Claude Desktop / Cursor 等 MCP 客户端 | 见下一节 |
 | **本地智能体** | 手里有**一叠材料**，想一次过一遍 | `node products/compliance-agent/agent.mjs --dir ./materials` |
+| **按次 API**（不用装任何东西） | 你的 Agent/程序想**直接调用** | `POST http://110.40.221.75/api/v1/<能力ID>/free`（免费）或 `POST http://110.40.221.75/api/v1/<能力ID>`（**按次付费**，返回 402 账单）—— 说明页 <https://chenqg618.github.io/compliance-skills/api.html> |
+
+**按次 API** 是**公网 IP 直连**的（`http://110.40.221.75`，不需要域名、与域名备案无关）：
+能力清单 `GET /api/v1/capabilities`（当前 27 项）；免费端点直接 POST；收费端点会返回
+**HTTP 402 Payment-Needed**（带价格与订单号），按账单支付后带凭证重试同一请求即可。
+逐项能力、价格与 curl 示例见 <https://chenqg618.github.io/compliance-skills/api.html>；
+给 Agent 读的说明在 <https://chenqg618.github.io/compliance-skills/llms.txt>。
 
 **本地智能体**值得单独说一句：你**不用告诉它哪份文件该查什么** ——
 它自己判断每份材料是什么、该跑哪些检查，两份以上合同还会**自动额外做一次横向比对**，
@@ -33,8 +40,11 @@ node products/compliance-agent/agent.mjs --dir ./材料目录
 
 ## 想把它接进别的平台？有现成的 OpenAPI 规格
 
-`products/agentpay-openapi/openapi.json` 是 **标准 OpenAPI 3.0.3 规格**，覆盖 **14 个能力**
-（Coze 的 API 插件、多数智能体平台导入的都是这个格式 —— 一次导入即可，不用照着文档手填）。
+`products/agentpay-openapi/openapi.json` 是 **标准 OpenAPI 3.0.3 规格**（**由线上能力清单现读生成**，
+当前覆盖 **27 个能力**、55 条路径；`tools/build_openapi.py --check` 会与线上对账，防止漂移）。
+Coze 的 API 插件、多数智能体平台导入的都是这个格式 —— 一次导入即可，不用照着文档手填。
+⚠️ 规格里的首选服务器是 **`http://110.40.221.75`（公网 IP 直连，现在就能用，与域名备案无关）**；
+域名只作备用入口。
 
 关键一点：**每个能力端点都接受纯文本 `text`**（文本进、文本出，不用拼结构化 JSON）：
 
@@ -47,10 +57,10 @@ POST /api/v1/three-way-match
 详见 [`products/agentpay-openapi/README.md`](products/agentpay-openapi/README.md)。
 
 <!-- MCP_SECTION_START -->
-## 也可以当 MCP server 用（214 个工具，完全离线）
+## 也可以当 MCP server 用（218 个工具，完全离线）
 
 同一个仓库里有一套 **MCP（Model Context Protocol）server** —— 任何支持 MCP 的 Agent
-（Claude Desktop / Cursor / 各类 Harness）都能直接调用这 214 个确定性核对工具：
+（Claude Desktop / Cursor / 各类 Harness）都能直接调用这 218 个确定性核对工具：
 
 ```bash
 git clone https://github.com/chenqg618/compliance-skills.git
@@ -113,7 +123,7 @@ claude plugin marketplace add chenqg618/compliance-skills
 **③ 在 DSH / SkillHub 的技能市场里按技能名安装**：
 在技能市场里搜**技能名**（例如 `bank-reconciliation-free`、`vat-burden-check-free`），
 <!-- MARKET_COUNT_START -->
-或直接到 <https://www.skillhub.cn/> 搜同一批名字（**公开 API 回读**：已上架 **87 个免费技能** + **31 个完整档**）。
+或直接到 <https://www.skillhub.cn/> 搜同一批名字（**公开 API 回读**：已上架 **88 个免费技能** + **31 个完整档**）。
 <!-- MARKET_COUNT_END -->
 > 说明（第 255 轮核实后改写）：本仓库的 GitHub 话题是 `dsh-plugin` / `deepseek-harness` / `agent-skills` 等，
 > **并不存在 `dsh-skill` 这个已生效的话题** —— 之前那行写法是错的，已改掉（不写没核实过的话）。
@@ -138,7 +148,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **220 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **224 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -188,6 +198,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `construction-monthly-selfcheck-free` | 建筑企业月度自查包（免费版）共 3 类核对，含 分包结算与产值核对、工程进度款与质保金核对、工程产值与进度确认核对 |
 | `construction-output-value-check-free` | 工程产值与进度确认表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `construction-wage-special-account-check-free` | 建筑工人工资专户发放核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `contract-asset-liability-aging-check-free` | 合同资产负债台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `contract-comparison-free` | 把同一模板下签的多份合同摆在一起逐条对齐——某一份少了哪一条、哪一条被改过、同一条有几个版本 |
 | `contract-consistency-check-free` | 把合同里能被算出来、指出来证明是错的地方找出来，每条都带原文证据，不需要付款，也不需要注册 |
 | `contract-fulfillment-cost-check-free` | 履约成本明细表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -233,6 +244,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `housing-fund-check-free` | 住房公积金每月汇缴明细逐项核对，逐人复算单位与个人月缴存额、缴存合计勾稽、合计行与明细复核、重复人员与空缺负数、基数超出上下限，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `hr-monthly-selfcheck-free` | 人力资源月度自查包（免费版）共 3 类核对，含 工资表代扣与个税社保申报核对、工资个税累计预扣核对、社保公积金缴费基数核对 |
 | `hr-statutory-pack-free` | 把一家主体的一套人力费用材料按 3 项法定费用核对逐主体核一遍，每家主体一行结论，结论都带原文文件与行号，不需要付款、不需要注册 |
+| `iit-annual-settlement-check-free` | 个税年度汇算表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `iit-withholding-check-free` | 个税累计预扣计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `import-duty-check-free` | 进口税费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `industry-vertical-pack-free` | 把一家机构的一套材料按 14 项行业专项检查逐个机构核一遍，每家机构一行结论，结论都带原文文件与行号，不需要付款、不需要注册 |
@@ -268,6 +280,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `medical-consumable-markup-check-free` | 医院/诊所每月结账与物价检查前的卫生耗材核对表，逐项复算结存数量、结存金额、加成率逐项复算，合计行勾稽、重复行与空缺检测，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `medical-insurance-denial-check-free` | 医保拒付与申诉核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `mold-amortization-check-free` | 模具与工装摊销台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `non-recurring-gain-loss-check-free` | 非经常性损益明细表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `oem-rebate-policy-check-free` | 整车厂返利与商务政策核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `ota-commission-check-free` | 渠道结算核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `outsourced-processing-fee-check-free` | 委外加工结算核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -301,6 +314,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `property-tax-land-use-check-free` | 房产税与城镇土地使用税申报核对表逐处复算（从价/从租/土地使用税 + 分期与申报勾稽 + 差异定位），每条结论都带原文行号，不需要付款，也不需要注册 |
 | `property-utility-apportionment-check-free` | 物业公共能耗分摊核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `purchase-rebate-check-free` | 采购返利核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `rd-auxiliary-ledger-check-free` | 研发费用辅助账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `rd-capitalization-check-free` | 研发支出明细表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `rd-expense-check-free` | 研发费用归集表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `receivable-collection-plan-check-free` | 应收账款催收计划与回款表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
