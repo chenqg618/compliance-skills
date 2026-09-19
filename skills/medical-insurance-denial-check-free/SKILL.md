@@ -1,7 +1,7 @@
 ---
 slug: medical-insurance-denial-check-free
 displayName: 医保拒付与申诉核对（免费版）
-version: 1.0.35
+version: 1.0.36
 summary: 医保拒付与申诉核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [医保拒付与申诉核对,医保拒付与申诉核对表,核对,对账,免费]
 license: Proprietary
