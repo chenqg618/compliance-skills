@@ -1,7 +1,7 @@
 ---
 slug: cash-flow-variance-check-free
 displayName: 现金流预测与实际差异核对（免费版）
-version: 1.0.37
+version: 1.0.38
 summary: 现金流预测与实际差异表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [现金流预测与实际差异核对,现金流预测与实际差异表,核对,对账,免费]
 license: Proprietary
