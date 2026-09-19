@@ -1,7 +1,7 @@
 ---
 slug: payroll-hr-pack-free
 displayName: 薪酬社保与人力技能包（免费版）
-version: 1.0.16
+version: 1.0.17
 summary: 把一套薪酬社保材料按 14 项检查逐个客户核一遍，每个客户一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
 tags: [薪酬社保与人力技能包,薪酬,社保,公积金,个税,工资表,核对]
 license: Proprietary
