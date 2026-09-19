@@ -1,7 +1,7 @@
 ---
 slug: doc-compliance-pack-free
 displayName: 发票与单据合规技能包（免费版）
-version: 1.0.16
+version: 1.0.17
 summary: 把一堆别人交上来的发票与单据按 14 项单据合规检查逐份材料核一遍，每份材料一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
 tags: [发票与单据合规技能包,单据合规,发票,合同,招投标,报销,核对]
 license: Proprietary
