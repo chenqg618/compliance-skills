@@ -1,7 +1,7 @@
 ---
 slug: treasury-bill-pack-free
 displayName: 资金与票据技能包（免费版）
-version: 1.0.12
+version: 1.0.14
 summary: 把一套资金与票据底稿按 14 项检查逐个核一遍，每个对象一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
 tags: [资金与票据技能包,资金核对,银行对账,票据贴现,银行承兑汇票,保函,备用金,核对]
 license: Proprietary
