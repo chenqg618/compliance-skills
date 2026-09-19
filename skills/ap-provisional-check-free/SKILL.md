@@ -1,7 +1,7 @@
 ---
 slug: ap-provisional-check-free
 displayName: 应付暂估与发票未到核对（免费版）
-version: 1.0.49
+version: 1.0.50
 summary: 应付暂估台账逐项核对，核暂估金额（数量乘单价）、冲回与暂估勾稽、暂估与发票差异、暂估余额滚动、合计逐列、重复单号与空缺负值，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [应付暂估与发票未到核对,应付暂估台账,核对,对账,免费]
 license: Proprietary
