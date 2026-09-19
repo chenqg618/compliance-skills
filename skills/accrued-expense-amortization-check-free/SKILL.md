@@ -1,7 +1,7 @@
 ---
 slug: accrued-expense-amortization-check-free
 displayName: 预提费用与待摊费用摊销核对（免费版）
-version: 1.0.3
+version: 1.0.4
 summary: 预提待摊明细表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [预提费用与待摊费用摊销核对,预提待摊明细表,核对,对账,免费]
 license: Proprietary
