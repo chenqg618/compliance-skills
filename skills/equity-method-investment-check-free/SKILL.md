@@ -1,7 +1,7 @@
 ---
 slug: equity-method-investment-check-free
 displayName: 长期股权投资权益法核对（免费版）
-version: 1.0.3
+version: 1.0.4
 summary: 权益法核算表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [长期股权投资权益法核对,权益法核算表,核对,对账,免费]
 license: Proprietary
