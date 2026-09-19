@@ -1,7 +1,7 @@
 ---
 slug: low-value-consumables-check-free
 displayName: 低值易耗品与周转材料摊销核对（免费版）
-version: 1.0.3
+version: 1.0.5
 summary: 低值易耗品台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [低值易耗品与周转材料摊销核对,低值易耗品台账,核对,对账,免费]
 license: Proprietary
