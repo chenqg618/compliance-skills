@@ -1,7 +1,7 @@
 ---
 slug: ad-copy-rewrite-free
 displayName: 广告文案违规体检（免费版）
-version: 1.0.41
+version: 1.0.42
 summary: 广告文案逐条体检、标出绝对化用语与医疗教育投资等违禁表述，每条结论带原文行号与法条依据。
 tags: [广告文案违规体检,违禁词检查,绝对化用语,广告法,电商文案,免费]
 license: Proprietary
