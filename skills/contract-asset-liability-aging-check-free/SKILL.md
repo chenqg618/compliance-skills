@@ -1,7 +1,7 @@
 ---
 slug: contract-asset-liability-aging-check-free
 displayName: 合同资产与合同负债账龄核对（免费版）
-version: 1.0.3
+version: 1.0.4
 summary: 合同资产负债台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [合同资产与合同负债账龄核对,合同资产负债台账,核对,对账,免费]
 license: Proprietary
