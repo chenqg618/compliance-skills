@@ -1404,6 +1404,30 @@
     "hasSample": true
   },
   {
+    "tool": "check_contract_asset_liability_aging_check",
+    "package": "contract-asset-liability-aging-check-free",
+    "engine": "contract-asset-liability-aging-check-free/contract-asset-liability-aging-check.js",
+    "title": "合同资产与合同负债账龄核对（免费版）",
+    "given": [
+      "合计行逐列复核（期初 / 本期新增 / 本期结转 / 期末 的合同资产与合同负债，表头里全部 8 个金额列：明细逐行相加 = 合计）",
+      "同一「合同编号」重复行检测",
+      "期末合同资产 = 期初合同资产 + 本期新增合同资产 − 本期结转收入（不符报 P0）",
+      "期末合同负债 = 期初合同负债 + 本期新增合同负债 − 本期确认收入（不符报 P0）",
+      "同一合同同时挂「期末合同资产」与「期末合同负债」（应重分类到对方，报 P1）",
+      "账龄天数为负（报 P1）",
+      "空白与占位符检测（含必需列缺失；只缺个别列仍照常给结论并报「列缺失」）"
+    ],
+    "withheld": [
+      "账龄超过 365 天的合同资产 / 合同负债提示（长期挂账，P2）",
+      "期末合同资产或期末合同负债为负（报 P0）",
+      "本期结转收入 > 期初合同资产 + 本期新增合同资产（超结转，报 P0）",
+      "本期确认收入 > 期初合同负债 + 本期新增合同负债（超确认，报 P0）",
+      "账龄 ≤ 0 但期末仍有余额（本期新增却没填账龄，报 P2）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_contract_fulfillment_cost_check",
     "package": "contract-fulfillment-cost-check-free",
     "engine": "contract-fulfillment-cost-check-free/contract-fulfillment-cost-check.js",
@@ -2424,6 +2448,30 @@
     "hasSample": true
   },
   {
+    "tool": "check_iit_annual_settlement_check",
+    "package": "iit-annual-settlement-check-free",
+    "engine": "iit-annual-settlement-check-free/iit-annual-settlement-check.js",
+    "title": "个税年度汇算（综合所得）核对（免费版）",
+    "given": [
+      "合计行逐列复核（收入 / 各项扣除 / 应纳税所得额 / 应纳税额 / 已预缴 / 应补退；适用税率与速算扣除数不参与合计）",
+      "同一员工编号重复行检测",
+      "应纳税所得额勾稽（全年工资薪金 + 劳务报酬 − 减除费用 − 专项扣除 − 专项附加扣除 − 其他扣除，结果为负按 0 处理）",
+      "全年应纳税额勾稽（应纳税所得额 × 适用税率 − 速算扣除数）",
+      "应补(退)税额勾稽（全年应纳税额 − 已预缴税额）",
+      "应纳税所得额为负检测（未按 0 处理）",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "适用税率与应纳税所得额不匹配（按 3%/10%/20%/25%/30%/35%/45% 七级超额累进速算表核对区间与速算扣除数）",
+      "已预缴税额为负检测",
+      "专项附加扣除超过 100000 提示（常见上限量级 60000~96000）",
+      "全年收入为 0 但已预缴税额大于 0 提示（核对是否错列）",
+      "应补退税额绝对值超过全年收入 20% 提示（异常量级）"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
     "tool": "check_iit_withholding_check",
     "package": "iit-withholding-check-free",
     "engine": "iit-withholding-check-free/iit-withholding-check.js",
@@ -3228,6 +3276,30 @@
       "摊销总额为零却有摊销额检测",
       "未摊销余额为负检测",
       "摊销单价偏离参考区间（同表理论单价中位数 ±50%）提示"
+    ],
+    "outOfScope": [],
+    "hasSample": true
+  },
+  {
+    "tool": "check_non_recurring_gain_loss_check",
+    "package": "non-recurring-gain-loss-check-free",
+    "engine": "non-recurring-gain-loss-check-free/non-recurring-gain-loss-check.js",
+    "title": "非经常性损益与扣非净利润核对（免费版）",
+    "given": [
+      "合计行逐列复核（本期金额 / 上期金额 / 所得税影响 / 扣除所得税影响后金额 / 归属母公司 / 归属少数股东 —— 明细逐行相加 = 合计）",
+      "同一「项目 + 类别」重复行检测",
+      "扣除所得税影响后金额 = 本期金额 − 涉及所得税影响",
+      "归属母公司 + 归属少数股东 = 扣除所得税影响后金额",
+      "类别与「是否非经常性」口径矛盾检测（非经常性损益却填\"否\"，或反之）",
+      "非经常性项目未写说明 / 说明为占位符检测",
+      "空白与占位符检测（含必需列缺失）"
+    ],
+    "withheld": [
+      "非经常性口径不一致的统计：行数、金额合计、占扣除所得税影响后总额比例 > 50% 提示",
+      "涉及所得税影响为负（所得税冲回）检测 —— 须写清冲回依据",
+      "归属少数股东不为 0 但归属母公司等于扣除后全额（母公司与少数股东未拆分）检测",
+      "上期金额全部为 0 但本期有大额非经常性项目（上期可比性待核）提示",
+      "非经常性金额超过本期金额 100%（绝对值口径）提示"
     ],
     "outOfScope": [],
     "hasSample": true
@@ -4053,6 +4125,30 @@
       "判断收入确认时点；给出税务意见",
       "读取 .xlsx 或供应商返利对账单（需要你先导出成文本贴进来）"
     ],
+    "hasSample": true
+  },
+  {
+    "tool": "check_rd_auxiliary_ledger_check",
+    "package": "rd-auxiliary-ledger-check-free",
+    "engine": "rd-auxiliary-ledger-check-free/rd-auxiliary-ledger-check.js",
+    "title": "研发费用辅助账与高新指标核对（免费版）",
+    "given": [
+      "合计行逐列复核（本年归集金额 / 人员人工 / 直接投入 / 折旧摊销 / 设计试验费 / 其他费用）",
+      "同一「研发项目 + 费用类别」重复行检测",
+      "本年归集金额 = 人员人工 + 直接投入 + 折旧摊销 + 设计试验费 + 其他费用（容差 0.02）",
+      "其他费用占比 = 其他费用 ÷ 本年归集金额，超过上限（默认 20%）报 P0",
+      "任一项明细为负检测",
+      "备注为空或占位符检测",
+      "空白与占位符检测（含必需列缺失；缺个别列仍照常给结论并报「列缺失」）"
+    ],
+    "withheld": [
+      "本年归集金额超过「其他费用 ÷ 20%」理论上限的 10 倍（异常放大）",
+      "是否用于高新指标为「是」但费用类别不在常见高新口径提示",
+      "折旧摊销超过本年归集金额的 50%（费用结构异常）",
+      "人员人工为 0 但本年归集金额大于 0（高新口径要求研发费用中有人工）",
+      "合计行其他费用占比超过 20%（与逐行口径一致地再查一次合计）"
+    ],
+    "outOfScope": [],
     "hasSample": true
   },
   {
