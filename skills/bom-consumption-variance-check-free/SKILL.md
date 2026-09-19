@@ -1,7 +1,7 @@
 ---
 slug: bom-consumption-variance-check-free
 displayName: BOM用量与损耗差异核对（免费版）
-version: 1.0.11
+version: 1.0.12
 summary: 生产工单与物料清单逐行复算用量差异（标准用量=单位用量×产出数量、用量差异=实际领料−退料−标准用量、损耗率=差异÷标准用量），每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [BOM用量与损耗差异核对,工单领料明细,超耗,损耗率,串料,替代料,对账,免费]
 license: Proprietary
