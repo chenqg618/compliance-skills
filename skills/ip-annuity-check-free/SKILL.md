@@ -1,7 +1,7 @@
 ---
 slug: ip-annuity-check-free
 displayName: 知识产权年费与续展台账核对（免费版）
-version: 1.0.7
+version: 1.0.8
 summary: 知识产权年费与续展台账逐项核对，算下次缴费日、已缴合计与到期天数，查重复申请号、空缺、周期与日期倒挂，每条结论都带原文行号，不需要付款，也不需要注册。
 tags: [知识产权年费与续展台账核对,年费与续展台账,专利年费,商标续展,核对,免费]
 license: Proprietary
