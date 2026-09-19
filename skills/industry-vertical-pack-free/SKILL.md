@@ -1,7 +1,7 @@
 ---
 slug: industry-vertical-pack-free
 displayName: 行业专项技能包（免费版）
-version: 1.0.10
+version: 1.0.11
 summary: 把一家机构的一套材料按 14 项行业专项检查逐个机构核一遍，每家机构一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
 tags: [行业专项技能包,医院,学校,餐饮,物流,物业,机构核对,免费]
 license: Proprietary
