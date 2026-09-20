@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>物业公共能耗分摊核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="公共能耗抄表与分摊明细表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"物业公共能耗分摊核对（免费版）","description":"公共能耗抄表与分摊明细表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>物业公共能耗分摊核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：物业项目经理、物业会计、片区财务。每个月出账单之前都要做一遍 ——</p>
+<p>先把公共区域的电和水（公共照明、电梯、水泵、绿化）抄总表、按面积或户数摊到各楼栋 / 各户，</p>
+<p>然后才发账单、才上公示栏。月底补抄、季度复核、街道检查要交台账时也用它。</p>
+<p><strong>什么时候必须停一下</strong>：这张表算错只有两个方向 ——</p>
+<p><strong>少摊</strong>（钱收不回来，物业自己贴）或<strong>多摊</strong>（业主在群里截图、拒缴、投诉到街道）。</p>
+<p>两个方向都会在催缴单、公示栏和投诉件上被翻出来，所以发出账单前值得机械核一遍。</p>
+<p><strong>这张表能核出什么</strong>：公共能耗抄表与分摊明细表的逐行算术、合计勾稽、比例合计、重复与空缺。</p>
+<p>每条结论都带<strong>原文行号</strong>，可被第三方用同一口径复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么。</p>
+<h2>这个免费版查什么</h2>
+<p>免费版执行 <strong>6 项</strong>检查：</p>
+<table><thead><tr><th>#</th><th>检查项</th><th>判据</th></tr></thead><tbody>
+<tr><td>1</td><td>总表读数差与用量不符</td><td>本期读数 − 上期读数 ≠ 本期用量</td></tr>
+<tr><td>2</td><td>分摊额复算不符</td><td>分摊额 ≠ 分摊能耗量 × 分摊单价</td></tr>
+<tr><td>3</td><td>各户分摊合计与公共总费用不符</td><td>同一「期间 + 费用项目」下各户分摊额 / 分摊能耗量合计 ≠ 公共总费用</td></tr>
+<tr><td>4</td><td>分摊比例合计不等于100%</td><td>同一组的分摊比例合计 ≠ 100%</td></tr>
+<tr><td>5</td><td>重复房号、空缺列与占位符</td><td>关键列空着 / 填「待填」等占位符；同一组同一楼栋出现两行</td></tr>
+<tr><td>6</td><td>分摊额超过公共总费用</td><td>单户分摊额 &gt; 该组公共总费用（逐行上限）</td></tr>
+</tbody></table>
+<p>本版本<strong>不包含</strong>（会如实列在输出的 <code>checks_not_run</code> 里，不会被默认值顶替）：</p>
+<ul>
+<li>跨楼栋 / 跨期间汇总台账（按期间、按楼栋两个维度的汇总视图）</li>
+<li>按多摊金额排序的处理清单（多摊在前、少摊在后，可直接拿去改账）</li>
+<li>差异归因：总表读数 / 损耗分摊 / 单价口径 / 基数口径 逐类排查</li>
+<li>损耗分摊额勾稽与 分摊口径 ↔ 分摊基数 口径一致性</li>
+</ul>
+<p>跑 <code>node scripts/run.mjs --sample --json</code> 会打印本次实际执行了哪些检查项。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例（干净样例 0 问题）
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
+node scripts/run.mjs --input 你的材料.json --json   # 机器可读</code></pre>
+<p>入参写法（把表头和若干行一起复制进来，Tab 分隔最稳）：</p>
+<pre><code>{&quot;text&quot;: &quot;所属期间\t费用项目\t楼栋\t上期读数\t本期读数\t本期用量\t分摊能耗量\t分摊单价\t公共总费用\t分摊基数\t分摊口径\t分摊比例\t分摊额\n2026-06\t公共照明\t1号楼\t1800.00\t2400.00\t600.00\t600.00\t6.00\t7200.00\t500.00\t建筑面积㎡\t50.00%\t3600.00&quot;}</code></pre>
+<h2>出参（<code>--json</code>）</h2>
+<table><thead><tr><th>字段</th><th>含义</th></tr></thead><tbody>
+<tr><td><code>status</code></td><td><code>success</code> 已执行检查 / <code>insufficient_input</code> 材料不足</td></tr>
+<tr><td><code>result.scope.rows</code></td><td>解析出的明细行数</td></tr>
+<tr><td><code>result.scope.checks</code></td><td>本次实际执行的检查项（免费版 6 项）</td></tr>
+<tr><td><code>result.scope.checks_not_run</code></td><td>本版本<strong>没有</strong>执行的检查项（4 项，如实列出）</td></tr>
+<tr><td><code>result.scope.shared_total</code> / <code>apportioned_total</code></td><td>公共总费用合计 / 分摊额合计（同一组的总额只算一次）</td></tr>
+<tr><td><code>result.findings[]</code></td><td>每条结论：<code>line</code>（原文行号）/ <code>level</code>（P0 / P1）/ <code>category</code> / <code>message</code></td></tr>
+<tr><td><code>result.summary</code></td><td><code>total</code> / <code>p0</code> / <code>p1</code> / <code>verdict</code>（<code>NO_ISSUE_FOUND</code> / <code>NEEDS_REVIEW</code> / <code>ERROR_FOUND</code>）</td></tr>
+<tr><td>退出码</td><td><code>0</code> 已执行 / <code>1</code> 缺入参 / <code>3</code> 材料不足 / <code>4</code> 文件读不到 / <code>9</code> 未预期错误</td></tr>
+</tbody></table>
+<h2>常见错法（本产品专属）</h2>
+<ol>
+<li><strong>只核了分摊额，没回核总表读数差</strong>：分表用量抄错一位，全组比例都跟着错，但分摊额自己乘自己是"平"的。</li>
+</ol>
+<p>本工具第 1 项就是拿 本期读数 − 上期读数 和本期用量对。</p>
+<ol>
+<li><strong>分摊比例加起来不是 100%</strong>：常见于漏抄一户、或把某户比例从 30% 手改成 20% 却忘了补回去。</li>
+</ol>
+<p>第 4 项按「期间 + 费用项目」分组算合计，差 0.05 个百分点以上就报。</p>
+<ol>
+<li><strong>公共总费用在每一行都写了一遍，合计时被加了 N 次</strong>：所以本工具去重后再加，</li>
+</ol>
+<p><code>scope.shared_total</code> 是<strong>去重口径</strong>；你自己另算一遍时要注意别把 3 行 × 7200 加成 21600。</p>
+<ol>
+<li><strong>同一户出现两行</strong>：多半是复制上一行改数没改完，第二行是"清零版"。</li>
+</ol>
+<p>第 5 项按 期间 + 费用项目 + 楼栋 认重复。</p>
+<ol>
+<li><strong>单户分摊额超过了整组公共总费用</strong>：常见于把"元"当成"分"填、或把合计值填进了单户行。</li>
+</ol>
+<p>第 6 项逐行守住这个上限。</p>
+<h2>不包含什么</h2>
+<ul>
+<li><strong>不判断公共总费用本身真不真实</strong>：物业自用电（办公室、门岗、广告位、员工宿舍）有没有混进公共能耗，以供电 / 供水公司账单和物业账为准。</li>
+<li><strong>不判断分摊方式是否合法有效</strong>：按建筑面积 / 按户数 / 按人数 / 阶梯、各业态不同系数，以物业服务合同与管理规约为准。</li>
+<li><strong>不判断空置房、未售房、开发商产权房、公共部位该不该分摊、优惠口径是多少</strong>。</li>
+<li><strong>不做跨楼栋 / 跨期间汇总台账、不做按多摊金额排序的处理清单、不做差异归因</strong>（这些是完整档的能力）。</li>
+<li><strong>不读物业收费系统 / Excel / 电表照片</strong>：需要你先导出或抄成文本贴进来。</li>
+</ul>
+<h2>使用次数与完整档</h2>
+<p>本免费版会在<strong>本包目录</strong>里记一个使用次数（<code>scripts/.hint-count</code>，一个整数，不含任何机器或用户信息）。</p>
+<p>· 前 3 次：<strong>完全离线</strong>（不发生任何网络请求），输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 第 4 次起才会向服务端问一次（只发包标识与次数），拿回完整档说明；</p>
+<p>· 请求不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具只核<strong>这张表内部的算术与勾稽</strong>：表里给的总额、基数、单价、比例<strong>以你填的为准</strong>。</p>
+<p>材料不足（空文本 / 只有表头 / 缺必需列 / 类型不对）时<strong>不给结论</strong>，也不会输出「未发现问题」——</p>
+<p>未执行的检查项会如实列在 <code>scope.checks_not_run</code> 里，不会被默认值顶替。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/property-energy-apportion-check-free">https://www.skillhub.cn/skills/user_ef162806/property-energy-apportion-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
