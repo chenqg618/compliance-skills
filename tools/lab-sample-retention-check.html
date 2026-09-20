@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>检测样品流转与留样期限核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="检测样品流转与留样台账逐项核对（6 项表内核对），每条结论都带原文行号与原文内容，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"检测样品流转与留样期限核对（免费版）","description":"检测样品流转与留样台账逐项核对（6 项表内核对），每条结论都带原文行号与原文内容，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>检测样品流转与留样期限核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：第三方检测机构 / 企业实验室的<strong>样品管理员、质量部（QA）、内审员</strong>，</p>
+<p>在<strong>每个月固定的样品盘点与留样核对</strong>节点上，以及 <strong>CMA / CNAS 评审、飞行检查、内审前的自查</strong>时，</p>
+<p>必须把当月的样品台账核一遍才能往下走。</p>
+<p><strong>为什么必须核</strong>：按 CMA、CNAS 与质量体系要求，样品要<strong>唯一标识、状态受控、留样到规定期限、到期处置有记录</strong>，</p>
+<p>并且「收样 — 流转 — 检测 — 留样 — 处置」每个环节的数量都要对得上。</p>
+<p>评审与飞行检查最常见的整改项就是这三条：</p>
+<ul>
+<li><strong>留样数量对不上</strong>：台账的「收样 / 已检 / 退样 / 留样」四列算不平，交接单与台账两边数量或编号不一致；</li>
+<li><strong>留样超期未处置</strong>：留样开始日期加期限早已到期，台账状态还挂在「留样」；</li>
+<li><strong>流转记录断档</strong>：同一委托同一检测项目重复登记、处置了却没有处置人和处置日期、状态长期不更新。</li>
+</ul>
+<p>这张表具体会逐项核：样品数量勾稽、留样期限与应处置日期、交接单与台账一致性、重复登记、</p>
+<p>合计行逐列复核、空白与格式与状态值校验。</p>
+<p>每条结论都带<strong>原文行号与原文行内容</strong>，可被第三方用同一口径复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么。</p>
+<h2>这个免费版查什么</h2>
+<p>免费版执行下面 <strong>6 项</strong>表内核对（就是引擎 <code>CHECKS_GIVEN</code> 里的 6 条）：</p>
+<ol>
+<li><strong>样品数量勾稽</strong> —— 逐行复算 <code>收样数量 − 已检数量 − 退样数量 = 留样数量</code>，差额不为零即列出并给出差额；</li>
+<li><strong>留样期限核对</strong> —— <code>留样开始日期 + 留样期限 = 应处置日期</code>，用核对基准日给出超期天数；已处置的核对是否逾期处置；</li>
+<li><strong>交接单与台账一致性</strong> —— 「交接数量」对「收样数量」、「交接样品编号」对「样品编号」，不一致即给两处原文；</li>
+<li><strong>同一委托编号 + 同一检测项目重复登记检测</strong>；</li>
+<li><strong>合计行逐列复核</strong> —— 数量类列（收样/已检/退样/留样/交接/处置）合计行与明细逐列相加比对；</li>
+<li><strong>空白 / 占位符 / 日期格式 / 样品状态值非法检测</strong> —— 含数量无法解析、数量为负、留样期限无法解析。</li>
+</ol>
+<p>必需列（缺列只报「材料不足」，<strong>绝不给结论</strong>）：</p>
+<p>样品编号、委托编号、样品名称、检测项目、收样日期、收样数量、已检数量、退样数量、留样数量、</p>
+<p>留样开始日期、留样期限(天)、样品状态、处置日期、处置人。</p>
+<p>另可带：委托单位、样品类型、检测标准、交接数量、交接样品编号、检测完成日期、承诺完成日期、处置数量、备注。</p>
+<p>完整档追加的 5 项（本免费版<strong>不实现</strong>，只如实列出）：超期未处置清单、</p>
+<p>处置记录与交接单不一致、样品状态与检测记录冲突、留样期限按样品类型/检测标准不一致、</p>
+<p>分检测项目 × 分委托单位的超期汇总清单与 consolidated_actions。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<p>入参写法：<code>{"text": "（把台账的<strong>表头</strong>和若干行一起从 Excel 复制进来，Tab 分隔最稳）"}</code>。</p>
+<p>核对基准日默认取表内事实日期（收样/留样开始/检测完成/处置）的最大值，也可以在入参里给 <code>asOf</code>（如 <code>"2025-07-31"</code>）指定。</p>
+<h2>常见错法（样品与留样管理岗位上最常踩的 5 个坑）</h2>
+<ol>
+<li><strong>把「退样」当成「已检」</strong>：退回委托方的样品没在「退样数量」里减出来，或者退样只在备注写一句</li>
+</ol>
+<p>—— <code>收样 − 已检 − 退样 = 留样</code> 永远差那几件。退样必须有退回回执并单独登记数量。</p>
+<ol>
+<li><strong>留样开始日期填成收样日期，或者干脆空着</strong>：应处置日期是从<strong>留样入库那天</strong>起算的，</li>
+</ol>
+<p>填成收样日期会让整列到期日提前，超期了也看不出来；空着则整行算不出应处置日期。</p>
+<ol>
+<li><strong>同一委托下多件样品做同一检测项目时样品编号写重复</strong>（甚至直接把委托编号当样品编号）</li>
+</ol>
+<p>—— 会被判「同一委托同一项目重复登记」，检测数量虚增，评审时说不清到底检了几件。</p>
+<ol>
+<li><strong>留样期限写成「按标准」「6 个月左右」「视情况」</strong>：算不出应处置日期，等于没有期限。</li>
+</ol>
+<p>写月数要能折算成天（本工具按 30 天/月折算并在结论里写明），并且要在体系文件里把每个样品类型的期限定死。</p>
+<ol>
+<li><strong>处置了只在备注写「已销毁」</strong>，不填处置日期与处置人；或者合计行是手工维护、补录新行后忘了重算合计</li>
+</ol>
+<p>—— 前者让处置记录断档（缺责任人），后者让合计行与明细对不上，两条都是内审直接开不符合项的地方。</p>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>超期未处置清单（应处置日期已过但仍为「留样」状态的样品，点名样品编号与超期天数，按超期天数排序）</li>
+<li>处置记录与交接单不一致（处置数量 &gt; 台账留样数量、已登记处置日期却缺处置人）</li>
+<li>样品状态与检测记录冲突（已检但无检测完成日期 / 在检但已过承诺完成日期）</li>
+<li>留样期限按样品类型/检测标准不一致（同类样品出现多个期限值，给两处原文）</li>
+<li>分检测项目 × 分委托单位的超期汇总清单（按超期数量排序并给出可整改动作）与 consolidated_actions</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版会在<strong>本包目录</strong>里记一个使用次数（<code>scripts/.hint-count</code>，一个整数，不含任何机器或用户信息）。</p>
+<p>· 前 3 次：<strong>完全离线</strong>（不发生任何网络请求），输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 第 4 次起才会向服务端问一次（只发包标识与次数），拿回完整档说明；</p>
+<p>· 请求不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断：</p>
+<p>不判定样品是否合格、不判定检测结论是否成立、不替你认定「这类样品应该留多久」是否符合某部标准、</p>
+<p>不判定留样室环境与样品唯一性标识体系是否达标、不读 <code>.xlsx</code>/<code>.pdf</code> 原件、核对过程不联网核验资质证书真伪。</p>
+<p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/lab-sample-retention-check-free">https://www.skillhub.cn/skills/user_ef162806/lab-sample-retention-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
