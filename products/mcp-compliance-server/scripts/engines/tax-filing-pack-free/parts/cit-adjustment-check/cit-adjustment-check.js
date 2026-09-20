@@ -57,11 +57,10 @@ const OUT_OF_SCOPE = [
 /* 法定与常见优惠口径：仅供"明显偏离"时提示，**不是**税率适用性判断 */
 const STATUTORY_RATE = 0.25;
 const RATE_REFS = [0.25, 0.20, 0.15, 0.05];
-/* 限额类项目的法定上限比例 */
-const ENTERTAIN_RATE = 0.6;          // 业务招待费：按发生额 60% 扣除
-const ENTERTAIN_REV_RATE = 0.005;    // 且不超过营业收入的 5‰
-const AD_REV_RATE = 0.15;            // 广告费和业务宣传费：不超过营业收入 15%
-const DONATION_PROFIT_RATE = 0.12;   // 公益性捐赠支出：不超过利润总额 12%
+/* ⛔ 第 297 轮：这里**刻意不再定义**限额比例常量（招待费 60%/5‰、广告费 15%、捐赠 12%）。
+   本档不执行限额类判断，留着常量就会被写进返回值（旧的 limit_rates），
+   调用方/买家会以为限额已经核对过 —— 那是**虚假保证**（ClawHub 审查原文点了这条）。
+   限额公式只在完整档里实现。 */
 
 const SAMPLE_TEXT = [
   '行次\t项目\t金额\t调增金额\t调减金额',
@@ -442,10 +441,6 @@ function run(payload) {
       adjustment_rows: t.items.filter(isDetail).length,
       tolerance: TOL,
       rate_refs: RATE_REFS,
-      limit_rates: {
-        entertain_book: ENTERTAIN_RATE, entertain_revenue: ENTERTAIN_REV_RATE,
-        ad_revenue: AD_REV_RATE, donation_profit: DONATION_PROFIT_RATE,
-      },
       executed_locally: true,
       network_used: false,
     },
@@ -459,9 +454,12 @@ function run(payload) {
       omitted: 0,
     },
     checks_out_of_scope: OUT_OF_SCOPE,
-    note: `本版本只执行：${CHECKS_GIVEN.join('、')}；未执行的检查项见 scope.checks_not_run。`,
+    note: `本版本只执行：${CHECKS_GIVEN.join('、')}；未执行的检查项见 scope.checks_not_run。`
+      + '**限额类判断本版本未执行**（业务招待费、广告费和业务宣传费、公益性捐赠支出的扣除上限均未核对），'
+      + '不要据本结果认为限额已经查过。',
     disclaimer: '只核「利润总额 + 调增 − 调减 = 应纳税所得额」「合计 = 明细之和」这类表内勾稽，'
-      + `以及限额类项目的**参考上限**（招待费 min(发生额 60%, 营业收入 5‰)、广告费 ${AD_REV_RATE * 100}% 营业收入、捐赠 ${DONATION_PROFIT_RATE * 100}% 利润总额）；`
+      + '本版本**不核对**限额类扣除上限（业务招待费、广告费和业务宣传费、公益性捐赠支出）'
+      + '—— 这些只是未执行的检查项，见 scope.checks_not_run，本结果**不能**被理解为"限额已核对"；'
       + '**不判断**调整事项的税法依据是否成立、也不判断优惠税率是否真的适用（以税法与主管税务机关口径为准）；'
       + `法定税率参考值 ${STATUTORY_RATE * 100}%。结论可由第三方用同一份输入复算。`,
   };
