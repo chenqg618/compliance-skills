@@ -1,7 +1,7 @@
 ---
 slug: cross-border-ad-fee-check-free
 displayName: 跨境电商平台佣金与广告费核对（免费版）
-version: 1.0.3
+version: 1.0.4
 summary: 平台结算单与广告费账单逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
 tags: [跨境电商平台佣金与广告费核对,平台结算单与广告费账单,核对,对账,免费]
 license: Proprietary
