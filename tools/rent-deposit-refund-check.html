@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>押金保证金收取与退还核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="押金保证金台账与退还明细表逐项核对（应退金额复算、扣除金额带依据与上限、退还超期、重复退还、台账余额勾稽、字段缺失与负数），每条结论都带原文行号，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"押金保证金收取与退还核对（免费版）","description":"押金保证金台账与退还明细表逐项核对（应退金额复算、扣除金额带依据与上限、退还超期、重复退还、台账余额勾稽、字段缺失与负数），每条结论都带原文行号，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>押金保证金收取与退还核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>、材料不出本机。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁在什么时候用</strong>：出纳、财务、物业与招商运营在<strong>收押金、退租退押、月底核对押金台账</strong>时 ——</p>
+<p>「押金保证金台账与退还明细表」是退押付款、押金科目余额与合同履约的原始依据，</p>
+<p>钱付出去之后再改就要走红冲与追款流程。</p>
+<p><strong>这张表会逐项核对什么</strong>（免费版执行 6 项，逐条都带<strong>原文行号</strong>）：</p>
+<ol>
+<li><strong>应退金额复算</strong> —— 应退金额 = 收取金额 − 扣除金额，差 0.01 也会报。</li>
+<li><strong>扣除金额带依据与上限</strong> —— 扣除金额大于 0 时，扣除依据不能为空、不能只写一个占位符，</li>
+</ol>
+<p>也不能只写一句看不出事由的话（要落到违约金 / 损坏赔偿 / 欠费 / 滞纳 这类事由上）；</p>
+<p>扣除金额还不得超过收取金额。</p>
+<ol>
+<li><strong>退还时间超过约定期限</strong> —— 应退截止日 = 收取日期 + 约定退还期限（自然日）；</li>
+</ol>
+<p>退还日期晚于截止日会报超期天数，已过截止日而台账余额仍有余额且没有退还日期的也会报。</p>
+<ol>
+<li><strong>同一合同同一押金类型重复退还</strong> —— 同一份合同同一类押金出现两次以上实际退还。</li>
+<li><strong>台账余额勾稽</strong> —— 台账余额 = 收取金额 − 退还金额 − 已结转金额。</li>
+<li><strong>关键字段缺失 / 金额为负</strong> —— 必需单元格为空或写着「待填 / — / 无 / N/A」，以及金额列为负。</li>
+</ol>
+<p>每条结论都带<strong>原文行号与算式</strong>，可被第三方用同一份输入复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么，也不会用默认值编出结论。</p>
+<h2>这个免费版查什么</h2>
+<p>上面 6 项就是本版本执行的全部检查项。跑 <code>--sample</code> 会在 <code>scope.checks</code> 里打印本次实际执行了哪些，</p>
+<p><code>scope.checks_not_run</code> 会如实列出<strong>本版本没有执行</strong>的检查项（只列出，不会伪造结论）。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                      # 先看样例（样例本身就是一张自洽的押金台账）
+node scripts/run.mjs --input 你的材料.json          # 跑自己的材料
+node scripts/run.mjs --input 你的材料.json --json   # 机器可读输出</code></pre>
+<p>入参两种写法都行：</p>
+<ul>
+<li><code>{"text": "（把表的<strong>表头</strong>和若干行一起复制进来，Tab 分隔最稳）"}</code></li>
+<li>直接把「押金保证金台账与退还明细表」（<strong>含表头</strong>）从 Excel 复制成文本贴进 <code>.json</code> 里；</li>
+</ul>
+<p>文件不是合法 JSON 时整体按纯文本材料处理。</p>
+<p>必需列（缺一列就不给结论）：合同编号、承租方、项目、押金类型、收取日期、约定退还期限、扣除依据、</p>
+<p>扣除金额、应退金额、退还日期、退还金额、已结转金额、台账余额。</p>
+<p>可选列：备注、台账截止日。</p>
+<p>两个口径要先写清楚，否则本工具只能按下方口径复算：</p>
+<ul>
+<li><strong>已结转金额</strong> = 本行押金在本期已处置的金额（含按依据扣除核销的部分 + 转入下期 / 其他合同的部分）。</li>
+<li><strong>台账截止日</strong>（可选）填了就用它当口径日；没填就用<strong>表内最晚日期</strong>——</li>
+</ul>
+<p>表里只有收取日期时，本工具不会凭空断定"已经超期"。</p>
+<h2>出参</h2>
+<ul>
+<li><code>status</code>：<code>success</code> 才有结论；<code>insufficient_input</code> 表示材料不足，此时<strong>没有</strong> <code>result</code>、<strong>没有</strong> <code>findings</code>，</li>
+</ul>
+<p>只有 <code>missing</code>（缺什么）与 <code>advice</code>（怎么补）。</p>
+<ul>
+<li><code>result.findings[]</code>：每条含 <code>level</code>（P0/P1/P2）、<code>category</code>、<code>line</code>（<strong>原文行号</strong>）、<code>message</code>（含算式与差额）、</li>
+</ul>
+<p><code>advice</code>、<code>basis</code>（引用原文整行）。</p>
+<ul>
+<li><code>result.summary</code>：<code>rows / contracts / projects / periods / total / p0 / p1 / p2 / verdict</code></li>
+</ul>
+<p>（<code>NO_ISSUE_FOUND</code> | <code>NEEDS_REVIEW</code> | <code>ERROR_FOUND</code>）。</p>
+<ul>
+<li><code>result.scope</code>：本次执行的 <code>checks</code>、未执行的 <code>checks_not_run</code>、<code>base_date</code>、<code>cutoff_source</code>、</li>
+</ul>
+<p><code>column_totals</code>（各金额列合计）、<code>outstanding_total</code>、<code>tolerance</code>、<code>executed_locally: true</code>、<code>network_used: false</code>。</p>
+<ul>
+<li><code>result.checks_out_of_scope</code>：本工具<strong>根本不做</strong>的判断清单（边界诚实）。</li>
+<li>CLI 退出码：<code>0</code> 已执行检查 / <code>1</code> 没给入参 / <code>3</code> 材料不足 / <code>4</code> 入参读不到或无法解析 / <code>9</code> 未预期错误。</li>
+</ul>
+<h2>常见错法（本产品专属）</h2>
+<ol>
+<li><strong>扣了钱、却没从应退金额里减</strong>：应退金额写成收取金额原数，差额正好等于扣除金额 ——</li>
+</ol>
+<p>这就是"扣款只在依据栏里说了一句、账上没落"。复算会直接把差额算给你看。</p>
+<ol>
+<li><strong>扣除依据只写"扣款"两个字</strong>：依据栏不能空，也不能只写「扣了一笔」这种看不出事由的话；</li>
+</ol>
+<p>违约金要有合同条款、损坏赔偿要有维修单编号、欠费要有催缴单或对账确认，否则这条扣款对方不认。</p>
+<ol>
+<li><strong>扣除金额大于押金本金</strong>：押金只有那么多，超出的部分不是押金能覆盖的 ——</li>
+</ol>
+<p>要么另开应收（欠费 / 违约金单独挂账），要么这一格抄成了两行的合计。</p>
+<ol>
+<li><strong>把"起算日"当"收取日"</strong>：本表口径是「应退截止日 = 收取日期 + 约定退还期限」。</li>
+</ol>
+<p>如果合同写的是"退租之日起多少日内退还"，请把起算日折算进这一列或在备注里写明，不要两种口径混用。</p>
+<ol>
+<li><strong>同一份押金拆成两行、都填了退还金额</strong>：被判重复退还 —— 分次退还请在备注里写清每次的依据，</li>
+</ol>
+<p>或把退款明细附在材料里，不要用两行都挂同一份合同同一押金类型。</p>
+<ol>
+<li><strong>扣掉的钱没记进"已结转金额"</strong>：应退金额减对了，台账余额却还挂着那笔扣款 ——</li>
+</ol>
+<p>余额勾稽的差额正好等于扣除金额时，就是这个问题。</p>
+<ol>
+<li><strong>余额用上期数没重算</strong>：本期退还 / 结转变了，台账余额还是上个月的数；</li>
+</ol>
+<p>余额是"这笔押金还挂在账上多少"，必须跟着本期变动走。</p>
+<ol>
+<li><strong>该写 0.00 的格子留空</strong>：金额列留空表示"不知道"，写 0.00 才表示"确实没有"；</li>
+</ol>
+<p>本工具对留空的格子<strong>不给结论</strong>（只有扣除依据 / 退还日期 / 备注确实没有时可以留空）。</p>
+<ol>
+<li><strong>退还金额还没填就写退还日期</strong>：会按超期逐行报出来；没退就把退还日期留空，</li>
+</ol>
+<p>本工具会用台账截止日判断"已过截止日仍未退清"。</p>
+<h2>这个免费版不包含</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项（它们会如实列在输出的 <code>checks_not_run</code> 里，绝不会伪造）：</p>
+<ul>
+<li>差异归因（扣除依据口径 / 期限口径 / 重复退口径 / 结转口径）；</li>
+<li>跨项目 / 跨期押金汇总台账（按项目与按收取月份归集收取、扣除、应退、退还、结转与未退余额）；</li>
+<li>按超期未退金额排序的处理清单（带原文行号、超期天数与建议动作）。</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款以它自己的商品页为准）；两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版会在<strong>本包目录</strong>里记一个使用次数（<code>scripts/.hint-count</code>，一个整数，不含任何机器或用户信息）。</p>
+<p>· 前 3 次：<strong>完全离线</strong>（不发生任何网络请求），输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 请求不可用（离线 / 超时 / 被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>checks_out_of_scope</code> 里列的那些判断，其中最容易误解的四条：</p>
+<ul>
+<li><strong>不判断押金该收多少、比例是否合规</strong>（以租赁合同、招标文件与内部制度为准）；</li>
+<li><strong>不判断扣除依据的文本是否合法有效、违约金到底该不该收</strong>（本工具只看依据栏是否为空、有没有写明事由）；</li>
+<li><strong>不判断押金是否真的收到 / 退还</strong>（要拿银行流水、收据与退款凭证核，本工具不去查外部系统）；</li>
+<li><strong>不计算押金利息 / 资金占用费，也不处理增值税、代扣代缴与发票</strong>。</li>
+</ul>
+<p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
+<blockquote>与相邻能力的区别：<code>rent-collection-check</code> 核的是<strong>租金收取</strong>（应收租金与实收租金）， <code>bid-deposit-refund-check</code> 核的是<strong>投标保证金</strong>在招投标场景下的收取与退还； 本能力核的是<strong>押金 / 保证金台账</strong>的「收取 − 扣除 = 应退」「收取 − 退还 − 已结转 = 台账余额」 与「收取日期 + 约定退还期限 = 应退截止日」三组勾稽。</blockquote>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/rent-deposit-refund-check-free">https://www.skillhub.cn/skills/user_ef162806/rent-deposit-refund-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
