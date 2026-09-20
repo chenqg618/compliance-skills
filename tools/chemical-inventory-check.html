@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>危险化学品出入库与领用台账核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="危化品出入库与领用台账逐行复算与勾稽，列出数量勾稽差额、账实差异与差异率、领用退库不符、重复登记与合计行不平，每条结论都带原文行号。不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"危险化学品出入库与领用台账核对（免费版）","description":"危化品出入库与领用台账逐行复算与勾稽，列出数量勾稽差额、账实差异与差异率、领用退库不符、重复登记与合计行不平，每条结论都带原文行号。不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>危险化学品出入库与领用台账核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：生产企业、实验室、仓储的<strong>安环（EHS）/ 库管 / 财务</strong>，在<strong>每个月</strong></p>
+<p>做危化品台账自查、安全检查资料准备、月度盘点对账这些固定节点上，必须把这张表核一遍才能往下走。</p>
+<p><strong>为什么每个月都必须核</strong>：危化品（含易制爆 / 易制毒）按安全生产与危化品管理要求要建</p>
+<p><strong>出入库台账与领用记录</strong>，做到「双人收发、双人记账、账物相符」，并每月与仓库盘点、领用单、</p>
+<p>MSDS / 安全标签、储存条件记录对上。<strong>对不上就是重大隐患</strong>（应急管理部门的检查项）：</p>
+<p>账物不符、领用与退库对不上、超期未复检、超量储存，任何一条被查到都要限期整改。</p>
+<p><strong>这张表（危险化学品出入库与领用台账）会逐项核对什么</strong>：期初库存 / 本期入库 / 本期出库 / 期末库存的逐行勾稽、</p>
+<p>期末库存与盘点实存的差异与差异率、领用量与退库量对实际消耗的勾稽、同一品名同一批次同一天的重复登记、</p>
+<p>合计行逐列复核（数量列与金额列）、必需列的空白 / 占位符 / 数值格式 / 负数。</p>
+<p>每条结论都带<strong>原文行号与原文行内容</strong>（含具体数字），可被第三方用同一口径复算；</p>
+<p>材料不足（例如缺「本期出库」列、只贴了一段说明文字）时<strong>不给结论</strong>，会明确列出还缺什么。</p>
+<h2>这个免费版查什么</h2>
+<p><strong>本免费版只做</strong>表内数量与金额的<strong>逐行复算与列间勾稽</strong>；</p>
+<p><strong>不做</strong>实物是否真的与台账相符的判定，<strong>不做</strong>储存场所与安全设施是否达标的判定，<strong>不做</strong>证件资质认定。</p>
+<p>范围就是下面这六项（跑 <code>--sample</code> 会打印实际执行了哪些）：</p>
+<ol>
+<li><strong>数量勾稽</strong> —— 期初库存 + 本期入库 − 本期出库 = 期末库存。逐行按 品名+规格 复算，差额不为零即列出并给出差额。</li>
+<li><strong>账实核对</strong> —— 期末库存（账）vs 盘点实存（实），逐行给出差额与差异率（差异 = 盘点实存 − 期末库存，差异率 = 差异 ÷ 期末库存）。</li>
+<li><strong>领用与退库勾稽</strong> —— 领用量 − 退库量 = 实际消耗（表里没有「实际消耗」列时对「本期出库」），逐行。</li>
+<li><strong>重复登记检测</strong> —— 同一 品名 + 同一 批次 + 同一 日期 登记两次即点名，并点出前一行的行号。</li>
+<li><strong>合计行逐列复核</strong> —— 「合计 / 总计 / 小计」行的每个数量列（期初 / 入库 / 出库 / 期末 / 盘点 / 领用 / 退库 / 消耗）</li>
+</ol>
+<p>与金额列，都要等于明细行之和；逐列点名差在哪一列。</p>
+<ol>
+<li><strong>空白 / 占位符 / 数值格式 / 负数</strong> —— 必需列（品名 / 规格 / 批次 / 单位 / 期初库存 / 本期入库 / 本期出库 /</li>
+</ol>
+<p>期末库存 / 盘点实存 / 领用量 / 退库量 / 日期）空白或写成「—」「待补」、数值认不出（<strong>不会悄悄当成 0</strong>）、</p>
+<p>库存为负（负库存）、数量为负、金额为负。</p>
+<p>「合计」行只参与第 5 项复核，不参与逐行勾稽 —— 否则一份台账里的合计会被当成一条明细再算一遍。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看内置样例（一张干净台账，应报 0 条问题）
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
+node scripts/run.mjs --input 你的材料.json --json</code></pre>
+<p>入参两种写法：</p>
+<ul>
+<li><code>{"text": "（把表头和数据行一起贴进来，Tab 分隔最稳）"}</code></li>
+<li>直接把台账（<strong>含表头</strong>）从 Excel 复制成文本存成文件，用 <code>--input</code> 指过去</li>
+</ul>
+<p>退出码：<code>0</code> 已执行检查 / <code>1</code> 缺少入参 / <code>3</code> 材料不足（<strong>不给结论</strong>）/ <code>4</code> 入参读不到或无法解析 / <code>9</code> 未预期错误。</p>
+<h2>出参</h2>
+<p><code>--json</code> 输出一份 JSON：</p>
+<ul>
+<li><code>status</code> —— <code>success</code> 表示检查已执行；<code>insufficient_input</code> 表示材料不足，此时<strong>没有结论</strong>，<code>missing</code> 逐条列出还缺什么</li>
+<li><code>result.findings[]</code> —— 每条含 <code>level</code>（P0/P1/P2）、<code>category</code>、<code>line</code>（<strong>原文行号</strong>）、<code>message</code>（含原文行内容与具体数字）、<code>advice</code>；账实不符还带 <code>diff</code> 与 <code>diff_rate</code></li>
+<li><code>result.summary</code> —— 明细行数、合计行数、问题条数、P0/P1/P2 计数，以及期初 / 入库 / 出库 / 期末 / 盘点 / 领用 / 退库 / 消耗 / 金额的合计与账实差异合计</li>
+<li><code>result.checks_executed</code> —— 本次<strong>真的执行了</strong>哪些检查</li>
+<li><code>result.checks_not_run</code> —— 本次<strong>没执行</strong>哪些检查（如实列出，不会用默认值假装做过）</li>
+<li><code>result.checks_out_of_scope</code> —— 本工具<strong>根本不做</strong>的判断</li>
+<li><code>result.note</code> —— 零发现时出现，说明"通过"只覆盖上面写明的口径</li>
+</ul>
+<h2>常见错法（本产品专属）</h2>
+<ol>
+<li><strong>期末库存直接手改成盘点实存，把差异抹平</strong> —— 期初 + 入库 − 出库 就不再等于期末库存，第 1 项和第 2 项会同时报出来。</li>
+</ol>
+<p>盘盈盘亏要走审批并留痕，账与实两个数都要留着，不能拿实盘数去倒推账面数。</p>
+<ol>
+<li><strong>领用记录只填「领用量」，退库的料不登记</strong> —— 领用量 − 退库量 就比实际消耗大，第 3 项报不符；</li>
+</ol>
+<p>退回车间的料要开退库单并冲减消耗，不能当成新的入库（记成负领用也会被「数量为负」抓到）。</p>
+<ol>
+<li><strong>同一个批次的料当天分两次出库，记成两行同样的品名 + 批次 + 日期</strong> —— 被判重复登记；</li>
+</ol>
+<p>要么合并成一行，要么在备注里写明两张单据号，让两条记录能被区分。</p>
+<ol>
+<li><strong>「合计」行手打、只加数量不加金额</strong> —— 第 5 项同时核数量列与金额列，哪一列对不上就点名哪一列；</li>
+</ol>
+<p>漏一行、多一行、或把「盘点实存」混进「期末库存」都会在这里露出来。</p>
+<ol>
+<li><strong>必需列留空或写占位符（规格写「—」、批次写「待补」、数量写「壹佰贰拾」）</strong> —— 空白 / 占位符会让那一行的</li>
+</ol>
+<p>勾稽整项做不了，只能报「关键字段缺失」；看不懂的数值<strong>不会当成 0</strong>，会单独报「数值无法解析」，</p>
+<p>本工具不替你猜一个默认值。</p>
+<h2>不包含什么</h2>
+<p>下面这 5 项<strong>不在本免费版里</strong>，也不会用默认值假装产出（<code>checks_not_run</code> 会如实列出）：</p>
+<ul>
+<li>超量储存（单一品种期末库存 &gt; 许可 / 规定上限，需表里有「许可上限」列）</li>
+<li>复检 / 有效期到期（按「有效期至」列判断已过期或 30 天内到期）</li>
+<li>双人复核缺失（收发人 / 记账人列为空，或同一人既收发又记账）</li>
+<li>储存条件记录缺失（温湿度 / 隔离要求列）与台账期间不连续</li>
+<li>分品名×分仓库汇总清单（按差异量排序，给出可整改动作）</li>
+</ul>
+<h2>使用次数与完整档</h2>
+<p>本免费版会在<strong>本包目录</strong>里记一个使用次数（<code>scripts/.hint-count</code>，一个整数，不含任何机器或用户信息）。</p>
+<p>· 前 3 次：<strong>完全离线</strong>（不发生任何网络请求），输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 第 4 次起才会向服务端问一次（只发包标识与次数），拿回完整档说明；</p>
+<p>· 请求不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>超量储存：单一品种期末库存 &gt; 许可/规定上限（需表里有「许可上限」列）⇒ 报出超出量</li>
+<li>复检/有效期到期：按「有效期至」列判断已过期或 30 天内到期（基准日取台账最后一条业务日期）</li>
+<li>双人复核缺失：收发人或记账人列为空、或同一人既收发又记账</li>
+<li>储存条件记录缺失（温湿度/隔离要求列）与台账期间不连续检测</li>
+<li>分品名×分仓库汇总清单（按差异量排序，给出可整改动作）</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断：不判定实物是否真的与台账相符（那是现场盘点与监盘的职责）、</li>
+</ul>
+<p>不判定该品种是否属于危化品 / 易制爆 / 易制毒或是否需备案（那是应急管理与公安部门的认定权）、</p>
+<p>不判定储存场所与安全设施是否达标、不判定 MSDS / 安全标签的文字内容是否合规、不读取 .xlsx / .pdf 原件、</p>
+<p>核对过程不联网核验许可证与备案证明真伪。</p>
+<ul>
+<li>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</li>
+<li>核对全部在<strong>本机</strong>用 Node 标准库完成，你的台账不出本机。</li>
+</ul>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/chemical-inventory-check-free">https://www.skillhub.cn/skills/user_ef162806/chemical-inventory-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
