@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>研发费用辅助账与高新指标核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="研发费用辅助账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"研发费用辅助账与高新指标核对（免费版）","description":"研发费用辅助账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>研发费用辅助账与高新指标核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：<strong>高新技术企业（含拟认定/复审）的财务与研发管理岗</strong>，在**月度归集研发费用、</p>
+<p>以及高新年报与认定申报之前**：</p>
+<ul>
+<li>本年归集金额 = 人员人工 + 直接投入 + 折旧摊销 + 设计试验费 + 其他费用；</li>
+<li><strong>其他费用占比一般不超过 20%</strong>（高新口径，按项目汇总计算）；</li>
+<li>高新口径要求<strong>有人工投入</strong>（人员人工为 0 是硬伤）。</li>
+</ul>
+<blockquote>与已有产品的区别：<code>rd-expense-check</code> 核的是<strong>企业所得税加计扣除</strong>归集（其他相关费用按前五项 10% 限额、 全部项目统一计算）；本产品核的是<strong>高新口径的辅助账台账</strong>（20% 上限按项目汇总、要求有人工）。</blockquote>
+<h2>这个免费版查什么</h2>
+<ol>
+<li><strong>合计行逐列复核</strong>（本年归集金额 / 五项明细）；</li>
+<li><strong>本年归集金额 = 五项明细之和</strong>（容差 0.02，P0）；</li>
+<li><strong>其他费用占比超过 20%</strong>（按项目汇总口径，P0）；</li>
+<li><strong>任一项明细为负</strong>（P0）；</li>
+<li><strong>备注为空或占位符</strong>（P1）；</li>
+<li><strong>研发项目+费用类别重复行</strong>检测；</li>
+<li><strong>空白与占位符</strong>检测（含必需列缺失，仍照常给结论并报「列缺失」）。</li>
+</ol>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<h2>常见错法（这些表里真的会有人这么填）</h2>
+<ol>
+<li><strong>其他费用按"单行占比"算</strong>：单行占比恒为 100%，必须按<strong>项目汇总后</strong>算（本工具按项目汇总，别自己逐行判断）。</li>
+<li><strong>把高新口径当加计扣除口径</strong>：加计扣除的"其他相关费用"是前五项 <strong>10%</strong> 限额、按全部项目统一算；高新是 <strong>20%</strong>、按项目算，混用会得出相反结论。</li>
+<li><strong>只有折旧摊销、没有人工</strong>：高新材料里没有人工投入是硬伤，完整档会点出来。</li>
+<li><strong>同一项目按费用类别拆行却不写类别</strong>：会报重复行；请把"项目 + 费用类别"写全。</li>
+<li><strong>备注写"研发用"</strong>：要写清用途与归集依据（工时/领料/折旧分摊表），否则审计与认定专家都会追问。</li>
+</ol>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>本年归集金额超过「其他费用 ÷ 20%」理论上限的 10 倍（异常放大）</li>
+<li>是否用于高新指标为「是」但费用类别不在常见高新口径提示</li>
+<li>折旧摊销超过本年归集金额的 50%（费用结构异常）</li>
+<li>人员人工为 0 但本年归集金额大于 0（高新口径要求研发费用中有人工）</li>
+<li>合计行其他费用占比超过 20%（与逐行口径一致地再查一次合计）</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版每次运行结束后会向服务端做<strong>一次匿名次数统计</strong>：只发送本包标识和一个不含任何材料的匿名安装标识（由主机名与用户名做短哈希得到），<strong>不发送你的材料、不写任何文件</strong>。</p>
+<p>· 前 3 次：服务端不返回任何内容，输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 统计不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li><strong>不做</strong>判断：某项支出<strong>是否属于</strong>研发费用、能否计入高新口径，请按《高新技术企业认定管理工作指引》与公司制度认定；</li>
+<li><strong>不代替</strong>专项审计、认定申报或出具鉴证意见；</li>
+<li><strong>不核对</strong>工时记录、领料单、折旧分摊表的<strong>真伪</strong>，也不与研发管理系统逐行比对；</li>
+<li><strong>不读取</strong>研发管理系统 / ERP 的导出文件——需要你先导出成文本贴进来；</li>
+<li><strong>不判断</strong>加计扣除与高新优惠的税务处理（属于税务判断，见同系列 <code>rd-expense-check</code>）。</li>
+</ul>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/rd-auxiliary-ledger-check-free">https://www.skillhub.cn/skills/user_ef162806/rd-auxiliary-ledger-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
