@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>税务与涉税申报技能包（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="一次跑完一套涉税申报材料的 14 项自查（进项抵扣 / 进项转出 / 附加税费 / 印花税 / 加计扣除 / 出口退税单证 / 企业所得税 …），每个对象一行结论，每条结论都带原文文件与行号，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"税务与涉税申报技能包（免费版）","description":"一次跑完一套涉税申报材料的 14 项自查（进项抵扣 / 进项转出 / 附加税费 / 印花税 / 加计扣除 / 出口退税单证 / 企业所得税 …），每个对象一行结论，每条结论都带原文文件与行号，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>税务与涉税申报技能包（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：批量壳与 14 项涉税检查规则都打包在本技能里（<code>scripts/engine/</code>）。 不对外发材料、<strong>不写任何文件</strong>（结果只打到 stdout）、<strong>没有次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：企业税务会计 / 代账公司的涉税岗，在<strong>每次申报之前</strong>。申报要核的不是一个数，</p>
+<p>而是十几张互相关联的底稿；一张张手核既慢，又<strong>说不清哪一项这次到底核没核</strong>。</p>
+<p><strong>这个工具做什么</strong>：<code>--input 对象目录</code> 时，<strong>目录里每个子目录就是一个对象（一个客户 / 一套申报材料）</strong>；</p>
+<p>本工具逐对象跑 14 项涉税检查（每一项内部还有若干子检查），最后<strong>每个对象输出一行结论</strong>：</p>
+<p>对象名 / 14 项各自「通过 / 有问题(几条) / 未执行」/ 问题条数与 P0、P1 计数。</p>
+<p>每条问题都带<strong>对象名 + 原文文件与行号</strong>（例如 <code>申报材料.txt:5</code>），可被第三方用同一份材料复算；</p>
+<p>某个对象没交材料时，<strong>那个对象单独标「未执行」</strong>，不会拖累其他对象，也<strong>不会被算成"没问题"</strong>；</p>
+<p>只交了一部分材料时（只覆盖了部分检查项），会额外报一条 <code>P2 检查项未执行（材料只覆盖了一部分）</code>，</p>
+<p>把"没核的那几项"点名列出——<strong>绝不能因为跑了几项就当成 14 项都跑过了</strong>。</p>
+<h2>本包包含以下 14 项检查（每项都是一个独立引擎，逐字节复用，规则一行没改）</h2>
+<ol>
+<li>农产品收购发票与进项抵扣核对</li>
+<li>应付暂估与发票未到核对</li>
+<li>增值税进项税额认证与抵扣核对</li>
+<li>进项税额转出核对</li>
+<li>增值税附加税费核对</li>
+<li>印花税计税依据核对</li>
+<li>研发费用加计扣除归集核对</li>
+<li>出口退税申报单证一致性核对</li>
+<li>企业所得税纳税调整核对</li>
+<li>预缴企业所得税核对</li>
+<li>递延所得税与暂时性差异核对</li>
+<li>房产税与城镇土地使用税申报核对</li>
+<li>土地增值税预缴与清算核对</li>
+<li>环境保护税申报核对</li>
+</ol>
+<h2>这个免费版查什么（分层如实说明）</h2>
+<p>免费版是<strong>完整可用的核心产出</strong>——"一次跑完所有对象"这件事本身就在免费版里做完了：</p>
+<ul>
+<li>免费版执行：上面 <strong>14 项涉税检查</strong>（逐对象全跑），外加批量壳自己的<strong>覆盖缺口检查</strong></li>
+</ul>
+<p>（材料只覆盖一部分时明确报一条，见上）。</p>
+<ul>
+<li>免费版<strong>不包含</strong>（完整档追加的那些项由引擎的 <code>CHECKS_WITHHELD</code> 如实列出，跑 <code>--sample</code> 会打印）：</li>
+</ul>
+<p>跨对象汇总台账、跨对象风险排序处理清单、跨对象共性问题归类、申报台账导出（Markdown / CSV）。</p>
+<ul>
+<li>⚠️ <strong>两个档位都不包含</strong>：上面 14 项里<strong>每一项自己</strong>声明未实现的检查项（例如「农产品收购发票与进项</li>
+</ul>
+<p>抵扣核对」的"扣除率与政策参考口径不一致提示"）。它们在那 14 个上游免费包里就没实现，本包只是复用</p>
+<p>它们的规则，绝不会因为"另有完整档"就假装跑过。这些项在结果里叫 <code>scope.sub_checks_not_run</code>，</p>
+<p><strong>每一项各自列出</strong>，一条都不藏。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                    # 单对象样例（内置，14 项全跑）
+node scripts/run.mjs --sample-batch              # 3 个对象样例（干净 / 有一处硬伤 / 没交材料）
+node scripts/run.mjs --input 对象目录             # 批量：每个子目录 = 一个对象
+node scripts/run.mjs --input 对象目录 --json      # 机器可读</code></pre>
+<p>对象目录这样放（每个对象的一套材料里，每张表用 <code>=== 检查名 ===</code> 分段，Tab 分隔最稳）：</p>
+<pre><code>对象目录/
+  豫州商贸有限公司（2026-02 申报）/申报材料.txt
+  中岳建材有限公司（2026-02 申报）/申报材料.txt</code></pre>
+<p>一个文件里放全部 14 张表、或者拆成 14 个文件放进同一个子目录，都可以——引擎按<strong>表头</strong>认表。</p>
+<p>目录里没有子目录时，直接把每个文件当一个对象；<code>.json</code> 文件里若写 <code>{"text":"…"}</code> 就按 JSON 取正文。</p>
+<h2>规则是哪来的（复用，不是重写）</h2>
+<p>那 14 项涉税检查（含各自的子检查逻辑）是<strong>逐字节拷贝</strong>进本技能包 <code>scripts/engine/parts/</code> 的，</p>
+<p>本包只做"对象目录 → 逐对象跑 14 项 → 每个对象一行结论"的编排与汇总，<strong>没有改写任何一条核对规则</strong>。</p>
+<h2>常见错法（这个产品专属，逐条都真实踩过）</h2>
+<ol>
+<li><strong><code>--input</code> 指到了"某个对象的文件"，却以为在跑批量</strong>：<code>--input</code> 指向的应当是<strong>对象目录</strong></li>
+</ol>
+<p>（里面每个子目录才是一个对象）。直接指一个对象的文件，就只会出 1 个对象的结果。</p>
+<ol>
+<li><strong>把 <code>=== 检查名 ===</code> 分段行删掉了</strong>：引擎按表头找表，分段行不是必需的，但**分段行没了就容易</li>
+</ol>
+<p>把两张表的行粘在一起**，表头后面跟着别人的明细行。分段名本身就是给"这个对象到底核了哪几项"用的。</p>
+<ol>
+<li><strong>一个对象的材料放进了另一个对象的目录</strong>：结论会挂在<strong>错的对象名下</strong>。交付前扫一眼每行结论里的</li>
+</ol>
+<p>对象名与问题明细里的 <code>文件:行号</code>。</p>
+<ol>
+<li><strong>把「未执行」读成「没问题」</strong>：材料没交、表头认不出时，本工具<strong>不给结论</strong>，只标「未执行」。</li>
+</ol>
+<p>把「未执行」当通过，是这类批量工具最常见的翻车方式。</p>
+<ol>
+<li><strong>用空格而不是 Tab 分隔列</strong>：解析优先按 Tab，其次按"2 个及以上空格"。金额里带空格（如 <code>1 000.00</code>）</li>
+</ol>
+<p>会被拆成两列，凭空多出"关键字段缺失"。从 Excel 复制时用 Tab。</p>
+<ol>
+<li><strong>合计行没写在第一列</strong>：合计行要写在<strong>身份列</strong>（期间 / 月份 / 项目 …）那一格为「合计 / 总计 / 小计」。</li>
+</ol>
+<p>写到别的列上不会被当成合计行，而是当成一条明细，于是"合计与明细之和不符"这种误报就出来了。</p>
+<ol>
+<li><strong>把两个对象的表拼成一个文件当一个对象跑</strong>：14 项会全部命中同一个对象的行号，结论对不上人。</li>
+</ol>
+<p>一个对象一个子目录，是本工具的基本假设。</p>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>跨对象汇总台账（全部对象 × 全部 14 项检查合并成一张总表）</li>
+<li>跨对象风险排序处理清单（按 P0/P1/P2 排序，带对象名与原文文件行号）</li>
+<li>跨对象共性问题归类（同一问题命中 2 个及以上对象时合并成一条共性项）</li>
+<li>申报台账导出（Markdown 与 CSV 文本，直接用于申报前复核说明）</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版每次运行结束后会向服务端做<strong>一次匿名次数统计</strong>：只发送本包标识和一个不含任何材料的匿名安装标识（由主机名与用户名做短哈希得到），<strong>不发送你的材料、不写任何文件</strong>。</p>
+<p>· 前 3 次：服务端不返回任何内容，输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 统计不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断（判断某项支出能不能抵扣、适用哪档税率、</p>
+<p>代替纳税申报、出鉴证意见与税务意见、核对发票真伪、读电子税务局/开票系统导出文件）；材料不足时</p>
+<p><strong>不给结论</strong>（认不出表头就不出结论，绝不套用默认值）。**它只核表内与表间的算术和勾稽关系，</p>
+<p>不替代你的专业判断。**</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/tax-filing-pack-free">https://www.skillhub.cn/skills/user_ef162806/tax-filing-pack-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
