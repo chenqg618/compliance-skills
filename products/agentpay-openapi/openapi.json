@@ -27,6 +27,79 @@
         }
       }
     },
+    "/api/v1/bankbid-daily/free": {
+      "post": {
+        "summary": "银行招标情报日报（免费档）",
+        "operationId": "bankbid_daily_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
+          }
+        }
+      }
+    },
+    "/api/v1/bankbid-daily": {
+      "post": {
+        "summary": "银行招标情报日报（按次付费）",
+        "operationId": "bankbid_daily_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
     "/api/v1/quote-audit/free": {
       "post": {
         "summary": "投标报价AI审查（免费档）",
@@ -1964,6 +2037,225 @@
       "post": {
         "summary": "公共费用分摊核对（按次付费）",
         "operationId": "utility_allocation_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/wastewater-fee-check/free": {
+      "post": {
+        "summary": "污水处理费与水质数据核对（免费档）",
+        "operationId": "wastewater_fee_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
+          }
+        }
+      }
+    },
+    "/api/v1/wastewater-fee-check": {
+      "post": {
+        "summary": "污水处理费与水质数据核对（按次付费）",
+        "operationId": "wastewater_fee_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/canteen-inspection-record-check/free": {
+      "post": {
+        "summary": "食堂进货查验与留样记录核对（免费档）",
+        "operationId": "canteen_inspection_record_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
+          }
+        }
+      }
+    },
+    "/api/v1/canteen-inspection-record-check": {
+      "post": {
+        "summary": "食堂进货查验与留样记录核对（按次付费）",
+        "operationId": "canteen_inspection_record_check_paid",
+        "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（免费档不含的检查项在付费档执行）"
+          },
+          "402": {
+            "description": "Payment-Needed：需支付后重试"
+          }
+        }
+      }
+    },
+    "/api/v1/hazwaste-manifest-check/free": {
+      "post": {
+        "summary": "危险废物转移联单与台账核对（免费档）",
+        "operationId": "hazwaste_manifest_check_free",
+        "description": "免费端点：不需要付款/注册（每项能力每天每 IP 有次数上限）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "纯文本材料（Tab 分隔表最稳）"
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "批量：多个对象（每个含 name 与 files）"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结论（含 findings 与 scope.checks_not_run）"
+          }
+        }
+      }
+    },
+    "/api/v1/hazwaste-manifest-check": {
+      "post": {
+        "summary": "危险废物转移联单与台账核对（按次付费）",
+        "operationId": "hazwaste_manifest_check_paid",
         "description": "按次计费 ¥0.99；未付款时返回 **402 Payment-Needed**（带 price 与 outTradeNo），按账单支付后带支付凭证重试同一请求",
         "requestBody": {
           "required": true,
