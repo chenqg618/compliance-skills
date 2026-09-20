@@ -57,10 +57,10 @@ POST /api/v1/three-way-match
 详见 [`products/agentpay-openapi/README.md`](products/agentpay-openapi/README.md)。
 
 <!-- MCP_SECTION_START -->
-## 也可以当 MCP server 用（241 个工具，完全离线）
+## 也可以当 MCP server 用（246 个工具，完全离线）
 
 同一个仓库里有一套 **MCP（Model Context Protocol）server** —— 任何支持 MCP 的 Agent
-（Claude Desktop / Cursor / 各类 Harness）都能直接调用这 241 个确定性核对工具：
+（Claude Desktop / Cursor / 各类 Harness）都能直接调用这 246 个确定性核对工具：
 
 ```bash
 git clone https://github.com/chenqg618/compliance-skills.git
