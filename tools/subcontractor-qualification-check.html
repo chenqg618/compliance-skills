@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>分包商资质与安全许可核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="分包商资质与安全许可台账逐项核对，6 项检查全部本机离线跑，每条结论都带原文行号依据，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"分包商资质与安全许可核对（免费版）","description":"分包商资质与安全许可台账逐项核对，6 项检查全部本机离线跑，每条结论都带原文行号依据，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>分包商资质与安全许可核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。 本免费版执行 <strong>6 项</strong>检查；<strong>未执行的检查项会在结果里如实列出</strong>（<code>CHECKS_WITHHELD</code>）， 不会用默认值编造结论。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁在什么时候用</strong>：总包/发包方的<strong>商务（合同）与安全部</strong>，在</p>
+<p><strong>每月固定复核节点</strong>、<strong>新分包商进场前</strong>、<strong>月度安全大检查 / 上级检查 / 招投标资格预审前</strong>，</p>
+<p>必须把《分包商资质与安全许可台账》核一遍才能往下走：</p>
+<ul>
+<li><strong>为什么必须核</strong>：总包对分包商资质负<strong>连带责任</strong>。用了<strong>过期资质、等级不够、或者人证对不上</strong>的分包，</li>
+</ul>
+<p>一旦出事故，总包一起担责（罚款、停工、上黑名单）；招投标与安全检查时，这张台账是<strong>直接判合格与否的材料</strong>。</p>
+<ul>
+<li><strong>每月都要重核的原因</strong>：证件会<strong>在合同期内到期</strong>。进场时齐全、过了半年安全生产许可证到期没续，</li>
+</ul>
+<p>台账上还写着「有效」—— 这是最常见、也最容易被查出来的问题。所以口径是</p>
+<p><strong>作业期（进场日期 → 退场日期）必须落在每一张证件的有效期内</strong>，而不是"进场那天有效就行"。</p>
+<ul>
+<li>典型场景：房建/市政/机电安装的总包商务部；制造、物业、园区运营方把保洁/安保/维保/劳务分包出去后，</li>
+</ul>
+<p>每月按这份台账复核一遍，留档应付检查。</p>
+<p><strong>这张表会逐项核对什么</strong>（6 项，逐行逐证点名）：</p>
+<ol>
+<li><strong>证件有效期覆盖</strong> —— 进场日期与退场日期都不得晚于 营业执照 / 资质证书 / 安全生产许可证 / 特种作业证 的到期日；报出是哪张证、差多少天。</li>
+<li><strong>资质等级匹配</strong> —— 「要求资质等级」与「持证资质等级」按等级序比较（特级 &gt; 一级/甲级 &gt; 二级/乙级 &gt; 三级/丙级 &gt; 四级/丁级 &gt; 暂定级/不分等级），持证低于要求即报出。</li>
+<li><strong>人员-证件一致性</strong> —— 「在册特种作业人员清单」与特种作业/操作证类证件清单对账：缺证、多证、姓名对不上。</li>
+<li><strong>重复登记</strong> —— 同一分包商 + 同一证件号出现两次及以上即报出（并指出首次出现行号）。</li>
+<li><strong>合同金额勾稽</strong> —— 同一分包商的各证件行合同金额必须一致；有「合计/小计/总计」行时，该行金额须等于按分包商去重后的合同金额合计。</li>
+<li><strong>空白/占位符/日期格式/状态非法</strong> —— 关键字段空白或写成「待填/待补/无」、日期写成看不懂的形态、证件状态不在允许取值内，逐处点名。</li>
+</ol>
+<p>每条结论都带<strong>原文行号、原文字段值与日期/数字</strong>，可被第三方用同一口径复算；</p>
+<p><strong>材料不足时不给结论</strong>：只列出还缺什么（缺哪一列、缺哪几行），既不说「资质齐全」，也不说「不合格」。</p>
+<h2>输入格式（从 Excel 复制成文本即可）</h2>
+<p>第一行必须是<strong>表头</strong>（Tab 分隔最稳），一个证件一行，分包商/合同字段逐行重复。必需列：</p>
+<p><code>分包商名称</code>、<code>统一社会信用代码</code>、<code>分包工程类别</code>、<code>要求资质等级</code>、<code>持证资质等级</code>、</p>
+<p><code>营业执照到期日</code>、<code>资质证书到期日</code>、<code>安全生产许可证到期日</code>、<code>进场日期</code>、<code>退场日期</code>、<code>合同金额</code>、</p>
+<p><code>证件名称</code>、<code>证件编号</code>、<code>持证人</code>、<code>证件到期日</code></p>
+<p>可选列（认出来就用，认不出不影响）：<code>上级分包商</code>、<code>再分包金额</code>、<code>在册特种作业人员清单</code>、</p>
+<p><code>证件状态</code>、<code>注销变更日期</code>、<code>社保应缴月份</code>、<code>社保已缴月份</code>、<code>工程名称</code>、<code>备注</code>。</p>
+<blockquote><strong>隐私</strong>：<code>统一社会信用代码</code>、证件编号请用<strong>掩码形态</strong>（如 <code>91320100MA1******<strong>X</code>、<code>T32010</strong>**0027</code>）。 本工具只需要"同一个号在不同行是不是同一个"，<strong>不需要完整号码</strong>。</blockquote>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看内置样例（一张干净台账，0 命中）
+node scripts/run.mjs --input 你的材料.json     # 跑自己的台账
+node scripts/run.mjs --input 你的材料.json --json</code></pre>
+<p>入参写法：<code>{"text": "（表头 + 若干数据行，Tab 分隔）"}</code>；也可以直接把含表头的文本粘进文件。</p>
+<h2>常见错法（分包资质管理专属的 5 个坑）</h2>
+<ol>
+<li><strong>只核"进场那天有效"，不核合同期覆盖</strong> —— 安全生产许可证 / 特种作业证在<strong>退场之前</strong>到期，</li>
+</ol>
+<p>台账上还写「有效」。这是检查时最容易被抓的一条：口径必须是 <strong>进场日期到退场日期全程覆盖</strong>。</p>
+<p>本工具会把"进场时已过期"和"合同期内出现空档"分别点名，并给出缺口天数。</p>
+<ol>
+<li><strong>拿"分公司/同名企业"的证件顶上</strong> —— 中标主体是 A 公司，交上来的是 A 公司某分公司或同名公司的营业执照、</li>
+</ol>
+<p>资质证书；统一社会信用代码其实不一样。核对时必须<strong>按统一社会信用代码</strong>认主体，</p>
+<p>别按公司名认（名字差一个"（集团）"就是另一家法人）。</p>
+<ol>
+<li><strong>特种作业人员"人证对不上"</strong> —— 在册名单里 8 个人，台账只挂了 5 张操作证；或者操作证上的名字是"李敏"，在册是"李明"；</li>
+</ol>
+<p>又或者人已经退场，证还挂在台账上。这三种分别对应<strong>缺证 / 姓名对不上 / 多证</strong>，本工具逐项点名。</p>
+<ol>
+<li><strong>同一张证件登记两次、或者合同金额只改了一行</strong> —— 换证后新增一行却没注明旧证失效，导致同一证件号出现两行；</li>
+</ol>
+<p>补充协议改了合同金额却只改了其中一行。这类"台账内部不自洽"在检查时会被直接判<strong>资料不实</strong>。</p>
+<p>本工具会点名重复证件号与不一致的合同金额（含合计行勾稽）。</p>
+<ol>
+<li><strong>拿占位符/随手一填的日子糊过去</strong> —— 日期写成 <code>2026.3</code>、<code>3月</code>、<code>待定</code>，证件状态随手写「正常/OK」，</li>
+</ol>
+<p>到期日留空。这些值在人工翻页时看不出问题，但一旦被要求提供原件就立刻暴露。</p>
+<p>本工具只认 <code>YYYY-MM-DD</code>（也认 <code>2026/3/1</code>、<code>2026.3.1</code>、<code>2026年3月1日</code>）与允许的状态取值，</p>
+<p>写别的形态一律按「日期格式非法 / 状态非法」逐处点名，<strong>不会当成有效</strong>。</p>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>社保/工伤保险缴纳覆盖（应缴月份 vs 已缴月份，缺哪个月点名到月）</li>
+<li>分包再分包（转包）线索（同一工程出现第二层分包商，或再分包金额合计超过合同金额）</li>
+<li>证件类型齐全性（按分包工程类别应有的证件清单逐项检查缺失）</li>
+<li>退场日期与证件注销/变更记录一致性（退场早于进场、注销/变更无日期、注销变更日期晚于退场日期）</li>
+<li>分包商×证件汇总清单与 consolidated_actions（按风险等级排序、给出可整改动作）</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版会在<strong>本包目录</strong>里记一个使用次数（<code>scripts/.hint-count</code>，一个整数，不含任何机器或用户信息）。</p>
+<p>· 前 3 次：<strong>完全离线</strong>（不发生任何网络请求），输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 第 4 次起才会向服务端问一次（只发包标识与次数），拿回完整档说明；</p>
+<p>· 请求不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断：</p>
+<p>不判定分包商<strong>是否具备承接资格、能不能中标</strong>，不核验证件<strong>真伪</strong>（核对过程不联网查建筑市场监管平台），</p>
+<p>不解释招标文件的具体资质门槛口径，不读 <code>.xlsx/.pdf</code> 原件、也不替代安全审查与法律意见。</p>
+<p><strong>材料不足时不给结论</strong>，也不会输出「未发现问题」。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/subcontractor-qualification-check-free">https://www.skillhub.cn/skills/user_ef162806/subcontractor-qualification-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
