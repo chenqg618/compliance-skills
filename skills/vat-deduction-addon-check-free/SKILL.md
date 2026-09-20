@@ -1,15 +1,15 @@
 ---
 slug: vat-deduction-addon-check-free
 displayName: 增值税加计抵减核对（免费版）
-version: 1.0.16
-summary: 加计抵减台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。
+version: 1.0.17
+summary: 加计抵减台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。本免费版只执行 6 项，即 合计行逐列复核、期末余额 = 期初余额 + 本期计提 − 本期调减 − 本期实际抵减、本期实际抵减 ≤ 抵减前应纳税额等。不执行 5 项判定，例如 本期计提 = 当期可抵扣进项税额 × 加计抵减比例 复算。详见 SKILL.md 的「这个免费版不包含」一节。
 tags: [增值税加计抵减核对,加计抵减台账,核对,对账,免费]
 license: Proprietary
 name: vat-deduction-addon-check-free
 display_name: 增值税加计抵减核对（免费）
 display_name_en: VAT Deduction Add-on Credit Check (Free)
-description: 加计抵减台账逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文。本免费版执行引擎声明的免费检查项。触发词包括 增值税加计抵减核对、加计抵减台账对不上。
-description_zh: 加计抵减台账逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文。本免费版执行引擎声明的免费检查项。触发词包括 增值税加计抵减核对、加计抵减台账对不上。
+description: 加计抵减台账逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文。本免费版执行引擎声明的免费检查项。触发词包括 增值税加计抵减核对、加计抵减台账对不上。本免费版只执行 6 项，即 合计行逐列复核、期末余额 = 期初余额 + 本期计提 − 本期调减 − 本期实际抵减、本期实际抵减 ≤ 抵减前应纳税额等。不执行 5 项判定，例如 本期计提 = 当期可抵扣进项税额 × 加计抵减比例 复算。详见 SKILL.md 的「这个免费版不包含」一节。
+description_zh: 加计抵减台账逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文。本免费版执行引擎声明的免费检查项。触发词包括 增值税加计抵减核对、加计抵减台账对不上。本免费版只执行 6 项，即 合计行逐列复核、期末余额 = 期初余额 + 本期计提 − 本期调减 − 本期实际抵减、本期实际抵减 ≤ 抵减前应纳税额等。不执行 5 项判定，例如 本期计提 = 当期可抵扣进项税额 × 加计抵减比例 复算。详见 SKILL.md 的「这个免费版不包含」一节。
 description_en: A free deterministic check for 加计抵减台账. Every finding cites the source. No payment, no registration, no API key, no network.
 category: business-ops
 author: WorkBuddy 开放平台开发者
