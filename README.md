@@ -57,10 +57,10 @@ POST /api/v1/three-way-match
 详见 [`products/agentpay-openapi/README.md`](products/agentpay-openapi/README.md)。
 
 <!-- MCP_SECTION_START -->
-## 也可以当 MCP server 用（226 个工具，完全离线）
+## 也可以当 MCP server 用（241 个工具，完全离线）
 
 同一个仓库里有一套 **MCP（Model Context Protocol）server** —— 任何支持 MCP 的 Agent
-（Claude Desktop / Cursor / 各类 Harness）都能直接调用这 226 个确定性核对工具：
+（Claude Desktop / Cursor / 各类 Harness）都能直接调用这 241 个确定性核对工具：
 
 ```bash
 git clone https://github.com/chenqg618/compliance-skills.git
@@ -148,7 +148,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **232 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **247 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -169,6 +169,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `asset-impairment-check-free` | 资产减值测试表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `audit-adjustment-check-free` | 审计调整分录核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `audit-adjustment-pack-free` | 把一套审计与账务调整底稿按 14 项检查逐个核一遍，每个被审计单位一行结论，结论都带原文文件与行号，不需要付款、不需要注册 |
+| `autoshop-parts-labor-check-free` | 维修工单配件与工时费明细表逐项核对（配件小计复算、工时费复算、工单总额勾稽、重复配件行、负数行与关键字段空缺），每条结论都带原文行号，不需要付款，也不需要注册 |
 | `award-contract-consistency-check-free` | 中标通知书与合同草案逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `bad-debt-provision-check-free` | 坏账准备计提表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `bank-acceptance-bill-check-free` | 银行承兑汇票台账逐票核对（到期日复算、余额勾稽、票号重复、状态空缺、金额与期限非正、已兑付仍计余额），每条结论都带原文行号，不需要注册 |
@@ -195,6 +196,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `commission-check-free` | 提成计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `compliance-expiry-check-free` | 证照与特种设备年检到期台账逐项核对，有效期至 = 上次检验日期 + 检验周期、距到期天数 = 有效期至 − 基准日、状态与到期情况是否一致，并检出日期倒挂、检验周期非正、重复证… |
 | `consignment-settlement-check-free` | 寄售代销结算台账逐行复算（结存、应结金额、手续费、合计勾稽），每条结论都带原文行号，不需要付款，也不需要注册 |
+| `construction-material-check-free` | 材料需用计划与实际消耗对照表逐项核对（损耗量复算、损耗率与上限比对、实耗超计划、合计勾稽、重复与空缺），每条结论都带原文行号，不需要付款，也不需要注册 |
 | `construction-monthly-selfcheck-free` | 建筑企业月度自查包（免费版）共 3 类核对，含 分包结算与产值核对、工程进度款与质保金核对、工程产值与进度确认核对 |
 | `construction-output-value-check-free` | 工程产值与进度确认表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `construction-wage-special-account-check-free` | 建筑工人工资专户发放核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -228,13 +230,16 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `export-monthly-selfcheck-free` | 外贸月度自查包（免费版）共 3 类核对，含 出口退税核算核对、出口报关与收汇核销核对、外币结算与汇兑损益核对 |
 | `export-rebate-check-free` | 出口退税（免抵退）计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `export-rebate-doc-consistency-check-free` | 出口退税申报单证一致性核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `export-tax-refund-check-free` | 出口退税申报与单证对照表逐项核对（退税额复算、合计勾稽、单号一一对应、档位一致性、单证缺失），每条结论都带原文行号，不需要付款，也不需要注册 |
 | `factory-overhead-check-free` | 制造费用归集与分摊表逐项核对（分摊率与分摊金额复算、分摊合计勾稽、吸收率与吸收差异、重复与空缺），每条结论都带原文行号，不需要付款，也不需要注册 |
 | `fee-budget-pack-free` | 把一套费用与预算材料按 14 项检查逐个客户核一遍，每个客户一行结论，结论都带原文文件与行号，不需要付款、不需要注册 |
 | `finance-monthly-selfcheck-free` | 分段财务核对材料逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `fixed-asset-count-check-free` | 固定资产盘点表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `fleet-fuel-cost-check-free` | 车辆油耗与运费台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `foreign-trade-pack-free` | 把一套外贸出口材料按 14 项检查逐个核一遍，每个核对对象一行结论，结论都带原文文件与行号，不需要付款、不需要注册 |
+| `franchise-deposit-check-free` | 加盟商保证金与费项结算明细表逐行复算（保证金余额勾稽、费项金额=基数×费率、合计行勾稽、重复计费、扣罚超限、缺格与负数），每条结论都带原文行号与加盟商，不需要付款，也不需要注册 |
 | `franchise-royalty-check-free` | 加盟结算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `freight-loss-claim-check-free` | 货运破损理赔与承运商扣款明细表逐项核对，复算理赔金额、查多扣与重复运单、赔付比例超上限、关键字段缺失或负数，每条结论都带原文行号与运单号，不需要付款，也不需要注册 |
 | `freight-reconciliation-free` | 运费月结单逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `fresh-loss-check-free` | 生鲜损耗与盘点表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `fx-settlement-check-free` | 外币结算核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
@@ -255,6 +260,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `input-vat-deduction-check-free` | 进项税额认证与抵扣对照表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `installment-rate-check-free` | 分期方案核对表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `insurance-agency-fee-check-free` | 保险代理手续费与佣金结算核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `insurance-commission-check-free` | 保险佣金与手续费结算明细表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `intangible-amortization-check-free` | 无形资产台账逐行复算与勾稽核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `inventory-check-free` | 库存盘点表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `inventory-cost-flow-check-free` | 存货出入库与成本表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -284,6 +290,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `material-usage-loss-check-free` | 材料领用与损耗表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `medical-consumable-markup-check-free` | 医院/诊所每月结账与物价检查前的卫生耗材核对表，逐项复算结存数量、结存金额、加成率逐项复算，合计行勾稽、重复行与空缺检测，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `medical-insurance-denial-check-free` | 医保拒付与申诉核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `membership-liability-check-free` | 会员卡销售与核销明细表逐项核对，核销复算、负债滚存勾稽、重复与作废口径，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `mold-amortization-check-free` | 模具与工装摊销台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `non-recurring-gain-loss-check-free` | 非经常性损益明细表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `oem-rebate-policy-check-free` | 整车厂返利与商务政策核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -315,6 +322,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `project-material-transfer-check-free` | 工程材料调拨与领用核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `project-settlement-pack-free` | 把一套工程与项目结算材料按 14 项检查逐个核一遍，每个项目一行结论，结论都带原文文件与行号，不需要付款、不需要注册 |
 | `promo-subsidy-check-free` | 促销补贴核销表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `property-energy-apportion-check-free` | 公共能耗抄表与分摊明细表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `property-fee-check-free` | 物业费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `property-public-income-check-free` | 小区公共收益台账（电梯/道闸广告、场地租赁、快递柜、临时停车）逐项核对，应分成业主金额复算、季度小计与合计勾稽、重复登记、空缺与负值，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `property-tax-land-use-check-free` | 房产税与城镇土地使用税申报核对表逐处复算（从价/从租/土地使用税 + 分期与申报勾稽 + 差异定位），每条结论都带原文行号，不需要付款，也不需要注册 |
@@ -325,9 +333,11 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `rd-expense-check-free` | 研发费用归集表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `receivable-collection-plan-check-free` | 应收账款催收计划与回款表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `recon-receivables-pack-free` | 把一套往来材料按 14 项检查逐个客户核一遍，每个客户一行结论，结论都带原文文件与行号，不需要付款、不需要注册 |
+| `recruitment-agency-fee-check-free` | 猎头服务费账单与保证期明细表逐项核对，每条结论都带原文行号与候选人，不需要付款、不需要注册，材料不出本机 |
 | `related-party-fund-occupation-check-free` | 关联方往来台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `related-party-transaction-check-free` | 关联交易台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `rent-collection-check-free` | 租金收缴与欠租台账核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `rent-deposit-refund-check-free` | 押金保证金台账与退还明细表逐项核对（应退金额复算、扣除金额带依据与上限、退还超期、重复退还、台账余额勾稽、字段缺失与负数），每条结论都带原文行号，不需要付款，也不需要注册 |
 | `restaurant-daily-sales-check-free` | 门店日营业款上报表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `restaurant-food-cost-check-free` | 餐饮菜品成本与出品率核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `retail-member-points-check-free` | 会员积分与储值卡核销核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -335,6 +345,8 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `revenue-recognition-pack-free` | 把一个项目的一套收入材料按 7 项收入确认与结算核对逐项目核一遍，每个项目一行结论，结论都带原文文件与行号，不需要付款、不需要注册 |
 | `royalty-settlement-check-free` | 版税与授权金结算核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `saas-revenue-recognition-check-free` | SaaS订阅收入确认表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `saas-usage-billing-check-free` | 订阅用量与超额计费明细表逐项核对，逐行复算超额用量与超额费用、核对账单金额勾稽，查套餐买大了、重复订阅与空缺，每条结论都带原文行号与订阅号，不需要付款，也不需要注册 |
+| `saas-vendor-invoice-check-free` | 把软件服务商发来的账单与用量明细表逐行核一遍 —— 账单金额复算、计费数量与用量或席位对照、合计行勾稽、重复计费、超合同单价、关键字段空缺，每条结论都带原文行号 |
 | `safety-production-fee-check-free` | 安全生产费用提取与使用核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `sales-commission-tier-check-free` | 销售提成与业绩核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `sales-rebate-check-free` | 返利台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -351,6 +363,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `store-sales-report-check-free` | 门店营收上报表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `store-transfer-check-free` | 门店调拨与库存核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `subcontract-settlement-check-free` | 分包结算与产值核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `subsidy-acceptance-check-free` | 政府补助台账与验收资料对照表逐行复算与勾稽，列出到账差额、支出缺口、验收资料缺件与重复申报，每条结论都带原文行号 |
 | `surtax-check-free` | 附加税费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `takeout-commission-check-free` | 外卖平台（美团、饿了么、抖音外卖）月度账单逐行核对，佣金、配送费商家承担、活动补贴与商家实收算得对不对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `tax-filing-pack-free` | 一次跑完一套涉税申报材料的 14 项自查（进项抵扣 / 进项转出 / 附加税费 / 印花税 / 加计扣除 / 出口退税单证 / 企业所得税 …），每个对象一行结论，每条结论都带… |
@@ -362,6 +375,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `teacher-hour-pay-check-free` | 课时消耗与教师课时费明细表逐项核对（课时费复算、正课/试听/补课口径、双线课耗勾稽、合计复核、保底单价、重复与空缺），每条结论都带原文行号，不需要付款，也不需要注册 |
 | `tenderaudit-full-compliance-free` | 把一个项目的投标材料先做一轮免费的AI体检，报价算术 + 模板占位符，不需要付款，也不需要注册 |
 | `three-way-match-free` | 把采购订单、入库单、发票放在一起核一遍——订单号、供应商、物料、数量、单价、金额在各单据间对不对得上，另外揪出重复发票号与未替换的占位符 |
+| `ticket-revenue-check-free` | 票务收入与渠道结算明细表的逐行复算与勾稽，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `toll-processing-manual-check-free` | 加工贸易手册与保税料件核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `trade-doc-consistency-free` | 把外贸单据之间对不上的地方找出来（发票号 / 合同号 / 信用证号 / 金额 / 数量 / 重量 / 港口 / 船名），每条都带原文证据，不需要付款，也不需要注册 |
 | `training-hour-consumption-check-free` | 教培课消与预收学费核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -382,6 +396,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `viral-script-free` | 把一份口播逐字稿丢进来，10 秒内出体检报告——结构地图、开场钩子强度、留存节奏、口语度评分、CTA 强度，并列出问题清单 |
 | `warehouse-fee-check-free` | 仓储费结算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `warehouse-inventory-turnover-check-free` | 仓库周转与呆滞库存表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `warehouse-storage-fee-check-free` | 仓储费结算单与库龄明细表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `waybill-pod-cod-check-free` | 运单回单与代收货款核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `welfare-limit-check-free` | 职工福利费与教育经费台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 <!-- SKILL_LIST_END -->
