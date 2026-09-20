@@ -187,6 +187,8 @@ function main() {
 
   if (args.json) {
     console.log(JSON.stringify(view, null, 2));
+    // `--json` 契约：stdout 必须是纯 JSON ⇒ 打印后必须 return（第 292 轮实测两个包缺这行）
+    return 0;
   }
 
   console.log('免费AI核对完成');
