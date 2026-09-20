@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>加盟保证金与费项结算核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="加盟商保证金与费项结算明细表逐行复算（保证金余额勾稽、费项金额=基数×费率、合计行勾稽、重复计费、扣罚超限、缺格与负数），每条结论都带原文行号与加盟商，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"加盟保证金与费项结算核对（免费版）","description":"加盟商保证金与费项结算明细表逐行复算（保证金余额勾稽、费项金额=基数×费率、合计行勾稽、重复计费、扣罚超限、缺格与负数），每条结论都带原文行号与加盟商，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>加盟保证金与费项结算核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<p><strong>本免费版只做金额逐行复算与勾稽，不做合同条款与合规性判定。</strong></p>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：连锁加盟总部（或区域代理）的<strong>财务 / 结算岗</strong>，</p>
+<p>在<strong>每月与加盟商对账、出结算单、或者加盟商拿着结算单来说"对不上"的时候</strong>，</p>
+<p>必须把这张加盟商保证金与费项结算明细表核一遍才能收款 / 划款 / 退保证金。</p>
+<p>每月都要吵的就是这几处：保证金余额与「期初 + 收取 − 退还 − 扣罚」对不上、</p>
+<p>加盟费 / 管理费金额与「计费基数 × 费率」对不上、同一笔费项计了两遍、</p>
+<p>扣罚扣得比可扣的保证金还多、关键格留空或写成「待填」。</p>
+<p><strong>这张表会逐项核对什么</strong>（每一步都能被第三方用同一份输入手算复现）：</p>
+<ul>
+<li>保证金余额 = 保证金期初 + 保证金收取 − 保证金退还 − 保证金扣罚</li>
+<li>费项金额 = 计费基数 × 费率</li>
+<li>合计行各列 = 各明细行逐列相加（合计行没填的列不核）</li>
+<li>同一加盟商同一结算期间同一费项、且金额相同的重复计费</li>
+<li>扣罚超过可扣保证金（余额会变负）/ 扣罚超过「合同扣罚上限」列</li>
+<li>关键字段缺失或为占位符、金额列为负数</li>
+</ul>
+<p>每条结论都带<strong>原文行号与加盟商 / 费项</strong>，可被第三方用同一口径复算；</p>
+<p>材料不齐时<strong>不给结论</strong>，会明确列出还缺什么。</p>
+<h2>这个免费版查什么</h2>
+<ol>
+<li>保证金余额复算（保证金余额 = 保证金期初 + 保证金收取 − 保证金退还 − 保证金扣罚）</li>
+<li>费项金额复算（费项金额 = 计费基数 × 费率）</li>
+<li>合计行与明细勾稽（逐列：合计行 = 各明细行逐列相加；合计行没填的列不核）</li>
+<li>同一加盟商同一期间同一费项、且费项金额相同的重复计费检测</li>
+<li>扣罚超过可扣保证金（余额为负）/ 超过合同扣罚上限检测</li>
+<li>关键字段缺失或为占位符、金额列为负数检测</li>
+</ol>
+<p>（检查项由引擎的 <code>CHECKS_GIVEN</code> 导出，跑 <code>--sample</code> 会打印实际执行了哪些；</p>
+<p>本版本不包含的 5 项列在 <code>CHECKS_WITHHELD</code> 里，不做也不假装做。）</p>
+<p><strong>数字会做归一化</strong>：<code>120,000.00</code>、千分位、带货币符号的写法、<code>(1200)</code>（会计负数）都被认成同一个口径；</p>
+<p><strong>费率</strong>写 <code>3</code>、<code>3%</code> 或 <code>0.03</code> 都按 3% 理解（写 <code>1</code> 表示 100%，本工具不会替你猜你的意思）。</p>
+<p>表头里的空格与括号会被忽略，所以「保证金余额(元)」和「保证金余额」都认。</p>
+<p><strong>余额口径</strong>：保证金期初 / 收取 / 退还 / 扣罚四列都按"截至本期"填写，余额应当能被这四列复算出来；</p>
+<p>跨期的正确填法是<strong>上期期末余额 = 本期期初</strong>。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
+node scripts/run.mjs --input 你的材料.json --json</code></pre>
+<p>入参就是<strong>含表头</strong>的一张表（<code>{"text": "加盟商名称\t加盟商编码\t结算期间\t…"}</code>）：</p>
+<p>从 Excel 或加盟商结算系统导出里直接复制成文本（Tab 分隔最稳）贴进去即可。</p>
+<p>表头缺列会明确告诉你缺了哪一列；<strong>缺一列就不给结论</strong>，不会拿 0 替你假设"这一户没有保证金收退"。</p>
+<p>确实没有发生的收退 / 扣罚请填 <code>0</code>：填 <code>0</code> 表示"确实没有"，留空表示"不知道"，这两者不能混。</p>
+<h3>退出码</h3>
+<table><thead><tr><th>码</th><th>含义</th></tr></thead><tbody>
+<tr><td>0</td><td>已执行检查</td></tr>
+<tr><td>1</td><td>没给入参</td></tr>
+<tr><td>3</td><td><strong>材料不齐 —— 此时不给结论</strong>（既不说"对"，也不说"错"）</td></tr>
+<tr><td>4</td><td>入参文件读不到或无法解析</td></tr>
+<tr><td>9</td><td>未预期错误</td></tr>
+</tbody></table>
+<h2>出参</h2>
+<p><code>run.mjs --json</code>（以及引擎 <code>run()</code> 返回值里的 <code>result</code>）的形状：</p>
+<pre><code>{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;service_type&quot;: &quot;FRANCHISE_DEPOSIT_CHECK&quot;,
+  &quot;scope&quot;: {
+    &quot;checks&quot;: [...],              // 本次实际执行的检查项（6 项）
+    &quot;checks_not_run&quot;: [...],      // 本版本未执行的检查项（= CHECKS_WITHHELD，5 项）
+    &quot;rows&quot;: 5, &quot;franchises&quot;: 3, &quot;periods&quot;: 2,
+    &quot;totals_row&quot;: true, &quot;totals_rows&quot;: 1,
+    &quot;fee_base_total&quot;: 840000, &quot;fee_amount_total&quot;: 22200,
+    &quot;deposit_open_total&quot;: 80000, &quot;deposit_in_total&quot;: 160000,
+    &quot;deposit_refund_total&quot;: 30000, &quot;deposit_deduct_total&quot;: 2000,
+    &quot;deposit_balance_total&quot;: 208000,
+    &quot;statement_fee_amount_total&quot;: 22200,
+    &quot;rate_convention&quot;: &quot;费率可写 3 / 3% / 0.03，均按 3% 理解…&quot;,
+    &quot;tolerance&quot;: 0.01, &quot;executed_locally&quot;: true, &quot;network_used&quot;: false
+  },
+  &quot;findings&quot;: [
+    { &quot;level&quot;: &quot;P0&quot;, &quot;category&quot;: &quot;保证金余额复算不符&quot;, &quot;line&quot;: 2, &quot;amount&quot;: 1000,
+      &quot;message&quot;: &quot;甲公司（A1 / 2026-06 / 管理费）的保证金余额写的是 9000.00，按 期初 0.00 + 收取 10000.00 − 退还 0.00 − 扣罚 0.00 应为 10000.00，相差 -1000.00。&quot;,
+      &quot;advice&quot;: &quot;…&quot; }
+  ],
+  &quot;summary&quot;: { &quot;rows&quot;: 5, &quot;franchises&quot;: 3, &quot;periods&quot;: 2, &quot;total&quot;: 0,
+               &quot;p0&quot;: 0, &quot;p1&quot;: 0, &quot;p2&quot;: 0, &quot;verdict&quot;: &quot;NO_ISSUE_FOUND&quot;, &quot;omitted&quot;: 0 },
+  &quot;checks_executed&quot;: [...], &quot;checks_withheld&quot;: [...],
+  &quot;checks_given&quot;: [...], &quot;checks_out_of_scope&quot;: [...],
+  &quot;note&quot;: &quot;…&quot;, &quot;disclaimer&quot;: &quot;…&quot;
+}</code></pre>
+<ul>
+<li><code>findings[].line</code> 是<strong>原文行号</strong>（含表头，从 1 起），<code>level</code> 是 <code>P0</code>（金额算错 / 缺关键格）或 <code>P1</code>（口径可疑）；</li>
+<li><code>amount</code> 是这条结论涉及的金额（元），0 表示这条不是金额差；</li>
+<li>材料不齐时返回的是 <code>{"status": "insufficient_input", "missing": [...], "advice": "…"}</code>，</li>
+</ul>
+<p><strong>没有 <code>result</code></strong>，因此不会有任何"未发现问题"的结论。</p>
+<h2>常见错法（本产品专属）</h2>
+<ol>
+<li><strong>保证金余额没把某一笔发生额算进去</strong>：最常见的是<strong>上期期末没结转成本期期初</strong>、</li>
+</ol>
+<p>退还款没从余额里减、或者扣罚只在备注里写了却没落进金额列。</p>
+<p>余额一错，后面所有"这一户该收多少 / 该退多少"的结论都跟着错，所以这一条永远排在最前面。</p>
+<ol>
+<li><strong>费率用了合同里另一档</strong>：同一加盟商同一期间同一费项，合同里可能按门店数 / 营收规模分档。</li>
+</ol>
+<p>费率列写 <code>3</code>、<code>3%</code>、<code>0.03</code> 都按 3% 理解；写成 <code>1</code> 意思是 100%，费项金额当场变成"整笔基数"，</p>
+<p>差出好几个数量级。本工具不会替你猜你的意思。</p>
+<ol>
+<li><strong>明细改对了、合计行忘了重算</strong>：合计行是对外金额（据此向加盟商收款 / 划款），</li>
+</ol>
+<p>明细单改过之后合计没跟着刷新，或者明细里漏了整整一行 —— 逐单都对而合计对不上时，</p>
+<p>差异就出在合计行自身。</p>
+<ol>
+<li><strong>同一笔费项计了两遍</strong>：重复导单 / 复制黏贴时，同一加盟商同一期间同一费项会出现两行、</li>
+</ol>
+<p>连金额都一模一样。本工具只把「金额也相同」的判为重复计费，</p>
+<p>按不同费率档位正当拆行的两行<strong>不会</strong>被误报。</p>
+<ol>
+<li><strong>扣罚扣超了</strong>：扣罚只能扣到保证金余额为 0 为止；扣超的部分要么另行追缴、要么按合同由其他款项抵。</li>
+</ol>
+<p>另外「合同扣罚上限」这一列只是<strong>你自己填的上限</strong>，本工具只做算术比较，</p>
+<p>不判断上限填得对不对、也不判断这笔扣罚是否合规。</p>
+<ol>
+<li><strong>该填 0 的格子留空</strong>：确实没有发生的收退 / 扣罚留空，会让这一行整行复算不出来。</li>
+</ol>
+<p>留空就是"不知道"，本工具宁可报缺格，也不用 0 替你假设。</p>
+<h2>不包含什么</h2>
+<p>以下检查项<strong>不在本版本范围内</strong>，调用时也不会执行（列在引擎的 <code>CHECKS_WITHHELD</code> 里）：</p>
+<ul>
+<li>跨加盟商 × 跨期间汇总台账（按加盟商与按结算期间归集费项金额、保证金收发扣与争议金额，</li>
+</ul>
+<p>并逐户做「期初 + 收取 − 退还 − 扣罚 = 期末」的余额勾稽）</p>
+<ul>
+<li>按差异金额排序的处理清单（带原文行号、加盟商、结算期间、费项与建议动作）</li>
+<li>差异归因：费率档位不一致（同一加盟商同一期间同一费项出现多个费率 ⇒ 按其中最低费率折算多计金额）</li>
+<li>差异归因：基数口径不一致（同一加盟商同一期间同一费项出现多个计费基数 ⇒ 按其中最低基数折算多计金额）</li>
+<li>差异归因：扣罚缺少依据说明，以及跨期归属错位（保证金期初 ≠ 上期期末余额 / 一次性费项出现在多个结算期间）</li>
+</ul>
+<p><strong>本免费版只做金额逐行复算与勾稽，不做合同条款与合规性判定</strong>：</p>
+<p>费率该用哪一档、基数该取什么口径、扣罚是否合规、合同条款是否合法有效，都不在本版本的判断范围内。</p>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；</p>
+<p>两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版每次运行结束后会向服务端做<strong>一次匿名次数统计</strong>：只发送本包标识和一个不含任何材料的匿名安装标识，</p>
+<p><strong>不发送你的材料、不发送你的身份、不写你的表</strong>。</p>
+<ul>
+<li>前 3 次：服务端不返回任何内容，输出与现在完全一样；</li>
+<li>第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与条件以它自己的商品页为准），届时才会打印这一行；</li>
+<li>统计不可用（离线 / 超时 / 被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</li>
+<li>不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</li>
+</ul>
+<p>核对本身<strong>全部在本机用 Node 标准库完成</strong>，不调用任何模型、不连接加盟商结算系统或银行。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断：加盟合同条款是否合法有效、扣罚到底该不该罚、</p>
+<p>扣罚比例是否合规、费率档位是否与合同一致、加盟费 / 管理费该收多少、保证金是否真的收到与退还到账、</p>
+<p>保证金的利息与税费怎么处理（那些以加盟合同、内部制度与银行流水为准）。</p>
+<ul>
+<li>只核<strong>表内勾稽</strong>：表里的计费基数、费率、金额、期初 / 收取 / 退还 / 扣罚、扣罚上限一律以你填的为准；</li>
+<li><strong>「没报问题」不等于「没有问题」</strong>：超出上述 6 项的检查，本版本不执行；</li>
+<li>材料不齐时<strong>不给结论</strong>，也不会用默认值编一个「本期没问题」出来；</li>
+<li>每条结论都带原文行号与加盟商 / 费项，可由第三方用同一份输入复算。</li>
+</ul>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/franchise-deposit-check-free">https://www.skillhub.cn/skills/user_ef162806/franchise-deposit-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
