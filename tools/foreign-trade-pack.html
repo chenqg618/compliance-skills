@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>外贸与出口技能包（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="把一套外贸出口材料按 14 项检查逐个核一遍，每个核对对象一行结论，结论都带原文文件与行号，不需要付款、不需要注册。本免费版只执行 14 项，即 出口退税核算核对、出口退税申报单证一致性核对、出口报关与收汇核销核对等。不执行 4 项判定，例如 跨对象汇总台账。详见 SKILL.md 的「这个免费版不包含」一节。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"外贸与出口技能包（免费版）","description":"把一套外贸出口材料按 14 项检查逐个核一遍，每个核对对象一行结论，结论都带原文文件与行号，不需要付款、不需要注册。本免费版只执行 14 项，即 出口退税核算核对、出口退税申报单证一致性核对、出口报关与收汇核销核对等。不执行 4 项判定，例如 跨对象汇总台账。详见 SKILL.md 的「这个免费版不包含」一节。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>外贸与出口技能包（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>scripts/engine/</code>）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>、<strong>不写任何文件</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：外贸公司、出口企业的外贸会计、单证员、报关与退税岗，</p>
+<p>在<strong>每期报关出口、收汇核销、出口退税申报、进口清关、国际运费与保险结算</strong>这些固定节点上。</p>
+<p>外贸出口底稿从来不是一张表：免抵退税额勾稽、报关单与出口发票的单证一致性、报关与收汇核销、</p>
+<p>外币结算与汇兑损益、进口关税与消费税、货运险投保与货损理赔、运单回单与代收货款、</p>
+<p>运费对账、物流仓储费、进项税认证抵扣、发票作废红冲、发票领用存、寄售代销结算、履约保函台账 ——</p>
+<p>每一张都有自己的勾稽关系，逐张手核既慢又容易漏，而且<strong>每个报关批次、每一期都要重复一遍</strong>；</p>
+<p><strong>少算一笔免抵退税额、多抵一笔进项税、单证字段对不上，后果比多花半小时严重得多</strong>。</p>
+<p><strong>这个包做的事只有一件</strong>：<code>--input &lt;对象目录&gt;</code>（每个子目录 = 一个核对对象 / 一套材料），</p>
+<p>一次跑完所有对象，<strong>每个核对对象一行结论</strong>。</p>
+<h2>这个免费版查什么</h2>
+<p>下面 14 项，<strong>每个核对对象都跑一遍</strong>（检查项名字与引擎 <code>CHECKS_GIVEN</code> 逐条一致）：</p>
+<ol>
+<li>出口退税核算核对</li>
+<li>出口退税申报单证一致性核对</li>
+<li>出口报关与收汇核销核对</li>
+<li>外币结算与汇兑损益核对</li>
+<li>进口税费核算核对</li>
+<li>货运险投保与货损理赔核对</li>
+<li>运单回单与代收货款核对</li>
+<li>运费对账核对</li>
+<li>物流仓储与操作费核对</li>
+<li>保函台账与到期失效核对</li>
+<li>增值税进项税额认证与抵扣核对</li>
+<li>发票作废与红冲核对</li>
+<li>发票领用存与开票数据核对</li>
+<li>寄售代销结算核对</li>
+</ol>
+<p>引擎里的 <code>CHECKS_WITHHELD</code>（本免费版<strong>不执行</strong>的项）会逐条打印出来，例如</p>
+<p>「跨对象汇总台账」「出口风险排序清单」「跨对象共性问题归类」「外贸出口台账导出」——</p>
+<p><strong>它们是"未执行的检查项"的说明文本，不是实现</strong>。</p>
+<p>另外，每个成员检查包<strong>自己</strong>没做的子检查（<code>SUB_CHECKS_WITHHELD</code>，本包合计 70 项）也在结果里</p>
+<p><code>scope.sub_checks_not_run</code> 如实列出 —— 两个档位都没实现它们，不会因为「买了完整档」就让买家以为这些项被跑了。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                  # 单对象样例（内置）
+node scripts/run.mjs --sample-batch            # 3 个对象的批量样例（干净 / 有硬伤 / 没交材料）
+node scripts/run.mjs --input 对象目录           # 批量：每个子目录 = 一个核对对象
+node scripts/run.mjs --input 对象目录 --json    # 机器可读</code></pre>
+<p>对象目录怎么放（每个子目录里放该对象的一套外贸出口材料，每项用 <code>=== 检查项 ===</code> 分段，Tab 分隔最稳）：</p>
+<pre><code>对象目录/
+  华越进出口（2026-03 出口批次）/外贸出口材料.txt
+  远洋商贸（2026-03 出口批次）/外贸出口材料.txt</code></pre>
+<p>也可以把 14 张表拆成 14 个文件放进同一个子目录 —— 引擎会自己认表头找对应的那一项。</p>
+<p><code>templates/sample.json</code> 是引擎自己的样例，可以直接 <code>--input</code> 它先跑通一遍。</p>
+<p><strong>退出码</strong>：0 已执行检查 / 1 缺少入参 / 3 材料不足 / 4 入参读不到或无法解析 / 9 未预期错误。</p>
+<p><strong>材料不足</strong>（一个对象的材料都没有、材料为空或只有几行、认不出任何一张表）时，</p>
+<p>本工具<strong>不做任何认定、也不给任何结论</strong>，打印缺什么并以退出码 3 结束 —— 不会把"没查"说成"通过"。</p>
+<h2>结论怎么读</h2>
+<ul>
+<li>每个核对对象一行：<code>[结论] 对象名｜问题 N 项（P0/P1/P2）｜每一项:通过 / 有问题(n) / 未执行</code>；</li>
+<li>有价值的是<strong>问题明细</strong>：每条都带 <code>核对对象 + 检查项 + 来源文件:行号 + 类别 + 具体数字</code>，</li>
+</ul>
+<p>第三方可以拿同一份材料复算；</p>
+<ul>
+<li>行号一律<strong>以你的原文内容为准落位</strong>（成员引擎内部的行号口径不统一，本包只按"这一行在原文里真的存在"</li>
+</ul>
+<p>来定位），所以拿行号回原文一定找得到那一行。</p>
+<h2>常见错法</h2>
+<ul>
+<li><strong>把 14 项的材料全塞进一个文件却不分段</strong>：引擎按 <code>=== 检查项 ===</code> 分段找每一项的表；</li>
+</ul>
+<p>不分段时只有第一段能被认出，其余 13 项会如实标成「未执行」并报一条「材料只覆盖了一部分」，</p>
+<p>不是"查过了没问题"。</p>
+<ul>
+<li><strong>一个核对对象一个目录</strong>：<code>--input</code> 指向的目录里，<strong>每个子目录 = 一个核对对象</strong>。</li>
+</ul>
+<p>把所有批次的出口材料放进同一个子目录，会被当成<strong>一个</strong>对象，跨对象的差异与汇总也就无从谈起。</p>
+<ul>
+<li><strong>以为「未执行」=「通过」</strong>：某对象只交了 3 张表，那 3 项之外的 11 项是<strong>没有核</strong>，</li>
+</ul>
+<p>结论里写的是「未执行」，并且会单独报一条覆盖缺口。</p>
+<ul>
+<li><strong>把"上期累计"和"本期发生"两列混着填</strong>：免抵退税额、收汇核销、汇兑损益这些勾稽都要用到</li>
+</ul>
+<p>"期初 + 本期 − 本期支出 = 期末"这类滚动关系，缺一列该项就会如实标「未执行」。</p>
+<ul>
+<li><strong>拿 <code>--sample</code> 的输出当自己的结论</strong>：样例只是让你确认「跑得通、格式对」，</li>
+</ul>
+<p>真正的结论必须来自你自己的材料。</p>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>跨对象汇总台账（全部核对对象 × 全部 14 项检查合并成一张总表）</li>
+<li>出口风险排序清单（按 P0/P1/P2 排序，带对象名与原文文件行号）</li>
+<li>跨对象共性问题归类（同一问题命中 2 个及以上对象时合并成一条共性项）</li>
+<li>外贸出口台账导出（Markdown 与 CSV 文本，直接用于报关退税复核说明与付款审批附件）</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版每次运行结束后会向服务端做<strong>一次匿名次数统计</strong>：只发送本包标识和一个不含任何材料的匿名安装标识（由主机名与用户名做短哈希得到），<strong>不发送你的材料、不写任何文件</strong>。</p>
+<p>· 前 3 次：服务端不返回任何内容，输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 统计不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li><strong>不做</strong>报关单、出口发票、提单、保单、原产地证等单证本身真伪的判断，也不比对海关 / 税务 /</li>
+</ul>
+<p>银行 / 船公司的逐行明细；</p>
+<ul>
+<li><strong>不判断</strong>某笔出口业务该适用哪一版退税率、商品编码归类是否正确、是否满足退税条件</li>
+</ul>
+<p>（属于海关与税务口径判断，请按海关与税务机关的口径执行）；</p>
+<ul>
+<li><strong>不代替</strong>报关、出口退税申报、外汇核销或审计程序，也不出具鉴证意见与审计意见；</li>
+<li><strong>不判断</strong>信用证条款是否可接受、有没有软条款（请按信用证与合同约定执行）；</li>
+<li><strong>不读取</strong>报关系统 / 退税申报系统 / ERP / 银行网银的导出文件 —— 需要你先导出成文本，</li>
+</ul>
+<p>每个核对对象一个目录。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/foreign-trade-pack-free">https://www.skillhub.cn/skills/user_ef162806/foreign-trade-pack-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
