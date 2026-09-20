@@ -1,7 +1,7 @@
 ---
 slug: courier-settlement-check-free
 displayName: 网点运费与代收货款结算核对（免费版）
-version: 1.0.3
+version: 1.0.4
 summary: 网点运费结算单与代收货款明细表逐项核对，复算运费、代收货款扣减与应结金额，查计费重量少计、重复运单与空缺，每条结论都带原文行号与运单号，不需要付款，也不需要注册。
 tags: [网点运费与代收货款结算核对,网点运费结算单,代收货款,代收手续费,核对,免费]
 license: Proprietary
