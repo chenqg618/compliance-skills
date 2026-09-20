@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>仓储费与库龄结算核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="仓储费结算单与库龄明细表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"仓储费与库龄结算核对（免费版）","description":"仓储费结算单与库龄明细表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>仓储费与库龄结算核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>不需要注册</strong>、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：仓储 / 物流的财务与对账岗，**每月收到第三方仓库（3PL）或自有仓的</p>
+<p>仓储费结算单 + 库龄明细表、在付款之前**，必须把这张表核一遍才能往下走。</p>
+<p><strong>为什么必须核</strong>：仓储费是<strong>乘出来的</strong> —— 体积（或托盘数）× 单价 × 计费天数，</p>
+<p>其中计费天数 = 库龄天数 − 免租期。<strong>免租期没扣干净、天数按自然月多算、单价被悄悄上调</strong>，</p>
+<p>这三件事都会直接乘进金额，而且表面上"自己跟自己一致"，人工看一眼发现不了。</p>
+<p>库龄超期附加费是<strong>超期占用天数 × 超期日费率</strong>，同样是乘出来的。</p>
+<p><strong>这张表会逐项核对什么</strong>：仓储费结算单与库龄明细表的逐行算术、合计行勾稽、重复与空缺检测。</p>
+<p>每条结论都带<strong>原文行号与出处</strong>，可被第三方用同一份输入、同一口径复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么。</p>
+<h2>这个免费版查什么</h2>
+<table><thead><tr><th>#</th><th>检查项</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>逐行复算仓储费</strong>：库存体积（或托盘数）× 结算单价 × 计费天数 = 仓储费；两种计价基础任一算平即通过，并按出入库日期复核库龄天数</td></tr>
+<tr><td>2</td><td><strong>计费天数复核</strong>：库龄天数 − 免租期 = 计费天数（表里第 G−H=I 列的关系）</td></tr>
+<tr><td>3</td><td><strong>库龄超期附加费复算</strong>：超期占用天数 × 超期日费率 = 库龄超期附加费</td></tr>
+<tr><td>4</td><td><strong>应付合计勾稽</strong>：仓储费 + 库龄超期附加费 = 应付合计；合计行 = 各明细行逐列相加</td></tr>
+<tr><td>5</td><td><strong>重复行与空缺列检测</strong>：同一仓库 + 同一客户 + 同一物料出现多行；仓库/客户/物料/库龄天数/计费天数/仓储费/应付合计为空或占位符</td></tr>
+<tr><td>6</td><td><strong>数量、单价或金额为负检测；计费天数出现小数检测</strong></td></tr>
+</tbody></table>
+<p>免费版<strong>只执行上面 6 项</strong>；引擎里 <code>CHECKS_WITHHELD</code> 如实列出<strong>未执行</strong>的那几项，</p>
+<p>跑 <code>--sample</code> 会打印实际执行了哪些、没执行哪些。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                       # 先看样例（一张算得平的干净表，用来确认格式）
+node scripts/run.mjs --input 你的材料.json           # 跑自己的材料
+node scripts/run.mjs --input 你的材料.json --json    # 机器可读输出</code></pre>
+<p>入参写法（把结算单<strong>含表头</strong>从 Excel 复制成文本贴进来，Tab 分隔最稳）：</p>
+<pre><code>{&quot;text&quot;: &quot;仓库\t客户\t物料\t入库日期\t出库日期\t库存体积\t托盘数\t库龄天数\t免租期\t计费天数\t计价基础\t体积费率\t结算单价\t仓储费\t超期占用天数\t超期日费率\t库龄超期附加费\t应付合计\n上海仓\tC001\t镀锌板卷\t2026-01-01\t2026-02-01\t100.00\t5\t31\t0\t31\t体积\t1.20\t1.20\t3720.00\t0\t0\t0.00\t3720.00&quot;}</code></pre>
+<p>直接以文件形式放纯文本表格也可以（<code>--input</code> 会把它当纯文本材料处理）。</p>
+<p><code>templates/sample.json</code> 里就是这份样例，<strong>先跑通它再换成自己的数据</strong>。</p>
+<h2>出参</h2>
+<p><code>--json</code> 输出一个对象，关键字段：</p>
+<table><thead><tr><th>字段</th><th>含义</th></tr></thead><tbody>
+<tr><td><code>result.status</code></td><td><code>success</code> 才代表真的执行了检查；材料不足时是 <code>insufficient_input</code></td></tr>
+<tr><td><code>result.findings[]</code></td><td>每条结论：<code>level</code>（P0/P1/P2）、<code>category</code>（结论类别）、<code>line</code>（<strong>原文行号</strong>）、<code>message</code>（中文说明 + 怎么自查）</td></tr>
+<tr><td><code>result.summary</code></td><td><code>rows</code> 明细行数、<code>total</code> 结论条数、<code>p0/p1/p2</code>、<code>verdict</code>（<code>ERROR_FOUND</code> / <code>NEEDS_REVIEW</code> / <code>NO_ISSUE_FOUND</code>）</td></tr>
+<tr><td><code>result.scope</code></td><td>本次执行的检查项、未执行的检查项、<code>tolerance</code> 容差</td></tr>
+<tr><td><code>result.checks_out_of_scope</code></td><td>本工具<strong>根本不做</strong>的判断</td></tr>
+<tr><td><code>result.disclaimer</code></td><td>口径说明：只做表内可复算的关系，不规定仓库收费标准</td></tr>
+</tbody></table>
+<p>退出码：<code>0</code> 已执行检查 / <code>1</code> 没给入参 / <code>3</code> 材料不足（<strong>此时不给任何结论</strong>）/ <code>4</code> 入参读不到或无法解析 / <code>9</code> 未预期错误。</p>
+<h2>常见错法（本产品专属）</h2>
+<ol>
+<li><strong>免租期没扣、或扣错了列</strong>：计费天数是<strong>库龄天数 − 免租期</strong>，不是库龄天数本身。</li>
+</ol>
+<p>免租期那一列空着时本工具按 0 天算（那就必须等于库龄天数）。免费项 2 专门盯这一条 ——</p>
+<p>免租期错一天，仓储费与超期天数<strong>一起错</strong>。</p>
+<ol>
+<li><strong>把「库存体积」和「托盘数」的单价混着用</strong>：仓储费 = 计价数量 × 单价 × 计费天数，</li>
+</ol>
+<p>而 <code>元/m³·天</code> 与 <code>元/托·天</code> 差一个量级。同一行两列都填时，本工具按"哪种基础能算平就用哪种"，</p>
+<p><strong>两列都算不平才报</strong>；想让它只按一种口径核，就填「计价基础」列（体积 / 托盘）。</p>
+<ol>
+<li><strong>把「仓库小计」行当成普通明细行</strong>：小计行 / 合计行的仓库列写的是「仓库小计」「合计」，</li>
+</ol>
+<p>本工具会把它们从明细里摘出去、单独做勾稽。<strong>别把小计行删掉</strong> —— 删了明细加总与合计行会天然对不上；</p>
+<p>也别把小计行写成具体仓库名（那样它会被当成一条明细，费用凭空翻倍）。</p>
+<ol>
+<li><strong>库龄天数与出入库日期对不上</strong>：日期差 31 天、库龄天数写 30 天，通常是把首日或末日算重/算漏。</li>
+</ol>
+<p>库龄天数是免租期与超期天数的计算基础，它一错，仓储费与超期附加费会一起错。</p>
+<ol>
+<li><strong>用 <code>-</code> / <code>N/A</code> / <code>待补</code> 占位后忘了替换</strong>：占位符被当成"没填"，关键列一空这条明细就无法复算。</li>
+</ol>
+<p>红字冲回也不要直接把负号塞进正常行 —— 应当单独列一行并注明原因，否则合计看着正常、明细却多扣了钱。</p>
+<ol>
+<li><strong>天数带小数</strong>：计费天数出现 <code>30.5</code> 这类小数，通常是把半个计费周期四舍五入进了天数，</li>
+</ol>
+<p>误差会被直接乘进金额（免费项 6 会指出来）。</p>
+<ol>
+<li><strong>只贴了明细、没贴表头</strong>：认不出表头就不给结论（退出码 3），并且会告诉你哪些必需列没认出来 ——</li>
+</ol>
+<p>这是<strong>故意</strong>的：宁可不出结论，也不用默认值编造一个"未发现问题"。</p>
+<h2>不包含什么</h2>
+<ul>
+<li><strong>不规定</strong>仓库收费标准、免租期政策与超期附加费率（以双方合同与报价单为准，本工具只按表里的数字复算）</li>
+<li>不核对出入库单、托盘流转记录、库存台账本身是否准确（需要你先导出成文本贴进来）</li>
+<li>不处理税率、发票、付款账期与预付款抵扣</li>
+<li>不读取 WMS / ERP / 结算系统导出的二进制文件（请先导出成文本或 JSON）</li>
+<li>不做跨期比较（上月 vs 本月单价与天数）——需要你自己把两期贴成同一张表</li>
+<li>核对过程不联网、不上传材料、不写任何文件</li>
+</ul>
+<p>本免费版<strong>不执行</strong>下面这些检查（引擎里 <code>CHECKS_WITHHELD</code> 会如实列出、并在结果里标成"未执行"，</p>
+<p><strong>不会</strong>用默认值伪造结论）：</p>
+<ul>
+<li>跨仓库 / 跨客户的汇总台账（按仓库、按客户双向汇总计费天数、体积、仓储费、超期附加费、应付合计）</li>
+<li>仓库小计行逐行勾稽（本仓库明细逐列相加 = 表里那一行「仓库小计」）</li>
+<li>超收金额处理清单（按超收金额从大到小排序，逐条给出"同款物料基准单价 → 应收 → 实收 → 超收"证据链）</li>
+<li>费用差异归因（同仓库同客户同物料的两行，把差额拆成单价效应 / 天数效应 / 体积效应并各自配平）</li>
+<li>库龄超期附加费超标清单（按加成率排序 + 按金额加权的超期费用占比）</li>
+<li>同款物料计费口径不一致提示（表内出现两种以上结算单价，或两种以上超期日费率）</li>
+<li>合计行<strong>数量列</strong>（体积 / 托盘数）勾稽</li>
+<li>逐行的"空体积却有仓储费""库龄天数与出入库日期不符"清单</li>
+</ul>
+<h2>使用次数与完整档</h2>
+<p>本免费版会在<strong>本包目录</strong>里记一个使用次数（<code>scripts/.hint-count</code>，一个整数，不含任何机器或用户信息）。</p>
+<p>· 前 3 次：<strong>完全离线</strong>（不发生任何网络请求），输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 第 4 次起才会向服务端问一次（只发包标识与次数），拿回完整档说明；</p>
+<p>· 请求不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断；</p>
+<p>材料不足时<strong>不给结论</strong>（既不做"一致"的认定，也不做"不一致"的认定），</p>
+<p><strong>也不会输出「未发现问题」</strong>。</p>
+<p>所有结论只是"表内数字对不上"的线索，<strong>是否付款、是否找仓库调账由你决定</strong>。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/warehouse-storage-fee-check-free">https://www.skillhub.cn/skills/user_ef162806/warehouse-storage-fee-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
