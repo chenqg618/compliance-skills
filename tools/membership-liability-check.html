@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>会员卡预收与履约负债核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="会员卡销售与核销明细表逐项核对，核销复算、负债滚存勾稽、重复与作废口径，每条结论都带原文行号，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"会员卡预收与履约负债核对（免费版）","description":"会员卡销售与核销明细表逐项核对，核销复算、负债滚存勾稽、重复与作废口径，每条结论都带原文行号，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>会员卡预收与履约负债核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>scripts/engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>，你的材料不出本机。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：财务、门店会计、内审在<strong>月末结账 / 门店盘点 / 会员卡专项审计之前</strong>，</p>
+<p>必须把这张表核一遍才能往下走 —— 卖卡收到的钱先记成预收负债，会员每核销一次才把一部分负债</p>
+<p>结转为收入；这张表错一处会同时错三处（预收负债错、收入错、门店业绩错）。</p>
+<p><strong>什么时候不用</strong>：材料只有汇总数、没有逐卡明细时不用（本工具从"每张卡一行"算起）；</p>
+<p>要判断会员章程本身是否合规时也不用（见文末边界）。</p>
+<h2>这个免费版查什么</h2>
+<p>引擎会把这 6 项逐条跑完（<code>CHECKS_GIVEN</code>，跑 <code>--sample</code> 会打印实际执行了哪些）：</p>
+<ol>
+<li><strong>本期核销金额逐行复算</strong>：核销金额 = 核销次数 × 单次确认价，逐行对不上就报。</li>
+<li><strong>期末负债勾稽</strong>：期初负债 + 本期销售 − 本期核销 − 过期作废 = 期末负债，逐行 + 合计行。</li>
+<li><strong>核销金额超过卡内可用余额</strong>：核销掉卡里没有的钱，预收负债就一定是错的。</li>
+<li><strong>同一会员卡号重复销售</strong>：同一张卡出现两行且都带销售金额 ⇒ 负债被重复确认。</li>
+<li><strong>过期作废金额与政策一致性</strong>：作废金额不得为负、不得超过作废前的可用余额。</li>
+<li><strong>关键字段缺失/占位符与负数</strong>：卡号、金额、次数缺一列，相关复算只能跳过。</li>
+</ol>
+<p>每条结论都带<strong>原文行号与出处</strong>（<code>findings[].line</code>），可被第三方用同一口径复算。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                  # 先看样例（内置样例是一张干净表，应当 0 条发现）
+node scripts/run.mjs --input 你的明细表.json    # 跑自己的材料
+node scripts/run.mjs --input 你的明细表.json --json   # 机读输出（stdout 是纯 JSON）</code></pre>
+<p>入参写成 <code>{"text": "（含表头的明细表，Tab 分隔最稳）"}</code>；直接把 Excel 里<strong>含表头</strong>的那几行</p>
+<p>复制成文本贴进来也可以。退出码：<code>0</code> 已执行检查 / <code>1</code> 没给入参 / <code>3</code> 材料不足 / <code>4</code> 入参读不到 / <code>9</code> 未预期错误。</p>
+<h2>出参</h2>
+<ul>
+<li><code>result.scope.checks</code>：本次<strong>实际执行</strong>的检查项；<code>result.scope.checks_not_run</code>：本次<strong>没有执行</strong>的检查项。</li>
+<li><code>result.findings[]</code>：每条含 <code>line</code>（原文行号）、<code>level</code>（P0/P1/P2）、<code>category</code>、<code>message</code>（含复算过程）。</li>
+<li><code>result.summary</code>：<code>total</code> / <code>p0</code> / <code>p1</code> / <code>p2</code> / <code>verdict</code>（<code>NO_ISSUE_FOUND</code> / <code>NEEDS_REVIEW</code> / <code>ERROR_FOUND</code>）。</li>
+<li>材料不足时返回 <code>status: "insufficient_input"</code> 并列出 <code>missing</code>（缺哪一列），<strong>不给任何结论</strong>。</li>
+</ul>
+<h2>常见错法（本产品专属）</h2>
+<ul>
+<li><strong>把核销金额当成收入</strong>：核销是"负债结转"，不是"新收入"；口径混用会让负债与收入同时错。</li>
+<li><strong>赠送卡/折扣卡按面值入账</strong>：应按实收金额确认预收负债，按面值记会虚增负债。</li>
+<li><strong>期初负债直接抄上月期末</strong>：跨期的调卡、退款、赠送没调整，滚存从第一个月就错了。</li>
+<li><strong>过期作废记成收入</strong>：作废是冲减负债，记成收入会让收入与负债同时虚增。</li>
+<li><strong>同一会员多张卡（卡号带 -1/-2 后缀）</strong>：重复销售识别不到，需要先合并卡号。</li>
+<li><strong>门店间调卡/转卡</strong>：同一张卡出现在两个门店，跨门店汇总时会虚增负债（这正是完整档要归并的）。</li>
+<li><strong>从 Excel 粘贴时把"合计"行也当成明细行</strong>：合计行会被单独识别（<code>totals</code>），不要重复计入。</li>
+</ul>
+<h2>不包含什么</h2>
+<p>下面这些<strong>不在本免费版里</strong>，它们属于完整档能力（<code>CHECKS_WITHHELD</code>，本工具会如实列出"未执行"，</p>
+<p>不会用默认值编造结论）：</p>
+<ol>
+<li>跨门店/跨卡种<strong>汇总台账</strong>（门店负债合计与卡种核销率）；</li>
+<li><strong>负债差异归因</strong>（核销口径 / 作废政策 / 跨期归属 / 重复销售）；</li>
+<li>按负债差异金额<strong>排序的处理清单</strong>；</li>
+<li>跨期归属：期初有余额但本期无任何变动检测；</li>
+<li>卡种归集完整性（卡种缺失时无法按卡种汇总）。</li>
+</ol>
+<h2>使用次数与完整档</h2>
+<p>本免费版会在<strong>本包目录</strong>里记一个使用次数（<code>scripts/.hint-count</code>，一个整数，不含任何机器或用户信息）。</p>
+<p>· 前 3 次：<strong>完全离线</strong>（不发生任何网络请求），输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 第 4 次起才会向服务端问一次（只发包标识与次数），拿回完整档说明；</p>
+<p>· 请求不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>只核这张台账的内部勾稽</strong>（核销复算、负债滚存、重复与作废口径）。</p>
+<p>它<strong>不判断</strong>会员章程/卡政策本身是否合规（有效期多长、作废比例上限由你的章程决定）、</p>
+<p><strong>不判断</strong>收入确认时点与履约进度（那属于会计准则判断）、不处理含税/不含税口径与赠送卡拆分，</p>
+<p>也不读会员系统或 ERP（需要你先导出成文本）。</p>
+<p>材料不足（空、只有表头、缺必需列、只有合计行）时<strong>不给结论</strong>：既不做"一致"的认定，</p>
+<p>也不做"不一致"的认定，更不会输出"未发现问题"。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/membership-liability-check-free">https://www.skillhub.cn/skills/user_ef162806/membership-liability-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
