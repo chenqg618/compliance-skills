@@ -21,13 +21,16 @@
  *   调增合计     = 各明细项「调增金额」之和
  *   调减合计     = 各明细项「调减金额」之和
  *   合计行       = 各明细行逐列相加
- *   业务招待费扣除上限     = min(发生额 × 60%, 营业收入 × 5‰)
- *   广告费和业务宣传费上限 = 营业收入 × 15%
- *   公益性捐赠支出上限     = 利润总额 × 12%
  *
  * 免费档执行 6 项；完整档追加 5 项（见 CHECKS_WITHHELD）。材料不足时**绝不给结论**。
+ * ⚠️ 下面 3 条限额公式**只属于完整档（付费）**，本免费档**不执行**：既不参与任何计算，
+ *    也不写进返回值（它们只作为"未执行的检查项"列在 CHECKS_WITHHELD / scope.checks_not_run）。
+ *    把它们留在返回值里会被当成"限额已核对" ⇒ 虚假保证，是本仓库最不能接受的错。
+ *      业务招待费扣除上限     = min(发生额 × 60%, 营业收入 × 5‰)
+ *      广告费和业务宣传费上限 = 营业收入 × 15%
+ *      公益性捐赠支出上限     = 利润总额 × 12%
  * ⚠️ 本工具**不判断**调整事项的税法依据是否成立、也**不判断**企业是否真的适用某项优惠税率：
- *    限额比例只用于"表里算没算对"的复核，属**参考口径**，以税法与主管税务机关为准。
+ *    税法口径以税法与主管税务机关为准。
  */
 
 const CHECKS_GIVEN = [
@@ -54,14 +57,13 @@ const OUT_OF_SCOPE = [
   '读取财务/报税系统导出文件（需要你先导出成文本贴进来）',
 ];
 
-/* 法定与常见优惠口径：仅供"明显偏离"时提示，**不是**税率适用性判断 */
+/* 法定与常见优惠口径：仅供"明显偏离"时提示，**不是**税率适用性判断
+   （税率偏离提示属完整档；免费档只把 RATE_REFS 作为参考值随 scope 返回，不对税率做任何判定） */
 const STATUTORY_RATE = 0.25;
 const RATE_REFS = [0.25, 0.20, 0.15, 0.05];
-/* 限额类项目的法定上限比例 */
-const ENTERTAIN_RATE = 0.6;          // 业务招待费：按发生额 60% 扣除
-const ENTERTAIN_REV_RATE = 0.005;    // 且不超过营业收入的 5‰
-const AD_REV_RATE = 0.15;            // 广告费和业务宣传费：不超过营业收入 15%
-const DONATION_PROFIT_RATE = 0.12;   // 公益性捐赠支出：不超过利润总额 12%
+/* ⚠️ 这里**刻意不再定义**限额比例常量（招待费 60%/5‰、广告费 15%、捐赠 12%）：
+   免费档不执行限额类判断，留着常量就会被写进返回值（旧的 limit_rates），
+   调用方/买家会以为限额已经核对过 —— 那是虚假保证。限额公式只在完整档里实现。 */
 
 const SAMPLE_TEXT = [
   '行次\t项目\t金额\t调增金额\t调减金额',
@@ -442,10 +444,6 @@ function run(payload) {
       adjustment_rows: t.items.filter(isDetail).length,
       tolerance: TOL,
       rate_refs: RATE_REFS,
-      limit_rates: {
-        entertain_book: ENTERTAIN_RATE, entertain_revenue: ENTERTAIN_REV_RATE,
-        ad_revenue: AD_REV_RATE, donation_profit: DONATION_PROFIT_RATE,
-      },
       executed_locally: true,
       network_used: false,
     },
@@ -459,9 +457,13 @@ function run(payload) {
       omitted: 0,
     },
     checks_out_of_scope: OUT_OF_SCOPE,
-    note: `本版本只执行：${CHECKS_GIVEN.join('、')}；未执行的检查项见 scope.checks_not_run。`,
-    disclaimer: '只核「利润总额 + 调增 − 调减 = 应纳税所得额」「合计 = 明细之和」这类表内勾稽，'
-      + `以及限额类项目的**参考上限**（招待费 min(发生额 60%, 营业收入 5‰)、广告费 ${AD_REV_RATE * 100}% 营业收入、捐赠 ${DONATION_PROFIT_RATE * 100}% 利润总额）；`
+    note: `本版本只执行：${CHECKS_GIVEN.join('、')}；未执行的检查项见 scope.checks_not_run。`
+      + '**限额类判断本版本未执行**（业务招待费、广告费和业务宣传费、公益性捐赠支出的扣除上限均未核对），'
+      + '不要据本结果认为限额已经查过。',
+    disclaimer: '只核「利润总额 + 调增 − 调减 = 应纳税所得额」「合计 = 明细之和」这类表内勾稽；'
+      + '本版本**不核对**限额类扣除上限（业务招待费 min(发生额 60%, 营业收入 5‰)、广告费和业务宣传费 15% 营业收入、'
+      + '公益性捐赠 12% 利润总额）—— 这些只是未执行的检查项，见 scope.checks_not_run，'
+      + '本结果**不能**被理解为"限额已核对"；'
       + '**不判断**调整事项的税法依据是否成立、也不判断优惠税率是否真的适用（以税法与主管税务机关口径为准）；'
       + `法定税率参考值 ${STATUTORY_RATE * 100}%。结论可由第三方用同一份输入复算。`,
   };
