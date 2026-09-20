@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>出口退税申报与单证核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="出口退税申报与单证对照表逐项核对（退税额复算、合计勾稽、单号一一对应、档位一致性、单证缺失），每条结论都带原文行号，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"出口退税申报与单证核对（免费版）","description":"出口退税申报与单证对照表逐项核对（退税额复算、合计勾稽、单号一一对应、档位一致性、单证缺失），每条结论都带原文行号，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>出口退税申报与单证核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：外贸企业（免退税）与生产企业（免抵退）的出口退税经办岗、复核岗，</p>
+<p>在<strong>每个申报期收尾、每一票出口退税申报之前</strong>，把当期这张「出口退税申报与单证对照表」核一遍。</p>
+<p>税率或金额只要有一票对不上，退税审核就会卡住，函调要翻的单证本来就是这张表里已经填好的东西。</p>
+<p><strong>这张表长什么样</strong>：一行一票出口明细，列包括</p>
+<p>所属期 / 申报企业 / 报关单号 / 出口发票号 / 商品编码 / 商品编码适用退税率 / 出口数量 /</p>
+<p>出口额人民币 / 外币离岸价 / 汇率 / 出口发票金额 / 计税金额 / 退税率 / 退税额 /</p>
+<p>报关单状态 / 出口发票状态 / 收汇水单状态，最后一行是「合计」。</p>
+<p>从 Excel <strong>连表头一起复制</strong>粘成文本即可，Tab 分隔最稳。</p>
+<p>每条结论都带<strong>原文行号</strong>，可被第三方用同一口径复算。</p>
+<h2>这个免费版查什么</h2>
+<ol>
+<li><strong>退税额逐行复算</strong>：出口额人民币 × 退税率 = 退税额；</li>
+<li><strong>申报表合计行与明细勾稽</strong>：合计行各列 = 明细行相加；</li>
+<li><strong>报关单号与出口发票号一一对应及重复登记</strong>：完全同源行、一单多票、一票多单；</li>
+<li><strong>申报退税率与商品编码适用退税率档位一致性</strong>；</li>
+<li><strong>单证缺失与关键字段空缺检测</strong>（报关单 / 出口发票 / 收汇水单状态列）。</li>
+</ol>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                              # 先看内置干净样例
+node scripts/run.mjs --input 你的对照表.json                # 跑自己的材料
+node scripts/run.mjs --input 你的对照表.json --json         # 机器可读输出</code></pre>
+<p>入参写法：<code>{"text":"（含表头的对照表文本，Tab 分隔最稳）"}</code>；</p>
+<p>也可以直接把含表头的文本文件交给 <code>--input</code>（不是合法 JSON 时按纯文本材料处理）。</p>
+<h2>出参</h2>
+<ul>
+<li><strong>退出码</strong>：0 已执行检查（有问题项或没有问题项都算执行成功）；1 没给入参；</li>
+</ul>
+<p>3 材料不足（<strong>不给结论</strong>，并列出缺什么）；4 入参读不到或解析失败；9 未预期错误。</p>
+<ul>
+<li><code>result.findings[]</code>：每条带 <code>level</code>（P0/P1）、<code>category</code>、<code>line</code>（原文行号）、<code>message</code>。</li>
+<li><code>result.scope</code>：<code>checks</code>（本次执行的检查项）、<code>checks_not_run</code>（<strong>没执行的检查项，如实列出</strong>）、</li>
+</ul>
+<p><code>rows</code> / <code>periods</code> / <code>declarations</code>、<code>export_total</code> / <code>rebate_total</code>、<code>totals_row</code>。</p>
+<ul>
+<li><code>result.summary.verdict</code>：<code>NO_ISSUE_FOUND</code> / <code>NEEDS_REVIEW</code> / <code>ERROR_FOUND</code>。</li>
+</ul>
+<h2>常见错法（本产品专属）</h2>
+<ul>
+<li><strong>把「出口额人民币」当成外币金额填</strong>：这一列是退税额的计算基数，填成美元口径就差了一个汇率。</li>
+<li><strong>「外币离岸价」与「汇率」两列搞反</strong>：外币离岸价 × 汇率 必须等于出口额人民币，反了整票基数就错。</li>
+<li><strong>退税率写成 13 而不是 13%</strong>：引擎两种写法都认（大于 1 的数字按百分比折算），但最好与申报表写法一致。</li>
+<li><strong>合计行是从别处粘来的</strong>：明细改了合计没跟着改，报上去的申报表与附送单证就对不上。</li>
+<li><strong>同一报关单号被粘了两行</strong>：完全同源行会把出口额与退税额重复计一遍，退税额当场虚增。</li>
+<li><strong>单证没齐先用 0 或空白顶着</strong>：空值与「缺 / 待补」都会被判「单证缺失 / 关键字段空缺」，不会静默跳过。</li>
+<li><strong>一票货拆成两行却没有拆单说明</strong>：同一报关单号对应多张出口发票会被报出来，需要人工确认是拆单还是填串了。</li>
+</ul>
+<h2>这个免费版不包含</h2>
+<ul>
+<li><strong>跨月 / 跨企业汇总台账</strong>与重复申报比对（同一报关单横跨两个所属期或两家企业）；</li>
+<li><strong>按差异金额排序的处理清单</strong>（按 |应有退税额 − 申报退税额| 排优先级）；</li>
+<li><strong>差异归因</strong>（退税率档位 / 汇率折算 / 金额口径 / 单证不齐）；</li>
+<li>按<strong>适用档位</strong>的应有退税额复算、汇率折算复算、出口发票金额与出口额口径核对、</li>
+</ul>
+<p>「单证不齐仍计入本期申报」提示。</p>
+<p>需要这些请在完整版里跑。未执行的检查项会由 <code>result.scope.checks_not_run</code> 如实列出。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版会在<strong>本包目录</strong>里记一个使用次数（<code>scripts/.hint-count</code>，一个整数，不含任何机器或用户信息）。</p>
+<p>· 前 3 次：<strong>完全离线</strong>（不发生任何网络请求），输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 第 4 次起才会向服务端问一次（只发包标识与次数），拿回完整档说明；</p>
+<p>· 请求不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界</h2>
+<p>本工具<strong>不做</strong> <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断：这一票该不该退税、该用哪个版本的</p>
+<p>出口退税率文库、生产企业免抵退的「不得免征和抵扣税额」怎么算、关税与消费税的处理、</p>
+<p>收汇期限与函调应对等，一律以税法与主管税务机关口径为准。</p>
+<p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」；全部在本机完成，不外发材料。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/export-tax-refund-check-free">https://www.skillhub.cn/skills/user_ef162806/export-tax-refund-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
