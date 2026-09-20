@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>个税年度汇算（综合所得）核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="个税年度汇算表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"个税年度汇算（综合所得）核对（免费版）","description":"个税年度汇算表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>个税年度汇算（综合所得）核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：<strong>HR / 薪酬岗与员工本人</strong>，在<strong>每年 3~6 月个税年度汇算（综合所得）期间</strong>：</p>
+<ul>
+<li>应纳税所得额 = 全年工资薪金 + 劳务报酬 − 减除费用 − 专项扣除 − 专项附加扣除 − 其他扣除（<strong>为负按 0</strong>）；</li>
+<li>全年应纳税额 = 应纳税所得额 × 适用税率 − 速算扣除数（<strong>年度七级超额累进</strong>）；</li>
+<li>应补(退)税额 = 全年应纳税额 − 已预缴税额。</li>
+</ul>
+<blockquote>与已有产品的区别：<code>iit-withholding-check</code> 核<strong>月度累计预扣</strong>；<code>payroll-withholding-reconcile</code> 核 <strong>工资表代扣 vs 申报数</strong>；本产品核<strong>年度汇算这一张表</strong>（含税率档位与速算扣除数是否匹配）。</blockquote>
+<h2>这个免费版查什么</h2>
+<ol>
+<li><strong>合计行逐列复核</strong>（收入/各项扣除/应纳税所得额/应纳税额/已预缴/应补退；税率与速算扣除数不合计）；</li>
+<li><strong>应纳税所得额 = 收入 − 各项扣除</strong>（为负按 0，P0）；</li>
+<li><strong>全年应纳税额 = 应纳税所得额 × 税率 − 速算扣除数</strong>（P0）；</li>
+<li><strong>应补(退)税额 = 全年应纳税额 − 已预缴税额</strong>（P0）；</li>
+<li><strong>应纳税所得额为负</strong>（未按 0 处理，P1）；</li>
+<li><strong>员工编号重复行</strong>检测；</li>
+<li><strong>空白与占位符</strong>检测（含必需列缺失，仍照常给结论并报「列缺失」）。</li>
+</ol>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<h2>常见错法（这些表里真的会有人这么填）</h2>
+<ol>
+<li><strong>应纳税所得额为负却按负值算税</strong>：为负要<strong>按 0</strong> 处理，否则会算出负数税额。</li>
+<li><strong>用月度预扣率表算年度汇算</strong>：年度汇算是<strong>年度七级超额累进</strong>（与月度预扣表不同），用错档位税额就错。</li>
+<li><strong>专项附加扣除填成"年度总额 ÷ 12"</strong>：汇算表按<strong>年度合计</strong>填，填成月额会少扣 11 个月。</li>
+<li><strong>劳务报酬直接按收入额进综合所得</strong>：劳务报酬要按<strong>收入减除 20% 费用</strong>后的余额计入，直接填收入会多算税基。</li>
+<li><strong>应补(退)填成正数表示退税</strong>：本工具按"正数=应补、负数=应退"核对，符号写反会被直接点出来。</li>
+</ol>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>适用税率与应纳税所得额不匹配（按 3%/10%/20%/25%/30%/35%/45% 七级超额累进速算表核对区间与速算扣除数）</li>
+<li>已预缴税额为负检测</li>
+<li>专项附加扣除超过 100000 提示（常见上限量级 60000~96000）</li>
+<li>全年收入为 0 但已预缴税额大于 0 提示（核对是否错列）</li>
+<li>应补退税额绝对值超过全年收入 20% 提示（异常量级）</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版每次运行结束后会向服务端做<strong>一次匿名次数统计</strong>：只发送本包标识和一个不含任何材料的匿名安装标识（由主机名与用户名做短哈希得到），<strong>不发送你的材料、不写任何文件</strong>。</p>
+<p>· 前 3 次：服务端不返回任何内容，输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 统计不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li><strong>不做</strong>税务判断：专项附加扣除能否享受、劳务报酬口径、税收优惠适用，请按现行税法与主管税务机关口径认定；</li>
+<li><strong>不代替</strong>纳税申报、不代填申报表，也不出具税务意见；</li>
+<li><strong>不核对</strong>收入凭证、扣除凭证的<strong>真伪</strong>，也不与自然人电子税务局明细比对；</li>
+<li><strong>不读取</strong>个税系统 / 工资系统的导出文件——需要你先导出成文本贴进来；</li>
+<li><strong>不判断</strong>特定人员的居民身份与减免税优惠（属于税务判断）。</li>
+</ul>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/iit-annual-settlement-check-free">https://www.skillhub.cn/skills/user_ef162806/iit-annual-settlement-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
