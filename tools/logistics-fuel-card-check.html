@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>车队油卡与油耗核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="油卡充值与油耗明细表逐项核对，复算卡余额勾稽、百公里油耗与合计行，查重复加油、油耗超标、扣款不一致与里程回退，每条结论都带原文行号与车牌号，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"车队油卡与油耗核对（免费版）","description":"油卡充值与油耗明细表逐项核对，复算卡余额勾稽、百公里油耗与合计行，查重复加油、油耗超标、扣款不一致与里程回退，每条结论都带原文行号与车牌号，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>车队油卡与油耗核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：物流公司 / 车队的<strong>车辆管理员与财务</strong>，在<strong>每月油卡充值与油耗结算</strong>时</p>
+<p>把这张「油卡充值与油耗明细表」核一遍才能往下走（报销、考核司机、给车队核成本）。</p>
+<p>卡余额对不上、油耗填错、同一台车同一天记了两次加油，正是每月都要吵的几件事。</p>
+<p><strong>这张表会逐项核对什么</strong>：</p>
+<ul>
+<li>期末余额 = 期初余额 + 充值金额 − 油卡扣款金额</li>
+<li>百公里油耗 = 加油量 ÷ 行驶里程 × 100</li>
+<li>油卡扣款金额 = 加油量 × 加油单价</li>
+<li>行驶里程 = 里程表读数 − 上期读数</li>
+<li>合计行各列 = 各明细行逐列相加（充值金额 / 加油量 / 油卡扣款金额 / 行驶里程）</li>
+<li>同一车同一日期只应有一次加油；关键格不得留空或写占位符；里程表读数不得倒着走</li>
+</ul>
+<p>每条结论都带<strong>原文行号（含表头，从 1 起）与车牌号 / 油卡号</strong>，可被第三方用同一口径复算；</p>
+<p>材料不齐时<strong>不给结论</strong>，会明确列出还缺什么。</p>
+<h2>这个免费版查什么</h2>
+<ol>
+<li>卡余额勾稽复算（期初余额 + 充值金额 − 油卡扣款金额 = 期末余额）与合计行逐列复核</li>
+<li>公里油耗复算（加油量 ÷ 行驶里程 × 100 = 百公里油耗）</li>
+<li>油耗高于参考上限检测（按行驶里程折算超额油量与超额金额）</li>
+<li>同一车同一日期重复加油检测</li>
+<li>加油量与油卡扣款一致性检测（加油量 × 加油单价 = 油卡扣款金额）</li>
+<li>里程回退、空缺与读数不符检测（里程表读数 − 上期读数 = 行驶里程）</li>
+</ol>
+<p>（检查项由引擎的 <code>CHECKS_GIVEN</code> 导出，跑 <code>--sample</code> 会打印实际执行了哪些；</p>
+<p>本版本不包含的 3 项列在 <code>CHECKS_WITHHELD</code> 里，<strong>不做也不假装做</strong>。）</p>
+<p><strong>数字会做归一化</strong>：<code>1,200.50</code>、千分位、<code>¥6,000.00</code>、<code>(400)</code>（会计负数）、<code>8.33%</code> 都被认成同一个口径；</p>
+<p>表头里的空格、全角空格与括号会被忽略，所以「加油量(升)」和「加油量」都认。</p>
+<p>留空表示「不知道」，填 <code>0</code> 表示「确实没有」，这两者不能混 —— 本工具不会拿 0 替你假设。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
+node scripts/run.mjs --input 你的材料.json --json</code></pre>
+<p>入参就是<strong>含表头</strong>的一张表（<code>{"text": "期间\t车队\t车牌号\t油卡号\t…"}</code>）：</p>
+<p>把这张表从 Excel 或油卡系统导出里直接复制成文本（Tab 分隔最稳）贴进来即可。</p>
+<p>表头缺列会明确告诉你缺了哪一列；<strong>缺一列就不给结论</strong>，不会拿 0 替你假设「这笔没有充值 / 没有扣款」。</p>
+<p>充值行与加油行可以放在同一张明细表里（用「业务类型」区分）：充值行把加油量 / 单价 /</p>
+<p>扣款填 <code>0</code>，里程三列也填 <code>0</code>；加油行把充值金额填 <code>0</code>。期初余额 / 期末余额按流水顺序逐行结转。</p>
+<h3>退出码</h3>
+<table><thead><tr><th>码</th><th>含义</th></tr></thead><tbody>
+<tr><td>0</td><td>已执行检查</td></tr>
+<tr><td>1</td><td>没给入参</td></tr>
+<tr><td>3</td><td><strong>材料不齐 —— 此时不给结论</strong>（既不说「对」，也不说「错」）</td></tr>
+<tr><td>4</td><td>入参文件读不到或无法解析</td></tr>
+<tr><td>9</td><td>未预期错误</td></tr>
+</tbody></table>
+<h2>出参</h2>
+<p><code>run.mjs --json</code>（以及引擎 <code>run()</code> 返回值里的 <code>result</code>）的形状：</p>
+<pre><code>{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;service_type&quot;: &quot;FLEET_FUEL_CARD_CHECK&quot;,
+  &quot;scope&quot;: {
+    &quot;checks&quot;: [ ...6 项... ],          // 本次实际执行的检查项
+    &quot;checks_not_run&quot;: [ ...3 项... ],  // 本版本未执行的检查项（= CHECKS_WITHHELD）
+    &quot;rows&quot;: 6, &quot;periods&quot;: 2, &quot;fleets&quot;: 2, &quot;cards&quot;: 3,
+    &quot;totals_row&quot;: true, &quot;totals_rows&quot;: 1,
+    &quot;recharge_total&quot;: 15000, &quot;liters_total&quot;: 1200,
+    &quot;card_amount_total&quot;: 9150, &quot;km_total&quot;: 11500, &quot;consumption_avg&quot;: 10.43,
+    &quot;tolerance&quot;: 0.01, &quot;executed_locally&quot;: true, &quot;network_used&quot;: false
+  },
+  &quot;findings&quot;: [
+    { &quot;level&quot;: &quot;P0&quot;, &quot;category&quot;: &quot;卡余额勾稽不符&quot;, &quot;line&quot;: 2, &quot;amount&quot;: 100,
+      &quot;message&quot;: &quot;车牌「沪A12345」油卡 YK1001 2026-01-10 加油 期初 6200.00 + 充值 0.00 − 加油扣款 3000.00 = 3200.00，表里期末余额填的是 3100.00，相差 -100.00。&quot;,
+      &quot;evidence&quot;: &quot;期末余额=3100.00；应有余额=3200.00；差额=-100.00&quot;,
+      &quot;advice&quot;: &quot;…&quot; }
+  ],
+  &quot;summary&quot;: { &quot;rows&quot;: 6, &quot;periods&quot;: 2, &quot;fleets&quot;: 2, &quot;total&quot;: 0, &quot;p0&quot;: 0, &quot;p1&quot;: 0, &quot;p2&quot;: 0,
+               &quot;verdict&quot;: &quot;NO_ISSUE_FOUND&quot;, &quot;omitted&quot;: 0 },
+  &quot;checks_executed&quot;: [...], &quot;checks_withheld&quot;: [...],
+  &quot;checks_given&quot;: [...], &quot;checks_out_of_scope&quot;: [...],
+  &quot;note&quot;: &quot;…&quot;, &quot;disclaimer&quot;: &quot;…&quot;
+}</code></pre>
+<ul>
+<li><code>findings[].line</code> 是<strong>原文行号</strong>（含表头，从 1 起），<code>level</code> 是 <code>P0</code>（勾稽算错 / 缺关键格）、</li>
+</ul>
+<p><code>P1</code>（口径可疑，如油耗高于参考上限）或 <code>P2</code>（提示，如油耗列空缺）；</p>
+<ul>
+<li><code>findings[].amount</code> 是这条结论涉及的<strong>金额</strong>（元），<code>0</code> 表示这条不是金额差；</li>
+</ul>
+<p>油耗超标的结论另外带 <code>excess_liters</code>（超额油量，升）；</p>
+<ul>
+<li>材料不齐时返回的是 <code>{"status": "insufficient_input", "missing": [...], "advice": "…"}</code>，</li>
+</ul>
+<p><strong>没有 <code>result</code></strong>，因此不会有任何「未发现问题」的结论。</p>
+<h2>常见错法（本产品专属）</h2>
+<ol>
+<li><strong>充值 / 扣款没落在这张表上</strong>：卡余额勾稽是这张表最基本的一条。</li>
+</ol>
+<p>常见的是充值记在 A 卡、加油记在 B 卡，或者一笔加油的扣款日期跨月，导致</p>
+<p><code>期初 + 充值 − 扣款 ≠ 期末</code>。对不上先追这笔差额，别先改余额。</p>
+<ol>
+<li><strong>油耗口径混着用</strong>：百公里油耗 = 加油量 ÷ 行驶里程 × 100。</li>
+</ol>
+<p>有人用「上次加满到这次加满之间的里程」，有人用「本期行驶里程」；</p>
+<p>两种口径混在一张表里，油耗这一列会整体偏，参考上限也就没法比。</p>
+<ol>
+<li><strong>加油量按升、扣款按金额，两边不同源</strong>：<code>加油量 × 加油单价 ≠ 油卡扣款金额</code>，</li>
+</ol>
+<p>多半是升数来自油机、金额来自油卡流水，或者其中一笔含了别的消费（洗车、便利店）。</p>
+<p>差得不多也要查：差值会顺着余额勾稽继续传下去。</p>
+<ol>
+<li><strong>同一台车同一天被记了两次加油</strong>：重复粘贴、重复导单、一车两卡，都会让同一天出现两行。</li>
+</ol>
+<p>同一台车同一天加两次油本身可能正常（长途），但那样就应该写成两行并把时段写清楚，</p>
+<p>不要两行一模一样。</p>
+<ol>
+<li><strong>里程三列互相对不上</strong>：里程表读数、上期读数、行驶里程必须满足</li>
+</ol>
+<p><code>读数 − 上期读数 = 行驶里程</code>。换表、抄错、跨月抄表会让读数倒着走；</p>
+<p>有人只抄了读数、行驶里程凭印象填，这一行的油耗也就不可信了。</p>
+<ol>
+<li><strong>该填 0 的格子留空</strong>：充值行的加油量 / 单价 / 扣款留空，会让这一行整行复算不出来。</li>
+</ol>
+<p>留空就是「不知道」，本工具宁可报缺格，也不用 0 替你假设。</p>
+<h2>这个免费版不包含</h2>
+<p>以下检查项<strong>不在本版本范围内</strong>，调用时也不会执行（列在引擎的 <code>CHECKS_WITHHELD</code> 里）：</p>
+<ul>
+<li>跨车 / 跨车队汇总台账（按车队 × 期间汇总充值金额、加油量、油卡扣款、行驶里程、平均油耗与超额金额）</li>
+<li>按超额金额排序的油耗异常处理清单（逐条带原文行号、车牌号与建议，金额从大到小）</li>
+<li>油耗异常归因（按路况 / 载重 / 用车性质分组，区分私车公用与非公务用车）</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；</p>
+<p>两档的差别<strong>就是上面这些，没有别的</strong>：免费档核的是「每一行的算术对不对」，</p>
+<p>完整档多出的是「跨车 / 跨车队的汇总台账 + 按超额金额排序的处理清单 + 油耗异常归因」——</p>
+<p>核完逐行顺带告诉你<strong>本期各车队分别是多少油、哪几笔超额金额最大、按什么顺序去谈</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版每次运行结束后会向服务端做<strong>一次匿名次数统计</strong>：只发送本包标识和一个不含任何材料的匿名安装标识（由主机名与用户名做短哈希得到），<strong>不发送你的材料、不写任何文件</strong>。</p>
+<p>· 前 3 次：服务端不返回任何内容，输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与条件以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 统计不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>核对本身<strong>全部在本机用 Node 标准库完成</strong>，不调用任何模型、不连接油卡系统或车载终端。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断：加油量 / 单价 / 扣款是否与油站小票、</p>
+<p>油卡系统流水一致，里程表读数是否与 GPS / 车载终端一致，「参考上限」该定多少，</p>
+<p>路况 / 载重 / 用车性质填得对不对，以及油耗对应的个税 / 增值税进项转出 / 企业所得税扣除</p>
+<p>（那些以油卡流水、车载终端记录与油耗标准为准）。</p>
+<ul>
+<li>只核<strong>表内勾稽</strong>：表里的加油量、加油单价、油卡扣款、卡余额、里程、路况、载重、用车性质一律以你填的为准；</li>
+<li><strong>「没报问题」不等于「没有问题」</strong>：超出上述 6 项的检查，本版本不执行；</li>
+<li>材料不齐时<strong>不给结论</strong>，也不会用默认值编一个「本期没问题」出来；</li>
+<li>每条结论都带原文行号与车牌号 / 油卡号，可由第三方用同一份输入复算。</li>
+</ul>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/logistics-fuel-card-check-free">https://www.skillhub.cn/skills/user_ef162806/logistics-fuel-card-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
