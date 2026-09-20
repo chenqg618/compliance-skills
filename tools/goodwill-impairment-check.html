@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>商誉减值测试底稿核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="商誉减值测试底稿逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"商誉减值测试底稿核对（免费版）","description":"商誉减值测试底稿逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>商誉减值测试底稿核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：<strong>有并购商誉的公司（含上市公司/拟上市）</strong>，在**每年年度减值测试</p>
+<p>与给审计交底稿之前**，必须把这几列核一遍：</p>
+<ul>
+<li>资产组账面价值 = 商誉账面价值 + 可辨认净资产账面价值；</li>
+<li>减值损失 = max(0, 资产组账面价值 − 可收回金额)；</li>
+<li>商誉减值 ≤ 商誉账面价值（先冲商誉，不能超冲）；本期商誉净额 = 商誉账面价值 − 商誉减值。</li>
+</ul>
+<p>审计第一个翻的就是这几列能不能对上；而这类错误<strong>全都能算出来对错</strong>。</p>
+<h2>这个免费版查什么</h2>
+<ol>
+<li><strong>合计行逐列复核</strong>（商誉 / 可辨认净资产 / 账面价值 / 可收回金额 / 减值损失 / 商誉减值 / 商誉净额）；</li>
+<li><strong>资产组账面价值 = 商誉 + 可辨认净资产</strong>；</li>
+<li><strong>减值损失 = max(0, 账面价值 − 可收回金额)</strong>（最常错的一条）；</li>
+<li><strong>商誉减值 ≤ 商誉账面价值</strong>（超冲商誉是审计必抓的错）；</li>
+<li><strong>本期商誉净额 = 商誉账面价值 − 商誉减值</strong>；</li>
+<li><strong>同一资产组重复行</strong>检测；</li>
+<li><strong>空白与占位符</strong>检测（含必需列缺失）。</li>
+</ol>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<h2>常见错法（这些表里真的会有人这么填）</h2>
+<ol>
+<li><strong>可收回金额填成"评估值 − 账面价值"</strong>：可收回金额是<strong>资产组整体</strong>能收回的钱，不是差额；填错会让减值公式整条错。</li>
+<li><strong>只改了商誉减值、忘了改本期商誉净额</strong>：本工具第 5 条专门抓它（商誉净额 = 商誉 − 商誉减值）。</li>
+<li><strong>减值损失填商誉减值之外的差额</strong>：减值先冲商誉、再按比例分摊到其他资产；如果只冲了商誉，两列会不等。</li>
+<li><strong>同一资产组写两行</strong>（不同估值方法各贴一遍）：会报重复行；如确要并列两种方法，请另建资产组或在方法里注明。</li>
+<li><strong>把测试方法写成"评估"两个字</strong>：口径太模糊，完整档会提示按收益法/市场法/公允价值减处置费用写清。</li>
+</ol>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>减值损失小于商誉减值（先冲商誉的顺序错了）检测</li>
+<li>本期商誉净额为负检测</li>
+<li>可收回金额为负检测</li>
+<li>账面价值 &gt; 可收回金额却未计提减值（漏提）检测</li>
+<li>减值测试方法不在常见口径（收益法/市场法/公允价值减处置费用等）提示</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版每次运行结束后会向服务端做<strong>一次匿名次数统计</strong>：只发送本包标识和一个不含任何材料的匿名安装标识（由主机名与用户名做短哈希得到），<strong>不发送你的材料、不写任何文件</strong>。</p>
+<p>· 前 3 次：服务端不返回任何内容，输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 统计不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li><strong>不做</strong>会计判断：资产组怎么划分、商誉怎么分摊、可收回金额该用现金流折现还是公允价值减处置费用</li>
+</ul>
+<p>——这些要与审计/评估沟通，本工具只核你给的表内数字与勾稽关系；</p>
+<ul>
+<li><strong>不核对</strong>折现率、增长率、可比公司等估值假设是否合理；<strong>不出具</strong>减值测试的审计或鉴证意见；</li>
+<li><strong>不读取</strong>评估报告 / 财务系统 / 估值模型的原始文件——需要你先导出成文本贴进来；</li>
+<li><strong>不判断</strong>商誉减值在税法上能否税前扣除（属于税务判断）；</li>
+<li>材料不足（认不出表头、没有数据行、必需列缺失）时<strong>不给结论</strong>，只告诉你还缺什么。</li>
+</ul>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/goodwill-impairment-check-free">https://www.skillhub.cn/skills/user_ef162806/goodwill-impairment-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
