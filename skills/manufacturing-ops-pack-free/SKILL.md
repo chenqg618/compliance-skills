@@ -1,7 +1,7 @@
 ---
 slug: manufacturing-ops-pack-free
 displayName: 制造与生产技能包（免费版）
-version: 1.0.20
+version: 1.0.21
 summary: 把一整套制造与生产底稿按 14 项检查逐个对象核一遍，每个对象一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
 tags: [制造与生产技能包,生产成本核对,材料损耗,BOM用量差异,委外加工费,模具摊销,设备维保,固定资产盘点,存货成本,分包结算,安全生产费,仓库周转,证照年检,核对]
 license: Proprietary
