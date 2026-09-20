@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>课时消耗与教师课时费核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="课时消耗与教师课时费明细表逐项核对（课时费复算、正课/试听/补课口径、双线课耗勾稽、合计复核、保底单价、重复与空缺），每条结论都带原文行号，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"课时消耗与教师课时费核对（免费版）","description":"课时消耗与教师课时费明细表逐项核对（课时费复算、正课/试听/补课口径、双线课耗勾稽、合计复核、保底单价、重复与空缺），每条结论都带原文行号，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>课时消耗与教师课时费核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：教培机构的教务 / 财务 / 校区主管，在<strong>每月算教师课时费</strong>这条流程上：</p>
+<p>先把学员课时包的「课耗」导出来，再按排课记录算老师该拿多少课时费，两张数必须对到一起才能发钱。</p>
+<p>月底一次要核好几张表（多个教师、多个校区），核完就得往下走。</p>
+<p><strong>这张表会逐项核对什么</strong>（全是纯算术，几十上百行没人愿意手核）：</p>
+<ul>
+<li><strong>课时费 = 课时数 × 课时单价</strong>：逐行复算，单价录错一位、课时数漏乘都是钱</li>
+<li><strong>正课 / 试听 / 补课的口径不一样</strong>：试听与补课<strong>不消耗学员课时</strong>（补课是服务补救，原课次已经扣过），</li>
+</ul>
+<p>正课必须有课耗 —— 把两种口径混着填，学员课时包和教师课时费两边都对不平</p>
+<ul>
+<li><strong>学员消课课时 = 系统课耗课时</strong>：两条线的数必须逐笔相等，差一笔就有一边算错了</li>
+<li><strong>合计行逐列复核</strong>：课时消耗合计、课时费合计、代课补贴合计必须等于明细之和</li>
+<li><strong>课时单价 ≥ 合同保底单价</strong>：低于保底的排课直接亏</li>
+<li><strong>重复课时记录与关键字段空缺</strong>：同一教师同一天同一课型同样课时数的重复行、缺格与占位符</li>
+</ul>
+<p>每条结论都带<strong>原文行号与出处</strong>（<code>文件名:行号</code>），可被第三方用同一口径复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<p>入参就是这张表本身：把<strong>表头和数据行一起</strong>复制成文本贴进来（从 Excel 复制，Tab 分隔最稳），</p>
+<p>写成 <code>{"text": "…"}</code> 或直接粘纯文本都行；也可以用 <code>file</code> 字段给个材料名，结论里的行号会带上它。</p>
+<p>表头必须能认出这 11 列：教师、校区、课程类型、上课日期、课时数、课时单价、课时费、</p>
+<p>代课补贴、学员消课课时、系统课耗课时、合同保底单价（少一列就会直接说"材料不足"，不会猜）。</p>
+<h2>出参</h2>
+<p><code>run(payload)</code> 返回 <code>{status, result}</code>：</p>
+<ul>
+<li><code>status</code>：<code>success</code>（已执行检查）或 <code>insufficient_input</code>（材料不足，<strong>此时没有 <code>result</code>，也不给任何结论</strong>）</li>
+<li><code>result.findings[]</code>：每条 = <code>level</code>（P0/P1）、<code>category</code>、<code>line</code>（<strong>原文行号</strong>）、<code>amount</code>、</li>
+</ul>
+<p><code>message</code>（带具体数字）、<code>evidence</code>（<code>文件名:行号</code>）、<code>advice</code>（怎么改）</p>
+<ul>
+<li><code>result.summary</code>：条数、P0/P1 计数、<code>hours_total</code> / <code>pay_total</code> / <code>subsidy_total</code> /</li>
+</ul>
+<p><code>consumed_total</code> / <code>sys_consumed_total</code>、<code>verdict</code>（<code>NO_ISSUE_FOUND</code> / <code>NEEDS_REVIEW</code> / <code>ERROR_FOUND</code>）</p>
+<ul>
+<li><code>result.checks_executed</code> / <code>checks_withheld</code>：本次<strong>真的执行了</strong>哪些、哪些<strong>没有执行</strong>（如实列出，不伪造）</li>
+</ul>
+<h2>常见错法（本产品专属）</h2>
+<ol>
+<li><strong>拿「上课课时数」当学员课耗</strong>：老师上了 2 课时，可学员请假后没扣课时 —— 两边用的根本不是同一个数。</li>
+<li><strong>试听 / 补课也扣学员课时</strong>：试听不该扣；补课是服务补救，原课次已经扣过，再扣就是重复扣费。</li>
+<li><strong>课时费与「课时数 × 单价」对不上</strong>：常见是调价后只改了单价没重算课时费，或者课时费那一格直接手填。</li>
+<li><strong>只贴数值区不贴表头</strong>：表头缺了或认不出来，本工具直接说材料不足，而不是猜哪一列是什么。</li>
+<li><strong>合计行漏改</strong>：明细里加了一行，合计行没跟着更新，表面看一切正常，课时消耗合计却对不上。</li>
+<li><strong>同一节课录两遍</strong>：同一教师同一天同一课型同样课时数出现两行，课时费会翻倍；本表没有学员列，</li>
+</ol>
+<p>要区分不同学员请自己加一列学员或课次编号。</p>
+<ol>
+<li><strong>课时单价低于合同保底价</strong>：低价排课（体验价、内部价）必须先有特批依据，否则就是在亏。</li>
+</ol>
+<h2>本版本不包含什么</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>；下面这些检查项<strong>不在本版本里执行</strong>（引擎会如实列在</p>
+<p><code>checks_withheld</code> 里，绝不会假装做过）：</p>
+<ul>
+<li>跨教师 / 跨校区汇总台账（逐组汇总课时、课耗、实发课时费与差额，按差额从大到小排序）</li>
+<li>按差额排序的处理清单（先核哪几笔，带原文行号与金额）</li>
+<li>课时费差额归因：课时数差异 / 单价差异 / 代课补贴 / 录入口径残差</li>
+<li>同一教师同一课程类型的课时单价一致性检测（同一课型不该出现两个价）</li>
+<li>同一教师同一日课时数超过单日上限检测</li>
+</ul>
+<p>需要这一层能力的是另一个独立商品，条款与条件以它自己的商品页为准；</p>
+<p>两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版会在<strong>本包目录</strong>里记一个使用次数（<code>scripts/.hint-count</code>，一个整数，不含任何机器或用户信息）。</p>
+<p>· 前 3 次：<strong>完全离线</strong>（不发生任何网络请求），输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 第 4 次起才会向服务端问一次（只发包标识与次数），拿回完整档说明；</p>
+<p>· 请求不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断：</p>
+<p>不判断排课、考勤与上课是否真实发生（那是教务排课系统与签到记录的事）、</p>
+<p>不判断课时包售价、退费与赠课规则是否合规、不判断课时单价与代课补贴标准本身是否合理合法、</p>
+<p>不处理跨月结转、跨校区调课、离职结算与个税社保代扣、不直接读 <code>.xlsx</code> / <code>.pdf</code>。</p>
+<p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/teacher-hour-pay-check-free">https://www.skillhub.cn/skills/user_ef162806/teacher-hour-pay-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
