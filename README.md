@@ -148,7 +148,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 ## 技能清单（免费版）
 
 <!-- SKILL_LIST_START -->
-（本仓库共 **247 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
+（本仓库共 **252 个免费技能包**；完整档（买断）见上面的「完整版」一节。）
 
 | 技能包 | 作用 |
 |---|---|
@@ -182,6 +182,8 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `bom-consumption-variance-check-free` | 生产工单与物料清单逐行复算用量差异（标准用量=单位用量×产出数量、用量差异=实际领料−退料−标准用量、损耗率=差异÷标准用量），每条结论都带原文行号，不需要付款，也不需要注册 |
 | `bonus-pool-check-free` | 年终奖分配表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `budget-variance-check-free` | 预算执行表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `canteen-inspection-record-check-free` | 食堂进货查验与留样记录材料逐项核对，本免费版执行 6 项确定性检查，每条结论都带原文依据，不需要付款，也不需要注册 |
+| `carbon-emission-report-check-free` | 重点排放单位年度温室气体排放报告的逐格复算与勾稽（6 项免费检查），每条结论都带原文行号与数字，不需要付款，也不需要注册 |
 | `cargo-insurance-claim-check-free` | 货运险投保与货损理赔台账逐票复算，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `cash-count-check-free` | 现金盘点表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `cash-flow-variance-check-free` | 现金流预测与实际差异表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -248,6 +250,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `group-finance-monthly-selfcheck-free` | 集团财务月度自查包（免费版）共 3 类核对，含 集团内部往来对账与抵消核对、供应商应付对账、应收账款账龄核对 |
 | `group-intercompany-reconciliation-check-free` | 集团内部往来对账与抵消核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `guarantee-letter-check-free` | 银行保函台账逐项核对，保函金额与保证金比例复算、到期日复算、保函号唯一性、注销与状态自洽、到期未注销仍占额度，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `hazwaste-manifest-check-free` | 危险废物管理台账、转移联单、贮存与处置结算逐项核对，每条结论都带原文行号与数字 |
 | `hospital-supply-consumption-check-free` | 药品耗材进销存与科室领用核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `hotel-night-audit-check-free` | 酒店夜审与房费收入表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `housing-fund-check-free` | 住房公积金每月汇缴明细逐项核对，逐人复算单位与个人月缴存额、缴存合计勾稽、合计行与明细复核、重复人员与空缺负数、基数超出上下限，每条结论都带原文行号，不需要付款，也不需要注册 |
@@ -324,6 +327,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `promo-subsidy-check-free` | 促销补贴核销表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `property-energy-apportion-check-free` | 公共能耗抄表与分摊明细表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `property-fee-check-free` | 物业费计算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `property-maintenance-fund-check-free` | 维修资金归集与分摊明细逐项核对（免费版 6 项），每条结论都带原文行号与数字，不需要付款，也不需要注册 |
 | `property-public-income-check-free` | 小区公共收益台账（电梯/道闸广告、场地租赁、快递柜、临时停车）逐项核对，应分成业主金额复算、季度小计与合计勾稽、重复登记、空缺与负值，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `property-tax-land-use-check-free` | 房产税与城镇土地使用税申报核对表逐处复算（从价/从租/土地使用税 + 分期与申报勾稽 + 差异定位），每条结论都带原文行号，不需要付款，也不需要注册 |
 | `property-utility-apportionment-check-free` | 物业公共能耗分摊核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
@@ -397,6 +401,7 @@ node scripts/run.mjs --input my-material.json   # 每条结论都带原文行号
 | `warehouse-fee-check-free` | 仓储费结算表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
 | `warehouse-inventory-turnover-check-free` | 仓库周转与呆滞库存表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `warehouse-storage-fee-check-free` | 仓储费结算单与库龄明细表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册 |
+| `wastewater-fee-check-free` | 污水处理费结算表逐行复算——水量勾稽、服务费、水质档位与单价、超标扣款、重复结算，每条结论都带原文行号与数字，不需要付款，也不需要注册 |
 | `waybill-pod-cod-check-free` | 运单回单与代收货款核对表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 | `welfare-limit-check-free` | 职工福利费与教育经费台账逐项核对，每条结论都带原文依据，不需要付款，也不需要注册 |
 <!-- SKILL_LIST_END -->
