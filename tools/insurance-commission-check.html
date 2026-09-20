@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>保险佣金与手续费结算核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="保险佣金与手续费结算明细表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"保险佣金与手续费结算核对（免费版）","description":"保险佣金与手续费结算明细表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>保险佣金与手续费结算核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>、材料不出本机。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁在什么时候用</strong>：保险中介 / 代理公司 / 银保渠道的财务与出纳，在<strong>每月（或每季）保司结算单到手之后</strong></p>
+<p>必须先把「保险佣金与手续费结算明细表」核一遍，才能确认这一期该收多少佣金、多少手续费、</p>
+<p>退保冲回了多少、扣了多少税。这张表出错的后果是双向的：<strong>少结</strong>（白干）和</p>
+<p><strong>多结 / 重复计佣</strong>（保司对账时被追回）。两者都会传导到开票与增值税申报上，</p>
+<p>而且<strong>结完账就很难倒查</strong>。</p>
+<h2>这个免费版查什么（6 类，逐条都带<strong>原文行号</strong>）</h2>
+<ol>
+<li><strong>应收佣金逐行复算</strong> —— 应收佣金 = 保费金额 × 佣金率，差 1 分钱也报。</li>
+<li><strong>手续费与佣金合计勾稽</strong> —— 实收净额 = 应收佣金 + 手续费 + 退保冲回 − 代扣税费</li>
+</ol>
+<p>（退保冲回按<strong>负数</strong>填列，即红字冲回）。</p>
+<ol>
+<li><strong>合计行逐列复核</strong> —— 合计行的保费 / 应收佣金 / 手续费 / 退保冲回 / 代扣税费 / 实收净额</li>
+</ol>
+<p>必须等于明细行相加，对不上说明有一边错。</p>
+<ol>
+<li><strong>首期 / 续期佣金口径与保单年度一致</strong> —— 首期佣金只对应保单年度第 1 年，</li>
+</ol>
+<p>续期佣金从第 2 年起；两档费率本来就不一样，标识与年度不一致就是费率混用的入口。</p>
+<ol>
+<li><strong>同一保单号同一期间重复结算</strong> —— 同一保单号 + 同一所属期间 + 同一佣金类型出现两次以上即报</li>
+</ol>
+<p>（重复结算会把应收佣金与实收净额重复统计一遍）。</p>
+<ol>
+<li><strong>退保冲回符号与关键字段空缺</strong> —— 退保冲回填成正数即报；</li>
+</ol>
+<p>所属期间 / 保险公司 / 险种 / 分支机构 / 保单号 / 佣金类型 / 保单年度 / 保费金额 /</p>
+<p>佣金率 / 应收佣金 / 代扣税费 / 实收净额 为空或写占位符（待填、无、-）即报。</p>
+<p>每条结论都带<strong>原文行号与原文片段</strong>，可被第三方用同一口径复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么，也不会用默认值编出结论。</p>
+<h2>不包含什么</h2>
+<p>免费版<strong>不执行</strong>下面这几类（引擎的 <code>CHECKS_WITHHELD</code> 会如实列出，跑 <code>--sample</code> 也能看到）：</p>
+<ul>
+<li><strong>跨机构 / 跨险种汇总台账</strong>（按机构与险种汇总笔数、保费、应收佣金与实收净额，并与全表明细对平）；</li>
+<li><strong>按差异金额排序的处理清单</strong>（把需要处理的差异按金额降序排列，≥2 条才出清单）；</li>
+<li><strong>差异归因</strong>（把差异归到佣金率档位、保费口径、退保冲回、跨期归属四类）。</li>
+</ul>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                    # 先看样例（样例本身就是一张自洽的表）
+node scripts/run.mjs --input 你的材料.json        # 跑自己的材料
+node scripts/run.mjs --input 你的材料.json --json # 机器可读输出</code></pre>
+<p>入参两种写法都行：</p>
+<ul>
+<li><code>{"text": "（把表的<strong>表头</strong>和若干行一起复制进来，Tab 分隔最稳）"}</code></li>
+<li>直接把「保险佣金与手续费结算明细表」（<strong>含表头</strong>）从 Excel 复制成文本粘进 <code>.json</code> 里；</li>
+</ul>
+<p>文件不是合法 JSON 时会整体按纯文本材料处理。</p>
+<p>必需列（缺任何一列就不给结论）：所属期间、保险公司、险种、分支机构、保单号、佣金类型、</p>
+<p>保单年度、保费金额、佣金率、应收佣金、手续费、退保冲回、代扣税费、实收净额。</p>
+<p>备注是选填。<strong>手续费与退保冲回这两列在具体行里可以为空（空按 0 参与勾稽，红字冲回请填负数）</strong>；</p>
+<p>其余必需列为空或写占位符时会直接报「关键字段空缺」，不会被悄悄当成 0。</p>
+<h2>出参</h2>
+<ul>
+<li><code>status</code>：<code>success</code> 才有结论；<code>insufficient_input</code> 表示材料不足，此时<strong>没有</strong> <code>result</code>、<strong>没有</strong> <code>findings</code>。</li>
+<li><code>result.findings[]</code>：每条含 <code>level</code>（P0/P1/P2）、<code>category</code>、<code>line</code>（<strong>原文行号</strong>）、</li>
+</ul>
+<p><code>message</code>（含算式与差额）、<code>advice</code>、<code>evidence</code>（原文片段）。</p>
+<ul>
+<li><code>result.summary</code>：<code>rows / total / p0 / p1 / p2 / omitted / by_category / verdict</code></li>
+</ul>
+<p>（<code>NO_ISSUE_FOUND</code> | <code>NEEDS_REVIEW</code> | <code>ERROR_FOUND</code>）。</p>
+<ul>
+<li><code>result.scope</code>：本次执行的 <code>checks</code>、未执行的 <code>checks_not_run</code>、<code>executed_locally: true</code>、<code>network_used: false</code>。</li>
+<li><code>result.sums</code>：按明细行算出来的各列合计（可以和合计行对照）。</li>
+<li><code>result.checks_out_of_scope</code>：本工具<strong>根本不做</strong>的判断清单（边界诚实）。</li>
+<li>CLI 退出码：<code>0</code> 已执行检查 / <code>1</code> 没给入参 / <code>3</code> 材料不足 / <code>4</code> 入参读不到或无法解析 / <code>9</code> 未预期错误。</li>
+</ul>
+<h2>常见错法（本产品专属）</h2>
+<ol>
+<li><strong>退保冲回填成正数</strong>：这一列按约定要填<strong>负数</strong>（红字冲回），因为它是从应收佣金里减掉的。</li>
+</ol>
+<p>填成正数时实收净额会被反向加上这笔钱，越核越乱 —— 本工具会直接报「退保冲回符号与口径不符」。</p>
+<ol>
+<li><strong>首期与续期费率混用</strong>：同一张保单第 2 年填了 15% 的首期费率（或者第 1 年填了 5% 的续期费率），</li>
+</ol>
+<p>应收佣金整列都会偏。先把「佣金类型」和「保单年度」对齐，再看费率档位。</p>
+<ol>
+<li><strong>保费口径一边含税一边不含税</strong>：保费金额取的是含税保费，应收佣金却按不含税保费算过 ——</li>
+</ol>
+<p>差额会呈现成「应收佣金复算不符」，而且差额能被佣金率整除。</p>
+<p>先定死口径（保费金额是含税还是不含税），然后全表统一。</p>
+<ol>
+<li><strong>跨期那笔佣金重复计到了本期</strong>：上一期已经结过的佣金，本期又按同一保单整笔计了一次。</li>
+</ol>
+<p>免费版会报「同一保单号同一期间重复结算」（同期间才算）；跨期间的那笔要点开完整档看归因。</p>
+<ol>
+<li><strong>手续费与佣金挤在同一列</strong>：手续费被并进「应收佣金」里一起填，</li>
+</ol>
+<p>于是「保费 × 佣金率」永远对不上。手续费必须单独占一列（本表就是这么设计的）。</p>
+<ol>
+<li><strong>空着的列不填 0.00</strong>：保费 / 佣金率 / 应收佣金 / 代扣税费 / 实收净额 留空白，</li>
+</ol>
+<p>对应的复算会没有前提，本工具会报「关键字段空缺」而不是替你当成 0。</p>
+<p>确实没有金额的列请填 0.00。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版每次运行结束后会向服务端做<strong>一次匿名次数统计</strong>：只发送本包标识和一个不含任何材料的匿名安装标识，</p>
+<p><strong>不发送你的材料、也不把材料写到任何地方</strong>。</p>
+<p>· 前 3 次：服务端不返回任何内容，输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 统计不可用（离线 / 超时 / 被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不判断</strong>佣金率 / 手续费率该定多少、是否符合监管对保险中介佣金上限与手续费口径的规定，</p>
+<p>也不判断退保冲回该不该跨期分摊、该冲减哪一期的佣金收入，更不核对开票金额、发票税率与</p>
+<p>佣金是否已经到账 —— 表里填多少就以多少为准，只核<strong>表内勾稽</strong>；</p>
+<p>也不读保司结算系统 / 核心业务系统 / 银行流水（需要你先导出成文本贴进来）。</p>
+<p>完整清单见引擎的 <code>CHECKS_OUT_OF_SCOPE</code>；材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/insurance-commission-check-free">https://www.skillhub.cn/skills/user_ef162806/insurance-commission-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
