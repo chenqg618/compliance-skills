@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>软件服务商账单与用量核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="把软件服务商发来的账单与用量明细表逐行核一遍 —— 账单金额复算、计费数量与用量或席位对照、合计行勾稽、重复计费、超合同单价、关键字段空缺，每条结论都带原文行号。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"软件服务商账单与用量核对（免费版）","description":"把软件服务商发来的账单与用量明细表逐行核一遍 —— 账单金额复算、计费数量与用量或席位对照、合计行勾稽、重复计费、超合同单价、关键字段空缺，每条结论都带原文行号。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>软件服务商账单与用量核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：采购、财务、IT 资产管理员，在<strong>每月服务商出账、季度用量复盘、续费谈判</strong></p>
+<p>这几个固定节点上，都得把这张「软件服务商账单与用量明细表」核一遍才能往下走。</p>
+<p>席位费多算、用量口径对不上、账单金额算错，正是每次都要和服务商来回拉扯的几件事。</p>
+<p><strong>这张表会逐项核对什么</strong>：</p>
+<ul>
+<li>账单金额 = 计费数量 × 单价 × 账期月数 − 折扣，逐行复算</li>
+<li>计费数量与用量 / 席位数对照（按用量计费的对用量，按席位计费的对席位数）</li>
+<li>账单单价高于合同单价时，按差额算出本期多收了多少</li>
+<li>同一服务商同一服务编号同一账单月份重复计费</li>
+<li>合计行各列 = 各明细行逐列相加</li>
+<li>关键字段缺失或为占位符（留空表示「不知道」，与填 0 是两回事）</li>
+</ul>
+<p>每条结论都带<strong>原文行号与服务编号</strong>，可被第三方用同一口径复算；</p>
+<p>材料不齐时<strong>不给结论</strong>，会明确列出还缺什么。</p>
+<h2>这个免费版查什么</h2>
+<p>免费版执行 6 项：</p>
+<ol>
+<li>账单金额逐行复算（账单金额 = 计费数量 × 单价 × 账期月数 − 折扣）</li>
+<li>计费数量与用量 / 席位数核对（按用量计费的对用量，按席位计费的对席位数）</li>
+<li>超出合同单价检测（账单单价 &gt; 合同单价 ⇒ 按差额算出多收金额）</li>
+<li>同一服务商同一服务编号同一账单月份重复计费检测</li>
+<li>合计行与明细行勾稽（合计行各列 = 各明细行逐列相加）</li>
+<li>关键字段缺失或为占位符检测</li>
+</ol>
+<p><strong>数字会做归一化</strong>：<code>12,000</code>、千分位、<code>1,240</code>、<code>(120)</code>（会计负数）都被认成同一个口径</p>
+<p>（<code>0.5%</code> 折成 <code>0.005</code>）。表头是<strong>完全相等</strong>匹配的，所以「单价」不会把「合同单价」抢走、</p>
+<p>「用量」不会把「计费数量」抢走、「账期月数」不会把「合同账期月数」抢走。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料
+node scripts/run.mjs --input 你的材料.json --json</code></pre>
+<p>入参就是<strong>含表头</strong>的一张表（<code>{"text": "账单月份\t服务商\t服务项目\t…"}</code>）：</p>
+<p>从 Excel 或服务商账单复制成文本（Tab 分隔最稳）贴进去即可。</p>
+<p>表头缺列会明确告诉你缺了哪一列；<strong>缺一列就不给结论</strong>，不会拿 0 替你假设「这个月没用量」。</p>
+<p>没有用量 / 没有席位请填 <code>0</code>：填 <code>0</code> 表示「确实没有」，留空表示「不知道」，这两者不能混。</p>
+<h3>退出码</h3>
+<table><thead><tr><th>码</th><th>含义</th></tr></thead><tbody>
+<tr><td>0</td><td>已执行检查</td></tr>
+<tr><td>1</td><td>没给入参</td></tr>
+<tr><td>3</td><td><strong>材料不齐 —— 此时不给结论</strong>（既不说「对」，也不说「错」）</td></tr>
+<tr><td>4</td><td>入参文件读不到或无法解析</td></tr>
+<tr><td>9</td><td>未预期错误</td></tr>
+</tbody></table>
+<h2>出参</h2>
+<pre><code>{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;service_type&quot;: &quot;SAAS_VENDOR_INVOICE_CHECK&quot;,
+  &quot;scope&quot;: { &quot;checks&quot;: [&quot;…6 项…&quot;], &quot;checks_not_run&quot;: [&quot;…5 项…&quot;], &quot;rows&quot;: 7, &quot;vendors&quot;: 3,
+             &quot;periods&quot;: 3, &quot;totals_row&quot;: true, &quot;usage_total&quot;: 1770000, &quot;seats_total&quot;: 295,
+             &quot;bill_qty_total&quot;: 1770295, &quot;discount_total&quot;: 1200, &quot;bill_total&quot;: 209400,
+             &quot;tolerance&quot;: 0.01, &quot;executed_locally&quot;: true, &quot;network_used&quot;: false },
+  &quot;findings&quot;: [ { &quot;level&quot;: &quot;P0&quot;, &quot;category&quot;: &quot;账单金额复算不符&quot;, &quot;line&quot;: 2, &quot;amount&quot;: 100,
+                  &quot;message&quot;: &quot;…&quot;, &quot;advice&quot;: &quot;…&quot; } ],
+  &quot;summary&quot;: { &quot;rows&quot;: 7, &quot;vendors&quot;: 3, &quot;periods&quot;: 3, &quot;total&quot;: 0, &quot;p0&quot;: 0, &quot;p1&quot;: 0, &quot;p2&quot;: 0,
+               &quot;verdict&quot;: &quot;NO_ISSUE_FOUND&quot; },
+  &quot;checks_executed&quot;: [&quot;…6 项…&quot;],
+  &quot;checks_withheld&quot;: [&quot;…5 项…&quot;],
+  &quot;checks_out_of_scope&quot;: [&quot;…&quot;]
+}</code></pre>
+<ul>
+<li><code>findings[].line</code> 是<strong>原文行号</strong>（含表头，从 1 起），<code>amount</code> 是这条结论涉及的金额；</li>
+<li><code>findings[].level</code>：<code>P0</code> 算术错 / <code>P1</code> 口径可疑 / <code>P2</code> 提示；</li>
+<li>材料不齐时返回的是 <code>{"status": "insufficient_input", "missing": [...], "advice": "…"}</code>，</li>
+</ul>
+<p><strong>没有 <code>result</code></strong>，因此不会有任何「未发现问题」的结论。</p>
+<h2>常见错法（本产品专属）</h2>
+<ol>
+<li><strong>拿服务商系统的口径当用量</strong>：计费数量用的是对计费系统的量，不是我们这边的</li>
+</ol>
+<p>用量报表与席位台账 —— 离职账号没停用、测试 Key 算了钱、失败请求也算钱，</p>
+<p>账单上的计费数量凭空多出一截。免费版把它和「用量 / 席位数」摆在一起逐行对照，</p>
+<p>按单价折算，先让你看清差额有多大。</p>
+<ol>
+<li><strong>单价调价前后混用</strong>：服务商涨价后按新价计费，而合同期内应沿用旧价。</li>
+</ol>
+<p>账单单价高于合同单价时，免费版按 <code>计费数量 × 差额 × 账期月数</code> 算出本期多收了多少。</p>
+<ol>
+<li><strong>改了一格忘了改账单金额</strong>：明细里数量或折扣动过、账单金额忘了刷新，</li>
+</ol>
+<p>整行就复算不平。逐行复算能一眼看出是哪一行。</p>
+<ol>
+<li><strong>明细改对了、合计行忘了重算</strong>：合计行是财务据以付款与入账的金额，</li>
+</ol>
+<p>明细单改过之后合计没跟着刷新，或者明细里漏了整份服务。</p>
+<ol>
+<li><strong>留空与填 0 混用</strong>：没有用量填 0 是「确实没有」，留空是「不知道」。</li>
+</ol>
+<p>本工具不会替你猜 —— 关键格留空就直接报缺，绝不按 0 算出一个「本期没问题」。</p>
+<h2>这个免费版不包含什么</h2>
+<p>免费版<strong>不做</strong>下面这些完整档才有的判断（它们会如实列进 <code>checks_withheld</code>，不会用默认值编造）：</p>
+<ul>
+<li>折扣列异常检测（折扣为负 ⇒ 实付超过应收；折扣超过无折扣计费额 ⇒ 折后金额为负）</li>
+<li>账期边界检测（账期月数不是 1~12 的整数；同一服务编号的账期重叠 ⇒ 同一时段被计了两次）</li>
+<li>同一服务商同一账单月份同一服务项目出现多个服务编号（疑似重复订购）</li>
+<li>差异归因（把无折扣计费额差异拆成 数量差异 / 单价差异 / 账期差异 三类）</li>
+<li>跨服务商 / 跨账单月份汇总台账与按多收金额排序的处理清单</li>
+</ul>
+<h2>使用次数与完整档</h2>
+<p>本免费版会在<strong>本包目录</strong>里记一个使用次数（<code>scripts/.hint-count</code>，一个整数，不含任何机器或用户信息）。</p>
+<p>· 前 3 次：<strong>完全离线</strong>（不发生任何网络请求），输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 第 4 次起才会向服务端问一次（只发包标识与次数），拿回完整档说明；</p>
+<p>· 请求不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断：单价与折扣是否符合合同约定、</p>
+<p>用量统计口径（去重规则 / 失败请求算不算 / 测试 Key 算不算 / 跨月切分点）对不对、</p>
+<p>席位台账对不对、这些服务该不该续费、账单是否已开票或已付款</p>
+<p>（那些以采购合同、服务商计费系统、我方用量报表与银行流水为准）。</p>
+<ul>
+<li>只核<strong>表内勾稽</strong>与两组两列对照：合同单价、合同账期月数、用量、席位数一律以你填的为准；</li>
+<li><strong>「没报问题」不等于「没有问题」</strong>：超出上述 6 项的检查，本版本不执行，且会如实列出未执行项；</li>
+<li>材料不齐时<strong>不给结论</strong>，也不会用默认值编一个「本期没问题」出来；</li>
+<li>每条结论都带原文行号与服务编号，可由第三方用同一份输入复算。</li>
+</ul>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/saas-vendor-invoice-check-free">https://www.skillhub.cn/skills/user_ef162806/saas-vendor-invoice-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
