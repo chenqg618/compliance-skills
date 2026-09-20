@@ -1,15 +1,15 @@
 ---
 slug: rd-expense-check-free
 displayName: 研发费用加计扣除归集核对（免费版）
-version: 1.0.32
-summary: 研发费用归集表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
+version: 1.0.33
+summary: 研发费用归集表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。本免费版只执行 5 项，即 归集合计勾稽、「其他相关费用」限额勾稽、合计行逐列复核等。不执行 4 项判定，例如 委托研发计入额勾稽。详见 SKILL.md 的「这个免费版不包含」一节。
 tags: [研发费用加计扣除归集核对,研发费用归集表,核算核对,税务,免费]
 license: Proprietary
 name: rd-expense-check-free
 display_name: 研发费用加计扣除归集核对（免费）
 display_name_en: R&D Super-Deduction Check (Free)
-description: 研发费用归集表逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 研发费用加计扣除核对、归集算错、其他相关费用限额。
-description_zh: 研发费用归集表逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 研发费用加计扣除核对、归集算错、其他相关费用限额。
+description: 研发费用归集表逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 研发费用加计扣除核对、归集算错、其他相关费用限额。本免费版只执行 5 项，即 归集合计勾稽、「其他相关费用」限额勾稽、合计行逐列复核等。不执行 4 项判定，例如 委托研发计入额勾稽。详见 SKILL.md 的「这个免费版不包含」一节。
+description_zh: 研发费用归集表逐项核对（逐行复算、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 研发费用加计扣除核对、归集算错、其他相关费用限额。本免费版只执行 5 项，即 归集合计勾稽、「其他相关费用」限额勾稽、合计行逐列复核等。不执行 4 项判定，例如 委托研发计入额勾稽。详见 SKILL.md 的「这个免费版不包含」一节。
 description_en: A free deterministic check for r&d super-deduction check worksheets. Every finding cites the source line. No payment, no registration, no API key, no network.
 category: business-ops
 author: WorkBuddy 开放平台开发者
