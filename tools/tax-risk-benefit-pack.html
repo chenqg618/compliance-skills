@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>税费自查与优惠技能包（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="把一家客户的一套税费材料按 5 项税费自查逐客户核一遍，每家客户一行结论，结论都带原文文件与行号，不需要付款、不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"税费自查与优惠技能包（免费版）","description":"把一家客户的一套税费材料按 5 项税费自查逐客户核一遍，每家客户一行结论，结论都带原文文件与行号，不需要付款、不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>税费自查与优惠技能包（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>scripts/engine/</code>）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>、<strong>不写任何文件</strong>，材料不出本机。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>中小企业税务会计 / 代账公司的涉税岗</strong>，在<strong>每次申报之后、税务自查与汇算之前</strong>。</p>
+<p>典型场景：月度/季度复核前，把一类检查一次跑完所有客户</p>
+<h2>这个免费版查什么</h2>
+<p><strong>一次跑完所有客户，每家客户一行结论</strong>（免费版的核心产出，完整可用）：</p>
+<ol>
+<li><strong>增值税税负率与行业预警核对</strong> —— 复用 <code>parts/vat-burden-check/</code>（逐字节来自免费包 <code>vat-burden-check-free</code>）</li>
+<li><strong>增值税申报表与账面收入比对</strong> —— 复用 <code>parts/vat-filing-reconcile/</code>（逐字节来自免费包 <code>vat-filing-reconcile-free</code>）</li>
+<li><strong>税务风险指标异常项核对</strong> —— 复用 <code>parts/tax-risk-indicator-check/</code>（逐字节来自免费包 <code>tax-risk-indicator-check-free</code>）</li>
+<li><strong>税收优惠资格适用条件核对</strong> —— 复用 <code>parts/tax-incentive-eligibility-check/</code>（逐字节来自免费包 <code>tax-incentive-eligibility-check-free</code>）</li>
+<li><strong>税收滞纳金与罚款核对</strong> —— 复用 <code>parts/late-fee-check/</code>（逐字节来自免费包 <code>late-fee-check-free</code>）</li>
+</ol>
+<blockquote>每一项的实际规则在 <code>scripts/engine/parts/&lt;检查项&gt;/</code> 里（<strong>逐字节复用</strong>仓库里已有的免费引擎， 一行规则都没有改）。本包只做"目录 → 客户 → 逐项派发"的编排。</blockquote>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 单客户样例（内置，5 项全跑）
+node scripts/run.mjs --sample-batch           # 3 家客户的批量样例（干净 / 有硬伤 / 未交材料）
+node scripts/run.mjs --input &lt;客户目录&gt;     # 批量：每个子目录 = 一家客户
+node scripts/run.mjs --input &lt;材料.json&gt;        # 单客户：JSON 或纯文本</code></pre>
+<p>客户目录怎么放（每个子目录里放这家客户的一套材料，每项用 <code>=== 检查项 ===</code> 分段，Tab 分隔最稳）：</p>
+<pre><code>客户目录/
+  豫州商贸有限公司（2026-02 申报后自查）/税费材料.txt
+  中岳建材有限公司（2026-02 申报后自查）/税费材料.txt</code></pre>
+<h2>结论怎么读</h2>
+<ul>
+<li>每家客户一行：<code>[结论] 客户名｜问题 N 项（P0/P1/P2）｜每一项:通过 / 有问题(n) / 未执行</code>；</li>
+<li>有价值的是<strong>问题明细</strong>：每条都带 <code>客户 + 检查项 + 来源文件:行号 + 类别 + 具体数字</code>；</li>
+<li>「未执行」与「通过」是两件事：<strong>没交材料 / 材料认不出表 = 未执行</strong>，不是"没问题"。</li>
+</ul>
+<h2>常见错法</h2>
+<ul>
+<li><strong>把几家客户的材料放进同一个子目录</strong>：<code>--input</code> 指向的目录里，<strong>每个子目录 = 一家客户</strong>。混在一起时引擎只能按表头认出哪张表属于哪一项，<strong>认不出客户归属</strong>，结论就没有客户名。</li>
+<li><strong>把 5 项的材料全塞进一个文件却不分段</strong>：引擎按 <code>=== 检查项 ===</code> 分段找每一项的表；不分段时除了第一项，其余四项都会落进「未执行」，看起来"没问题"其实是没核。</li>
+<li><strong>以为「未执行」=「通过」</strong>：某个客户只交了 2 张表，那 2 项之外的是<strong>没有核</strong>，结论里会单列「未执行」，<strong>不要</strong>把它当成"这家没问题"。</li>
+<li><strong>拿税负率预警阈值当结论</strong>：行业预警值只是<strong>提示比较</strong>，是不是异常要结合你的业务结构判断；本工具只保证"你填的数和算式对得上"，<strong>不给税务意见</strong>。</li>
+<li><strong>拿 <code>--sample</code> 的输出当自己的结论</strong>：样例只是让你确认"跑得通、格式对"，里面的数字是虚构的，<strong>必须换成你自己的材料</strong>再跑。</li>
+</ul>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>跨客户汇总台账（全部客户 × 全部 5 项自查合并成一张总表）</li>
+<li>税务风险排序清单（按 P0/P1/P2 排序，带客户名与原文文件行号）</li>
+<li>跨客户共性问题归类（同一个问题命中 2 家及以上客户时合并成一条共性项）</li>
+<li>自查台账导出（Markdown 与 CSV 文本，直接用于申报后复核说明）</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>跨客户汇总台账（全部客户 × 全部 5 项自查合并成一张总表）</li>
+<li>税务风险排序清单（按 P0/P1/P2 排序，带客户名与原文文件行号）</li>
+<li>跨客户共性问题归类（同一个问题命中 2 家及以上客户时合并成一条共性项）</li>
+<li>自查台账导出（Markdown 与 CSV 文本，直接用于申报后复核说明）</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版每次运行结束后会向服务端做<strong>一次匿名次数统计</strong>：只发送本包标识和一个不含任何材料的匿名安装标识（由主机名与用户名做短哈希得到），<strong>不发送你的材料、不写任何文件</strong>。</p>
+<p>· 前 3 次：服务端不返回任何内容，输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 统计不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li><strong>不做</strong>：判断某项支出能不能抵扣、该适用哪档税率/征收率、优惠<strong>是否真的适用</strong>（属于税务判断，请咨询税务师或主管税务机关）；</li>
+<li><strong>不做</strong>：代替纳税申报、代填申报表，或出具鉴证意见与税务意见（只做表内/表间的算术与勾稽核对）；</li>
+<li><strong>不做</strong>：核对发票真伪、或比对电子税务局 / 勾选平台 / 开票系统的逐行明细；</li>
+<li><strong>不做</strong>：读取电子税务局 / 开票系统 / 财务软件的导出文件（需要你先导出成文本，每家客户一个目录）；</li>
+<li><strong>不做</strong>：判断各地方税务口径是否最新（本工具只核你给的表内数字与表间勾稽关系）；</li>
+</ul>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/tax-risk-benefit-pack-free">https://www.skillhub.cn/skills/user_ef162806/tax-risk-benefit-pack-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
