@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>门店毛利与损耗核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="门店销售与成本毛利表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"门店毛利与损耗核对（免费版）","description":"门店销售与成本毛利表逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>门店毛利与损耗核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>、材料不出本机。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁在什么时候用</strong>：门店财务 / 会计 / 店长在<strong>每月结账、月度经营分析、盘点差异复核</strong>这类固定节点上，</p>
+<p>必须先把「门店销售与成本毛利表」核一遍才能出毛利表、才能拿它做门店对比与考核。</p>
+<p>这张表算错的方向只有两个 —— <strong>毛利被算多了</strong>（成本填少、损耗没进成本、收款没走账）</p>
+<p>或 <strong>毛利被算少了</strong>（销售额漏记、重复扣成本、损耗重复计）；两条都会在月报和审计抽样上暴露，</p>
+<p>而且<strong>结完账就看不出来了</strong>。</p>
+<p><strong>这张表会逐项核对什么</strong>（免费版执行 5 类，逐条都带<strong>原文行号</strong>）：</p>
+<ol>
+<li><strong>销售额与收款勾稽</strong> —— 收款合计 − 销售额 = 差异；收款大于销售额、或差异超过销售额的 0.5% 都提示</li>
+</ol>
+<p>（一个数从 POS 出、一个数从收银 / 银行流水出，两边对不上说明至少有一边不完整）。</p>
+<ol>
+<li><strong>成本与理论成本差异复算</strong> —— 实际成本 − 理论成本 = 成本差异，差 1 分钱也会报。</li>
+<li><strong>毛利率逐行复算</strong> —— 毛利 ÷ 销售额 = 毛利率，同时核 毛利额 = 销售额 − 实际成本。</li>
+<li><strong>损耗率超限</strong> —— 损耗金额 ÷ 损耗前库存金额 &gt; 2% 提示；并核这一列的比率与两个金额是否自洽。</li>
+<li><strong>重复行与关键字段空缺检测</strong> —— 同一门店同一品类同一期间的整行重复、必需列为空或「待填」占位符。</li>
+</ol>
+<p>每条结论都带<strong>原文行号与出处</strong>，可被第三方用同一口径复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么，也不会用默认值编出结论。</p>
+<h2>查什么 / 不查什么</h2>
+<p><strong>查</strong>：只查<strong>表内勾稽</strong>（上面 5 类）—— 即"这一格能不能由同一张表的其他格算出来"。</p>
+<p><strong>不查</strong>（本版本不执行的检查项会如实列在输出的 <code>checks_not_run</code> 里，绝不会伪造）：</p>
+<ul>
+<li>毛利额变动的三因素归因（销量 / 售价 / 单位成本）；</li>
+<li>按毛利额排序的门店 × 品类整改清单与跨门店损益台账。</li>
+</ul>
+<h2>怎么调用</h2>
+<pre><code>node scripts/run.mjs --sample                    # 先看样例（样例本身就是一张自洽的表）
+node scripts/run.mjs --input 你的材料.json        # 跑自己的材料
+node scripts/run.mjs --input 你的材料.json --json # 机器可读输出</code></pre>
+<p>入参两种写法都行：</p>
+<ul>
+<li><code>{"text": "（把表的<strong>表头</strong>和若干行一起复制进来，Tab 分隔最稳）"}</code></li>
+<li>直接把「门店销售与成本毛利表」（<strong>含表头</strong>）从 Excel 复制成文本粘进 <code>.json</code> 里；</li>
+</ul>
+<p>文件不是合法 JSON 时会整体按纯文本材料处理。</p>
+<p>必需列（缺一列就不给结论）：所属期间、门店、品类、销售数量、平均售价、销售额、实际成本、理论成本、</p>
+<p>成本差异、毛利额、毛利率、损耗金额、损耗前库存金额、损耗率、收款合计。</p>
+<h2>出参</h2>
+<ul>
+<li><code>status</code>：<code>success</code> 才有结论；<code>insufficient_input</code> 表示材料不足，此时<strong>没有</strong> <code>result</code>、<strong>没有</strong> <code>findings</code>。</li>
+<li><code>result.findings[]</code>：每条含 <code>level</code>（P0/P1）、<code>category</code>、<code>line</code>（<strong>原文行号</strong>）、<code>message</code>（含算式与差异金额）。</li>
+<li><code>result.summary</code>：<code>rows / periods / total / p0 / p1 / verdict</code>（<code>NO_ISSUE_FOUND</code> | <code>NEEDS_REVIEW</code> | <code>ERROR_FOUND</code>）。</li>
+<li><code>result.scope</code>：本次执行的 <code>checks</code>、未执行的 <code>checks_not_run</code>、<code>executed_locally: true</code>、<code>network_used: false</code>。</li>
+<li><code>result.checks_out_of_scope</code>：本工具<strong>根本不做</strong>的判断清单（边界诚实）。</li>
+<li>CLI 退出码：<code>0</code> 已执行检查 / <code>1</code> 没给入参 / <code>3</code> 材料不足 / <code>4</code> 入参读不到或无法解析 / <code>9</code> 未预期错误。</li>
+</ul>
+<h2>常见错法（本产品专属）</h2>
+<ol>
+<li><strong>销售额与收款的口径没对齐</strong>：销售额取 POS 的<strong>含税含折扣后</strong>金额，收款却是银行到账额</li>
+</ol>
+<p>（已扣平台手续费、T+1 未到账）—— 差异会长期固定在一个百分比上。要么两边都取含税未扣费口径，</p>
+<p>要么把手续费与在途单列；不能一边含费一边扣费。</p>
+<ol>
+<li><strong>损耗率的分母用了期末库存</strong>：分母必须是<strong>损耗前</strong>库存金额。用期末库存（已扣损耗）当分母，</li>
+</ol>
+<p>损耗率会被系统性算高，全表看着都超标。分母口径写清楚再填。</p>
+<ol>
+<li><strong>损耗金额同时进了成本和单独一列</strong>：成本里已经含损耗、又在「损耗金额」列再列一次，</li>
+</ol>
+<p>毛利被扣两遍；或者成本不含损耗、损耗却没进损益 —— 毛利率与损耗率会同时"看起来正常"。</p>
+<p>先定：损耗进不进这条品类的成本，然后全表统一。</p>
+<ol>
+<li><strong>毛利率的分母用毛利额</strong>：毛利率 = 毛利 ÷ <strong>销售额</strong>，不是 ÷ 毛利额。Excel 下拉公式时引用错列，</li>
+</ol>
+<p>整列会一起失真（本工具逐行复算能抓出来，但口径本身要先定）。</p>
+<ol>
+<li><strong>多期表直接相加当合计</strong>：同一门店同一品类跨两个期间的两行是<strong>正常的</strong>（不算重复），</li>
+</ol>
+<p>但把两期的金额顺手加进同一行合计就会让合计与明细对不上。合计行只加本期明细。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版每次运行结束后会向服务端做<strong>一次匿名次数统计</strong>：只发送本包标识和一个不含任何材料的匿名安装标识（由主机名与用户名做短哈希得到），<strong>不发送你的材料、不写任何文件</strong>。</p>
+<p>· 前 3 次：服务端不返回任何内容，输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 统计不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不判断</strong>售价政策、成本口径（含税 / 不含税、运费与配送费是否进成本）、</p>
+<p>损耗的实物原因（报损报溢 / 偷盗 / 加工失水 / 称重误差）与盘点制度本身对不对 ——</p>
+<p>表里的售价、成本、损耗金额、库存金额一律<strong>以你填的为准</strong>；</p>
+<p>也不读 POS / 收银 / 进销存 / ERP 导出文件（需要你先导出成文本贴进来）。</p>
+<p>完整清单见引擎的 <code>CHECKS_OUT_OF_SCOPE</code>；材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/store-gross-margin-check-free">https://www.skillhub.cn/skills/user_ef162806/store-gross-margin-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
