@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>研发支出资本化与费用化划分核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="研发支出明细表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"研发支出资本化与费用化划分核对（免费版）","description":"研发支出明细表逐项核对，每条结论都带原文依据，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>研发支出资本化与费用化划分核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：<strong>有研发投入的企业（尤其高新与拟上市）</strong>，在**每月归集研发支出、</p>
+<p>以及年度汇算与审计之前**：</p>
+<ul>
+<li>本期发生额 = 资本化金额 + 费用化金额；</li>
+<li>期末无形资产余额 = 累计资本化金额 − 累计摊销额；</li>
+<li>本期摊销额 ≈ 累计资本化金额 ÷ 摊销月数（直线法，偏离超 5% 提示）。</li>
+</ul>
+<p>研究阶段应费用化、开发阶段才可能资本化——<strong>审计与税务都会盯着这几列</strong>，而它们全都能算出来对错。</p>
+<h2>这个免费版查什么</h2>
+<ol>
+<li><strong>合计行逐列复核</strong>（发生额 / 资本化 / 费用化 / 累计资本化 / 累计摊销 / 本期摊销 / 期末余额）；</li>
+<li><strong>本期发生额 = 资本化金额 + 费用化金额</strong>（最常错的一条）；</li>
+<li><strong>期末无形资产余额 = 累计资本化金额 − 累计摊销额</strong>；</li>
+<li><strong>资本化金额或费用化金额为负</strong>检测；</li>
+<li><strong>本期摊销额为负</strong>检测；</li>
+<li><strong>同一项目同一阶段重复行</strong>检测；</li>
+<li><strong>空白与占位符</strong>检测（含必需列缺失）。</li>
+</ol>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<h2>常见错法（这些底稿里真的会有人这么填）</h2>
+<ol>
+<li><strong>把研究阶段的支出也填进"资本化金额"</strong>：研究阶段必须费用化；完整档会直接点出来。</li>
+<li><strong>发生额只填资本化那部分</strong>：本期发生额是<strong>全部</strong>研发支出，资本化 + 费用化必须等于它，否则第 2 条就红。</li>
+<li><strong>累计资本化按"本期资本化"重复填</strong>：累计是滚动值（上期累计 + 本期资本化），填错会让期末余额整列错。</li>
+<li><strong>摊销月数填 0 却又有本期摊销额</strong>：摊销月数是摊销期限，0 会让直线法校验跳过、也可能暴露口径混乱。</li>
+<li><strong>同一项目分阶段各贴一行却写同一个阶段名</strong>：会报重复行；不同阶段请如实写"研究阶段/开发阶段"。</li>
+</ol>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>研究阶段却有资本化金额检测（研究阶段支出应费用化）</li>
+<li>开发阶段但资本化金额为 0 提示（可能该资本化而未资本化）</li>
+<li>本期摊销额与直线法（累计资本化 ÷ 摊销月数）偏离超过 5% 提示</li>
+<li>资本化金额超过本期发生额检测</li>
+<li>期末无形资产余额为负检测</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版每次运行结束后会向服务端做<strong>一次匿名次数统计</strong>：只发送本包标识和一个不含任何材料的匿名安装标识（由主机名与用户名做短哈希得到），<strong>不发送你的材料、不写任何文件</strong>。</p>
+<p>· 前 3 次：服务端不返回任何内容，输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 统计不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<ul>
+<li><strong>不做</strong>会计判断：研发阶段怎么划分、某笔支出<strong>该不该资本化</strong>需专业论证并与审计确认；</li>
+<li><strong>不判断</strong>研发费用加计扣除的归集口径与优惠资格（见同系列「研发费用加计扣除归集核对」）；</li>
+<li><strong>不代替</strong>审计程序、不出具鉴证意见，也不判断资本化时点是否恰当；</li>
+<li><strong>不读取</strong>研发项目管理系统 / 工时系统 / 财务系统的导出文件——需要你先导出成文本贴进来；</li>
+<li><strong>不判断</strong>无形资产摊销年限是否合理（只核你给的摊销月数与摊销额之间的算术关系）；</li>
+<li>材料不足（认不出表头、没有数据行、必需列缺失）时<strong>不给结论</strong>，只告诉你还缺什么。</li>
+</ul>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/rd-capitalization-check-free">https://www.skillhub.cn/skills/user_ef162806/rd-capitalization-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
