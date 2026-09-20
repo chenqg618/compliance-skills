@@ -1,15 +1,15 @@
 ---
 slug: social-insurance-check-free
 displayName: 社保公积金核对（免费版）
-version: 1.0.48
-summary: 社保申报明细逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。
+version: 1.0.49
+summary: 社保申报明细逐项核对，每条结论都带原文行号，不需要付款，也不需要注册。本免费版只执行 6 项，即 逐人个人合计算术、逐人单位合计算术、应缴合计勾稽等。不执行 4 项判定，例如 个人扣款比例校验。详见 SKILL.md 的「这个免费版不包含」一节。
 tags: [社保公积金核对,社保申报明细,核对,对账,免费]
 license: Proprietary
 name: social-insurance-check-free
 display_name: 社保公积金核对（免费版）
 display_name_en: Social Insurance Check (Free)
-description: 社保申报明细逐项核对（逐行算术、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 社保申报明细核对、社保申报明细对不上。
-description_zh: 社保申报明细逐项核对（逐行算术、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 社保申报明细核对、社保申报明细对不上。
+description: 社保申报明细逐项核对（逐行算术、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 社保申报明细核对、社保申报明细对不上。本免费版只执行 6 项，即 逐人个人合计算术、逐人单位合计算术、应缴合计勾稽等。不执行 4 项判定，例如 个人扣款比例校验。详见 SKILL.md 的「这个免费版不包含」一节。
+description_zh: 社保申报明细逐项核对（逐行算术、合计勾稽、重复与空缺检测），每条结论引用原文行号。本免费版执行引擎声明的免费检查项。触发词包括 社保申报明细核对、社保申报明细对不上。本免费版只执行 6 项，即 逐人个人合计算术、逐人单位合计算术、应缴合计勾稽等。不执行 4 项判定，例如 个人扣款比例校验。详见 SKILL.md 的「这个免费版不包含」一节。
 description_en: A free deterministic check for 社保申报明细. Every finding cites the source line. No payment, no registration, no API key, no network.
 category: business-ops
 author: WorkBuddy 开放平台开发者
