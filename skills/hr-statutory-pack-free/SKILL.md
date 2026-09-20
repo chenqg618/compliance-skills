@@ -4,10 +4,10 @@ slug: hr-statutory-pack-free
 displayName: 人力法定费用技能包（免费版）
 display_name: 人力法定费用技能包（免费版）
 display_name_en: Statutory HR Cost Pack (Free)
-version: 1.0.16
-summary: 把一家主体的一套人力费用材料按 3 项法定费用核对逐主体核一遍，每家主体一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
-description: 把一家主体的一套人力费用材料按 3 项法定费用核对逐主体核一遍，每家主体一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
-description_zh: 把一家主体的一套人力费用材料按 3 项法定费用核对逐主体核一遍，每家主体一行结论，结论都带原文文件与行号，不需要付款、不需要注册。
+version: 1.0.17
+summary: 把一家主体的一套人力费用材料按 3 项法定费用核对逐主体核一遍，每家主体一行结论，结论都带原文文件与行号，不需要付款、不需要注册。本免费版只执行 3 项，即 残疾人就业保障金核对、工会经费计提与上缴核对、职工福利费与教育经费限额核对。不执行 4 项判定，例如 跨主体汇总台账。详见 SKILL.md 的「这个免费版不包含」一节。
+description: 把一家主体的一套人力费用材料按 3 项法定费用核对逐主体核一遍，每家主体一行结论，结论都带原文文件与行号，不需要付款、不需要注册。本免费版只执行 3 项，即 残疾人就业保障金核对、工会经费计提与上缴核对、职工福利费与教育经费限额核对。不执行 4 项判定，例如 跨主体汇总台账。详见 SKILL.md 的「这个免费版不包含」一节。
+description_zh: 把一家主体的一套人力费用材料按 3 项法定费用核对逐主体核一遍，每家主体一行结论，结论都带原文文件与行号，不需要付款、不需要注册。本免费版只执行 3 项，即 残疾人就业保障金核对、工会经费计提与上缴核对、职工福利费与教育经费限额核对。不执行 4 项判定，例如 跨主体汇总台账。详见 SKILL.md 的「这个免费版不包含」一节。
 description_en: A local checker for statutory HR cost worksheets (disability employment fund, union funds, welfare and education expense caps). It runs 3 built-in checks per entity directory and prints one conclusion line per entity, each finding citing the source file and line. Fully local, no network, no API key, no call limit.
 category: business-ops
 tags: [人力费用,残保金,工会经费,福利费限额,教育经费,主体核对]
