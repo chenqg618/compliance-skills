@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>计量器具检定校准到期核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="计量器具台账与检定证书的到期覆盖、周期勾稽、重复登记、合计行逐列复核（6 项），每条结论都带原文行号与数字，不需要付款，也不需要注册。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"计量器具检定校准到期核对（免费版）","description":"计量器具台账与检定证书的到期覆盖、周期勾稽、重复登记、合计行逐列复核（6 项），每条结论都带原文行号与数字，不需要付款，也不需要注册。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>计量器具检定校准到期核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：计量管理员 / 质量部 / 实验室设备管理员，在<strong>每个月做计量核对</strong>（体系审核前的自查、内审前的准备、月度质量例会前）时用。</p>
+<p>强制检定与校准的计量器具都有<strong>检定/校准周期</strong>：卡尺、千分尺、天平、压力表、温度计、电子秤、流量计、分光光度计、酸度计……</p>
+<p>一旦<strong>到期未检定还在用</strong>，就是体系审核（ISO 9001 / ISO 17025 / GMP）与计量监管的<strong>直接不合格项</strong>，</p>
+<p>而且这台器具量出来的数据都不再可信 —— 产品尺寸、配方称量、压力温度记录全都受影响。</p>
+<p><strong>每个月必须核对的动作</strong>：台账与检定证书是否齐、下次到期日是否还在覆盖期内、</p>
+<p>停用/报废的器具是否还在现场用、校准结果是否满足最大允许误差。</p>
+<p>这些动作手工做就是"拿两张表一行行对"，一台六七十台器具的台账要核半天，还容易漏。</p>
+<p><strong>这张表（材料）长什么样</strong>：一张含表头的计量器具台账，至少要有</p>
+<p><code>器具编号 / 器具名称 / 型号规格 / 准确度等级 / 上次检定日期 / 校准周期(月) / 下次检定日期 / 证书编号 / 使用部门 / 状态</code>；</p>
+<p>台账后面可以再用 <code>#证书明细#</code> / <code>#机构资质#</code> / <code>#使用记录#</code> / <code>#期间核查#</code> 小标题附上对应的表。</p>
+<h2>这个免费版查什么（6 项）</h2>
+<ol>
+<li><strong>到期覆盖核对</strong>：核对基准日 ≤ 下次检定日期；超期即报，给出<strong>超期天数</strong>与到期日原文。</li>
+<li><strong>台账与证书一致性</strong>：证书编号 / 检定日期 / 有效期在台账与证书两边对不上就报，并给出<strong>两处原文与行号</strong>。</li>
+<li><strong>校准周期勾稽</strong>：上次检定日期 + 校准周期(月) 是否等于下次检定日期（逐行复算，给出复算式）。</li>
+<li><strong>同一器具编号重复登记</strong>：同一器具编号在台账里出现两次以上（会让到期提醒漏、汇总台数翻倍）。</li>
+<li><strong>合计行/统计行逐列复核</strong>：合计行的数量类列必须等于明细行逐列累加。</li>
+<li><strong>空白/占位符/日期格式/状态值非法</strong>：日期必须是 <code>2026-03-10</code> / <code>2026/03/10</code> / <code>2026年3月10日</code>，状态必须收敛到 <code>在用 / 停用 / 报废</code>（可细分送检中、待检定）。</li>
+</ol>
+<p>跑 <code>node scripts/run.mjs --sample</code> 会打印实际执行了哪些检查项，以及<strong>本版本不包含哪些</strong>。</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                 # 先看样例
+node scripts/run.mjs --input 你的材料.json     # 跑自己的材料</code></pre>
+<p>入参：<code>{"text": "…"}</code>，或直接把台账（含表头）从 Excel 复制成文本贴进去（Tab 分隔最稳）。</p>
+<p>可选 <code>{"text": "…", "asOf": "2026-06-30"}</code> 指定<strong>核对基准日</strong>；不指定时用材料里最晚的使用/核查日期推算，</p>
+<p><code>result.summary.as_of_source</code> 会写清基准日是给的还是推的，<strong>同一份材料每次算出的超期天数完全一样</strong>。</p>
+<h2>常见错法（计量管理里最容易出错的地方）</h2>
+<ol>
+<li><strong>只登记「上次检定日期」，没有周期也没有下次到期日</strong> —— 台账看着很齐，但<strong>下次什么时候送检完全靠人记</strong>，一忙就漏。到期提醒是算出来的，不是想起来的：<code>上次检定日期 + 校准周期(月)</code> 必须能推出下次到期日。</li>
+<li><strong>停用/报废器具留在台账里不改状态，人还在现场用</strong> —— 台账写着"报废"、现场却贴着合格标签还在量，体系审核会直接开不合格项（现场撤出 + 停用标识 + 记录停止，三件事缺一不可）。</li>
+<li><strong>校准周期写成 12 个月，下次到期日却按"隔一年"随手填</strong> —— 12 个月 ≠ 365 天：闰年、跨月、月末（1 月 31 日 + 1 个月 = 2 月 28 日）都会差一两天，手工填必然对不上。周期列与到期日列要能互相复算出来。</li>
+<li><strong>同一台器具换部门/换状态时新增一行，而不是改原来那条</strong> —— 同一器具编号出现两次，到期提醒会漏掉其中一条、汇总台数还会翻倍（一台当成两台）。</li>
+<li><strong>证书编号只抄了后 6 位、有效期手抄错一位</strong> —— 台账与证书对不上是最常见的"资料不符"；证书原件上的编号/检定日期/有效期必须与台账<strong>逐字一致</strong>（本工具会把两处原文都摆出来，改哪边由你定）。</li>
+</ol>
+<h2>需要完整档时（可选）</h2>
+<p>本免费版是<strong>完整可用的核心产出</strong>，本版本<strong>不包含</strong>下面这些项：</p>
+<ul>
+<li>最大允许误差（MPE）超差（实测误差绝对值 &gt; 允许误差 ⇒ 报出超差量与超差倍数）</li>
+<li>停用/报废器具仍在使用记录里出现（跨表交叉核对）</li>
+<li>检定机构资质与证书有效期覆盖（机构授权有效期须晚于该器具的检定日期）</li>
+<li>期间核查/日常点检记录断档（按日期序列逐日比对，间隔超过核查周期即报）</li>
+<li>分部门×分器具类别的汇总清单（按超期天数排序，给出可整改动作）</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；两档的差别<strong>就是上面这些，没有别的</strong>。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版会在<strong>本包目录</strong>里记一个使用次数（<code>scripts/.hint-count</code>，一个整数，不含任何机器或用户信息）。</p>
+<p>· 前 3 次：<strong>完全离线</strong>（不发生任何网络请求），输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 第 4 次起才会向服务端问一次（只发包标识与次数），拿回完整档说明；</p>
+<p>· 请求不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断：</p>
+<p>不判定检定/校准结果本身是否合格、不判定器具是否属于强制检定目录、不读 .xlsx/.pdf 原件、核对过程不联网核验证书与机构资质真伪。</p>
+<p>本版本<strong>只做</strong>上面这 6 项逐行算术与日期覆盖核对，<strong>不做</strong>最大允许误差超差、停用/报废器具跨表交叉核对、</p>
+<p>检定机构资质覆盖、期间核查断档、分部门×分器具类别汇总清单 —— 那 5 项在完整版里，本包<strong>没有</strong>实现它们（<code>CHECKS_WITHHELD</code> 只是说明文本）。</p>
+<p>材料不足时<strong>不给结论</strong>：会明确列出还缺什么，既不说"在有效期内"，也不说"已超期"，</p>
+<p>更不会输出"未发现问题"。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/instrument-calibration-check-free">https://www.skillhub.cn/skills/user_ef162806/instrument-calibration-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
