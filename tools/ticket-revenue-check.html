@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>票务收入与渠道结算核对（免费版） · AI核对型 AI 工具</title>
+<meta name="description" content="票务收入与渠道结算明细表的逐行复算与勾稽，每条结论都带原文行号，不需要付款，也不需要注册。本免费版只做票务金额与佣金的逐行复算与勾稽，不做票房真实性与税务核定。">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"票务收入与渠道结算核对（免费版）","description":"票务收入与渠道结算明细表的逐行复算与勾稽，每条结论都带原文行号，不需要付款，也不需要注册。本免费版只做票务金额与佣金的逐行复算与勾稽，不做票房真实性与税务核定。","applicationCategory":"BusinessApplication","operatingSystem":"Any (Node.js / 本地离线)","url":"https://chenqg618.github.io/compliance-skills/","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"isAccessibleForFree":true,"inLanguage":"zh-CN"}</script>
+<style>*{box-sizing:border-box}
+body{margin:0;background:#0f1115;color:#e8eaed;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+a{color:#7cc4ff}
+h1{font-size:1.7rem;line-height:1.35;margin:0 0 .8rem}
+h2{font-size:1.2rem;margin:2.2rem 0 .7rem;padding-top:1rem;border-top:1px solid #262b33}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.35rem 0}
+code{background:#1b1f26;padding:.1em .35em;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+th,td{border:1px solid #2a3037;padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:#171b21}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid #3a4550;background:#151920;color:#c3c9d1}
+hr{border:0;border-top:1px solid #262b33;margin:2rem 0}
+.top{font-size:.9rem;color:#9aa3ad;margin-bottom:2rem}
+.cta{margin:2.5rem 0 0;padding:1.1rem 1.2rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cta a{font-weight:600}
+.cards{list-style:none;padding:0}
+.cards li{margin:.8rem 0;padding:.9rem 1rem;border:1px solid #2a3037;border-radius:10px;background:#151920}
+.cards .d{display:block;color:#9aa3ad;font-size:.92rem;margin-top:.3rem}
+footer{margin-top:3rem;color:#79828c;font-size:.88rem}</style>
+</head>
+<body><div class="wrap">
+<p class="top"><a href="../index.html">AI核对型 AI 工具</a></p>
+<h1>票务收入与渠道结算核对（免费版）</h1>
+<blockquote><strong>完全本地运行</strong>：引擎已经打包在本技能里（<code>scripts/engine/</code> 目录）。 核对过程不需要联网、不需要 API Key、<strong>没有调用次数上限</strong>。</blockquote>
+<p><strong>本免费版只做票务金额与佣金的逐行复算与勾稽，不做票房真实性与税务核定。</strong></p>
+<p>它核的是你贴进来的这张表<strong>内部</strong>的算术与加总关系；票房是否真实、票款是否到账、</p>
+<p>计税口径怎么定，都不在这个版本的能力范围内（详见下面的「不包含什么」与「边界」）。</p>
+<h2>什么时候用</h2>
+<p><strong>谁会在什么时候用</strong>：演出 / 剧场 / 景区票务公司的<strong>财务、票务结算岗</strong>在</p>
+<p><strong>每月与各售票渠道（大麦、猫眼、官网、美团、抖音…）对账结算时</strong>，必须把这张</p>
+<p>「票务收入与渠道结算明细表」核一遍才能确认收入、才能给渠道付款。</p>
+<p><strong>为什么每月都要核</strong>：渠道各给一张结算单，口径各不相同 —— 佣金率新旧混算、</p>
+<p>退票只冲票面没冲佣金、赠票被算进票面、同一订单被两个渠道各结一次。</p>
+<p>这几处每一处都能让一个月的收入差一截，而表里每一格都能被手算复现。</p>
+<p><strong>这张表会逐项核对什么</strong>：</p>
+<p>· 票面收入 = 票数 × 票价</p>
+<p>· 渠道佣金 = 票面收入 × 佣金率（佣金率按<strong>百分数</strong>填，8 表示 8%，填 <code>8%</code> 也认）</p>
+<p>· 结算金额 = 票面收入 − 渠道佣金 − 退票金额</p>
+<p>· 合计行各列 = 各明细行逐列相加（票数 / 票面收入 / 渠道佣金 / 退票金额 / 结算金额）</p>
+<p>· 同一订单号重复结算、关键字段缺失与占位符、金额为负</p>
+<p>每条结论都带<strong>原文行号</strong>与渠道 / 订单号，可被第三方用同一口径复算；</p>
+<p>材料不足时<strong>不给结论</strong>，会明确列出还缺什么。</p>
+<h2>这个免费版查什么</h2>
+<ol>
+<li>票面收入勾稽（票数 × 票价 = 票面收入）</li>
+<li>渠道佣金复算（票面收入 × 佣金率 = 渠道佣金，佣金率按百分数填）</li>
+<li>结算金额逐行复算（票面收入 − 渠道佣金 − 退票金额 = 结算金额）</li>
+<li>合计行与明细勾稽（合计行各列 = 各明细行逐列相加）</li>
+<li>同一订单号重复结算检测</li>
+<li>关键字段缺失、占位符与负数检测</li>
+</ol>
+<p>（检查项由引擎的 <code>CHECKS_GIVEN</code> 导出，跑 <code>--sample</code> 会打印实际执行了哪些。</p>
+<p>本版本不包含的检查项列在 <code>CHECKS_WITHHELD</code> 里 —— <strong>不做也不假装做</strong>，而且不会用默认值编造结论。）</p>
+<h2>怎么用</h2>
+<pre><code>node scripts/run.mjs --sample                     # 先看样例（样例本身就是一张干净的明细表）
+node scripts/run.mjs --input 你的材料.json         # 跑自己的材料
+node scripts/run.mjs --input 你的材料.json --json  # 机器可读输出</code></pre>
+<p>入参就是<strong>含表头</strong>的一张表（<code>{"text": "结算期间\t场次\t渠道\t票档\t订单号\t票数\t票价\t票面收入\t佣金率\t渠道佣金\t退票金额\t结算金额\t备注"}</code>）：</p>
+<p>从 Excel 或票务系统 / 渠道对账单导出里直接复制成文本（<strong>Tab 分隔最稳</strong>）贴进去即可。</p>
+<p>表头缺列会明确告诉你缺哪列 —— 缺一列就报缺列，<strong>不会按 0 替你假设</strong>"这个渠道没有退票、没有佣金"。</p>
+<h2>出参</h2>
+<p><code>--json</code> 输出 <code>{ ok, tier, capability, checks_given, checks_withheld, result }</code>，其中 <code>result</code> 里有：</p>
+<p>· <code>scope</code>：本次执行了哪些检查（<code>checks</code>）、<strong>没执行哪些</strong>（<code>checks_not_run</code>）、</p>
+<p>行数、期间数、渠道数、场次数、票数 / 票面收入 / 佣金 / 退票 / 结算的合计，以及 <code>totals_row</code> / <code>totals_rows</code>；</p>
+<p>· <code>findings</code>：每条带 <code>level</code>（P0 / P1）、<code>category</code>、<strong><code>line</code>（原文行号）</strong>、<code>message</code>（含渠道与订单号）、<code>advice</code>；</p>
+<p>· <code>summary</code>：条数与 <code>verdict</code>（<code>ERROR_FOUND</code> / <code>NEEDS_REVIEW</code> / <code>NO_ISSUE_FOUND</code>）；</p>
+<p>· <code>checks_out_of_scope</code>：本工具的边界。</p>
+<p>退出码：<code>0</code> 已执行检查 / <code>1</code> 没给入参 / <code>3</code> <strong>材料不足（不给结论）</strong> / <code>4</code> 入参读不到或无法解析 / <code>9</code> 未预期错误。</p>
+<h2>常见错法（本产品专属）</h2>
+<ol>
+<li><strong>佣金率按错档 / 把百分数当小数</strong>：同一渠道同一票档在同一结算期通常只应有一个佣金率。</li>
+</ol>
+<p>把 8% 填成 <code>0.08</code>（本工具按百分数解析，会算出 0.08% 的佣金）、</p>
+<p>或续约后新旧费率混着算，一整列佣金会差几十倍；这条错还会顺着算式把结算金额一起带错。</p>
+<ol>
+<li><strong>退票只冲了票面、没冲佣金</strong>：退票要同时冲回<strong>票面收入所对应的渠道佣金</strong>。</li>
+</ol>
+<p>只减票面不减佣金，结算金额就比渠道对账单多出「退票金额 × 佣金率」这一块；</p>
+<p>把上期的退票挂到本期，则两个月都对不上。</p>
+<ol>
+<li><strong>退票归属记错行 / 记错渠道</strong>：退票必须退回<strong>原售票渠道原票档</strong>的行上。</li>
+</ol>
+<p>把整场的退票都压在一个渠道上，那个渠道的退票额会超过它自己的票面收入；备注栏留空则说不清归属。</p>
+<ol>
+<li><strong>赠票 / 工作票 / 内部票混进票面</strong>：票面收入这一列应当是<strong>实际售票</strong>的金额。</li>
+</ol>
+<p>把赠票算进去，票面收入就与「票数 × 票价」对不上（或者票数被改大）；</p>
+<p>这种表<strong>内部还自洽</strong>（佣金按错的票面重算过），只看算术看不出来，必须拿售票系统原始流水核。</p>
+<ol>
+<li><strong>同一订单被两个渠道各结一次</strong>：渠道串单（两个渠道的对账单里都含这张订单）</li>
+</ol>
+<p>或本期把上期已结的订单又抄了一遍，就是重复确认收入 —— 这是本工具一定会拦下来的一条。</p>
+<ol>
+<li><strong>留空与填 0 混用</strong>：退票金额填 <code>0.00</code> 表示"本期确实没有退票"，留空表示"不知道"。</li>
+</ol>
+<p>留空时本工具<strong>不会</strong>替你按 0 算，会直接报这一格缺失；同理，负数（如退票填 <code>-500</code>）也会单独报出来。</p>
+<h2>这个免费版不包含什么</h2>
+<p>本版本<strong>不执行</strong>下面这些检查（它们是完整档才做的，<code>CHECKS_WITHHELD</code> 里逐条列出）：</p>
+<ul>
+<li>退票归属判定（退票金额超过本行票面收入，或退了票而备注里没有说明退票归属）</li>
+<li>跨期结算判定（场次日期所在月份与该行结算期间不一致）</li>
+<li>佣金率不一致判定（同一渠道同一票档在同一结算期里出现多个佣金率）</li>
+<li>票面口径不一致判定（同一渠道同一票档出现多个票价）</li>
+<li>跨渠道 / 跨场次汇总台账（按渠道、按场次分别汇总票数、票面收入、佣金、退票与结算金额）</li>
+<li>按差异金额排序的处理清单（逐条带原文行号与订单号，标出差异金额与差异原因）</li>
+</ul>
+<p>同名工具的<strong>完整档</strong>是另一个独立商品（条款与条件以它自己的商品页为准）；</p>
+<p>两档的差别<strong>就是上面这些，没有别的</strong>。本免费版是<strong>完整可用的核心产出</strong>，上面这些不做也不假装做。</p>
+<h2>使用次数与完整档</h2>
+<p>本免费版会在<strong>本包目录</strong>里记一个使用次数（<code>scripts/.hint-count</code>，一个整数，不含任何机器或用户信息）。</p>
+<p>· 前 3 次：<strong>完全离线</strong>（不发生任何网络请求），输出与现在完全一样；</p>
+<p>· 第 4 次起：服务端会返回一段<strong>完整档说明</strong>（完整档是另一个独立商品，条款与价格以它自己的商品页为准），届时才会打印这一行；</p>
+<p>· 第 4 次起才会向服务端问一次（只发包标识与次数），拿回完整档说明；</p>
+<p>· 请求不可用（离线/超时/被拦截）时什么都不做，<strong>核对结果与退出码不受任何影响</strong>；</p>
+<p>· 不想要这次统计可以加 <code>--no-stats</code>（核对功能完全不受影响，只是拿不到完整档说明）。</p>
+<p>本版本不包含的检查项见上一节；需要完整档时按服务端返回的官方口令执行，付款由用户本人确认。</p>
+<h2>边界（请务必知道）</h2>
+<p>本工具<strong>不做</strong>引擎 <code>CHECKS_OUT_OF_SCOPE</code> 里列的那些判断：</p>
+<p>· <strong>不判断票房是否真实</strong>（有没有锁场、包场、刷单、赠票混入票面），也不核上座率；</p>
+<p>· <strong>不判断票款是否真实到账</strong>、渠道回款与银行流水是否一致；</p>
+<p>· <strong>不做任何税务申报核定</strong>（计税收入口径、发票税额、税会差异、文化事业建设费一律不管）；</p>
+<p>· 不判断佣金率该按哪一版渠道合同、佣金是否含税、渠道服务费该不该另计；</p>
+<p>· 不读 Excel / 票务系统 / 渠道对账单导出文件（需要你先导出成文本贴进来）。</p>
+<p>材料不足时<strong>不给结论</strong>，也不会输出「未发现问题」；</p>
+<p>表里的票数、票价、佣金率、退票金额一律<strong>以你填的为准</strong>。</p>
+<h2>使用次数与匿名统计</h2>
+<p>本免费版每次运行结束后会向服务端做<strong>一次匿名次数统计</strong>：只发送本包标识与一个不含材料的匿名安装标识，</p>
+<p><strong>不发送你的材料、不发送用户身份与机器信息</strong>。</p>
+<p>· 前 3 次：服务端不返回任何内容，输出与现在完全一样（<strong>完全核对过程不联网</strong>）；</p>
+<p>· 第 4 次起：服务端可能返回一段完整档说明，届时才会打印这一行；</p>
+<p>· 统计不可用（离线 / 超时 / 被拦截）时什么都不做，<strong>核对结果与退出码完全不受影响</strong>。</p>
+<div class="cta"><p><strong>装到本地或在线用</strong></p><p>· SkillHub（免费版）：<a href="https://www.skillhub.cn/skills/user_ef162806/ticket-revenue-check-free">https://www.skillhub.cn/skills/user_ef162806/ticket-revenue-check-free</a></p><p>· 全部免费工具：<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p><p><strong>完整档（离线、无次数上限）</strong>：<a href="https://skillpay.alipay.com/public/tokendidi">SkillPay 买断 ¥9.9</a>，跑多少次都不再收费；免费档与完整档的检查项差别见上面的说明。</p></div>
+<div class="cta">
+<p><strong>怎么装</strong>：<br>
+<a href="https://chenqg618.github.io/compliance-skills/">https://chenqg618.github.io/compliance-skills/</a></p>
+<p style="margin:.6rem 0 0;color:#9aa3ad;font-size:.92rem;">
+免费版会明确列出<strong>哪些检查没有执行</strong>，不会让你以为已经全查过。</p>
+</div>
+<footer>源码仓库：<a href="https://github.com/chenqg618/compliance-skills">https://github.com/chenqg618/compliance-skills</a></footer>
+</div></body></html>
